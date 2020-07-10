@@ -36,7 +36,7 @@ namespace TilePuzzle
         {
             int prefabLength = TilePrefabs.Count;
             // z축 증가량
-            const float zOffset = 0.75f;
+            float zOffset = Mathf.Sin(Mathf.PI / 3);
 
             // 타일 생성
             for (int i = 0; i < rowNum; i++)
