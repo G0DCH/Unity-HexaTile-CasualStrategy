@@ -25,7 +25,7 @@ namespace TilePuzzle
 
         [Space]
         [Header("Selected Tile")]
-        public GameObject SelectedTile;
+        public Tile SelectedTile;
 
         [Space]
         [Header("Tile Numbers")]
@@ -42,6 +42,7 @@ namespace TilePuzzle
             InitMap();
 
             StartCoroutine(MouseOverCheck());
+            StartCoroutine(TileClickCheck());
         }
 
         // 테스트 용
@@ -238,14 +239,14 @@ namespace TilePuzzle
         // 타일 선택
         public void ButtonSelect(GameObject tilePrefab)
         {
-            if(SelectedTile != null)
+            if (SelectedTile != null)
             {
-                Destroy(SelectedTile);
+                Destroy(SelectedTile.gameObject);
             }
 
-            SelectedTile = Instantiate(tilePrefab, Vector3.up * 20f, Quaternion.identity);
+            SelectedTile = Instantiate(tilePrefab, Vector3.up * 20f, Quaternion.identity).GetComponent<Tile>();
             SelectedTile.GetComponent<MeshCollider>().enabled = false;
-            SelectedTile.GetComponent<Tile>().ChangeMaterial(true);
+            SelectedTile.ChangeMaterial(true);
         }
 
         // 마우스가 타일 맵 위에 올라갔는지 체크
@@ -254,7 +255,7 @@ namespace TilePuzzle
             RaycastHit hit = new RaycastHit();
             while (true)
             {
-                if(SelectedTile == null)
+                if (SelectedTile == null)
                 {
                     yield return new WaitForSeconds(0.02f);
                     continue;
@@ -268,6 +269,69 @@ namespace TilePuzzle
                 }
 
                 yield return new WaitForSeconds(0.02f);
+            }
+        }
+
+        // 타일을 클릭했는지 체크, 해당 위치에 타일을 놓음
+        private IEnumerator TileClickCheck()
+        {
+            RaycastHit hit = new RaycastHit();
+            while (true)
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    if (SelectedTile == null)
+                    {
+                        yield return null;
+                        continue;
+                    }
+
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+                    if (Physics.Raycast(ray.origin, ray.direction, out hit))
+                    {
+                        Position clickPosition = hit.transform.GetComponent<Tile>().MyPosition;
+
+                        Tile clickedTile = TileMap[clickPosition.Row].rowList[clickPosition.Column];
+
+                        string[] tileName = SelectedTile.name.Split('(');
+                        TileType tileType = StringToType(tileName[0]);
+
+                        // 타일 초기화
+                        SelectedTile.InitTile(tileType, clickPosition.Row, clickPosition.Column);
+
+                        // 이웃 타일 갱신
+                        SelectedTile.InitNeighborTiles(clickedTile.NeighborTiles);
+                        clickedTile.ChangeNeighborTile(clickedTile, SelectedTile);
+
+                        // 타일 맵 갱신
+                        TileMap[clickPosition.Row].rowList.Remove(clickedTile);
+                        TileMap[clickPosition.Row].rowList.Insert(clickPosition.Column, SelectedTile);
+
+                        // 위치 갱신, 매터리얼 변경
+                        SelectedTile.transform.position = clickedTile.transform.position;
+                        SelectedTile.ChangeMaterial(false);
+
+                        Destroy(clickedTile.gameObject);
+                        SelectedTile = null;
+                    }
+                }
+
+                yield return null;
+            }
+        }
+
+        private TileType StringToType(string tileType)
+        {
+
+            if (System.Enum.TryParse(tileType, out TileType enumType))
+            {
+                return enumType;
+            }
+            else
+            {
+                Debug.LogError("타일 타입이 아님");
+                return TileType.Empty;
             }
         }
     }

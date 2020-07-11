@@ -5,7 +5,7 @@ using UnityEngine;
 namespace TilePuzzle
 {
     [System.Serializable]
-    public enum TileType { Water, Mountain, Ground, Building, City, Empty }
+    public enum TileType { Water, Mountain, Ground, Campus, Factory, GovernmentBuilding, HolyLand, Theator, WaterPipe, City, Empty }
 
     [System.Serializable]
     public struct Position
@@ -78,6 +78,22 @@ namespace TilePuzzle
                 myRenderer.material = TileManager.Instance.NormalMaterial;
                 childRenderer.material = TileManager.Instance.NormalMaterial;
             }
+        }
+
+        // 이웃 타일들에게서 prev를 제거하고 current를 넣음
+        public void ChangeNeighborTile(Tile prev, Tile current)
+        {
+            for (int i = 0; i<NeighborTiles.Count; i++)
+            {
+                NeighborTiles[i].changeNeighborTile(prev, current);
+            }
+        }
+
+        // 내 이웃 타일에서 prev를 제거하고 current를 넣음
+        private void changeNeighborTile(Tile prev, Tile current)
+        {
+            NeighborTiles.Remove(prev);
+            NeighborTiles.Add(current);
         }
     }
 }
