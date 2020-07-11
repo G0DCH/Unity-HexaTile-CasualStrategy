@@ -53,14 +53,16 @@ namespace TilePuzzle
             InitPosition(row, column);
         }
 
+        public void InitNeighborTiles(List<Tile> neighbors)
+        {
+            neighborTiles = neighbors;
+        }
+
         private void InitPosition(int row, int column)
         {
             MyPosition = new Position(row, column);
         }
 
-        public void InitNeighborTiles(List<Tile> neighbors)
-        {
-            neighborTiles = neighbors;
-        }
+
     }
 }
