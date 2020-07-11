@@ -91,6 +91,7 @@ GameObject:
   - component: {fileID: 2833512650531763841}
   - component: {fileID: 2843063634756871281}
   - component: {fileID: 2865380060570442543}
+  - component: {fileID: -1599302106158715707}
   m_Layer: 0
   m_Name: Theator
   m_TagString: Untagged
@@ -174,3 +175,21 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: ec55075d188c17f409c030e2fa6d4ebf, type: 3}
+--- !u!114 &-1599302106158715707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2820110280018489829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b980345f3e385fd488010de787a05dcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myTileType: 5
+  neighborTiles: []
+  bonus: 0
+  myPosition:
+    Row: 0
+    Column: 0

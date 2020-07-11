@@ -42,7 +42,7 @@ namespace TilePuzzle
         [SerializeField]
         private Position myPosition = new Position(0, 0);
 
-        public void ChangeTileType(TileType tileType)
+        private void ChangeTileType(TileType tileType)
         {
             MyTileType = tileType;
         }
@@ -63,6 +63,21 @@ namespace TilePuzzle
             MyPosition = new Position(row, column);
         }
 
+        public void ChangeMaterial(bool isSelected)
+        {
+            MeshRenderer myRenderer = GetComponent<MeshRenderer>();
+            MeshRenderer childRenderer = transform.GetChild(0).GetComponent<MeshRenderer>();
 
+            if (isSelected)
+            {
+                myRenderer.material = TileManager.Instance.SelectedMaterial;
+                childRenderer.material = TileManager.Instance.SelectedMaterial;
+            }
+            else
+            {
+                myRenderer.material = TileManager.Instance.NormalMaterial;
+                childRenderer.material = TileManager.Instance.NormalMaterial;
+            }
+        }
     }
 }

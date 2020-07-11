@@ -32,9 +32,16 @@ namespace TilePuzzle
         public int rowNum;
         public int columnNum;
 
+        [Space]
+        [Header("Tile Material")]
+        public Material SelectedMaterial;
+        public Material NormalMaterial;
+
         private void Start()
         {
             InitMap();
+
+            StartCoroutine(MouseOverCheck());
         }
 
         // 테스트 용
@@ -231,7 +238,37 @@ namespace TilePuzzle
         // 타일 선택
         public void ButtonSelect(GameObject tilePrefab)
         {
-            SelectedTile = tilePrefab;
+            if(SelectedTile != null)
+            {
+                Destroy(SelectedTile);
+            }
+
+            SelectedTile = Instantiate(tilePrefab, Vector3.up * 20f, Quaternion.identity);
+            SelectedTile.GetComponent<MeshCollider>().enabled = false;
+            SelectedTile.GetComponent<Tile>().ChangeMaterial(true);
+        }
+
+        // 마우스가 타일 맵 위에 올라갔는지 체크
+        private IEnumerator MouseOverCheck()
+        {
+            RaycastHit hit = new RaycastHit();
+            while (true)
+            {
+                if(SelectedTile == null)
+                {
+                    yield return new WaitForSeconds(0.02f);
+                    continue;
+                }
+
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+                if (Physics.Raycast(ray.origin, ray.direction, out hit))
+                {
+                    SelectedTile.transform.position = hit.transform.position + Vector3.up * 0.1f;
+                }
+
+                yield return new WaitForSeconds(0.02f);
+            }
         }
     }
 }

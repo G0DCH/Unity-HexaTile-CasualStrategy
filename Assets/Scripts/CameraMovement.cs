@@ -4,15 +4,30 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private Vector3 startMousePosition;
 
-    // Update is called once per frame
-    void Update()
+    private Vector3 currentMousePosition;
+
+    private Vector3 startCameraPosition;
+
+    public float moveSpeed = 0.01f;
+
+    private void Update()
     {
-        
+        if(Input.GetMouseButtonDown(1))
+        {
+            startMousePosition = Input.mousePosition;
+            startCameraPosition = transform.position;
+        }
+        else if(Input.GetMouseButton(1))
+        {
+            currentMousePosition = Input.mousePosition;
+
+            Vector3 diff = startMousePosition - currentMousePosition;
+
+            diff = new Vector3(diff.x, 0, diff.y);
+
+            transform.position = startCameraPosition + diff * moveSpeed;
+        }
     }
 }
