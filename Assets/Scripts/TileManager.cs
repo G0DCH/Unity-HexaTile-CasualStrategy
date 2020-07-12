@@ -308,6 +308,7 @@ namespace TilePuzzle
                             continue;
                         }
 
+                        // 타일 설치
                         Position clickPosition = hit.transform.GetComponent<Tile>().MyPosition;
 
                         Tile clickedTile = TileMap[clickPosition.Row].rowList[clickPosition.Column];
@@ -333,6 +334,11 @@ namespace TilePuzzle
 
                         Destroy(clickedTile.gameObject);
                         SelectedTile = null;
+
+                        // 모든 타일 보너스 갱신 후 총 점수 표기
+                        int totalBonus = RefreshAllTileBonus();
+
+                        GameManager.Instance.RefreshPoint(totalBonus);
                     }
                 }
 
@@ -398,6 +404,25 @@ namespace TilePuzzle
 
             // 다른 타일은 그냥 배치 가능
             return true;
+        }
+
+        // 모든 타일의 보너스를 갱신 후 총 점수 return
+        private int RefreshAllTileBonus()
+        {
+            int totalBonus = 0;
+
+            for (int i = 0; i < rowNum; i++)
+            {
+                // 타일 보너스 갱신 후 총 점수 갱신
+                for (int j = 0; j < columnNum; j++)
+                {
+                    Tile tile = TileMap[i].rowList[j];
+                    tile.RefreshBonus();
+                    totalBonus += tile.Bonus;
+                }
+            }
+
+            return totalBonus;
         }
     }
 }
