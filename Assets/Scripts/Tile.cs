@@ -42,7 +42,7 @@ namespace TilePuzzle
         [SerializeField]
         private Position myPosition = new Position(0, 0);
 
-        private void ChangeTileType(TileType tileType)
+        public void ChangeTileType(TileType tileType)
         {
             MyTileType = tileType;
         }

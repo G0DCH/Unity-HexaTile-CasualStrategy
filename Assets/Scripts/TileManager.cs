@@ -246,6 +246,12 @@ namespace TilePuzzle
 
             SelectedTile = Instantiate(tilePrefab, Vector3.up * 20f, Quaternion.identity).GetComponent<Tile>();
             SelectedTile.GetComponent<MeshCollider>().enabled = false;
+
+            // 타입 변경
+            string[] tileName = SelectedTile.name.Split('(');
+            TileType tileType = StringToType(tileName[0]);
+            SelectedTile.ChangeTileType(tileType);
+
             SelectedTile.ChangeMaterial(true);
         }
 
@@ -265,7 +271,7 @@ namespace TilePuzzle
 
                 if (Physics.Raycast(ray.origin, ray.direction, out hit))
                 {
-                    if(hit.transform.GetComponent<Tile>().MyTileType != TileType.Ground)
+                    if (!CanPutTile(hit.transform.GetComponent<Tile>()))
                     {
                         yield return new WaitForSeconds(0.02f);
                         continue;
@@ -296,7 +302,7 @@ namespace TilePuzzle
 
                     if (Physics.Raycast(ray.origin, ray.direction, out hit))
                     {
-                        if (hit.transform.GetComponent<Tile>().MyTileType != TileType.Ground)
+                        if (!CanPutTile(hit.transform.GetComponent<Tile>()))
                         {
                             yield return new WaitForSeconds(0.02f);
                             continue;
@@ -346,6 +352,52 @@ namespace TilePuzzle
                 Debug.LogError("타일 타입이 아님");
                 return TileType.Empty;
             }
+        }
+
+        // currentTile의 위치에 Selected 타일을 배치할 수 있는가
+        private bool CanPutTile(Tile currentTile)
+        {
+            if (currentTile == null)
+            {
+                return false;
+            }
+            else if (SelectedTile == null)
+            {
+                return false;
+            }
+            else if (currentTile.MyTileType != TileType.Ground)
+            {
+                return false;
+            }
+
+            // 송수로의 경우 주변에 도시와 산이 있는지 검사
+            if (SelectedTile.MyTileType == TileType.WaterPipe)
+            {
+                bool nearCity = false;
+                bool nearMountain = false;
+
+                for (int i = 0; i < currentTile.NeighborTiles.Count; i++)
+                {
+                    if (currentTile.NeighborTiles[i].MyTileType == TileType.City)
+                    {
+                        nearCity = true;
+                    }
+                    else if (currentTile.NeighborTiles[i].MyTileType == TileType.Mountain)
+                    {
+                        nearMountain = true;
+                    }
+
+                    if (nearMountain && nearCity)
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+
+            // 다른 타일은 그냥 배치 가능
+            return true;
         }
     }
 }
