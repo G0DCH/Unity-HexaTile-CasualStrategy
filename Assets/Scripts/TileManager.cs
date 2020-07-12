@@ -265,6 +265,12 @@ namespace TilePuzzle
 
                 if (Physics.Raycast(ray.origin, ray.direction, out hit))
                 {
+                    if(hit.transform.GetComponent<Tile>().MyTileType != TileType.Ground)
+                    {
+                        yield return new WaitForSeconds(0.02f);
+                        continue;
+                    }
+
                     SelectedTile.transform.position = hit.transform.position + Vector3.up * 0.1f;
                 }
 
@@ -290,6 +296,12 @@ namespace TilePuzzle
 
                     if (Physics.Raycast(ray.origin, ray.direction, out hit))
                     {
+                        if (hit.transform.GetComponent<Tile>().MyTileType != TileType.Ground)
+                        {
+                            yield return new WaitForSeconds(0.02f);
+                            continue;
+                        }
+
                         Position clickPosition = hit.transform.GetComponent<Tile>().MyPosition;
 
                         Tile clickedTile = TileMap[clickPosition.Row].rowList[clickPosition.Column];
@@ -308,9 +320,10 @@ namespace TilePuzzle
                         TileMap[clickPosition.Row].rowList.Remove(clickedTile);
                         TileMap[clickPosition.Row].rowList.Insert(clickPosition.Column, SelectedTile);
 
-                        // 위치 갱신, 매터리얼 변경
+                        // 위치 갱신, 매터리얼 변경, 컬라이더 활성화
                         SelectedTile.transform.position = clickedTile.transform.position;
                         SelectedTile.ChangeMaterial(false);
+                        SelectedTile.GetComponent<MeshCollider>().enabled = true;
 
                         Destroy(clickedTile.gameObject);
                         SelectedTile = null;
