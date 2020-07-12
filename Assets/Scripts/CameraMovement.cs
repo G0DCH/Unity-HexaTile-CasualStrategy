@@ -5,21 +5,31 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     private Vector3 startMousePosition;
-
     private Vector3 currentMousePosition;
-
     private Vector3 startCameraPosition;
 
+    private Camera mainCamera;
+
+    private float maxZoom = 100f;
+    private float minZoom = 40f;
+
     public float moveSpeed = 0.01f;
+    public float zoomSpeed = 20f;
+
+    private void Start()
+    {
+        mainCamera = Camera.main;
+    }
 
     private void Update()
     {
-        if(Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1))
         {
             startMousePosition = Input.mousePosition;
             startCameraPosition = transform.position;
         }
-        else if(Input.GetMouseButton(1))
+
+        else if (Input.GetMouseButton(1))
         {
             currentMousePosition = Input.mousePosition;
 
@@ -28,6 +38,17 @@ public class CameraMovement : MonoBehaviour
             diff = new Vector3(diff.x, 0, diff.y);
 
             transform.position = startCameraPosition + diff * moveSpeed;
+        }
+
+        float scroll = Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
+
+        if (mainCamera.fieldOfView < 100f && scroll < 0)
+        {
+            mainCamera.fieldOfView = Mathf.Clamp(mainCamera.fieldOfView - scroll, minZoom, maxZoom);
+        }
+        else if (mainCamera.fieldOfView >= 20f && scroll > 0)
+        {
+            mainCamera.fieldOfView = Mathf.Clamp(mainCamera.fieldOfView - scroll, minZoom, maxZoom);
         }
     }
 }
