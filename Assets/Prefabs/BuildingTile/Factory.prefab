@@ -110,6 +110,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myTileType: 5
   neighborTiles: []
+  range: 2
+  rangeTiles: []
   bonus: 0
   myPosition:
     Row: 0

@@ -807,6 +807,8 @@ MonoBehaviour:
   - {fileID: 581874941424490555, guid: a02efca3e9cab7a45acd91cbbf08a35f, type: 3}
   - {fileID: 3277181425580692325, guid: db9d5dfac8e96ec4f97e653cebeed512, type: 3}
   - {fileID: 2059308665926746308, guid: ed98d84d05e47214cbace9e0910ba344, type: 3}
+  RangePrefab: {fileID: 610993075651065042, guid: 82c5869b1d4759d48bfde08462d926ea,
+    type: 3}
   SelectedTile: {fileID: 0}
   rowNum: 10
   columnNum: 10
@@ -1139,7 +1141,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 5.66e-43, y: 1.5640885e+12, z: 5.65e-43, w: 5.3641357}
+  m_BoundingSphereOverride: {x: 0, y: 1.468e-41, z: 0, w: -5.0625}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -2213,8 +2215,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -100, y: -50}
-  m_SizeDelta: {x: 200, y: 100}
+  m_AnchoredPosition: {x: -150, y: -50}
+  m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1703127100
 MonoBehaviour:
@@ -2283,6 +2285,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointText: {fileID: 392918238}
+  TotalPoint: 0
+  RemainPoint: 6
 --- !u!4 &1812718840
 Transform:
   m_ObjectHideFlags: 0

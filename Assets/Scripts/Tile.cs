@@ -32,6 +32,14 @@ namespace TilePuzzle
         [SerializeField]
         private List<Tile> neighborTiles;
 
+        // 영역 범위, 영역 내 타일
+        public int Range { get { return range; } private set { range = value; } }
+        [SerializeField]
+        private int range = 2;
+        public List<Tile> RangeTiles { get { return rangeTiles; } private set { rangeTiles = value; } }
+        [SerializeField]
+        private List<Tile> rangeTiles;
+
         // 이 타일이 받는 보너스
         public int Bonus { get { return bonus; } private set { bonus = value; } }
         [SerializeField]
@@ -41,6 +49,9 @@ namespace TilePuzzle
         public Position MyPosition { get { return myPosition; } private set { myPosition = value; } }
         [SerializeField]
         private Position myPosition = new Position(0, 0);
+
+        // 범위 표시용 격자
+        private GameObject rangeGrid;
 
         public void ChangeTileType(TileType tileType)
         {
@@ -63,6 +74,43 @@ namespace TilePuzzle
             MyPosition = new Position(row, column);
         }
 
+        // 범위 내의 타일 초기화
+        public void InitRangeTiles()
+        {
+            List<Tile> rangeTiles = new List<Tile>(NeighborTiles);
+
+            for (int i = 0; i < NeighborTiles.Count; i++)
+            {
+                NeighborTiles[i].initRangeTiles(rangeTiles, Range);
+            }
+
+            RangeTiles = rangeTiles;
+        }
+
+        public void InitRangeTiles(List<Tile> tiles)
+        {
+            RangeTiles = tiles;
+        }
+
+        // 내 이웃 타일 중 rangeList에 들어있지 않은 타일이 있다면 넣어줌.
+        // rangeCount의 범위 내의 타일만 들어가게 됨.
+        private void initRangeTiles(List<Tile> rangeList, int rangeCount)
+        {
+            if (rangeCount <= 1)
+            {
+                return;
+            }
+
+            foreach (var neighborTile in NeighborTiles)
+            {
+                if (!rangeList.Contains(neighborTile))
+                {
+                    rangeList.Add(neighborTile);
+                    neighborTile.initRangeTiles(rangeList, rangeCount - 1);
+                }
+            }
+        }
+
         public void ChangeMaterial(bool isSelected)
         {
             MeshRenderer myRenderer = GetComponent<MeshRenderer>();
@@ -81,19 +129,29 @@ namespace TilePuzzle
         }
 
         // 이웃 타일들에게서 prev를 제거하고 current를 넣음
-        public void ChangeNeighborTile(Tile prev, Tile current)
+        public void UpdateNeighborTile(Tile prev, Tile current)
         {
-            for (int i = 0; i<NeighborTiles.Count; i++)
+            for (int i = 0; i < NeighborTiles.Count; i++)
             {
-                NeighborTiles[i].changeNeighborTile(prev, current);
+                NeighborTiles[i].updateNeighborTile(prev, current);
             }
         }
 
         // 내 이웃 타일에서 prev를 제거하고 current를 넣음
-        private void changeNeighborTile(Tile prev, Tile current)
+        private void updateNeighborTile(Tile prev, Tile current)
         {
             NeighborTiles.Remove(prev);
             NeighborTiles.Add(current);
+        }
+
+        // 내 Range 타일에서 prev를 제거하고 current를 넣음
+        public void UpdateRangeTile(Tile prev, Tile current)
+        {
+            if (RangeTiles.Contains(prev))
+            {
+                RangeTiles.Remove(prev);
+                RangeTiles.Add(current);
+            }
         }
 
         // 내 타일의 보너스 갱신
@@ -134,16 +192,16 @@ namespace TilePuzzle
             int buildingCount = 0;
             // 특수지구 별 보너스 점수
             int specificBonus = 0;
-            
+
             // 특수지구 개수를 세고, 내 타일 타입의 보너스 추가
-            for (int i = 0; i< NeighborTiles.Count; i++)
+            for (int i = 0; i < RangeTiles.Count; i++)
             {
-                if (NeighborTiles[i].IsBuilding())
+                if (RangeTiles[i].IsBuilding())
                 {
                     buildingCount += 1;
                 }
 
-                specificBonus += NeighborTiles[i].CountSpecificBonus(MyTileType);
+                specificBonus += RangeTiles[i].CountSpecificBonus(MyTileType);
             }
 
             Bonus = buildingCount / 2 + specificBonus;
@@ -156,7 +214,7 @@ namespace TilePuzzle
             {
                 return true;
             }
-            else if(MyTileType == TileType.Campus)
+            else if (MyTileType == TileType.Campus)
             {
                 return true;
             }
@@ -220,6 +278,35 @@ namespace TilePuzzle
             }
 
             return bonusPoint;
+        }
+
+        // 격자 생성
+        public void MakeGrid(GameObject grid)
+        {
+            rangeGrid = Instantiate(grid, transform);
+            rangeGrid.transform.localPosition = Vector3.zero;
+        }
+
+        // 격자 on off
+        public void TurnGrid(bool isOn)
+        {
+            if (isOn)
+            {
+                rangeGrid.SetActive(true);
+            }
+            else
+            {
+                rangeGrid.SetActive(false);
+            }
+        }
+
+        // 범위 내의 격자 on off
+        public void TurnRangeGrid(bool isOn)
+        { 
+            foreach(Tile rangeTile in RangeTiles)
+            {
+                rangeTile.TurnGrid(isOn);
+            }
         }
     }
 }

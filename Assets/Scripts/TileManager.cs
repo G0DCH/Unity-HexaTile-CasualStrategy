@@ -22,6 +22,8 @@ namespace TilePuzzle
         public List<RowList> TileMap;
         // 타일 프리팹들
         public List<GameObject> TilePrefabs;
+        // 범위 표기 프리팹
+        public GameObject RangePrefab;
 
         [Space]
         [Header("Selected Tile")]
@@ -36,6 +38,9 @@ namespace TilePuzzle
         [Header("Tile Material")]
         public Material SelectedMaterial;
         public Material NormalMaterial;
+
+        // 이전에 마우스가 위에 올라가있던 타일
+        private Tile prevOverTile = null;
 
         private void Start()
         {
@@ -64,6 +69,14 @@ namespace TilePuzzle
                 for (int j = 0; j < columnNum; j++)
                 {
                     AssignNeighbors(i, j);
+                }
+            }
+
+            for (int i = 0; i < rowNum; i++)
+            {
+                for (int j = 0; j < columnNum; j++)
+                {
+                    TileMap[i].rowList[j].InitRangeTiles();
                 }
             }
         }
@@ -103,6 +116,8 @@ namespace TilePuzzle
             }
 
             TileMap[row].rowList.Add(tile);
+            tile.MakeGrid(RangePrefab);
+            tile.TurnGrid(false);
         }
 
         public void AssignNeighbors(int row, int column)
@@ -253,6 +268,9 @@ namespace TilePuzzle
             SelectedTile.ChangeTileType(tileType);
 
             SelectedTile.ChangeMaterial(true);
+
+            SelectedTile.MakeGrid(RangePrefab);
+            SelectedTile.TurnGrid(false);
         }
 
         // 마우스가 타일 맵 위에 올라갔는지 체크
@@ -271,13 +289,25 @@ namespace TilePuzzle
 
                 if (Physics.Raycast(ray.origin, ray.direction, out hit))
                 {
-                    if (!CanPutTile(hit.transform.GetComponent<Tile>()))
+                    Tile overTile = hit.transform.GetComponent<Tile>();
+
+                    if (!CanPutTile(overTile))
                     {
                         yield return new WaitForSeconds(0.02f);
                         continue;
                     }
 
-                    SelectedTile.transform.position = hit.transform.position + Vector3.up * 0.1f;
+                    if (prevOverTile != null)
+                    {
+                        if (prevOverTile != overTile)
+                        {
+                            prevOverTile.TurnRangeGrid(false);
+                        }
+                    }
+
+                    SelectedTile.transform.position = overTile.transform.position + Vector3.up * 0.1f;
+                    overTile.TurnRangeGrid(true);
+                    prevOverTile = overTile;
                 }
 
                 yield return new WaitForSeconds(0.02f);
@@ -321,7 +351,11 @@ namespace TilePuzzle
 
                         // 이웃 타일 갱신
                         SelectedTile.InitNeighborTiles(clickedTile.NeighborTiles);
-                        clickedTile.ChangeNeighborTile(clickedTile, SelectedTile);
+                        SelectedTile.InitRangeTiles(clickedTile.RangeTiles);
+                        clickedTile.UpdateNeighborTile(clickedTile, SelectedTile);
+
+                        // 모든 타일의 범위 내 타일 갱신
+                        UpdateRangeTiles(clickedTile, SelectedTile);
 
                         // 타일 맵 갱신
                         TileMap[clickPosition.Row].rowList.Remove(clickedTile);
@@ -331,18 +365,35 @@ namespace TilePuzzle
                         SelectedTile.transform.position = clickedTile.transform.position;
                         SelectedTile.ChangeMaterial(false);
                         SelectedTile.GetComponent<MeshCollider>().enabled = true;
+                        SelectedTile.transform.parent = transform;
+                        prevOverTile = SelectedTile;
+
+                        SelectedTile.RefreshBonus();
+                        GameManager.Instance.RefreshPoint(SelectedTile.Bonus);
 
                         Destroy(clickedTile.gameObject);
-                        SelectedTile = null;
+                        SelectedTile = null;                        
 
                         // 모든 타일 보너스 갱신 후 총 점수 표기
-                        int totalBonus = RefreshAllTileBonus();
+                        //int totalBonus = RefreshAllTileBonus();
 
-                        GameManager.Instance.RefreshPoint(totalBonus);
+                        //GameManager.Instance.RefreshPoint(totalBonus);
                     }
                 }
 
                 yield return null;
+            }
+        }
+
+        private void UpdateRangeTiles(Tile clickedTile, Tile SelectedTile)
+        {
+            // 모든 타일의 범위 내 타일 갱신
+            for (int i = 0; i < rowNum; i++)
+            {
+                for (int j = 0; j < columnNum; j++)
+                {
+                    TileMap[i].rowList[j].UpdateRangeTile(clickedTile, SelectedTile);
+                }
             }
         }
 
@@ -406,6 +457,7 @@ namespace TilePuzzle
             return true;
         }
 
+        /*
         // 모든 타일의 보너스를 갱신 후 총 점수 return
         private int RefreshAllTileBonus()
         {
@@ -424,5 +476,6 @@ namespace TilePuzzle
 
             return totalBonus;
         }
+        */
     }
 }

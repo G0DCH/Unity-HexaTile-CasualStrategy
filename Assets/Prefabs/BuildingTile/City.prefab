@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 2372766070977816098}
   - component: {fileID: 4102278702141878452}
   - component: {fileID: 3120017516567912617}
-  - component: {fileID: 7233699504820167559}
   m_Layer: 0
   m_Name: City
   m_TagString: Untagged
@@ -111,24 +110,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myTileType: 5
   neighborTiles: []
-  bonus: 0
-  myPosition:
-    Row: 0
-    Column: 0
---- !u!114 &7233699504820167559
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2989713340644630987}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b980345f3e385fd488010de787a05dcc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myTileType: 5
-  neighborTiles: []
+  range: 2
+  rangeTiles: []
   bonus: 0
   myPosition:
     Row: 0
