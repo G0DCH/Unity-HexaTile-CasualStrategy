@@ -1,0 +1,54 @@
+﻿// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel NoiseMap
+#include "Noise.compute"
+
+RWStructuredBuffer<float> map;
+int mapWidth;
+int mapHeight;
+
+// Noise settings
+StructuredBuffer<float3> offsets;
+float3 offset;
+int octaves;
+float lacunarity;
+float persistance;
+float scale;
+float weight;
+float weightMultiplier;
+
+int XYToIndex(uint x, uint y)
+{
+    return x + y * mapWidth;
+}
+
+[numthreads(32, 32, 1)]
+void NoiseMap(int3 id : SV_DispatchThreadID)
+{
+    if (id.x >= mapWidth || id.y >= mapHeight)
+    {
+        return;
+    }
+
+    float3 pos = id;
+    float finalValue = 0;
+    float frequency = scale / 100;
+    float amplitude = 1;
+    float w = 1;
+    for (int i = 0; i < octaves; i++)
+    {
+        float noise = snoise(pos * frequency + offsets[i] + offset);
+        float value = 1 - abs(noise);
+        value = value * value;
+        value *= w;
+        w = max(min(value * weightMultiplier, 1), 0);
+
+        finalValue += value * amplitude;
+        amplitude *= persistance;
+        frequency *= lacunarity;
+    }
+
+    finalValue *= weight;
+
+    int index = XYToIndex(pos.x, pos.y);
+    map[index] = finalValue;
+}
