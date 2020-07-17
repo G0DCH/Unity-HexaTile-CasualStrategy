@@ -376,8 +376,15 @@ namespace TilePuzzle
 
                         //SelectedTile.RefreshBonus();
 
+                        // 보너스 갱신
                         if (SelectedTile is BuildingTile)
                         {
+                            // 격자 표기
+                            if(SelectedTile is CityTile)
+                            {
+                                ((CityTile)SelectedTile).SetRangeGrids();
+                            }
+
                             ((BuildingTile)SelectedTile).RefreshBonus();
                             GameManager.Instance.RefreshPoint(SelectedTile.Bonus);
                         }

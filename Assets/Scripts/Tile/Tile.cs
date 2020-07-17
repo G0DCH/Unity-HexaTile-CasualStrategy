@@ -63,7 +63,7 @@ namespace TilePuzzle
         private Position myPosition = new Position(0, 0);
 
         // 범위 표시용 격자
-        private GameObject rangeGrid;
+        public GameObject RangeGrid { get; private set; }
 
         public void ChangeTileType(TileType tileType)
         {
@@ -207,8 +207,8 @@ namespace TilePuzzle
         // 격자 생성
         public void MakeGrid(GameObject grid)
         {
-            rangeGrid = Instantiate(grid, transform);
-            rangeGrid.transform.localPosition = Vector3.zero;
+            RangeGrid = Instantiate(grid, transform);
+            RangeGrid.transform.localPosition = Vector3.zero;
         }
 
         // 격자 on off
@@ -216,11 +216,11 @@ namespace TilePuzzle
         {
             if (isOn)
             {
-                rangeGrid.SetActive(true);
+                RangeGrid.SetActive(true);
             }
             else
             {
-                rangeGrid.SetActive(false);
+                RangeGrid.SetActive(false);
             }
         }
 

@@ -11297,7 +11297,7 @@ MonoBehaviour:
   - {fileID: 581874941424490555, guid: a02efca3e9cab7a45acd91cbbf08a35f, type: 3}
   - {fileID: 3277181425580692325, guid: db9d5dfac8e96ec4f97e653cebeed512, type: 3}
   - {fileID: 2059308665926746308, guid: ed98d84d05e47214cbace9e0910ba344, type: 3}
-  RangePrefab: {fileID: 610993075651065042, guid: 82c5869b1d4759d48bfde08462d926ea,
+  GridPrefab: {fileID: 610993075651065042, guid: 82c5869b1d4759d48bfde08462d926ea,
     type: 3}
   SelectedTile: {fileID: 0}
   rowNum: 20

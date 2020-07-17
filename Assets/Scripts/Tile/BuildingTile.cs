@@ -51,6 +51,5 @@ namespace TilePuzzle
 
             Bonus = buildingCount / 2 + specificBonus;
         }
-
     }
 }
