@@ -11,7 +11,7 @@ namespace TilePuzzle
     {
         public const float Size = 1;
 
-        public Vector2Int hexagonPos;
+        public HexagonPos hexPos;
         public MeshRenderer meshRenderer;
     }
 }
