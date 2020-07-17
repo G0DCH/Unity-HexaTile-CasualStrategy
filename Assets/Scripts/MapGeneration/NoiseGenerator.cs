@@ -25,7 +25,7 @@ namespace TilePuzzle
                 }
                 if (mapGenerator != null)
                 {
-                    mapGenerator.UpdatePreview();
+                    mapGenerator.hasParameterUpdated = true;
                 }
             }
         }

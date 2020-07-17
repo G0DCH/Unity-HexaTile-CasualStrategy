@@ -13,7 +13,6 @@ namespace TilePuzzle
     public class MapGenerator : MonoBehaviour
     {
         [Title("Generate options")]
-        [OnValueChanged(nameof(OnMapSizeChanged))]
         public Vector2Int mapSize;
         public NoiseGenerator noiseGenerator;
 
@@ -21,12 +20,20 @@ namespace TilePuzzle
         public bool autoUpdatePreview;
         public PreviewWorld previewWorld;
         public MeshRenderer previewTextureRenderer;
-        private Texture2D previewTexture;
+
+        [HideInInspector]
+        public bool hasParameterUpdated;
 
         private void OnValidate()
         {
-            if (autoUpdatePreview)
+            hasParameterUpdated = true;
+        }
+
+        private void Update()
+        {
+            if (hasParameterUpdated && autoUpdatePreview)
             {
+                hasParameterUpdated = false;
                 UpdatePreview();
             }
         }
@@ -45,27 +52,18 @@ namespace TilePuzzle
             UpdatePreviewTexture(ref colorMap);
 
             // Update world
+            previewWorld.GenerateDefaultHexagons(mapSize);
             previewWorld.SetHexagonsColor(ref colorMap);
 
             Profiler.EndSample();
         }
 
-        private void OnMapSizeChanged()
-        {
-            previewWorld.MapSize = mapSize;
-            previewTexture = null;
-        }
-
         private void UpdatePreviewTexture(ref Color[] colors)
         {
-            if (previewTexture == null)
+            var previewTexture = new Texture2D(mapSize.x, mapSize.y)
             {
-                previewTexture = new Texture2D(mapSize.x, mapSize.y)
-                {
-                    filterMode = FilterMode.Point
-                };
-            }
-
+                filterMode = FilterMode.Point
+            };
             previewTexture.SetPixels(colors);
             previewTexture.Apply();
 

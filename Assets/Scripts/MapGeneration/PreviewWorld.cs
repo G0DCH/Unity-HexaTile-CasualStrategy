@@ -18,17 +18,25 @@ namespace TilePuzzle
         private Hexagon[] hexagons;
         private MaterialPropertyBlock propertyBlock;
 
-        public Vector2Int MapSize
+        public void GenerateDefaultHexagons(Vector2Int mapSize)
         {
-            get { return mapSize; }
-            set
+            if (hexagons != null && this.mapSize == mapSize)
             {
-                bool sizeChanged = mapSize != value;
-                mapSize = value;
+                return;
+            }
 
-                if (sizeChanged)
+            DestroyAllHexagons();
+
+            this.mapSize = mapSize;
+            hexagons = new Hexagon[mapSize.x * mapSize.y];
+            for (int y = 0; y < mapSize.y; y++)
+            {
+                for (int x = 0; x < mapSize.x; x++)
                 {
-                    RegenerateHexagons();
+                    Hexagon newHexagon = CreateNewHexagon(new HexagonPos(x, y));
+
+                    int index = XYToIndex(x, y);
+                    hexagons[index] = newHexagon;
                 }
             }
         }
@@ -51,23 +59,6 @@ namespace TilePuzzle
             }
         }
 
-        private void RegenerateHexagons()
-        {
-            DestroyAllHexagons();
-
-            hexagons = new Hexagon[mapSize.x * mapSize.y];
-            for (int y = 0; y < mapSize.y; y++)
-            {
-                for (int x = 0; x < mapSize.x; x++)
-                {
-                    Hexagon newHexagon = CreateNewHexagon(new HexagonPos(x, y));
-
-                    int index = XYToIndex(x, y);
-                    hexagons[index] = newHexagon;
-                }
-            }
-        }
-
         [Button]
         private void DestroyAllHexagons()
         {
@@ -75,6 +66,7 @@ namespace TilePuzzle
             {
                 DestroyImmediate(hexagon);
             }
+            hexagons = null;
         }
 
         private int XYToIndex(int x, int y)
