@@ -19,14 +19,20 @@ namespace TilePuzzle
         }
 
         // 게임에 존재하는 타일
+#if UNITY_EDITOR
+        [ReadOnly]
+#endif
         public List<RowList> TileMap;
         // 타일 프리팹들
         public List<GameObject> TilePrefabs;
         // 범위 표기 프리팹
-        public GameObject RangePrefab;
+        public GameObject GridPrefab;
 
         [Space]
         [Header("Selected Tile")]
+#if UNITY_EDITOR
+        [ReadOnly]
+#endif
         public Tile SelectedTile;
 
         [Space]
@@ -116,7 +122,7 @@ namespace TilePuzzle
             }
 
             TileMap[row].rowList.Add(tile);
-            tile.MakeGrid(RangePrefab);
+            tile.MakeGrid(GridPrefab);
             tile.TurnGrid(false);
         }
 
@@ -269,7 +275,7 @@ namespace TilePuzzle
 
             SelectedTile.ChangeMaterial(true);
 
-            SelectedTile.MakeGrid(RangePrefab);
+            SelectedTile.MakeGrid(GridPrefab);
             SelectedTile.TurnGrid(false);
         }
 
@@ -368,8 +374,26 @@ namespace TilePuzzle
                         SelectedTile.transform.parent = transform;
                         prevOverTile = SelectedTile;
 
-                        SelectedTile.RefreshBonus();
-                        GameManager.Instance.RefreshPoint(SelectedTile.Bonus);
+                        //SelectedTile.RefreshBonus();
+
+                        // 보너스 갱신
+                        if (SelectedTile is BuildingTile)
+                        {
+                            // 격자 표기, 타일 소유권 이전
+                            if(SelectedTile is CityTile)
+                            {
+                                ((CityTile)SelectedTile).SetRangeGrids();
+                                ((CityTile)SelectedTile).SetOwnerInRange();
+                            }
+                            else
+                            {
+                                // 소유한 도시 설정
+                                SelectedTile.SetCityTile(clickedTile.ownerCity);
+                            }
+
+                            ((BuildingTile)SelectedTile).RefreshBonus();
+                            GameManager.Instance.RefreshPoint(SelectedTile.Bonus);
+                        }
 
                         Destroy(clickedTile.gameObject);
                         SelectedTile = null;                        
@@ -427,30 +451,47 @@ namespace TilePuzzle
                 return false;
             }
 
-            // 송수로의 경우 주변에 도시와 산이 있는지 검사
-            if (SelectedTile.MyTileType == TileType.WaterPipe)
+            // 소유 도시가 없고, 선택 타일이 도시 타일인지 검사
+            if (currentTile.ownerCity == null)
             {
-                bool nearCity = false;
-                bool nearMountain = false;
-
-                for (int i = 0; i < currentTile.NeighborTiles.Count; i++)
+                if(!(SelectedTile is CityTile))
                 {
-                    if (currentTile.NeighborTiles[i].MyTileType == TileType.City)
-                    {
-                        nearCity = true;
-                    }
-                    else if (currentTile.NeighborTiles[i].MyTileType == TileType.Mountain)
-                    {
-                        nearMountain = true;
-                    }
-
-                    if (nearMountain && nearCity)
-                    {
-                        return true;
-                    }
+                    return false;
+                }
+            }
+            else
+            {
+                // 소유 도시에 이미 해당 건물이 설치 되었는지 검사
+                if (currentTile.ownerCity.HasThatTile(SelectedTile.MyTileType))
+                {
+                    return false;
                 }
 
-                return false;
+                // 송수로의 경우 주변에 도시와 산이 있는지 검사
+                if (SelectedTile.MyTileType == TileType.WaterPipe)
+                {
+                    bool nearCity = false;
+                    bool nearMountain = false;
+
+                    for (int i = 0; i < currentTile.NeighborTiles.Count; i++)
+                    {
+                        if (currentTile.NeighborTiles[i].MyTileType == TileType.City)
+                        {
+                            nearCity = true;
+                        }
+                        else if (currentTile.NeighborTiles[i].MyTileType == TileType.Mountain)
+                        {
+                            nearMountain = true;
+                        }
+
+                        if (nearMountain && nearCity)
+                        {
+                            return true;
+                        }
+                    }
+
+                    return false;
+                }
             }
 
             // 다른 타일은 그냥 배치 가능

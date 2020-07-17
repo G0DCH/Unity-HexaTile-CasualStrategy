@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2107229157838230999}
   - component: {fileID: 2098421372259145301}
   - component: {fileID: 2138837729168109853}
-  - component: {fileID: 3289191580734902489}
+  - component: {fileID: 2605870547948385003}
   m_Layer: 0
   m_Name: HolyLand
   m_TagString: Untagged
@@ -96,7 +96,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 1341def1465b9ee42ab1a58327fc3676, type: 3}
---- !u!114 &3289191580734902489
+--- !u!114 &2605870547948385003
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -105,10 +105,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2111624229847873225}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b980345f3e385fd488010de787a05dcc, type: 3}
+  m_Script: {fileID: 11500000, guid: 81b8d4316c77dfa4bbfbaab24238b36b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myTileType: 5
+  myTileType: 10
   neighborTiles: []
   range: 2
   rangeTiles: []

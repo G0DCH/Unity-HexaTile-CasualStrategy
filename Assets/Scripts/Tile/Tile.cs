@@ -26,10 +26,13 @@ namespace TilePuzzle
         public TileType MyTileType { get { return myTileType; } private set { myTileType = value; } }
         [SerializeField]
         private TileType myTileType = TileType.Empty;
-
+                
         // 이웃한 타일
         public List<Tile> NeighborTiles { get { return neighborTiles; } private set { neighborTiles = value; } }
-        [SerializeField]
+        [SerializeField, Space]
+#if UNITY_EDITOR
+        [ReadOnly]
+#endif
         private List<Tile> neighborTiles;
 
         // 영역 범위, 영역 내 타일
@@ -37,21 +40,33 @@ namespace TilePuzzle
         [SerializeField]
         private int range = 2;
         public List<Tile> RangeTiles { get { return rangeTiles; } private set { rangeTiles = value; } }
-        [SerializeField]
+        [SerializeField, Header("Tiles In Range")]
+#if UNITY_EDITOR
+        [ReadOnly]
+#endif
         private List<Tile> rangeTiles;
 
         // 이 타일이 받는 보너스
-        public int Bonus { get { return bonus; } private set { bonus = value; } }
-        [SerializeField]
+        public int Bonus { get { return bonus; } protected set { bonus = value; } }
+        [SerializeField, Space]
+#if UNITY_EDITOR
+        [ReadOnly]
+#endif
         private int bonus = 0;
 
         // 이 타일의 위치
         public Position MyPosition { get { return myPosition; } private set { myPosition = value; } }
-        [SerializeField]
+        [SerializeField, Space]
+#if UNITY_EDITOR
+        [ReadOnly]
+#endif
         private Position myPosition = new Position(0, 0);
 
         // 범위 표시용 격자
-        private GameObject rangeGrid;
+        public GameObject RangeGrid { get; private set; }
+
+        // 이 타일을 소유하고 있는 도시
+        public CityTile ownerCity { get; private set; } = null;
 
         public void ChangeTileType(TileType tileType)
         {
@@ -154,96 +169,8 @@ namespace TilePuzzle
             }
         }
 
-        // 내 타일의 보너스 갱신
-        public void RefreshBonus()
-        {
-            // 포인트가 없는 타일은 패스
-            if (MyTileType == TileType.City)
-            {
-                return;
-            }
-            else if (MyTileType == TileType.GovernmentBuilding)
-            {
-                return;
-            }
-            else if (MyTileType == TileType.Mountain)
-            {
-                return;
-            }
-            else if (MyTileType == TileType.Ground)
-            {
-                return;
-            }
-            else if (MyTileType == TileType.Water)
-            {
-                return;
-            }
-            else if (MyTileType == TileType.WaterPipe)
-            {
-                return;
-            }
-            else if (MyTileType == TileType.Empty)
-            {
-                Debug.LogError(string.Format("Error Tile Exist : {0}, {1}", name, transform.GetSiblingIndex()));
-                return;
-            }
-
-            // 특수지구 개수. 2개당 +1
-            int buildingCount = 0;
-            // 특수지구 별 보너스 점수
-            int specificBonus = 0;
-
-            // 특수지구 개수를 세고, 내 타일 타입의 보너스 추가
-            for (int i = 0; i < RangeTiles.Count; i++)
-            {
-                if (RangeTiles[i].IsBuilding())
-                {
-                    buildingCount += 1;
-                }
-
-                specificBonus += RangeTiles[i].CountSpecificBonus(MyTileType);
-            }
-
-            Bonus = buildingCount / 2 + specificBonus;
-        }
-
-        // 건물이라면 true를 return
-        private bool IsBuilding()
-        {
-            if (MyTileType == TileType.City)
-            {
-                return true;
-            }
-            else if (MyTileType == TileType.Campus)
-            {
-                return true;
-            }
-            else if (MyTileType == TileType.Factory)
-            {
-                return true;
-            }
-            else if (MyTileType == TileType.GovernmentBuilding)
-            {
-                return true;
-            }
-            else if (MyTileType == TileType.HolyLand)
-            {
-                return true;
-            }
-            else if (MyTileType == TileType.Theator)
-            {
-                return true;
-            }
-            else if (MyTileType == TileType.WaterPipe)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
         // 내 타일이 pivotType의 보너스에 해당하는지 검사하고 해당 점수 return
-        private int CountSpecificBonus(TileType pivotType)
+        public int CountSpecificBonus(TileType pivotType)
         {
             int bonusPoint = 0;
 
@@ -283,8 +210,8 @@ namespace TilePuzzle
         // 격자 생성
         public void MakeGrid(GameObject grid)
         {
-            rangeGrid = Instantiate(grid, transform);
-            rangeGrid.transform.localPosition = Vector3.zero;
+            RangeGrid = Instantiate(grid, transform);
+            RangeGrid.transform.localPosition = Vector3.zero;
         }
 
         // 격자 on off
@@ -292,11 +219,11 @@ namespace TilePuzzle
         {
             if (isOn)
             {
-                rangeGrid.SetActive(true);
+                RangeGrid.SetActive(true);
             }
             else
             {
-                rangeGrid.SetActive(false);
+                RangeGrid.SetActive(false);
             }
         }
 
@@ -307,6 +234,17 @@ namespace TilePuzzle
             {
                 rangeTile.TurnGrid(isOn);
             }
+        }
+
+        public void SetCityTile(CityTile cityTile)
+        {
+            if (cityTile == null)
+            {
+                Debug.LogError("인자 도시 타일이 null 값임");
+                return;
+            }
+
+            ownerCity = cityTile;
         }
     }
 }
