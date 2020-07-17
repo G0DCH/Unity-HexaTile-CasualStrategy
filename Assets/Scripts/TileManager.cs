@@ -379,10 +379,16 @@ namespace TilePuzzle
                         // 보너스 갱신
                         if (SelectedTile is BuildingTile)
                         {
-                            // 격자 표기
+                            // 격자 표기, 타일 소유권 이전
                             if(SelectedTile is CityTile)
                             {
                                 ((CityTile)SelectedTile).SetRangeGrids();
+                                ((CityTile)SelectedTile).SetOwnerInRange();
+                            }
+                            else
+                            {
+                                // 소유한 도시 설정
+                                SelectedTile.SetCityTile(clickedTile.ownerCity);
                             }
 
                             ((BuildingTile)SelectedTile).RefreshBonus();
@@ -445,30 +451,47 @@ namespace TilePuzzle
                 return false;
             }
 
-            // 송수로의 경우 주변에 도시와 산이 있는지 검사
-            if (SelectedTile.MyTileType == TileType.WaterPipe)
+            // 소유 도시가 없고, 선택 타일이 도시 타일인지 검사
+            if (currentTile.ownerCity == null)
             {
-                bool nearCity = false;
-                bool nearMountain = false;
-
-                for (int i = 0; i < currentTile.NeighborTiles.Count; i++)
+                if(!(SelectedTile is CityTile))
                 {
-                    if (currentTile.NeighborTiles[i].MyTileType == TileType.City)
-                    {
-                        nearCity = true;
-                    }
-                    else if (currentTile.NeighborTiles[i].MyTileType == TileType.Mountain)
-                    {
-                        nearMountain = true;
-                    }
-
-                    if (nearMountain && nearCity)
-                    {
-                        return true;
-                    }
+                    return false;
+                }
+            }
+            else
+            {
+                // 소유 도시에 이미 해당 건물이 설치 되었는지 검사
+                if (currentTile.ownerCity.HasThatTile(SelectedTile.MyTileType))
+                {
+                    return false;
                 }
 
-                return false;
+                // 송수로의 경우 주변에 도시와 산이 있는지 검사
+                if (SelectedTile.MyTileType == TileType.WaterPipe)
+                {
+                    bool nearCity = false;
+                    bool nearMountain = false;
+
+                    for (int i = 0; i < currentTile.NeighborTiles.Count; i++)
+                    {
+                        if (currentTile.NeighborTiles[i].MyTileType == TileType.City)
+                        {
+                            nearCity = true;
+                        }
+                        else if (currentTile.NeighborTiles[i].MyTileType == TileType.Mountain)
+                        {
+                            nearMountain = true;
+                        }
+
+                        if (nearMountain && nearCity)
+                        {
+                            return true;
+                        }
+                    }
+
+                    return false;
+                }
             }
 
             // 다른 타일은 그냥 배치 가능

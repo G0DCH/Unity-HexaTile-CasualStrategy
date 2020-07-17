@@ -65,6 +65,9 @@ namespace TilePuzzle
         // 범위 표시용 격자
         public GameObject RangeGrid { get; private set; }
 
+        // 이 타일을 소유하고 있는 도시
+        public CityTile ownerCity { get; private set; } = null;
+
         public void ChangeTileType(TileType tileType)
         {
             MyTileType = tileType;
@@ -231,6 +234,17 @@ namespace TilePuzzle
             {
                 rangeTile.TurnGrid(isOn);
             }
+        }
+
+        public void SetCityTile(CityTile cityTile)
+        {
+            if (cityTile == null)
+            {
+                Debug.LogError("인자 도시 타일이 null 값임");
+                return;
+            }
+
+            ownerCity = cityTile;
         }
     }
 }
