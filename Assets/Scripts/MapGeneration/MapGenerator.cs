@@ -16,12 +16,19 @@ namespace TilePuzzle
         public Vector2Int mapSize = new Vector2Int(30, 30);
         [Required] public NoiseGenerator noiseGenerator;
         [Required] public FalloffGenerator falloffGenerator;
+        [Range(0, 1)]
+        public float threshhold = 0.5f;
 
         [Title("Preview")]
         public bool autoUpdatePreview;
         [Required] public PreviewWorld previewWorld;
         [Required] public MeshRenderer noiseMapPreview;
         [Required] public MeshRenderer falloffMapPreview;
+
+        [Title("Debug options")]
+        public Color lowlandColor;
+        public Color highlandColor;
+        public Color oceanColor;
 
         [HideInInspector]
         public bool hasParameterUpdated;
@@ -46,7 +53,6 @@ namespace TilePuzzle
             noiseGenerator.GenerateNoiseMap(mapSize.x, mapSize.y, out float[] noiseMap);
             falloffGenerator.GenerateFalloffMap(mapSize.x, mapSize.y, out float[] falloffMap);
 
-            // Update texture
             Profiler.BeginSample("Generate color maps");
             Color[] noiseMapColors = noiseMap
                 .Select(x => Color.Lerp(Color.black, Color.white, x))
@@ -61,10 +67,25 @@ namespace TilePuzzle
             UpdatePreviewTexture(falloffMapPreview, ref falloffMapColors);
             Profiler.EndSample();
 
-            // Update world
             Profiler.BeginSample("Update world");
+            Color[] hexagonColors = new Color[noiseMap.Length];
+            float[] elevationMap = new float[noiseMap.Length];
+            for (int i = 0; i < noiseMap.Length; i++)
+            {
+                if (noiseMap[i] * falloffMap[i] >= threshhold)
+                {
+                    hexagonColors[i] = Color.Lerp(lowlandColor, highlandColor, Mathf.InverseLerp(threshhold, 1, noiseMap[i]));
+                    elevationMap[i] = noiseMap[i];
+                }
+                else
+                {
+                    hexagonColors[i] = oceanColor;
+                    elevationMap[i] = 0;
+                }
+            }
             previewWorld.GenerateDefaultHexagons(mapSize);
-            previewWorld.SetHexagonsColor(ref noiseMapColors, ref falloffMapColors);
+            previewWorld.SetHexagonsColor(ref hexagonColors);
+            previewWorld.SetHexagonsElevation(ref elevationMap);
             Profiler.EndSample();
         }
 

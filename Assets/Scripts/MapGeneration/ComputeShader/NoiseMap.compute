@@ -50,6 +50,7 @@ void NoiseMap(int3 id : SV_DispatchThreadID)
     {
         float noise = snoise(pos * frequency + octaveOffsets[i] + offset);
         float value = 1 - abs(noise);
+        //value = noise;
         value = value * value;
         value *= weight;
         weight = max(min(value * weightMultiplier, 1), 0);

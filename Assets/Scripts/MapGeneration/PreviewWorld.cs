@@ -43,7 +43,7 @@ namespace TilePuzzle
             }
         }
 
-        public void SetHexagonsColor(ref Color[] noiseMapColors, ref Color[] falloffMapColors)
+        public void SetHexagonsColor(ref Color[] colors)
         {
             Profiler.BeginSample(nameof(SetHexagonsColor));
             if (propertyBlock == null)
@@ -55,12 +55,22 @@ namespace TilePuzzle
             for (int i = 0; i < hexagons.Length; i++)
             {
                 Hexagon hexagon = hexagons[i];
-                Color color = noiseMapColors[i] * falloffMapColors[i];
+                Color color = colors[i];
 
                 propertyBlock.SetColor(colorPropertyId, color);
                 hexagon.meshRenderer.SetPropertyBlock(propertyBlock);
             }
             Profiler.EndSample();
+        }
+
+        public void SetHexagonsElevation(ref float[] elevations)
+        {
+            for (int i = 0; i < hexagons.Length; i++)
+            {
+                var pos = hexagons[i].transform.position;
+                pos.y = elevations[i];
+                hexagons[i].transform.position = pos;
+            }
         }
 
         [Button]
