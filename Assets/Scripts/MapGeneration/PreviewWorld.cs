@@ -5,12 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 namespace TilePuzzle
 {
     [ExecuteInEditMode]
     public class PreviewWorld : MonoBehaviour
     {
+        [Required]
         public Hexagon hexagonPrefab;
         public Transform hexagonHolder;
 
@@ -41,8 +43,9 @@ namespace TilePuzzle
             }
         }
 
-        public void SetHexagonsColor(ref Color[] colorMap)
+        public void SetHexagonsColor(ref Color[] noiseMapColors, ref Color[] falloffMapColors)
         {
+            Profiler.BeginSample(nameof(SetHexagonsColor));
             if (propertyBlock == null)
             {
                 propertyBlock = new MaterialPropertyBlock();
@@ -52,11 +55,12 @@ namespace TilePuzzle
             for (int i = 0; i < hexagons.Length; i++)
             {
                 Hexagon hexagon = hexagons[i];
-                Color color = colorMap[i];
+                Color color = noiseMapColors[i] * falloffMapColors[i];
 
                 propertyBlock.SetColor(colorPropertyId, color);
                 hexagon.meshRenderer.SetPropertyBlock(propertyBlock);
             }
+            Profiler.EndSample();
         }
 
         [Button]

@@ -1,14 +1,17 @@
-﻿using System;
+﻿using Sirenix.OdinInspector;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 namespace TilePuzzle
 {
     public class NoiseGenerator : MonoBehaviour
     {
+        [Required]
         public ComputeShader noiseShader;
         public NoiseSettings settings;
         public bool autoUpdate;
@@ -32,7 +35,7 @@ namespace TilePuzzle
 
         public void GenerateNoiseMap(int width, int height, out float[] noiseMap)
         {
-            noiseMap = new float[width * height];
+            Profiler.BeginSample(nameof(GenerateNoiseMap));
 
             System.Random random = new System.Random(settings.seed);
             Vector3[] octaveOffsets = new Vector3[settings.octaves];
@@ -45,7 +48,8 @@ namespace TilePuzzle
                     (float)random.NextDouble() * 2 - 1) * offsetRange;
             }
 
-            ComputeBuffer noiseMapBuffer = new ComputeBuffer(noiseMap.Length, sizeof(float));
+            int noiseBufferSize = width * height;
+            ComputeBuffer noiseMapBuffer = new ComputeBuffer(noiseBufferSize, sizeof(float));
             ComputeBuffer octaveOffsetsBuffer = new ComputeBuffer(octaveOffsets.Length, sizeof(float) * 3);
             octaveOffsetsBuffer.SetData(octaveOffsets);
 
@@ -61,17 +65,20 @@ namespace TilePuzzle
             noiseShader.SetFloat("lacunarity", settings.lacunarity);
             noiseShader.SetFloat("persistance", settings.persistance);
             noiseShader.SetFloat("scale", settings.scale);
-            noiseShader.SetFloat("weight", settings.weight);
+            noiseShader.SetFloat("strength", settings.strength);
             noiseShader.SetFloat("weightMultiplier", settings.weightMultiplier);
 
             int threadGroupsX = Mathf.CeilToInt(width / 16f);
             int threadGroupsY = Mathf.CeilToInt(height / 16f);
             noiseShader.Dispatch(0, threadGroupsX, threadGroupsY, 1);
 
+            noiseMap = new float[noiseBufferSize];
             noiseMapBuffer.GetData(noiseMap);
 
             octaveOffsetsBuffer.Release();
             noiseMapBuffer.Release();
+
+            Profiler.EndSample();
         }
 
         [Serializable]
@@ -83,7 +90,7 @@ namespace TilePuzzle
             [Min(0)] public float lacunarity = 2;
             [Min(0)] public float persistance = 0.5f;
             [Min(0)] public float scale = 1;
-            [Min(0)] public float weight = 1;
+            [Min(0)] public float strength = 1;
             [Min(0)] public float weightMultiplier = 1;
         }
     }

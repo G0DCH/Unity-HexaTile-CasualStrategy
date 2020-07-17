@@ -13,13 +13,15 @@ namespace TilePuzzle
     public class MapGenerator : MonoBehaviour
     {
         [Title("Generate options")]
-        public Vector2Int mapSize;
-        public NoiseGenerator noiseGenerator;
+        public Vector2Int mapSize = new Vector2Int(30, 30);
+        [Required] public NoiseGenerator noiseGenerator;
+        [Required] public FalloffGenerator falloffGenerator;
 
         [Title("Preview")]
         public bool autoUpdatePreview;
-        public PreviewWorld previewWorld;
-        public MeshRenderer previewTextureRenderer;
+        [Required] public PreviewWorld previewWorld;
+        [Required] public MeshRenderer noiseMapPreview;
+        [Required] public MeshRenderer falloffMapPreview;
 
         [HideInInspector]
         public bool hasParameterUpdated;
@@ -41,24 +43,32 @@ namespace TilePuzzle
         [Button]
         public void UpdatePreview()
         {
-            Profiler.BeginSample("Update preview");
-
             noiseGenerator.GenerateNoiseMap(mapSize.x, mapSize.y, out float[] noiseMap);
+            falloffGenerator.GenerateFalloffMap(mapSize.x, mapSize.y, out float[] falloffMap);
 
             // Update texture
-            Color[] colorMap = noiseMap
+            Profiler.BeginSample("Generate color maps");
+            Color[] noiseMapColors = noiseMap
                 .Select(x => Color.Lerp(Color.black, Color.white, x))
                 .ToArray();
-            UpdatePreviewTexture(ref colorMap);
+            Color[] falloffMapColors = falloffMap
+                .Select(x => Color.Lerp(Color.black, Color.white, x))
+                .ToArray();
+            Profiler.EndSample();
+
+            Profiler.BeginSample("Apply textures");
+            UpdatePreviewTexture(noiseMapPreview, ref noiseMapColors);
+            UpdatePreviewTexture(falloffMapPreview, ref falloffMapColors);
+            Profiler.EndSample();
 
             // Update world
+            Profiler.BeginSample("Update world");
             previewWorld.GenerateDefaultHexagons(mapSize);
-            previewWorld.SetHexagonsColor(ref colorMap);
-
+            previewWorld.SetHexagonsColor(ref noiseMapColors, ref falloffMapColors);
             Profiler.EndSample();
         }
 
-        private void UpdatePreviewTexture(ref Color[] colors)
+        private void UpdatePreviewTexture(MeshRenderer previewRenderer, ref Color[] colors)
         {
             var previewTexture = new Texture2D(mapSize.x, mapSize.y)
             {
@@ -69,7 +79,7 @@ namespace TilePuzzle
 
             var propertyBlock =  new MaterialPropertyBlock();
             propertyBlock.SetTexture("_Texture", previewTexture);
-            previewTextureRenderer.SetPropertyBlock(propertyBlock);
+            previewRenderer.SetPropertyBlock(propertyBlock);
         }
     }
 }

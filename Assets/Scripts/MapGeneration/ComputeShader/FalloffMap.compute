@@ -1,0 +1,48 @@
+﻿// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel FalloffMap
+
+static const float pi = 3.14159265;
+
+RWStructuredBuffer<float> falloffMap;
+int mapWidth;
+int mapHeight;
+float maxX;
+float maxY;
+float2 falloffParameter;
+float hexagonSize;
+
+float2 HexagonPosToWorldPos(int hexagonX, int hexagonY)
+{
+	float worldX = (hexagonY & 1) == 0
+		? hexagonX * hexagonSize
+		: (hexagonX * hexagonSize) + (hexagonSize / 2);
+	float worldY = hexagonY * hexagonSize * sin(pi / 3);
+	return float2(worldX, worldY);
+}
+
+int XYToIndex(int x, int y)
+{
+	return x + y * mapWidth;
+}
+
+[numthreads(16, 16, 1)]
+void FalloffMap (int3 id : SV_DispatchThreadID)
+{
+	if (id.x >= mapWidth || id.y >= mapHeight)
+	{
+		return;
+	}
+
+	float2 worldPos = HexagonPosToWorldPos(id.x, id.y);
+
+	float x = abs(worldPos.x / maxX * 2 - 1);
+	float y = abs(worldPos.y / maxY * 2 - 1);
+	float value = max(x, y);
+
+	float a = falloffParameter.x;
+	float b = falloffParameter.y;
+	float finalValue = 1 - (pow(value, a) / (pow(value, a) + pow(b - b * value, a)));
+
+	int index = XYToIndex(id.x, id.y);
+	falloffMap[index] = finalValue;
+}
