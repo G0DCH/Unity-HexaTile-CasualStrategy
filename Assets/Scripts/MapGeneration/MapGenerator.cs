@@ -21,6 +21,7 @@ namespace TilePuzzle
         [Title("Debug")]
         public bool autoUpdate;
         public MeshRenderer previewRenderer;
+        public World world;
 
         private void OnValidate()
         {
@@ -34,6 +35,7 @@ namespace TilePuzzle
         private void RebuildPreview()
         {
             float[] noiseMap = GenerateNoiseMap(noiseSettings);
+            world.Test(noiseMap);
             UpdatePreviewTexture(noiseMap);
         }
 
