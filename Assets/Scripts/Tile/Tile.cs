@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Sirenix.OdinInspector;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -30,9 +31,7 @@ namespace TilePuzzle
         // 이웃한 타일
         public List<Tile> NeighborTiles { get { return neighborTiles; } private set { neighborTiles = value; } }
         [SerializeField, Space]
-#if UNITY_EDITOR
         [ReadOnly]
-#endif
         private List<Tile> neighborTiles;
 
         // 영역 범위, 영역 내 타일
@@ -41,25 +40,19 @@ namespace TilePuzzle
         private int range = 2;
         public List<Tile> RangeTiles { get { return rangeTiles; } private set { rangeTiles = value; } }
         [SerializeField, Header("Tiles In Range")]
-#if UNITY_EDITOR
         [ReadOnly]
-#endif
         private List<Tile> rangeTiles;
 
         // 이 타일이 받는 보너스
         public int Bonus { get { return bonus; } protected set { bonus = value; } }
         [SerializeField, Space]
-#if UNITY_EDITOR
         [ReadOnly]
-#endif
         private int bonus = 0;
 
         // 이 타일의 위치
         public Position MyPosition { get { return myPosition; } private set { myPosition = value; } }
         [SerializeField, Space]
-#if UNITY_EDITOR
         [ReadOnly]
-#endif
         private Position myPosition = new Position(0, 0);
 
         // 범위 표시용 격자

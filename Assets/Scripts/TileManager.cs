@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Sirenix.OdinInspector;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,9 +20,7 @@ namespace TilePuzzle
         }
 
         // 게임에 존재하는 타일
-#if UNITY_EDITOR
         [ReadOnly]
-#endif
         public List<RowList> TileMap;
         // 타일 프리팹들
         public List<GameObject> TilePrefabs;
@@ -30,9 +29,7 @@ namespace TilePuzzle
 
         [Space]
         [Header("Selected Tile")]
-#if UNITY_EDITOR
         [ReadOnly]
-#endif
         public Tile SelectedTile;
 
         [Space]
