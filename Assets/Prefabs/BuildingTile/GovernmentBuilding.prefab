@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 5995139739475893084}
   - component: {fileID: 5986985183160121616}
   - component: {fileID: 6026023042866528296}
-  - component: {fileID: -6535485029809010356}
+  - component: {fileID: 4490525109371247862}
   m_Layer: 0
   m_Name: GovernmentBuilding
   m_TagString: Untagged
@@ -175,7 +175,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: afea607c0ddd7564e84d074e1879e2b5, type: 3}
---- !u!114 &-6535485029809010356
+--- !u!114 &4490525109371247862
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -184,10 +184,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6001036680669030934}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b980345f3e385fd488010de787a05dcc, type: 3}
+  m_Script: {fileID: 11500000, guid: 81b8d4316c77dfa4bbfbaab24238b36b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myTileType: 5
+  myTileType: 10
   neighborTiles: []
   range: 2
   rangeTiles: []

@@ -19,14 +19,20 @@ namespace TilePuzzle
         }
 
         // 게임에 존재하는 타일
+#if UNITY_EDITOR
+        [ReadOnly]
+#endif
         public List<RowList> TileMap;
         // 타일 프리팹들
         public List<GameObject> TilePrefabs;
         // 범위 표기 프리팹
-        public GameObject RangePrefab;
+        public GameObject GridPrefab;
 
         [Space]
         [Header("Selected Tile")]
+#if UNITY_EDITOR
+        [ReadOnly]
+#endif
         public Tile SelectedTile;
 
         [Space]
@@ -116,7 +122,7 @@ namespace TilePuzzle
             }
 
             TileMap[row].rowList.Add(tile);
-            tile.MakeGrid(RangePrefab);
+            tile.MakeGrid(GridPrefab);
             tile.TurnGrid(false);
         }
 
@@ -269,7 +275,7 @@ namespace TilePuzzle
 
             SelectedTile.ChangeMaterial(true);
 
-            SelectedTile.MakeGrid(RangePrefab);
+            SelectedTile.MakeGrid(GridPrefab);
             SelectedTile.TurnGrid(false);
         }
 
@@ -368,8 +374,13 @@ namespace TilePuzzle
                         SelectedTile.transform.parent = transform;
                         prevOverTile = SelectedTile;
 
-                        SelectedTile.RefreshBonus();
-                        GameManager.Instance.RefreshPoint(SelectedTile.Bonus);
+                        //SelectedTile.RefreshBonus();
+
+                        if (SelectedTile is BuildingTile)
+                        {
+                            ((BuildingTile)SelectedTile).RefreshBonus();
+                            GameManager.Instance.RefreshPoint(SelectedTile.Bonus);
+                        }
 
                         Destroy(clickedTile.gameObject);
                         SelectedTile = null;                        

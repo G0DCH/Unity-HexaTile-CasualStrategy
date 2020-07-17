@@ -4,7 +4,7 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - RangePrefab: {fileID: 610993075651065042, guid: 82c5869b1d4759d48bfde08462d926ea,
+  - GridPrefab: {fileID: 610993075651065042, guid: 82c5869b1d4759d48bfde08462d926ea,
       type: 3}
   - SelectedTile: {instanceID: 0}
   - SelectedMaterial: {fileID: 2100000, guid: bb94460d759f172489d760060db45acb, type: 2}
