@@ -20,6 +20,7 @@ namespace TilePuzzle
         private Hexagon[] hexagons;
         private MaterialPropertyBlock propertyBlock;
 
+        [Button]
         public void GenerateDefaultHexagons(Vector2Int mapSize)
         {
             if (hexagons != null && this.mapSize == mapSize)
@@ -35,7 +36,7 @@ namespace TilePuzzle
             {
                 for (int x = 0; x < mapSize.x; x++)
                 {
-                    Hexagon newHexagon = CreateNewHexagon(new HexagonPos(x, y));
+                    Hexagon newHexagon = CreateNewHexagon(HexagonPos.ArrayXYToHexPos(x, y));
 
                     int index = XYToIndex(x, y);
                     hexagons[index] = newHexagon;

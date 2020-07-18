@@ -20,14 +20,26 @@ float weightMultiplier;
 
 int xyToIndex(int2 xy)
 {
-	return xy.x + xy.y * mapWidth;
+    return xy.x + xy.y * mapWidth;
 }
 
-float2 hexPosToWorldPos(int2 hexPos)
+int3 arrayXYToHexPos(int2 arrayXY)
 {
-	float worldX = (hexPos.y & 1) == 0
-        ? hexPos.x * hexagonSize
-        : (hexPos.x * hexagonSize) + (hexagonSize / 2);
-	float worldY = hexPos.y * hexagonSize * sin(pi / 3);
+    int hexX = arrayXY.x - (arrayXY.y >> 1);
+    int hexZ = arrayXY.y;
+    return int3(hexX, -hexX - hexZ, hexZ);
+}
+
+int2 hexPosToArrayXY(int3 hexPos)
+{
+    int arrayX = hexPos.x + (hexPos.z >> 1);
+    int arrayY = hexPos.z;
+    return int2(arrayX, arrayY);
+}
+
+float2 hexPosToWorldXY(int3 hexPos)
+{
+    float worldX = hexPos.x * hexagonSize + hexPos.z * hexagonSize / 2;
+    float worldY = hexPos.z * hexagonSize * sin(pi / 3);
 	return float2(worldX, worldY);
 }
