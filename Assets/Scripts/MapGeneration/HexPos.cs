@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sirenix.OdinInspector;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,8 +8,10 @@ using UnityEngine;
 
 namespace TilePuzzle
 {
+    [Serializable, InlineProperty(LabelWidth = 13)]
     public struct HexagonPos : IEquatable<HexagonPos>
     {
+        [SerializeField, HideLabel]
         private Vector2Int pos;
 
         public HexagonPos(int x, int y)

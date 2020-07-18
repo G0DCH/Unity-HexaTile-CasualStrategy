@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3140220981681033623}
   - component: {fileID: 3140220981681033622}
   m_Layer: 0
-  m_Name: Map generator 1
+  m_Name: Map generator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51,10 +51,12 @@ MonoBehaviour:
   mapSize: {x: 40, y: 40}
   noiseGenerator: {fileID: 3140220981681033623}
   falloffGenerator: {fileID: 3140220981681033622}
-  autoUpdatePreview: 1
+  threshhold: 0.174
   previewWorld: {fileID: 3140220981865908655}
-  noiseMapPreview: {fileID: 3140220982052068572}
-  falloffMapPreview: {fileID: 3140220981961856470}
+  autoUpdateWorld: 1
+  lowlandColor: {r: 0.46939087, g: 0.8207547, b: 0.15098791, a: 0}
+  highlandColor: {r: 0.46226418, g: 0.32322335, b: 0.20714669, a: 0}
+  oceanColor: {r: 0.48420256, g: 0.5997588, b: 0.8773585, a: 0}
   hasParameterUpdated: 1
 --- !u!114 &3140220981681033623
 MonoBehaviour:
@@ -68,17 +70,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e902acd00eb45b94e9f37d0ba217e8af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noiseShader: {fileID: 7200000, guid: cf4d5b9e8dd21e641b22bf00101d0a17, type: 3}
+  perlinNoiseShader: {fileID: 7200000, guid: 202698f7130077d4eabe9bd9cd2f58e3, type: 3}
+  simplexNoiseShader: {fileID: 7200000, guid: cf4d5b9e8dd21e641b22bf00101d0a17, type: 3}
+  noiseType: 1
   settings:
-    seed: 0
-    offset: {x: 0, y: 0, z: 0}
+    seed: 685
+    offset: {x: 7.99, y: 3.5, z: 0.96}
     octaves: 4
     lacunarity: 2
     persistance: 0.5
-    scale: 3
-    strength: 1
-    weightMultiplier: 0.5
-  autoUpdate: 1
+    scale: 8
+    strength: 0.5
+    weightMultiplier: 1.78
+  mapGenerator: {fileID: 3140220981681033621}
+  autoUpdateMap: 1
+  previewRenderer: {fileID: 3140220982052068572}
+  updatePreview: 1
 --- !u!114 &3140220981681033622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,8 +99,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   falloffShader: {fileID: 7200000, guid: e81b4fce51b9c8c48b213ec3abf6231c, type: 3}
-  falloffParameter: {x: 3, y: 2.2}
-  autoUpdate: 1
+  falloffParameter: {x: 1.26, y: 1.14}
+  mapGenerator: {fileID: 3140220981681033621}
+  autoUpdateMap: 1
+  previewRenderer: {fileID: 3140220981961856470}
+  updatePreview: 1
 --- !u!1 &3140220981865908652
 GameObject:
   m_ObjectHideFlags: 0

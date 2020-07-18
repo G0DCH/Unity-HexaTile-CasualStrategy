@@ -14,18 +14,15 @@ namespace TilePuzzle
     {
         [Title("Generate options")]
         public Vector2Int mapSize = new Vector2Int(30, 30);
-        [Required] public NoiseGenerator noiseGenerator;
-        [Required] public FalloffGenerator falloffGenerator;
+        [Required] public NoiseMapGenerator noiseGenerator;
+        [Required] public FalloffMapGenerator falloffGenerator;
         [Range(0, 1)]
         public float threshhold = 0.5f;
 
-        [Title("Preview")]
-        public bool autoUpdatePreview;
-        [Required] public PreviewWorld previewWorld;
-        [Required] public MeshRenderer noiseMapPreview;
-        [Required] public MeshRenderer falloffMapPreview;
-
         [Title("Debug options")]
+        [Required]
+        public PreviewWorld previewWorld;
+        public bool autoUpdateWorld;
         public Color lowlandColor;
         public Color highlandColor;
         public Color oceanColor;
@@ -33,18 +30,18 @@ namespace TilePuzzle
         [HideInInspector]
         public bool hasParameterUpdated;
 
-        private void OnValidate()
-        {
-            hasParameterUpdated = true;
-        }
-
         private void Update()
         {
-            if (hasParameterUpdated && autoUpdatePreview)
+            if (hasParameterUpdated && autoUpdateWorld)
             {
                 hasParameterUpdated = false;
                 UpdatePreview();
             }
+        }
+
+        private void OnValidate()
+        {
+            hasParameterUpdated = true;
         }
 
         [Button]
@@ -52,20 +49,6 @@ namespace TilePuzzle
         {
             noiseGenerator.GenerateNoiseMap(mapSize.x, mapSize.y, out float[] noiseMap);
             falloffGenerator.GenerateFalloffMap(mapSize.x, mapSize.y, out float[] falloffMap);
-
-            Profiler.BeginSample("Generate color maps");
-            Color[] noiseMapColors = noiseMap
-                .Select(x => Color.Lerp(Color.black, Color.white, x))
-                .ToArray();
-            Color[] falloffMapColors = falloffMap
-                .Select(x => Color.Lerp(Color.black, Color.white, x))
-                .ToArray();
-            Profiler.EndSample();
-
-            Profiler.BeginSample("Apply textures");
-            UpdatePreviewTexture(noiseMapPreview, ref noiseMapColors);
-            UpdatePreviewTexture(falloffMapPreview, ref falloffMapColors);
-            Profiler.EndSample();
 
             Profiler.BeginSample("Update world");
             Color[] hexagonColors = new Color[noiseMap.Length];
@@ -87,20 +70,6 @@ namespace TilePuzzle
             previewWorld.SetHexagonsColor(ref hexagonColors);
             previewWorld.SetHexagonsElevation(ref elevationMap);
             Profiler.EndSample();
-        }
-
-        private void UpdatePreviewTexture(MeshRenderer previewRenderer, ref Color[] colors)
-        {
-            var previewTexture = new Texture2D(mapSize.x, mapSize.y)
-            {
-                filterMode = FilterMode.Point
-            };
-            previewTexture.SetPixels(colors);
-            previewTexture.Apply();
-
-            var propertyBlock =  new MaterialPropertyBlock();
-            propertyBlock.SetTexture("_Texture", previewTexture);
-            previewRenderer.SetPropertyBlock(propertyBlock);
         }
     }
 }

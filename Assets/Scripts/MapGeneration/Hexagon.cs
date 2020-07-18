@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sirenix.OdinInspector;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace TilePuzzle
     {
         public const float Size = 1;
 
+        [ReadOnly]
         public HexagonPos hexPos;
         public MeshRenderer meshRenderer;
     }

@@ -45,7 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb588b47bc975064aa5d1c2451001bad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hexagonPos: {x: 0, y: 0}
   meshRenderer: {fileID: 3266130381770784384}
 --- !u!33 &3275871038054117664
 MeshFilter:
