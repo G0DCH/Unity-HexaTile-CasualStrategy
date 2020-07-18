@@ -16,18 +16,18 @@ namespace TilePuzzle
         public Vector2 falloffParameter = new Vector2(3f, 2.2f);
 
         [Title("Debug")]
-        public MapGenerator mapGenerator;
-        public bool autoUpdateMap;
-        [ShowIf(nameof(autoUpdateMap))]
+        public TerrainGenerator terrainGenerator;
+        public bool autoUpdateTerrain;
+        [ShowIf(nameof(autoUpdateTerrain))]
         public MeshRenderer previewRenderer;
-        [ShowIf(nameof(autoUpdateMap))]
+        [ShowIf(nameof(autoUpdateTerrain))]
         public bool updatePreview;
 
         private void OnValidate()
         {
-            if (autoUpdateMap && mapGenerator != null)
+            if (autoUpdateTerrain && terrainGenerator != null)
             {
-                mapGenerator.hasParameterUpdated = true;
+                terrainGenerator.hasParameterUpdated = true;
             }
         }
 

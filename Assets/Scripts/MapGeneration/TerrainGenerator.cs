@@ -10,7 +10,7 @@ using UnityEngine.Profiling;
 namespace TilePuzzle
 {
     [ExecuteInEditMode]
-    public class MapGenerator : MonoBehaviour
+    public class TerrainGenerator : MonoBehaviour
     {
         [Title("Generate options")]
         public Vector2Int mapSize = new Vector2Int(30, 30);

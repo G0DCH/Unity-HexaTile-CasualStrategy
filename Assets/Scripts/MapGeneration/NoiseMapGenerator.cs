@@ -23,11 +23,11 @@ namespace TilePuzzle
         public NoiseSettings settings;
 
         [TitleGroup("Debug")]
-        public MapGenerator mapGenerator;
-        public bool autoUpdateMap;
-        [ShowIf(nameof(autoUpdateMap))] 
+        public TerrainGenerator terrainGenerator;
+        public bool autoUpdateTerrain;
+        [ShowIf(nameof(autoUpdateTerrain))] 
         public MeshRenderer previewRenderer;
-        [ShowIf(nameof(autoUpdateMap))] 
+        [ShowIf(nameof(autoUpdateTerrain))] 
         public bool updatePreview;
 
         public enum NoiseType
@@ -37,9 +37,9 @@ namespace TilePuzzle
 
         private void OnValidate()
         {
-            if (autoUpdateMap && mapGenerator != null)
+            if (autoUpdateTerrain && terrainGenerator != null)
             {
-                mapGenerator.hasParameterUpdated = true;
+                terrainGenerator.hasParameterUpdated = true;
             }
         }
 
