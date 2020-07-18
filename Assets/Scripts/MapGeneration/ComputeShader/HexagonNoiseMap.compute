@@ -1,0 +1,33 @@
+﻿static const float pi = 3.14159265;
+
+// Map
+RWStructuredBuffer<float> noiseMap;
+int mapWidth;
+int mapHeight;
+
+// Hexagon
+float hexagonSize;
+
+// Noise
+StructuredBuffer<float2> octaveOffsets;
+float2 offset;
+int octaves;
+float lacunarity;
+float persistance;
+float scale;
+float strength;
+float weightMultiplier;
+
+int xyToIndex(int2 xy)
+{
+	return xy.x + xy.y * mapWidth;
+}
+
+float2 hexPosToWorldPos(int2 hexPos)
+{
+	float worldX = (hexPos.y & 1) == 0
+        ? hexPos.x * hexagonSize
+        : (hexPos.x * hexagonSize) + (hexagonSize / 2);
+	float worldY = hexPos.y * hexagonSize * sin(pi / 3);
+	return float2(worldX, worldY);
+}
