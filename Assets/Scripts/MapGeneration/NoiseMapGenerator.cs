@@ -25,9 +25,7 @@ namespace TilePuzzle
         [TitleGroup("Debug")]
         public TerrainGenerator terrainGenerator;
         public bool autoUpdateTerrain;
-        [ShowIf(nameof(autoUpdateTerrain))] 
         public MeshRenderer previewRenderer;
-        [ShowIf(nameof(autoUpdateTerrain))] 
         public bool updatePreview;
 
         public enum NoiseType
@@ -37,9 +35,12 @@ namespace TilePuzzle
 
         private void OnValidate()
         {
-            if (autoUpdateTerrain && terrainGenerator != null)
+            if (autoUpdateTerrain)
             {
-                terrainGenerator.hasParameterUpdated = true;
+                if (terrainGenerator != null)
+                {
+                    terrainGenerator.hasParameterUpdated = true;
+                }
             }
         }
 

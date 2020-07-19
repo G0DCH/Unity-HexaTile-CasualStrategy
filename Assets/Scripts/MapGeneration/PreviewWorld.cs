@@ -36,7 +36,7 @@ namespace TilePuzzle
             {
                 for (int x = 0; x < mapSize.x; x++)
                 {
-                    Hexagon newHexagon = CreateNewHexagon(HexagonPos.ArrayXYToHexPos(x, y));
+                    Hexagon newHexagon = CreateNewHexagon(HexagonPos.FromArrayXY(x, y));
 
                     int index = XYToIndex(x, y);
                     hexagons[index] = newHexagon;

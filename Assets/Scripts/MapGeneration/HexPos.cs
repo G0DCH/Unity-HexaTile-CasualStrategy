@@ -19,7 +19,11 @@ namespace TilePuzzle
             pos = new Vector3Int(hexX, -hexX - hexZ, hexZ);
         }
 
-        public static HexagonPos ArrayXYToHexPos(int x, int y)
+        public int X => pos.x;
+        public int Y => pos.y;
+        public int Z => pos.z;
+
+        public static HexagonPos FromArrayXY(int x, int y)
         {
             int hexX = x - (y >> 1);
             int hexZ = y;
@@ -63,6 +67,12 @@ namespace TilePuzzle
         public override string ToString()
         {
             return pos.ToString();
+        }
+
+        public static HexagonPos operator +(HexagonPos left, HexagonPos right)
+        {
+            Vector3Int newHexPos = left.pos + right.pos;
+            return new HexagonPos(newHexPos.x, newHexPos.z);
         }
 
         public static bool operator ==(HexagonPos left, HexagonPos right)

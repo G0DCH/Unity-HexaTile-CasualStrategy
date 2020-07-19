@@ -20,9 +20,9 @@ void perlinNoiseMap(int3 id : SV_DispatchThreadID)
 	for (int i = 0; i < octaves; i++)
 	{
 		float noise = cnoise(worldPos * frequency + octaveOffsets[i] + offset);
-		float value = (noise + 1) / 2;
+        float value = (noise + 1) / 2;
         //float value = 1 - abs(noise); rigid
-        //value = value * value;
+        value = value * value;
 		value *= weight;
 		weight = max(min(value * weightMultiplier, 1), 0);
 
