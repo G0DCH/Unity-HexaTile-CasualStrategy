@@ -64,12 +64,12 @@ namespace TilePuzzle
             Profiler.EndSample();
         }
 
-        public void SetHexagonsElevation(ref float[] elevations)
+        public void SetHexagonsElevation(ref float[] elevations, float multiplier)
         {
             for (int i = 0; i < hexagons.Length; i++)
             {
                 var pos = hexagons[i].transform.position;
-                pos.y = elevations[i];
+                pos.y = elevations[i] * multiplier;
                 hexagons[i].transform.position = pos;
             }
         }

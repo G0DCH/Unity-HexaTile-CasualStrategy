@@ -27,6 +27,7 @@ namespace TilePuzzle
         public Color lowlandColor;
         public Color highlandColor;
         public Color oceanColor;
+        public MeshRenderer heightMapRenderer;
 
         [HideInInspector]
         public bool hasParameterUpdated;
@@ -71,6 +72,11 @@ namespace TilePuzzle
             // 바다, 호수, 육지, 해변 맵 생성
             CalculateNodeTypeMap(width, height, ref waterMap, out int[] nodeTypeMap);
 
+            // 높이 맵 생성
+            CalculateHeightMap(width, height, ref waterMap, ref nodeTypeMap, out float[] heightMap);
+            Color[] heightMapColors = heightMap.Select(x => Color.Lerp(Color.black, Color.white, x)).ToArray();
+            UpdatePreviewTexture(width, height, heightMapRenderer, heightMapColors);
+
             previewWorld.GenerateDefaultHexagons(mapSize);
             Color[] nodeTypeColors = nodeTypeMap.Select(x =>
             {
@@ -89,6 +95,7 @@ namespace TilePuzzle
                 }
             }).ToArray();
             previewWorld.SetHexagonsColor(ref nodeTypeColors);
+            previewWorld.SetHexagonsElevation(ref heightMap, 2f);
         }
 
         private void CalculateWaterMap(float seaLevel, ref float[] islandNoiseMap, out bool[] waterMap)
@@ -201,6 +208,94 @@ namespace TilePuzzle
                     }
                 }
             }
+        }
+
+        private void CalculateHeightMap(int width, int height, ref bool[] waterMap, ref int[] nodeTypeMap, out float[] heightMap)
+        {
+            int mapLength = width * height;
+            heightMap = new float[mapLength];
+            for (int i = 0; i < mapLength; i++)
+            {
+                heightMap[i] = float.MaxValue;
+            }
+
+            // 맵 경계의 높이는 가장 낮음
+            Queue<HexagonPos> queue = new Queue<HexagonPos>();
+            for (int x = 0; x < width; x++)
+            {
+                heightMap[x] = 0;
+                heightMap[x + (height - 1) * width] = 0;
+                queue.Enqueue(HexagonPos.FromArrayXY(x, 0));
+                queue.Enqueue(HexagonPos.FromArrayXY(x, height - 1));
+            }
+            for (int y = 1; y < height - 1; y++)
+            {
+                heightMap[y * width] = 0;
+                heightMap[width - 1 + y * width] = 0;
+                queue.Enqueue(HexagonPos.FromArrayXY(0, y));
+                queue.Enqueue(HexagonPos.FromArrayXY(width - 1, y));
+            }
+
+            while (queue.Count > 0)
+            {
+                HexagonPos currentHexPos = queue.Dequeue();
+                Vector2Int currentXY = currentHexPos.ToArrayXY();
+                int currentIndex = currentXY.x + currentXY.y * width;
+                for (int hexZ = -1; hexZ <= 1; hexZ++)
+                {
+                    for (int hexX = -1; hexX <= 1; hexX++)
+                    {
+                        if (hexX == hexZ)
+                        {
+                            continue;
+                        }
+
+                        HexagonPos neighborHexPos = currentHexPos + new HexagonPos(hexX, hexZ);
+                        Vector2Int neighborXY = neighborHexPos.ToArrayXY();
+                        if (neighborXY.x < 0 || neighborXY.x >= width || neighborXY.y < 0 || neighborXY.y >= height)
+                        {
+                            continue;
+                        }
+
+                        int neighborIndex = neighborXY.x + neighborXY.y * width;
+
+                        float newHeight = heightMap[currentIndex] + 0.01f;
+                        if (waterMap[currentIndex] == false && waterMap[neighborIndex] == false)
+                        {
+                            newHeight += 1;
+                            // add more randomness
+                        }
+
+                        if (newHeight < heightMap[neighborIndex])
+                        {
+                            heightMap[neighborIndex] = newHeight;
+                            queue.Enqueue(neighborHexPos);
+                        }
+                    }
+                }
+            }
+
+            // lerp 0 to 1
+            float maxHeight = Mathf.Max(heightMap);
+            for (int i = 0; i < mapLength; i++)
+            {
+                heightMap[i] = Mathf.InverseLerp(0, maxHeight, heightMap[i]);
+            }
+        }
+
+        private void UpdatePreviewTexture(int width, int height, MeshRenderer renderer, Color[] colors)
+        {
+            Texture2D texture = new Texture2D(width, height)
+            {
+                filterMode = FilterMode.Point
+            };
+
+            texture.SetPixels(colors);
+            texture.Apply();
+
+            var properties = new MaterialPropertyBlock();
+            properties.SetTexture("_Texture", texture);
+            renderer.SetPropertyBlock(properties);
         }
 
         //public void CalculateNodeType(int width, int height, float seaLevel, ref float[] islandNoiseMap, out int[] nodeTypeMap)
