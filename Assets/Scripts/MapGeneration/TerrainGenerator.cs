@@ -20,15 +20,17 @@ namespace TilePuzzle
         public FalloffMapGenerator islandFalloff;
         [Range(0, 1)]
         public float seaLevel;
+        public int riverSeed;
+        public Vector2 riverSpawnRange;
 
         [Title("Debug options")]
         [Required]
         public PreviewWorld previewWorld;
         public bool autoUpdateWorld;
-        public Color lowlandColor;
-        public Color highlandColor;
-        public Color oceanColor;
+        public MeshRenderer waterMapRenderer;
+        public MeshRenderer nodeTypeMapRenderer;
         public MeshRenderer heightMapRenderer;
+        public MeshRenderer riverMapRenderer;
         public float heightMultiplier;
 
         [HideInInspector]
@@ -69,17 +71,12 @@ namespace TilePuzzle
             }
 
             // 물 맵 생성
-            CalculateWaterMap(seaLevel, ref islandNoiseMap, out bool[] waterMap);
+            GenerateWaterMap(seaLevel, ref islandNoiseMap, out bool[] waterMap);
+            Color[] waterMapColors = waterMap.Select(x => x ? Color.white : Color.black).ToArray();
+            UpdatePreviewTexture(width, height, waterMapRenderer, waterMapColors);
 
             // 바다, 호수, 육지, 해변 맵 생성
-            CalculateNodeTypeMap(width, height, ref waterMap, out int[] nodeTypeMap);
-
-            // 높이 맵 생성
-            CalculateHeightMap(width, height, ref waterMap, ref nodeTypeMap, out float[] heightMap);
-            Color[] heightMapColors = heightMap.Select(x => Color.Lerp(Color.black, Color.white, x)).ToArray();
-            UpdatePreviewTexture(width, height, heightMapRenderer, heightMapColors);
-
-            previewWorld.GenerateDefaultHexagons(mapSize);
+            GenerateNodeTypeMap(width, height, ref waterMap, out int[] nodeTypeMap);
             Color[] nodeTypeColors = nodeTypeMap.Select(x =>
             {
                 switch ((NodeType)x)
@@ -96,18 +93,56 @@ namespace TilePuzzle
                         return Color.black;
                 }
             }).ToArray();
-            previewWorld.SetHexagonsColor(ref nodeTypeColors);
+            UpdatePreviewTexture(width, height, nodeTypeMapRenderer, nodeTypeColors);
+
+            // 높이 맵 생성
+            GenerateHeightMap(width, height, ref waterMap, out float[] heightMap);
+            Color[] heightMapColors = heightMap.Select(x => Color.Lerp(Color.black, Color.white, x)).ToArray();
+            UpdatePreviewTexture(width, height, heightMapRenderer, heightMapColors);
+
+            // 강 생성
+            GenerateRiverMap(width, height, riverSeed, riverSpawnRange, ref nodeTypeMap, ref heightMap, out int[] riverMap);
+            int maxRiverStrength = riverMap.Max();
+            Color[] riverMapColors = riverMap.Select(x => Color.Lerp(Color.black, Color.white, x / (float)maxRiverStrength)).ToArray();
+            UpdatePreviewTexture(width, height, riverMapRenderer, riverMapColors);
+
+
+            Color[] hexColors = new Color[mapLength];
+            for (int i = 0; i < mapLength; i++)
+            {
+                if (waterMap[i])
+                {
+                    if (nodeTypeMap[i] == (int)NodeType.Sea)
+                    {
+                        hexColors[i] = Color.Lerp(Color.black, Color.blue, heightMap[i]);
+                    }
+                    else
+                    {
+                        hexColors[i] = Color.cyan;
+                    }
+                }
+                else
+                {
+                    hexColors[i] = heightMapColors[i];
+                    if (riverMap[i] > 0)
+                    {
+                        hexColors[i] = Color.Lerp(Color.cyan, Color.blue, riverMap[i] / (float)maxRiverStrength);
+                    }
+                }
+            }
+            previewWorld.GenerateDefaultHexagons(mapSize);
+            previewWorld.SetHexagonsColor(ref hexColors);
             previewWorld.SetHexagonsElevation(ref heightMap, heightMultiplier);
         }
 
-        private void CalculateWaterMap(float seaLevel, ref float[] islandNoiseMap, out bool[] waterMap)
+        private void GenerateWaterMap(float seaLevel, ref float[] islandNoiseMap, out bool[] waterMap)
         {
             waterMap = islandNoiseMap
                 .Select(x => x <= seaLevel)
                 .ToArray();
         }
 
-        private void CalculateNodeTypeMap(int width, int height, ref bool[] waterMap, out int[] nodeTypeMap)
+        private void GenerateNodeTypeMap(int width, int height, ref bool[] waterMap, out int[] nodeTypeMap)
         {
             int mapLength = width * height;
             nodeTypeMap = new int[mapLength];
@@ -212,7 +247,7 @@ namespace TilePuzzle
             }
         }
 
-        private void CalculateHeightMap(int width, int height, ref bool[] waterMap, ref int[] nodeTypeMap, out float[] heightMap)
+        private void GenerateHeightMap(int width, int height, ref bool[] waterMap, out float[] heightMap)
         {
             int mapLength = width * height;
             heightMap = new float[mapLength];
@@ -292,6 +327,70 @@ namespace TilePuzzle
                 float x = Mathf.Sqrt(scaleFactor) - Mathf.Sqrt(scaleFactor * (1 - y));
                 x = Mathf.Min(x, 1);
                 heightMap[sortKV[i].Key] = x;
+            }
+        }
+
+        private void GenerateRiverMap(int width, int height, int seed, Vector2 riverSpawnRange, ref int[] nodeTypeMap, ref float[] heightMap, out int[] riverMap)
+        {
+            int mapLength = width * height;
+            riverMap = new int[mapLength];
+
+            System.Random random = new System.Random(seed);
+
+            int maxSpawnTry = (width + height) / 2;
+            for (int i = 0; i < maxSpawnTry; i++)
+            {
+                int spawnX = random.Next(width);
+                int spawnY = random.Next(height);
+                int spawnIndex = spawnX + spawnY * width;
+
+                float spawnHeight = heightMap[spawnIndex];
+                if (nodeTypeMap[spawnIndex] == (int)NodeType.Sea
+                    || nodeTypeMap[spawnIndex] == (int)NodeType.Lake
+                    || spawnHeight < riverSpawnRange.x
+                    || spawnHeight > riverSpawnRange.y)
+                {
+                    continue;
+                }
+
+                // if not water
+                // increase river value
+                // find next lowland
+                // repeat
+
+                HexagonPos currentHexPos = HexagonPos.FromArrayXY(spawnX, spawnY);
+                Vector2Int currentXY = currentHexPos.ToArrayXY();
+                int currentIndex = currentXY.x + currentXY.y * width;
+                while (nodeTypeMap[currentIndex] == (int)NodeType.Land || nodeTypeMap[currentIndex] == (int)NodeType.Coast)
+                {
+                    riverMap[currentIndex]++;
+
+                    HexagonPos lowlandHexPos = new HexagonPos(1, 1);
+                    float lowestHeight = float.MaxValue;
+                    for (int hexZ = -1; hexZ <= 1; hexZ++)
+                    {
+                        for (int hexX = -1; hexX <= 1; hexX++)
+                        {
+                            if (hexX == hexZ)
+                            {
+                                continue;
+                            }
+
+                            HexagonPos neighborHexPos = currentHexPos + new HexagonPos(hexX, hexZ);
+                            Vector2Int neighborXY = neighborHexPos.ToArrayXY();
+                            int neighborIndex = neighborXY.x + neighborXY.y * width;
+                            if (heightMap[neighborIndex] < lowestHeight)
+                            {
+                                lowestHeight = heightMap[neighborIndex];
+                                lowlandHexPos = neighborHexPos;
+                            }
+                        }
+                    }
+
+                    currentHexPos = lowlandHexPos;
+                    currentXY = currentHexPos.ToArrayXY();
+                    currentIndex = currentXY.x + currentXY.y * width;
+                }
             }
         }
 

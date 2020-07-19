@@ -31,8 +31,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3140220981865908654}
-  - {fileID: 3140220982052068574}
-  - {fileID: 3140220981961856472}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -49,14 +47,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapSize: {x: 40, y: 40}
-  noiseGenerator: {fileID: 3140220981681033623}
-  falloffGenerator: {fileID: 3140220981681033622}
-  threshhold: 0.174
+  islandNoise: {fileID: 0}
+  islandFalloff: {fileID: 0}
+  seaLevel: 0
   previewWorld: {fileID: 3140220981865908655}
   autoUpdateWorld: 1
   lowlandColor: {r: 0.46939087, g: 0.8207547, b: 0.15098791, a: 0}
   highlandColor: {r: 0.46226418, g: 0.32322335, b: 0.20714669, a: 0}
   oceanColor: {r: 0.48420256, g: 0.5997588, b: 0.8773585, a: 0}
+  heightMapRenderer: {fileID: 0}
+  heightMultiplier: 0
   hasParameterUpdated: 1
 --- !u!114 &3140220981681033623
 MonoBehaviour:
@@ -82,9 +82,9 @@ MonoBehaviour:
     scale: 8
     strength: 0.5
     weightMultiplier: 1.78
-  mapGenerator: {fileID: 3140220981681033621}
-  autoUpdateMap: 1
-  previewRenderer: {fileID: 3140220982052068572}
+  terrainGenerator: {fileID: 0}
+  autoUpdateTerrain: 0
+  previewRenderer: {fileID: 0}
   updatePreview: 1
 --- !u!114 &3140220981681033622
 MonoBehaviour:
@@ -100,9 +100,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   falloffShader: {fileID: 7200000, guid: e81b4fce51b9c8c48b213ec3abf6231c, type: 3}
   falloffParameter: {x: 1.26, y: 1.14}
-  mapGenerator: {fileID: 3140220981681033621}
-  autoUpdateMap: 1
-  previewRenderer: {fileID: 3140220981961856470}
+  terrainGenerator: {fileID: 0}
+  autoUpdateTerrain: 0
+  previewRenderer: {fileID: 0}
   updatePreview: 1
 --- !u!1 &3140220981865908652
 GameObject:
@@ -150,161 +150,3 @@ MonoBehaviour:
   hexagonPrefab: {fileID: 5370844482985068196, guid: 01d46510b0e7c814f9df2f8602b6bc82,
     type: 3}
   hexagonHolder: {fileID: 0}
---- !u!1 &3140220981961856471
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3140220981961856472}
-  - component: {fileID: 3140220981961856473}
-  - component: {fileID: 3140220981961856470}
-  m_Layer: 0
-  m_Name: Falloff map
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3140220981961856472
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3140220981961856471}
-  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.0000025779007}
-  m_LocalPosition: {x: -15, y: 0, z: 32}
-  m_LocalScale: {x: 2, y: 1, z: 2}
-  m_Children: []
-  m_Father: {fileID: 3140220981681033620}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: -180.00002, z: 0}
---- !u!33 &3140220981961856473
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3140220981961856471}
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &3140220981961856470
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3140220981961856471}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 6f8ae5db1f2cf5b4d9ae5babd76730c3, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!1 &3140220982052068573
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3140220982052068574}
-  - component: {fileID: 3140220982052068575}
-  - component: {fileID: 3140220982052068572}
-  m_Layer: 0
-  m_Name: Noise map
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3140220982052068574
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3140220982052068573}
-  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.0000025779007}
-  m_LocalPosition: {x: -15, y: 0, z: 10}
-  m_LocalScale: {x: 2, y: 1, z: 2}
-  m_Children: []
-  m_Father: {fileID: 3140220981681033620}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: -180.00002, z: 0}
---- !u!33 &3140220982052068575
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3140220982052068573}
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &3140220982052068572
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3140220982052068573}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 6f8ae5db1f2cf5b4d9ae5babd76730c3, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
