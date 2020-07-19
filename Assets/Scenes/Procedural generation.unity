@@ -343,6 +343,111 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446d71126a6edc440b97d29c3b6d083c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &306458653
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1471100027547209070, guid: 07650e71b67897048bca7d6710764dfe,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3667298139879180246, guid: 07650e71b67897048bca7d6710764dfe,
+        type: 3}
+      propertyPath: m_Name
+      value: Temperature map
+      objectReference: {fileID: 0}
+    - target: {fileID: 5480806969407936690, guid: 07650e71b67897048bca7d6710764dfe,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -150
+      objectReference: {fileID: 0}
+    - target: {fileID: 5480806969407936690, guid: 07650e71b67897048bca7d6710764dfe,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5480806969407936690, guid: 07650e71b67897048bca7d6710764dfe,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5480806969407936690, guid: 07650e71b67897048bca7d6710764dfe,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5480806969407936690, guid: 07650e71b67897048bca7d6710764dfe,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5480806969407936690, guid: 07650e71b67897048bca7d6710764dfe,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5480806969407936690, guid: 07650e71b67897048bca7d6710764dfe,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5480806969407936690, guid: 07650e71b67897048bca7d6710764dfe,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 5480806969407936690, guid: 07650e71b67897048bca7d6710764dfe,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5480806969407936690, guid: 07650e71b67897048bca7d6710764dfe,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 5480806969407936690, guid: 07650e71b67897048bca7d6710764dfe,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7257137112715385220, guid: 07650e71b67897048bca7d6710764dfe,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7257137112715385220, guid: 07650e71b67897048bca7d6710764dfe,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7257137112715385220, guid: 07650e71b67897048bca7d6710764dfe,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7257137112715385220, guid: 07650e71b67897048bca7d6710764dfe,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7257137112715385220, guid: 07650e71b67897048bca7d6710764dfe,
+        type: 3}
+      propertyPath: m_text
+      value: Temperature
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 07650e71b67897048bca7d6710764dfe, type: 3}
+--- !u!23 &306458654 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3708324275775233436, guid: 07650e71b67897048bca7d6710764dfe,
+    type: 3}
+  m_PrefabInstance: {fileID: 306458653}
+  m_PrefabAsset: {fileID: 0}
 --- !u!23 &307153675 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 3708324275775233436, guid: 07650e71b67897048bca7d6710764dfe,
@@ -664,7 +769,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &937799042
 PrefabInstance:
@@ -1051,7 +1156,7 @@ Transform:
   m_LocalScale: {x: 5.448106, y: 1, z: 3.8878734}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1560595177
 PrefabInstance:
@@ -1366,7 +1471,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3140220981943024177
 PrefabInstance:
@@ -1438,7 +1543,7 @@ PrefabInstance:
     - target: {fileID: 3140220981681033621, guid: a4259b9c02185d645bec56aa44062a43,
         type: 3}
       propertyPath: hasParameterUpdated
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3140220981681033621, guid: a4259b9c02185d645bec56aa44062a43,
         type: 3}
@@ -1520,6 +1625,11 @@ PrefabInstance:
       propertyPath: moistureMapRenderer
       value: 
       objectReference: {fileID: 595296771}
+    - target: {fileID: 3140220981681033621, guid: a4259b9c02185d645bec56aa44062a43,
+        type: 3}
+      propertyPath: temperatureMapRenderer
+      value: 
+      objectReference: {fileID: 306458654}
     - target: {fileID: 3140220981681033622, guid: a4259b9c02185d645bec56aa44062a43,
         type: 3}
       propertyPath: updatePreview

@@ -32,6 +32,7 @@ namespace TilePuzzle
         public MeshRenderer heightMapRenderer;
         public MeshRenderer riverMapRenderer;
         public MeshRenderer moistureMapRenderer;
+        public MeshRenderer temperatureMapRenderer;
 
         [Title("Debug options")]
         public float heightMultiplier;
@@ -113,6 +114,12 @@ namespace TilePuzzle
             GenerateMoistureMap(width, height, ref nodeTypeMap, ref riverMap, out float[] moistureMap);
             Color[] moistureMapColors = moistureMap.Select(x => Color.Lerp(Color.black, Color.blue, x)).ToArray();
             UpdatePreviewTexture(width, height, moistureMapRenderer, moistureMapColors);
+
+            // 온도 맵 생성
+            GenerateTemperatureMap(width, height, ref nodeTypeMap, ref heightMap, out float[] temperatureMap);
+            Color[] temperatureMapColors = temperatureMap.Select(x => x < 0 ? Color.black : Color.HSVToRGB(Mathf.Lerp(0, 0.6667f, x), 1, 1)).ToArray();
+            UpdatePreviewTexture(width, height, temperatureMapRenderer, temperatureMapColors);
+
 
             // 프리뷰 월드 업데이트
             Color[] hexColors = new Color[mapLength];
@@ -490,6 +497,34 @@ namespace TilePuzzle
             for (int i = 0; i < sortKV.Count; i++)
             {
                 moistureMap[sortKV[i].Key] = i / (float)(sortKV.Count - 1);
+            }
+        }
+
+        private void GenerateTemperatureMap(int width, int height, ref int[] nodeTypeMap, ref float[] heightMap, out float[] temperatureMap)
+        {
+            int mapLength = width * height;
+            temperatureMap = new float[mapLength];
+
+            float minLandHeight = float.MaxValue;
+            for (int i = 0; i < mapLength; i++)
+            {
+                if (nodeTypeMap[i] == (int)NodeType.Sea)
+                {
+                    temperatureMap[i] = -1;
+                }
+                else
+                {
+                    temperatureMap[i] = heightMap[i];
+                    minLandHeight = Mathf.Min(heightMap[i], minLandHeight);
+                }
+            }
+
+            for (int i = 0; i < mapLength; i++)
+            {
+                if (temperatureMap[i] > 0)
+                {
+                    temperatureMap[i] = Mathf.InverseLerp(minLandHeight, 1, temperatureMap[i]);
+                }
             }
         }
 
