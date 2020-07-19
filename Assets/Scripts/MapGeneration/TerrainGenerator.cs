@@ -23,7 +23,7 @@ namespace TilePuzzle
         public int riverSeed;
         public Vector2 riverSpawnRange;
 
-        [Title("Debug options")]
+        [Title("Preview")]
         [Required]
         public PreviewWorld previewWorld;
         public bool autoUpdateWorld;
@@ -31,6 +31,9 @@ namespace TilePuzzle
         public MeshRenderer nodeTypeMapRenderer;
         public MeshRenderer heightMapRenderer;
         public MeshRenderer riverMapRenderer;
+        public MeshRenderer moistureMapRenderer;
+
+        [Title("Debug options")]
         public float heightMultiplier;
 
         [HideInInspector]
@@ -103,10 +106,15 @@ namespace TilePuzzle
             // 강 생성
             GenerateRiverMap(width, height, riverSeed, riverSpawnRange, ref nodeTypeMap, ref heightMap, out int[] riverMap);
             int maxRiverStrength = riverMap.Max();
-            Color[] riverMapColors = riverMap.Select(x => Color.Lerp(Color.black, Color.white, x / (float)maxRiverStrength)).ToArray();
+            Color[] riverMapColors = riverMap.Select(x => x == 0 ? Color.black : Color.Lerp(Color.cyan, Color.blue, x / (float)maxRiverStrength)).ToArray();
             UpdatePreviewTexture(width, height, riverMapRenderer, riverMapColors);
 
+            // 습도 맵 생성
+            GenerateMoistureMap(width, height, ref nodeTypeMap, ref riverMap, out float[] moistureMap);
+            Color[] moistureMapColors = moistureMap.Select(x => Color.Lerp(Color.black, Color.blue, x)).ToArray();
+            UpdatePreviewTexture(width, height, moistureMapRenderer, moistureMapColors);
 
+            // 프리뷰 월드 업데이트
             Color[] hexColors = new Color[mapLength];
             for (int i = 0; i < mapLength; i++)
             {
@@ -361,9 +369,11 @@ namespace TilePuzzle
                 HexagonPos currentHexPos = HexagonPos.FromArrayXY(spawnX, spawnY);
                 Vector2Int currentXY = currentHexPos.ToArrayXY();
                 int currentIndex = currentXY.x + currentXY.y * width;
+                int previousRiverValue = 0;
                 while (nodeTypeMap[currentIndex] == (int)NodeType.Land || nodeTypeMap[currentIndex] == (int)NodeType.Coast)
                 {
-                    riverMap[currentIndex]++;
+                    riverMap[currentIndex] += previousRiverValue + 1;
+                    previousRiverValue = riverMap[currentIndex];
 
                     HexagonPos lowlandHexPos = new HexagonPos(1, 1);
                     float lowestHeight = float.MaxValue;
@@ -391,6 +401,95 @@ namespace TilePuzzle
                     currentXY = currentHexPos.ToArrayXY();
                     currentIndex = currentXY.x + currentXY.y * width;
                 }
+            }
+        }
+
+        private void GenerateMoistureMap(int width, int height, ref int[] nodeTypeMap, ref int[] riverMap, out float[] moistureMap)
+        {
+            int mapLength = width * height;
+            moistureMap = new float[mapLength];
+
+            Queue<HexagonPos> queue = new Queue<HexagonPos>();
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    HexagonPos hexPos = HexagonPos.FromArrayXY(x, y);
+                    int index = x + y * width;
+                    if (nodeTypeMap[index] == (int)NodeType.Lake)
+                    {
+                        moistureMap[index] = 1;
+                        queue.Enqueue(hexPos);
+                    }
+                    else if (riverMap[index] > 0)
+                    {
+                        moistureMap[index] = Mathf.Min(riverMap[index] * 0.2f, 2f);
+                        queue.Enqueue(hexPos);
+                    }
+                }
+            }
+
+            while (queue.Count > 0)
+            {
+                HexagonPos currentHexPos = queue.Dequeue();
+                Vector2Int currentXY = currentHexPos.ToArrayXY();
+                int currentIndex = currentXY.x + currentXY.y * width;
+                for (int hexZ = -1; hexZ <= 1; hexZ++)
+                {
+                    for (int hexX = -1; hexX <= 1; hexX++)
+                    {
+                        if (hexX == hexZ)
+                        {
+                            continue;
+                        }
+
+                        HexagonPos neighborHexPos = currentHexPos + new HexagonPos(hexX, hexZ);
+                        Vector2Int neighborXY = neighborHexPos.ToArrayXY();
+                        if (neighborXY.x < 0 || neighborXY.x > width - 1
+                            || neighborXY.y < 0 || neighborXY.y > height - 1)
+                        {
+                            continue;
+                        }
+
+                        int neighborIndex = neighborXY.x + neighborXY.y * width;
+                        if (nodeTypeMap[neighborIndex] != (int)NodeType.Land && nodeTypeMap[neighborIndex] != (int)NodeType.Coast)
+                        {
+                            continue;
+                        }
+
+                        float newMoisture = moistureMap[currentIndex] * 0.9f;
+                        if (newMoisture > moistureMap[neighborIndex])
+                        {
+                            moistureMap[neighborIndex] = newMoisture;
+                            queue.Enqueue(neighborHexPos);
+                        }
+                    }
+                }
+            }
+
+            for (int i = 0; i < mapLength; i++)
+            {
+                if (nodeTypeMap[i] == (int)NodeType.Coast)
+                {
+                    moistureMap[i] = Mathf.Min(moistureMap[i] * 1.5f, 1f);
+                }
+            }
+
+            // TODO: smoothing 필터 적용해보면 좋을 듯
+
+            // redistribute
+            var sortKV = new List<KeyValuePair<int, float>>();
+            for (int i = 0; i < mapLength; i++)
+            {
+                if (moistureMap[i] > 0)
+                {
+                    sortKV.Add(new KeyValuePair<int, float>(i, moistureMap[i]));
+                }
+            }
+            sortKV.Sort((x, y) => x.Value.CompareTo(y.Value));
+            for (int i = 0; i < sortKV.Count; i++)
+            {
+                moistureMap[sortKV[i].Key] = i / (float)(sortKV.Count - 1);
             }
         }
 
