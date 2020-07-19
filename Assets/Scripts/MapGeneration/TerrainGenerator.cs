@@ -1,4 +1,5 @@
 ﻿using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,7 @@ namespace TilePuzzle
         public Color highlandColor;
         public Color oceanColor;
         public MeshRenderer heightMapRenderer;
+        public float heightMultiplier;
 
         [HideInInspector]
         public bool hasParameterUpdated;
@@ -95,7 +97,7 @@ namespace TilePuzzle
                 }
             }).ToArray();
             previewWorld.SetHexagonsColor(ref nodeTypeColors);
-            previewWorld.SetHexagonsElevation(ref heightMap, 2f);
+            previewWorld.SetHexagonsElevation(ref heightMap, heightMultiplier);
         }
 
         private void CalculateWaterMap(float seaLevel, ref float[] islandNoiseMap, out bool[] waterMap)
@@ -275,11 +277,21 @@ namespace TilePuzzle
                 }
             }
 
-            // lerp 0 to 1
-            float maxHeight = Mathf.Max(heightMap);
+            // redistribute
+            float scaleFactor = 1.1f;
+            var sortKV = new KeyValuePair<int, float>[mapLength];
             for (int i = 0; i < mapLength; i++)
             {
-                heightMap[i] = Mathf.InverseLerp(0, maxHeight, heightMap[i]);
+                sortKV[i] = new KeyValuePair<int, float>(i, heightMap[i]);
+            }
+
+            sortKV.Sort((x, y) => x.Value.CompareTo(y.Value));
+            for (int i = 0; i < mapLength; i++)
+            {
+                float y = i / (float)(mapLength - 1);
+                float x = Mathf.Sqrt(scaleFactor) - Mathf.Sqrt(scaleFactor * (1 - y));
+                x = Mathf.Min(x, 1);
+                heightMap[sortKV[i].Key] = x;
             }
         }
 
