@@ -18,7 +18,7 @@ namespace TilePuzzle
         public Vector2Int mapSize = new Vector2Int(30, 30);
         public NoiseMapGenerator islandNoise;
         public FalloffMapGenerator islandFalloff;
-        [Range(0, 1)]
+        [ProgressBar(0, 1)]
         public float seaLevel;
         public int riverSeed;
         public Vector2 riverSpawnRange;
@@ -528,6 +528,12 @@ namespace TilePuzzle
             }
         }
 
+        private void GenerateBiomeMap(int width, int height, ref float[] moistureMap, ref float[] temperatureMap, out int[] biomeMap)
+        {
+            int mapLength = width * height;
+            biomeMap = new int[mapLength];
+        }
+
         private void UpdatePreviewTexture(int width, int height, MeshRenderer renderer, Color[] colors)
         {
             Texture2D texture = new Texture2D(width, height)
@@ -542,142 +548,5 @@ namespace TilePuzzle
             properties.SetTexture("_Texture", texture);
             renderer.SetPropertyBlock(properties);
         }
-
-        //public void CalculateNodeType(int width, int height, float seaLevel, ref float[] islandNoiseMap, out int[] nodeTypeMap)
-        //{
-        //    // SeaLevel 기준으로 water map 생성
-        //    bool[] waterMap = islandNoiseMap
-        //        .Select(x => x <= seaLevel)
-        //        .ToArray();
-
-        //    // 맵 경계를 바다로 설정
-        //    int mapLength = width * height;
-        //    nodeTypeMap = new int[mapLength];
-        //    for (int x = 0; x < width; x++)
-        //    {
-        //        nodeTypeMap[x] = (int)NodeType.Sea;
-        //        nodeTypeMap[x + (height - 1) * width] = (int)NodeType.Sea;
-        //    }
-        //    for (int y = 1; y < height - 1; y++)
-        //    {
-        //        nodeTypeMap[y * width] = (int)NodeType.Sea;
-        //        nodeTypeMap[width - 1 + y * width] = (int)NodeType.Sea;
-        //    }
-
-        //    // flood fill 으로 바다, 땅 설정
-        //    Queue<Vector2Int> floodFillQueue = new Queue<Vector2Int>();
-        //    floodFillQueue.Enqueue(new Vector2Int(1, 1));
-        //    nodeTypeMap[1 + 1 * width] = (int)NodeType.Sea;
-        //    while (floodFillQueue.Count > 0)
-        //    {
-        //        Vector2Int currentXY = floodFillQueue.Dequeue();
-        //        NodeType currentNodeType = (NodeType)nodeTypeMap[currentXY.x + currentXY.y * width];
-        //        for (int hexZ = -1; hexZ <= 1; hexZ++)
-        //        {
-        //            for (int hexX = -1; hexX <= 1; hexX++)
-        //            {
-        //                if ((hexX == -1 && hexZ == -1) || (hexX == 0 && hexZ == 0) || (hexX == 1 && hexZ == 1))
-        //                {
-        //                    continue;
-        //                }
-
-        //                Vector2Int neighborXY = currentXY + new HexagonPos(hexX, hexZ).ToArrayXY();
-        //                int neighborIndex = neighborXY.x + neighborXY.y * width;
-        //                if (nodeTypeMap[neighborIndex] != (int)NodeType.Invalid)
-        //                {
-        //                    continue;
-        //                }
-
-        //                if (waterMap[neighborIndex])
-        //                {
-        //                    bool surroundedBySea = false;
-        //                    for (int neighborHexZ = -1; neighborHexZ <= 1; neighborHexZ++)
-        //                    {
-        //                        for (int neighborHexX = -1; neighborHexX <= 1; neighborHexX++)
-        //                        {
-        //                            if ((neighborHexX == -1 && neighborHexZ == -1) || (neighborHexX == 0 && neighborHexZ == 0) || (neighborHexX == 1 && neighborHexZ == 1))
-        //                            {
-        //                                continue;
-        //                            }
-
-        //                            Vector2Int neighborNeighborXY = currentXY + new HexagonPos(neighborHexX, neighborHexZ).ToArrayXY();
-        //                            int neighborNeighborIndex = neighborNeighborXY.x + neighborNeighborXY.y * width;
-        //                            if (nodeTypeMap[neighborNeighborIndex] == (int)NodeType.Sea)
-        //                            {
-        //                                surroundedBySea = true;
-        //                                break;
-        //                            }
-        //                        }
-
-        //                        if (surroundedBySea)
-        //                        {
-        //                            break;
-        //                        }
-        //                    }
-
-        //                    if (surroundedBySea)
-        //                    {
-        //                        nodeTypeMap[neighborIndex] = (int)NodeType.Sea;
-        //                    }
-        //                }
-        //                else
-        //                {
-        //                    nodeTypeMap[neighborIndex] = (int)NodeType.Land;
-        //                }
-
-        //                if (nodeTypeMap[neighborIndex] != (int)NodeType.Invalid)
-        //                {
-        //                    floodFillQueue.Enqueue(neighborXY);
-        //                }
-        //            }
-        //        }
-        //    }
-
-        //    for (int y = 1; y < height - 1; y++)
-        //    {
-        //        for (int x = 1; x < width - 1; x++)
-        //        {
-        //            Vector2Int currentXY = new Vector2Int(x, y);
-        //            int currentIndex = x + y * width;
-        //            if (nodeTypeMap[currentIndex] == (int)NodeType.Land)
-        //            {
-        //                // check neighbor
-        //                bool surroundedBySea = false;
-        //                for (int hexZ = -1; hexZ <= 1; hexZ++)
-        //                {
-        //                    for (int hexX = -1; hexX <= 1; hexX++)
-        //                    {
-        //                        if ((hexX == -1 && hexZ == -1) || (hexX == 0 && hexZ == 0) || (hexX == 1 && hexZ == 1))
-        //                        {
-        //                            continue;
-        //                        }
-
-        //                        Vector2Int neighborXY = currentXY + new HexagonPos(hexX, hexZ).ToArrayXY();
-        //                        int neighborIndex = neighborXY.x + neighborXY.y * width;
-        //                        if (nodeTypeMap[neighborIndex] == (int)NodeType.Sea)
-        //                        {
-        //                            surroundedBySea = true;
-        //                            break;
-        //                        }
-        //                    }
-
-        //                    if (surroundedBySea)
-        //                    {
-        //                        break;
-        //                    }
-        //                }
-
-        //                if (surroundedBySea)
-        //                {
-        //                    nodeTypeMap[currentIndex] = (int)NodeType.Coast;
-        //                }
-        //            }
-        //            else if (nodeTypeMap[currentIndex] == (int)NodeType.Invalid)
-        //            {
-        //                nodeTypeMap[currentIndex] = (int)NodeType.Lake;
-        //            }
-        //        }
-        //    }
-        //}
     }
 }
