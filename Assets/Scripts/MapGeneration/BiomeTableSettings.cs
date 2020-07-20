@@ -1,4 +1,6 @@
-﻿using Sirenix.OdinInspector;
+﻿#pragma warning disable CS0649
+
+using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,27 +12,27 @@ using UnityEngine;
 
 namespace TilePuzzle
 {
-    [CreateAssetMenu(menuName = "Tile Puzzle/Biome data")]
-    public class BiomeData : ScriptableObject
+    [CreateAssetMenu(menuName = "Tile Puzzle/Biome table")]
+    public class BiomeTableSettings : ScriptableObject
     {
         public const int MoistureLevels = 5;
         public const int TemperatureLevels = 5;
 
         [InfoBox("$errorMessage", nameof(HasError), InfoMessageType = InfoMessageType.Error)]
-        [BoxGroup("Main biome"), Required]
-        public string biomeName;
-        [BoxGroup("Main biome")]
-        public Color biomeColor = Color.green;
+        [BoxGroup("Main biome"), SerializeField, Required]
+        private string biomeName;
+        [BoxGroup("Main biome"), SerializeField]
+        private Color biomeColor = Color.green;
 
         [SerializeField, ListDrawerSettings(Expanded = true)]
-        private List<Biome> subBiomes; 
+        private List<BiomeData> subBiomes; 
 
-        private Biome mainBiome = new Biome();
-        private Biome[,] biomeMap;
+        [SerializeField, HideInInspector]
+        private BiomeData mainBiome;
+        private Color[,] biomeColorMap;
         private Texture2D previewTexture;
         private string errorMessage = string.Empty;
 
-        public bool IsValid { get; private set; }
         private bool HasError => errorMessage.Length > 0;
 
         private void OnValidate()
@@ -38,34 +40,43 @@ namespace TilePuzzle
             mainBiome.biomeName = biomeName;
             mainBiome.color = biomeColor;
 
-            IsValid = Validation();
-
-            UpdateBiomeMap();
+            Validation();
+            UpdateBiomeColorMap();
             UpdatePreviewTexture();
         }
 
-        private void UpdateBiomeMap()
+        public BiomeTable GetBiomeTable()
         {
-            if (biomeMap == null)
+            if (Validation() == false)
             {
-                biomeMap = new Biome[MoistureLevels, TemperatureLevels];
+                throw new InvalidOperationException($"{nameof(BiomeTableSettings)} '{name}' has invalid datas\n{errorMessage}");
+            }
+
+            return new BiomeTable(mainBiome, subBiomes);
+        }
+
+        private void UpdateBiomeColorMap()
+        {
+            if (biomeColorMap == null)
+            {
+                biomeColorMap = new Color[MoistureLevels, TemperatureLevels];
             }
 
             for (int y = 0; y < TemperatureLevels; y++)
             {
                 for (int x = 0; x < MoistureLevels; x++)
                 {
-                    biomeMap[x, y] = mainBiome;
+                    biomeColorMap[x, y] = mainBiome.color;
                 }
             }
 
-            foreach (Biome biome in subBiomes)
+            foreach (BiomeData biomeData in subBiomes)
             {
-                for (int y = biome.temperatureRange.x; y < biome.temperatureRange.y; y++)
+                for (int y = biomeData.temperatureRange.x; y < biomeData.temperatureRange.y; y++)
                 {
-                    for (int x = biome.moistureRange.x; x < biome.moistureRange.y; x++)
+                    for (int x = biomeData.moistureRange.x; x < biomeData.moistureRange.y; x++)
                     {
-                        biomeMap[x, y] = biome;
+                        biomeColorMap[x, y] = biomeData.color;
                     }
                 }
             }
@@ -90,24 +101,12 @@ namespace TilePuzzle
             {
                 for (int x = 0; x < Width; x++)
                 {
-                    colors[x + y * Width] = biomeMap[x / widthBlockSize, y / heightBlockSize].color;
+                    colors[x + y * Width] = biomeColorMap[x / widthBlockSize, y / heightBlockSize];
                 }
             }
 
             previewTexture.SetPixels(colors);
             previewTexture.Apply();
-        }
-
-        [OnInspectorGUI, FoldoutGroup("Biome Preview", true, -10)]
-        [InfoBox("X: Moisture, Y: Temperature")]
-        private void DrawBiomePreview()
-        {
-            if (previewTexture != null)
-            {
-                GUILayout.BeginHorizontal(GUILayout.Width(EditorGUIUtility.currentViewWidth / 2f));
-                GUILayout.Label(previewTexture);
-                GUILayout.EndHorizontal();
-            }
         }
 
         private bool Validation()
@@ -138,7 +137,7 @@ namespace TilePuzzle
                     || biome.temperatureRange.x < 0
                     || biome.temperatureRange.y > TemperatureLevels
                     || biome.temperatureRange.x >= biome.temperatureRange.y);
-            foreach (Biome biome in invalidRangeBiomes)
+            foreach (BiomeData biome in invalidRangeBiomes)
             {
                 builder.AppendLine($"Sub biome '{biome.biomeName}' has invalid moisture/temperature range");
             }
@@ -149,23 +148,40 @@ namespace TilePuzzle
             return errorMessage.Length == 0;
         }
 
+        [OnInspectorGUI, FoldoutGroup("Biome Preview", true, -10)]
+        [InfoBox("X: Moisture, Y: Temperature")]
+        private void DrawBiomePreview()
+        {
+            if (previewTexture != null)
+            {
+                GUILayout.BeginHorizontal(GUILayout.Width(EditorGUIUtility.currentViewWidth / 2f));
+                GUILayout.Label(previewTexture);
+                GUILayout.EndHorizontal();
+            }
+        }
+
+        /// <summary>
+        /// 인스펙터에서 바이옴을 세팅하기 위한 용도
+        /// </summary>
         [Serializable]
-        private class Biome : IEquatable<Biome>
+        public class BiomeData : IEquatable<BiomeData>
         {
             [Required]
             public string biomeName;
             [MinMaxSlider(0, MoistureLevels, true)]
-            public Vector2Int moistureRange = new Vector2Int(0, 1);
+            public Vector2Int moistureRange;
             [MinMaxSlider(0, TemperatureLevels, true)]
-            public Vector2Int temperatureRange = new Vector2Int(0, 1);
-            public Color color = Color.black;
+            public Vector2Int temperatureRange;
+            public Color color;
+
+            private BiomeData() { }
 
             public override bool Equals(object obj)
             {
-                return Equals(obj as Biome);
+                return Equals(obj as BiomeData);
             }
 
-            public bool Equals(Biome other)
+            public bool Equals(BiomeData other)
             {
                 return other != null &&
                        biomeName == other.biomeName;
@@ -176,12 +192,12 @@ namespace TilePuzzle
                 return 1618086760 + EqualityComparer<string>.Default.GetHashCode(biomeName);
             }
 
-            public static bool operator ==(Biome left, Biome right)
+            public static bool operator ==(BiomeData left, BiomeData right)
             {
-                return EqualityComparer<Biome>.Default.Equals(left, right);
+                return EqualityComparer<BiomeData>.Default.Equals(left, right);
             }
 
-            public static bool operator !=(Biome left, Biome right)
+            public static bool operator !=(BiomeData left, BiomeData right)
             {
                 return !(left == right);
             }
