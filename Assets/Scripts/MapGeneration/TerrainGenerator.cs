@@ -22,6 +22,7 @@ namespace TilePuzzle
         public float seaLevel;
         public int riverSeed;
         public Vector2 riverSpawnRange;
+        public BiomeTableSettings biomeTableSettings;
 
         [Title("Preview")]
         [Required]
@@ -33,6 +34,7 @@ namespace TilePuzzle
         public MeshRenderer riverMapRenderer;
         public MeshRenderer moistureMapRenderer;
         public MeshRenderer temperatureMapRenderer;
+        public MeshRenderer biomeMapRenderer;
 
         [Title("Debug options")]
         public float heightMultiplier;
@@ -117,9 +119,14 @@ namespace TilePuzzle
 
             // 온도 맵 생성
             GenerateTemperatureMap(width, height, ref nodeTypeMap, ref heightMap, out float[] temperatureMap);
-            Color[] temperatureMapColors = temperatureMap.Select(x => x < 0 ? Color.black : Color.HSVToRGB(Mathf.Lerp(0, 0.6667f, x), 1, 1)).ToArray();
+            Color[] temperatureMapColors = temperatureMap.Select(x => x < 0 ? Color.black : Color.HSVToRGB(Mathf.Lerp(0.6667f, 0f, x), 1, 1)).ToArray();
             UpdatePreviewTexture(width, height, temperatureMapRenderer, temperatureMapColors);
 
+            // 바이옴 맵 생성
+            BiomeTable biomeTable = biomeTableSettings.GetBiomeTable();
+            GenerateBiomeMap(width, height, biomeTable, ref nodeTypeMap, ref moistureMap, ref temperatureMap, out int[] biomeMap);
+            Color[] biomeMapColors = biomeMap.Select(x => x < 0 ? Color.black : biomeTable.biomeDictionary[x].color).ToArray();
+            UpdatePreviewTexture(width, height, biomeMapRenderer, biomeMapColors);
 
             // 프리뷰 월드 업데이트
             Color[] hexColors = new Color[mapLength];
@@ -133,15 +140,15 @@ namespace TilePuzzle
                     }
                     else
                     {
-                        hexColors[i] = Color.cyan;
+                        hexColors[i] = new Color(0.5f, 0.5f, 1f);
                     }
                 }
                 else
                 {
-                    hexColors[i] = heightMapColors[i];
+                    hexColors[i] = biomeMapColors[i];
                     if (riverMap[i] > 0)
                     {
-                        hexColors[i] = Color.Lerp(Color.cyan, Color.blue, riverMap[i] / (float)maxRiverStrength);
+                        hexColors[i] = Color.Lerp(new Color(0.5f, 0.5f, 1f), Color.blue, riverMap[i] / (float)maxRiverStrength);
                     }
                 }
             }
@@ -505,7 +512,8 @@ namespace TilePuzzle
             int mapLength = width * height;
             temperatureMap = new float[mapLength];
 
-            float minLandHeight = float.MaxValue;
+            float minTemperature = float.MaxValue;
+            float maxTemperature = float.MinValue;
             for (int i = 0; i < mapLength; i++)
             {
                 if (nodeTypeMap[i] == (int)NodeType.Sea)
@@ -514,8 +522,10 @@ namespace TilePuzzle
                 }
                 else
                 {
-                    temperatureMap[i] = heightMap[i];
-                    minLandHeight = Mathf.Min(heightMap[i], minLandHeight);
+                    float temperature = 1 - heightMap[i];
+                    temperatureMap[i] = temperature;
+                    minTemperature = Mathf.Min(temperature, minTemperature);
+                    maxTemperature = Mathf.Max(temperature, maxTemperature);
                 }
             }
 
@@ -523,15 +533,28 @@ namespace TilePuzzle
             {
                 if (temperatureMap[i] > 0)
                 {
-                    temperatureMap[i] = Mathf.InverseLerp(minLandHeight, 1, temperatureMap[i]);
+                    temperatureMap[i] = Mathf.InverseLerp(minTemperature, maxTemperature, temperatureMap[i]);
                 }
             }
         }
 
-        private void GenerateBiomeMap(int width, int height, ref float[] moistureMap, ref float[] temperatureMap, out int[] biomeMap)
+        private void GenerateBiomeMap(int width, int height, BiomeTable biomeTable, ref int[] nodeTypeMap, ref float[] moistureMap, ref float[] temperatureMap, out int[] biomeMap)
         {
             int mapLength = width * height;
             biomeMap = new int[mapLength];
+
+            for (int i = 0; i < mapLength; i++)
+            {
+                if (nodeTypeMap[i] == (int)NodeType.Sea)
+                {
+                    biomeMap[i] = -1;
+                }
+                else
+                {
+                    BiomeTable.Biome biome = biomeTable.EvaluateBiome(moistureMap[i], temperatureMap[i]);
+                    biomeMap[i] = biome.id;
+                }
+            }
         }
 
         private void UpdatePreviewTexture(int width, int height, MeshRenderer renderer, Color[] colors)
