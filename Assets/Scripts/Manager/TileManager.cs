@@ -437,13 +437,17 @@ namespace TilePuzzle
             }
             else if (currentTile.MyTileType != TileType.Ground)
             {
-                return false;
+                // 땅과 강 타일이 아니라면 false return
+                if (currentTile.MyTileType != TileType.River)
+                {
+                    return false;
+                }
             }
 
             // 소유 도시가 없고, 선택 타일이 도시 타일인지 검사
             if (currentTile.OwnerCity == null)
             {
-                if(!(SelectedTile is CityTile))
+                if (!(SelectedTile is CityTile))
                 {
                     return false;
                 }

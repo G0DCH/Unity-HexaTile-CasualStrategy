@@ -6,7 +6,9 @@ using UnityEngine;
 namespace TilePuzzle
 {
     [System.Serializable]
-    public enum TileType { Sea, River, Mountain, Ground, Campus, Factory, GovernmentBuilding, HolyLand, Theator, WaterPipe, City, Empty }
+    public enum TileType { Water, River, Mountain, Ground, 
+        Campus, Factory, GovernmentBuilding, HolyLand, 
+        Theator, WaterPipe, City, Empty }
 
     [System.Serializable]
     public struct Position

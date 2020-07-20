@@ -12,8 +12,8 @@ namespace TilePuzzle
         [SerializeField]
         private Text pointText;
 
-        public int TotalPoint = 0;
-        public int RemainPoint = 6;
+        public int Score = 0;
+        public int BuildPoint = 6;
 
         public GameObject GameOverPanel;
         public Text GameOverText;
@@ -21,9 +21,9 @@ namespace TilePuzzle
         private void Start()
         {
             GameOverPanel.SetActive(false);
-            TotalPoint = 0;
-            RemainPoint = 6;
-            pointText.text = string.Format("TotalPoint : {0}\n RemainPoint : {1}", TotalPoint, RemainPoint);
+            Score = 0;
+            BuildPoint = 6;
+            pointText.text = string.Format("Score : {0}\n BuildPoint : {1}", Score, BuildPoint);
         }
 
         public void Restart()
@@ -35,13 +35,13 @@ namespace TilePuzzle
         public void RefreshPoint(int point)
         {
             // 타일 배치로 인한 포인트 감소
-            RemainPoint -= 3;
+            BuildPoint -= 3;
 
-            TotalPoint += point;
-            RemainPoint += point;
-            pointText.text = string.Format("TotalPoint : {0}\n RemainPoint : {1}", TotalPoint, RemainPoint);
+            Score += point;
+            BuildPoint += point;
+            pointText.text = string.Format("Score : {0}\n BuildPoint : {1}", Score, BuildPoint);
 
-            if (RemainPoint < 3)
+            if (BuildPoint < 3)
             {
                 ActiveGameOver();
             }
@@ -51,7 +51,7 @@ namespace TilePuzzle
         private void ActiveGameOver()
         {
             GameOverPanel.SetActive(true);
-            GameOverText.text = string.Format("GameOver!!\nTotalPoint : {0}", TotalPoint);
+            GameOverText.text = string.Format("GameOver!!\nTotalPoint : {0}", Score);
         }
     }
 }
