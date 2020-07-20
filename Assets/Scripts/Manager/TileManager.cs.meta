@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 89edb3ce14b73aa4ab4eb940a882af43
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - GridPrefab: {fileID: 610993075651065042, guid: 82c5869b1d4759d48bfde08462d926ea,
+      type: 3}
+  - SelectedTile: {instanceID: 0}
+  - SelectedMaterial: {fileID: 2100000, guid: bb94460d759f172489d760060db45acb, type: 2}
+  - NormalMaterial: {fileID: 2100000, guid: cf051fba995609b459f0eb4baf4bb478, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
