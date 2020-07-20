@@ -10,7 +10,9 @@ public class CameraMovement : MonoBehaviour
 
     private Camera mainCamera;
 
+    [SerializeField]
     private float maxZoom = 100f;
+    [SerializeField]
     private float minZoom = 40f;
 
     public float moveSpeed = 0.01f;
@@ -42,13 +44,13 @@ public class CameraMovement : MonoBehaviour
 
         float scroll = Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
 
-        if (mainCamera.fieldOfView < 100f && scroll < 0)
+        if (mainCamera.orthographicSize < maxZoom && scroll < 0)
         {
-            mainCamera.fieldOfView = Mathf.Clamp(mainCamera.fieldOfView - scroll, minZoom, maxZoom);
+            mainCamera.orthographicSize = Mathf.Clamp(mainCamera.orthographicSize - scroll, minZoom, maxZoom);
         }
-        else if (mainCamera.fieldOfView >= 20f && scroll > 0)
+        else if (mainCamera.orthographicSize >= minZoom && scroll > 0)
         {
-            mainCamera.fieldOfView = Mathf.Clamp(mainCamera.fieldOfView - scroll, minZoom, maxZoom);
+            mainCamera.orthographicSize = Mathf.Clamp(mainCamera.orthographicSize - scroll, minZoom, maxZoom);
         }
     }
 }
