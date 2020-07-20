@@ -11,12 +11,12 @@ public class CameraMovement : MonoBehaviour
     private Camera mainCamera;
 
     [SerializeField]
-    private float maxZoom = 100f;
+    private float maxZoom = 7f;
     [SerializeField]
-    private float minZoom = 40f;
+    private float minZoom = 3f;
 
     public float moveSpeed = 0.01f;
-    public float zoomSpeed = 20f;
+    public float zoomSpeed = 5f;
 
     private void Start()
     {
