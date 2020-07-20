@@ -45,8 +45,18 @@ namespace TilePuzzle
         // 이전에 마우스가 위에 올라가있던 타일
         private Tile prevOverTile = null;
 
+        private int pointerID = -1;
+
         private void Start()
         {
+#if UNITY_EDITOR || UNITY_STANDALONE
+            pointerID = -1;
+#endif
+
+#if UNITY_IOS || UNITY_ANDROID
+            pointerID = 0;
+#endif
+
             InitMap();
 
             StartCoroutine(MouseOverCheck());
@@ -254,26 +264,18 @@ namespace TilePuzzle
             pivotTile.InitNeighborTiles(neighborList);
         }
 
-        // 타일 선택
-        public void ButtonSelect(GameObject tilePrefab)
+        public TileType StringToType(string tileType)
         {
-            if (SelectedTile != null)
+
+            if (System.Enum.TryParse(tileType, out TileType enumType))
             {
-                Destroy(SelectedTile.gameObject);
+                return enumType;
             }
-
-            SelectedTile = Instantiate(tilePrefab, Vector3.up * 20f, Quaternion.identity).GetComponent<Tile>();
-            SelectedTile.GetComponent<MeshCollider>().enabled = false;
-
-            // 타입 변경
-            string[] tileName = SelectedTile.name.Split('(');
-            TileType tileType = StringToType(tileName[0]);
-            SelectedTile.ChangeTileType(tileType);
-
-            SelectedTile.ChangeMaterial(true);
-
-            SelectedTile.MakeGrid(GridPrefab);
-            SelectedTile.TurnGrid(false);
+            else
+            {
+                Debug.LogError("타일 타입이 아님");
+                return TileType.Empty;
+            }
         }
 
         // 마우스가 타일 맵 위에 올라갔는지 체크
@@ -288,31 +290,33 @@ namespace TilePuzzle
                     continue;
                 }
 
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-                if (Physics.Raycast(ray.origin, ray.direction, out hit))
+                if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(pointerID))
                 {
-                    Tile overTile = hit.transform.GetComponent<Tile>();
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-                    if (!CanPutTile(overTile))
+                    if (Physics.Raycast(ray.origin, ray.direction, out hit))
                     {
-                        yield return new WaitForSeconds(0.02f);
-                        continue;
-                    }
+                        Tile overTile = hit.transform.GetComponent<Tile>();
 
-                    if (prevOverTile != null)
-                    {
-                        if (prevOverTile != overTile)
+                        if (!CanPutTile(overTile))
                         {
-                            prevOverTile.TurnRangeGrid(false);
+                            yield return new WaitForSeconds(0.02f);
+                            continue;
                         }
+
+                        if (prevOverTile != null)
+                        {
+                            if (prevOverTile != overTile)
+                            {
+                                prevOverTile.TurnRangeGrid(false);
+                            }
+                        }
+
+                        SelectedTile.transform.position = overTile.transform.position + Vector3.up * 0.1f;
+                        overTile.TurnRangeGrid(true);
+                        prevOverTile = overTile;
                     }
-
-                    SelectedTile.transform.position = overTile.transform.position + Vector3.up * 0.1f;
-                    overTile.TurnRangeGrid(true);
-                    prevOverTile = overTile;
                 }
-
                 yield return new WaitForSeconds(0.02f);
             }
         }
@@ -330,75 +334,77 @@ namespace TilePuzzle
                         yield return null;
                         continue;
                     }
-
-                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-                    if (Physics.Raycast(ray.origin, ray.direction, out hit))
+                    if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(pointerID))
                     {
-                        if (!CanPutTile(hit.transform.GetComponent<Tile>()))
+                        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+                        if (Physics.Raycast(ray.origin, ray.direction, out hit))
                         {
-                            yield return new WaitForSeconds(0.02f);
-                            continue;
-                        }
-
-                        // 타일 설치
-                        Position clickPosition = hit.transform.GetComponent<Tile>().MyPosition;
-
-                        Tile clickedTile = TileMap[clickPosition.Row].rowList[clickPosition.Column];
-
-                        string[] tileName = SelectedTile.name.Split('(');
-                        TileType tileType = StringToType(tileName[0]);
-
-                        // 타일 초기화
-                        SelectedTile.InitTile(tileType, clickPosition.Row, clickPosition.Column);
-
-                        // 이웃 타일 갱신
-                        SelectedTile.InitNeighborTiles(clickedTile.NeighborTiles);
-                        SelectedTile.InitRangeTiles(clickedTile.RangeTiles);
-                        clickedTile.UpdateNeighborTile(clickedTile, SelectedTile);
-
-                        // 모든 타일의 범위 내 타일 갱신
-                        UpdateRangeTiles(clickedTile, SelectedTile);
-
-                        // 타일 맵 갱신
-                        TileMap[clickPosition.Row].rowList.Remove(clickedTile);
-                        TileMap[clickPosition.Row].rowList.Insert(clickPosition.Column, SelectedTile);
-
-                        // 위치 갱신, 매터리얼 변경, 컬라이더 활성화
-                        SelectedTile.transform.position = clickedTile.transform.position;
-                        SelectedTile.ChangeMaterial(false);
-                        SelectedTile.GetComponent<MeshCollider>().enabled = true;
-                        SelectedTile.transform.parent = transform;
-                        prevOverTile = SelectedTile;
-
-                        //SelectedTile.RefreshBonus();
-
-                        // 보너스 갱신
-                        if (SelectedTile is BuildingTile)
-                        {
-                            // 격자 표기, 타일 소유권 이전
-                            if(SelectedTile is CityTile)
+                            if (!CanPutTile(hit.transform.GetComponent<Tile>()))
                             {
-                                ((CityTile)SelectedTile).SetRangeGrids();
-                                ((CityTile)SelectedTile).SetOwnerInRange();
-                            }
-                            else
-                            {
-                                // 소유한 도시 설정
-                                SelectedTile.SetCityTile(clickedTile.ownerCity);
+                                yield return new WaitForSeconds(0.02f);
+                                continue;
                             }
 
-                            ((BuildingTile)SelectedTile).RefreshBonus();
-                            GameManager.Instance.RefreshPoint(SelectedTile.Bonus);
+                            // 타일 설치
+                            Position clickPosition = hit.transform.GetComponent<Tile>().MyPosition;
+
+                            Tile clickedTile = TileMap[clickPosition.Row].rowList[clickPosition.Column];
+
+                            string[] tileName = SelectedTile.name.Split('(');
+                            TileType tileType = StringToType(tileName[0]);
+
+                            // 타일 초기화
+                            SelectedTile.InitTile(tileType, clickPosition.Row, clickPosition.Column);
+
+                            // 이웃 타일 갱신
+                            SelectedTile.InitNeighborTiles(clickedTile.NeighborTiles);
+                            SelectedTile.InitRangeTiles(clickedTile.RangeTiles);
+                            clickedTile.UpdateNeighborTile(clickedTile, SelectedTile);
+
+                            // 모든 타일의 범위 내 타일 갱신
+                            UpdateRangeTiles(clickedTile, SelectedTile);
+
+                            // 타일 맵 갱신
+                            TileMap[clickPosition.Row].rowList.Remove(clickedTile);
+                            TileMap[clickPosition.Row].rowList.Insert(clickPosition.Column, SelectedTile);
+
+                            // 위치 갱신, 매터리얼 변경, 컬라이더 활성화
+                            SelectedTile.transform.position = clickedTile.transform.position;
+                            SelectedTile.ChangeMaterial(false);
+                            SelectedTile.GetComponent<MeshCollider>().enabled = true;
+                            SelectedTile.transform.parent = transform;
+                            prevOverTile = SelectedTile;
+
+                            //SelectedTile.RefreshBonus();
+
+                            // 보너스 갱신
+                            if (SelectedTile is BuildingTile)
+                            {
+                                // 격자 표기, 타일 소유권 이전
+                                if (SelectedTile is CityTile)
+                                {
+                                    ((CityTile)SelectedTile).SetRangeGrids();
+                                    ((CityTile)SelectedTile).SetOwnerInRange();
+                                }
+                                else
+                                {
+                                    // 소유한 도시 설정
+                                    SelectedTile.SetCityTile(clickedTile.OwnerCity);
+                                }
+
+                                ((BuildingTile)SelectedTile).RefreshBonus();
+                                GameManager.Instance.RefreshPoint(SelectedTile.Bonus);
+                            }
+
+                            Destroy(clickedTile.gameObject);
+                            SelectedTile = null;
+
+                            // 모든 타일 보너스 갱신 후 총 점수 표기
+                            //int totalBonus = RefreshAllTileBonus();
+
+                            //GameManager.Instance.RefreshPoint(totalBonus);
                         }
-
-                        Destroy(clickedTile.gameObject);
-                        SelectedTile = null;                        
-
-                        // 모든 타일 보너스 갱신 후 총 점수 표기
-                        //int totalBonus = RefreshAllTileBonus();
-
-                        //GameManager.Instance.RefreshPoint(totalBonus);
                     }
                 }
 
@@ -415,20 +421,6 @@ namespace TilePuzzle
                 {
                     TileMap[i].rowList[j].UpdateRangeTile(clickedTile, SelectedTile);
                 }
-            }
-        }
-
-        private TileType StringToType(string tileType)
-        {
-
-            if (System.Enum.TryParse(tileType, out TileType enumType))
-            {
-                return enumType;
-            }
-            else
-            {
-                Debug.LogError("타일 타입이 아님");
-                return TileType.Empty;
             }
         }
 
@@ -449,7 +441,7 @@ namespace TilePuzzle
             }
 
             // 소유 도시가 없고, 선택 타일이 도시 타일인지 검사
-            if (currentTile.ownerCity == null)
+            if (currentTile.OwnerCity == null)
             {
                 if(!(SelectedTile is CityTile))
                 {
@@ -459,7 +451,7 @@ namespace TilePuzzle
             else
             {
                 // 소유 도시에 이미 해당 건물이 설치 되었는지 검사
-                if (currentTile.ownerCity.HasThatTile(SelectedTile.MyTileType))
+                if (currentTile.OwnerCity.HasThatTile(SelectedTile.MyTileType))
                 {
                     return false;
                 }

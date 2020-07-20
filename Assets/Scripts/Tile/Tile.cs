@@ -6,7 +6,7 @@ using UnityEngine;
 namespace TilePuzzle
 {
     [System.Serializable]
-    public enum TileType { Water, Mountain, Ground, Campus, Factory, GovernmentBuilding, HolyLand, Theator, WaterPipe, City, Empty }
+    public enum TileType { Sea, River, Mountain, Ground, Campus, Factory, GovernmentBuilding, HolyLand, Theator, WaterPipe, City, Empty }
 
     [System.Serializable]
     public struct Position
@@ -59,7 +59,7 @@ namespace TilePuzzle
         public GameObject RangeGrid { get; private set; }
 
         // 이 타일을 소유하고 있는 도시
-        public CityTile ownerCity { get; private set; } = null;
+        public CityTile OwnerCity { get; private set; } = null;
 
         public void ChangeTileType(TileType tileType)
         {
@@ -237,7 +237,7 @@ namespace TilePuzzle
                 return;
             }
 
-            ownerCity = cityTile;
+            OwnerCity = cityTile;
         }
     }
 }
