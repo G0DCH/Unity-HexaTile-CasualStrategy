@@ -24,7 +24,17 @@ namespace TilePuzzle
         public TileType MyTileType { get { return myTileType; } private set { myTileType = value; } }
         [SerializeField]
         private TileType myTileType = TileType.Empty;
-                
+
+        // 타일에 얹힌 열대우림이나 숲
+        public TileFeature MyTileFeature { get { return myTileFeature; } private set { myTileFeature = value; } }
+        [SerializeField]
+        private TileFeature myTileFeature = TileFeature.Empty;
+
+        // 타일의 지형 특성, 평원, 설원 등등
+        public TileTerrain MyTileTerrain { get { return myTileTerrain; } private set { myTileTerrain = value; } }
+        [SerializeField]
+        private TileTerrain myTileTerrain = TileTerrain.Plains;
+
         // 이웃한 타일
         public List<Tile> NeighborTiles { get { return neighborTiles; } private set { neighborTiles = value; } }
         [SerializeField, Space]
