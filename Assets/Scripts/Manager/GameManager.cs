@@ -41,7 +41,7 @@ namespace TilePuzzle
 
             Score += point;
             BuildPoint += point;
-            pointText.text = string.Format("Score : {0}\n BuildPoint : {1}", Score, BuildPoint);
+            pointText.text = string.Format("Score : {0}\nBuildPoint : {1}", Score, BuildPoint);
 
             if (BuildPoint < 3)
             {
@@ -53,7 +53,7 @@ namespace TilePuzzle
         private void ActiveGameOver()
         {
             GameOverPanel.SetActive(true);
-            GameOverText.text = string.Format("GameOver!!\nTotalPoint : {0}", Score);
+            GameOverText.text = string.Format("GameOver!!\nScore : {0}", Score);
         }
     }
 }
