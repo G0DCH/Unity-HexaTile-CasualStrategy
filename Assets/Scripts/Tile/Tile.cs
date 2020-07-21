@@ -24,7 +24,17 @@ namespace TilePuzzle
         public TileType MyTileType { get { return myTileType; } private set { myTileType = value; } }
         [SerializeField]
         private TileType myTileType = TileType.Empty;
-                
+
+        // 타일에 얹힌 열대우림이나 숲
+        public TileFeature MyTileFeature { get { return myTileFeature; } private set { myTileFeature = value; } }
+        [SerializeField]
+        private TileFeature myTileFeature = TileFeature.Empty;
+
+        // 타일의 지형 특성, 평원, 설원 등등
+        public TileTerrain MyTileTerrain { get { return myTileTerrain; } private set { myTileTerrain = value; } }
+        [SerializeField]
+        private TileTerrain myTileTerrain = TileTerrain.Plains;
+
         // 이웃한 타일
         public List<Tile> NeighborTiles { get { return neighborTiles; } private set { neighborTiles = value; } }
         [SerializeField, Space]
@@ -57,6 +67,11 @@ namespace TilePuzzle
 
         // 이 타일을 소유하고 있는 도시
         public CityTile OwnerCity { get; private set; } = null;
+
+        // 타일 설치 비용
+        public int Cost { get { return cost; } set { cost = value; } }
+        [SerializeField, Space, Header("Tile Cost")]
+        private int cost = 0;
 
         public void ChangeTileType(TileType tileType)
         {
@@ -235,6 +250,18 @@ namespace TilePuzzle
             }
 
             OwnerCity = cityTile;
+        }
+
+        // 이 타일의 보너스를 n만큼 변경함
+        public void ChangeBonus(int n)
+        {
+            Bonus += n;
+        }
+
+        // 이 타일의 비용을 n만큼 변경함
+        public void ChangeCost(int n)
+        {
+            Cost += n;
         }
     }
 }
