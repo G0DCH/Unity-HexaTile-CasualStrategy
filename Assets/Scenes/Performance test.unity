@@ -2105,12 +2105,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7f700610df858f4898ceb7cd16dfcc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toggleGraphy: {fileID: 1072300634}
+  switchFramerate: {fileID: 1072300634}
   toggleGraphySetting: {fileID: 264144072}
   showHexagon1: {fileID: 1568592695}
   showHexagon2: {fileID: 345672051}
   randomColor: {fileID: 439659659}
-  graphy: {fileID: 821552475}
   graphySetting: {fileID: 876497900}
   hexagon1: {fileID: 1364638663}
   hexagon2: {fileID: 2067444048}
@@ -2824,7 +2823,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Toggle graphy
+  m_text: 30/60 FPS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2893,10 +2892,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1907296030}
-    characterCount: 13
+    characterCount: 9
     spriteCount: 0
     spaceCount: 1
-    wordCount: 2
+    wordCount: 3
     linkCount: 0
     lineCount: 1
     pageCount: 1
