@@ -39,11 +39,6 @@ namespace TilePuzzle
 
         public Vector3 ToWorldPos(float worldY = 0)
         {
-            //float worldX = (pos.y & 1) == 0
-            //    ? pos.x * Hexagon.Size
-            //    : (pos.x * Hexagon.Size) + (Hexagon.Size / 2);
-            //float worldZ = pos.y * Hexagon.Size * Mathf.Sin(Mathf.PI / 3);
-
             float worldX = pos.x * Hexagon.Size + pos.z * Hexagon.Size / 2;
             float worldZ = pos.z * Hexagon.Size * Mathf.Sin(Mathf.PI / 3);
             return new Vector3(worldX, worldY, worldZ);
