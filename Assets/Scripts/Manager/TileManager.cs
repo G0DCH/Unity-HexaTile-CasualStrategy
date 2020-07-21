@@ -47,6 +47,14 @@ namespace TilePuzzle
 
         private int pointerID = -1;
 
+        // 점수 보너스 delegate
+        public delegate void WonderBonus(Tile currentTile, Tile selectedTile);
+        public WonderBonus MyWonderBonus;
+
+        // 소모 점수 보너스 delegate
+        public delegate void WonderCost(Tile currentTile, Tile selectedTile);
+        public WonderCost MyWonderCost;
+
         private void Start()
         {
 #if UNITY_EDITOR || UNITY_STANDALONE
@@ -314,6 +322,9 @@ namespace TilePuzzle
 
                         SelectedTile.transform.position = overTile.transform.position + Vector3.up * 0.1f;
                         overTile.TurnRangeGrid(true);
+
+                        MyWonderCost(overTile, SelectedTile);
+
                         prevOverTile = overTile;
                     }
                 }
@@ -394,6 +405,7 @@ namespace TilePuzzle
                                 }
 
                                 ((BuildingTile)SelectedTile).RefreshBonus();
+                                MyWonderBonus(clickedTile, SelectedTile);
                                 GameManager.Instance.RefreshPoint(SelectedTile.Bonus);
                             }
 

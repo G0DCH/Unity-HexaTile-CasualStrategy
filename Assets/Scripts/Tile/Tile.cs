@@ -68,6 +68,11 @@ namespace TilePuzzle
         // 이 타일을 소유하고 있는 도시
         public CityTile OwnerCity { get; private set; } = null;
 
+        // 타일 설치 비용
+        public int Cost { get { return cost; } set { cost = value; } }
+        [SerializeField, Space, Header("Tile Cost")]
+        private int cost = 0;
+
         public void ChangeTileType(TileType tileType)
         {
             MyTileType = tileType;
@@ -245,6 +250,18 @@ namespace TilePuzzle
             }
 
             OwnerCity = cityTile;
+        }
+
+        // 이 타일의 보너스를 n만큼 변경함
+        public void ChangeBonus(int n)
+        {
+            Bonus += n;
+        }
+
+        // 이 타일의 비용을 n만큼 변경함
+        public void ChangeCost(int n)
+        {
+            Cost += n;
         }
     }
 }
