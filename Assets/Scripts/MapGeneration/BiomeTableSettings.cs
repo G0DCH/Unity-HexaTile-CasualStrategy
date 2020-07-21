@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEditor;
-using UnityEditor.PackageManager;
 using UnityEngine;
 
 namespace TilePuzzle
@@ -154,7 +153,7 @@ namespace TilePuzzle
         {
             if (previewTexture != null)
             {
-                GUILayout.BeginHorizontal(GUILayout.Width(EditorGUIUtility.currentViewWidth / 2f));
+                GUILayout.BeginHorizontal();
                 GUILayout.Label(previewTexture);
                 GUILayout.EndHorizontal();
             }
