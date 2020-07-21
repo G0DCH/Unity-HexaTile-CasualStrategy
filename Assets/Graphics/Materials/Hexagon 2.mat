@@ -21,7 +21,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _ColorMap:
-        m_Texture: {fileID: 2800000, guid: a47b720887f7c0c4e8708f6f20dcfe1c, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -30,4 +30,4 @@ Material:
     - Vector1_ED19B813: 0.3
     m_Colors:
     - Vector2_BCB628E3: {r: 32, g: 32, b: 0, a: 0}
-    - _ColorMapSize: {r: 32, g: 32, b: 0, a: 0}
+    - _ColorMapSize: {r: 64, g: 64, b: 0, a: 0}

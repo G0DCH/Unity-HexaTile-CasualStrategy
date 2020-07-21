@@ -14,11 +14,12 @@ namespace TilePuzzle
     {
         [Required]
         public Hexagon hexagonPrefab;
+        [Required]
+        public Material hexagonMaterial;
         public Transform hexagonHolder;
 
         private Vector2Int mapSize;
         private Hexagon[] hexagons;
-        private MaterialPropertyBlock propertyBlock;
 
         [Button]
         public void GenerateDefaultHexagons(Vector2Int mapSize)
@@ -44,23 +45,29 @@ namespace TilePuzzle
             }
         }
 
-        public void SetHexagonsColor(ref Color[] colors)
+        public void SetHexagonColorMap(int mapWidth, int mapHeight, ref Color[] colorMap)
         {
-            Profiler.BeginSample(nameof(SetHexagonsColor));
-            if (propertyBlock == null)
+            Profiler.BeginSample(nameof(SetHexagonColorMap));
+            int textureWidth = (int)Mathf.Pow(2, Mathf.CeilToInt(Mathf.Log(mapWidth, 2)));
+            int textureHeight = (int)Mathf.Pow(2, Mathf.CeilToInt(Mathf.Log(mapHeight, 2)));
+            Texture2D texture = new Texture2D(textureWidth, textureHeight)
             {
-                propertyBlock = new MaterialPropertyBlock();
-            }
+                filterMode = FilterMode.Point
+            };
 
-            int colorPropertyId = Shader.PropertyToID("_Color");
-            for (int i = 0; i < hexagons.Length; i++)
+            Color[] textureColors = new Color[textureWidth * textureHeight];
+            for (int y = 0; y < mapHeight; y++)
             {
-                Hexagon hexagon = hexagons[i];
-                Color color = colors[i];
-
-                propertyBlock.SetColor(colorPropertyId, color);
-                hexagon.meshRenderer.SetPropertyBlock(propertyBlock);
+                for (int x = 0; x < mapWidth; x++)
+                {
+                    textureColors[x + y * textureWidth] = colorMap[x + y * mapWidth];
+                }
             }
+            texture.SetPixels(textureColors);
+            texture.Apply();
+
+            hexagonMaterial.SetTexture("_ColorMap", texture);
+            hexagonMaterial.SetVector("_ColorMapSize", new Vector2(textureWidth, textureHeight));
             Profiler.EndSample();
         }
 
@@ -95,6 +102,7 @@ namespace TilePuzzle
             newHexagon.hexPos = hexPos;
             newHexagon.name = $"Hexagon {newHexagon.hexPos}";
             newHexagon.transform.position = newHexagon.hexPos.ToWorldPos();
+            newHexagon.GetComponent<MeshRenderer>().sharedMaterial = hexagonMaterial;
 
             return newHexagon;
         }

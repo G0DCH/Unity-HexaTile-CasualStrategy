@@ -151,7 +151,7 @@ namespace TilePuzzle
                 }
             }
             previewWorld.GenerateDefaultHexagons(mapSize);
-            previewWorld.SetHexagonsColor(ref hexColors);
+            previewWorld.SetHexagonColorMap(width, height, ref hexColors);
             previewWorld.SetHexagonsElevation(ref heightMap, heightMultiplier);
         }
 
