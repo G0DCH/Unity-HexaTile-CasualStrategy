@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Profiling;
 
-namespace TilePuzzle
+namespace TilePuzzle.Procedural
 {
     public class NoiseMapGenerator : MonoBehaviour
     {

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace TilePuzzle
+namespace TilePuzzle.Procedural
 {
     /// <summary>
     /// <see cref="BiomeTableSettings"/>의 설정값을 기반으로 만들어지는 바이옴 테이블

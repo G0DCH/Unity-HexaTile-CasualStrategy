@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
 
-namespace TilePuzzle
+namespace TilePuzzle.Procedural
 {
     [CreateAssetMenu(menuName = "Tile Puzzle/Biome table")]
     public class BiomeTableSettings : ScriptableObject

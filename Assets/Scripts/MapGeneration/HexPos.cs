@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace TilePuzzle
+namespace TilePuzzle.Procedural
 {
     [Serializable, InlineProperty(LabelWidth = 13)]
     public struct HexagonPos : IEquatable<HexagonPos>

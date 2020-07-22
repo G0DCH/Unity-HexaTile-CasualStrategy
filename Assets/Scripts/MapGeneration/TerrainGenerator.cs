@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace TilePuzzle
+namespace TilePuzzle.Procedural
 {
     [ExecuteInEditMode]
     public class TerrainGenerator : MonoBehaviour
