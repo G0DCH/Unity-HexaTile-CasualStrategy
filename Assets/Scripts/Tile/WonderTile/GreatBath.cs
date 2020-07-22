@@ -1,21 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace TilePuzzle
+﻿namespace TilePuzzle
 {
     // 대욕장
     public class GreatBath : WonderTile
     {
-        [SerializeField, Header("Bonus Point")]
-        private int wonderBonus = 2;
-
         public override void AddToDelegate()
         {
             TileManager.Instance.MyWonderBonus += WonderFunction;
         }
 
-        // currentTile이 강 타일일 때 여기에 성지를 지으면 +2점
+        // currentTile이 강 타일일 때 여기에 성지를 지으면 +wonderBonus
         public override void WonderFunction(Tile currentTile, Tile selectedTile)
         {
             if (currentTile.MyTileType == TileType.River)
