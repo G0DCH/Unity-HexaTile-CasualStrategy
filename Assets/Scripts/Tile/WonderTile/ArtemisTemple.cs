@@ -1,17 +1,18 @@
 ﻿namespace TilePuzzle
 {
-    // 대욕장
-    public class GreatBath : WonderTile
+    // 아르테미스 신전
+    public class ArtemisTemple : WonderTile
     {
         public override void AddToDelegate()
         {
             TileManager.Instance.MyWonderBonus += WonderFunction;
         }
 
-        // currentTile이 강 타일일 때 여기에 성지를 지으면 +wonderBonus
+        // 초원이나 평원에 성지를 지으면 +wonderBonus
         public override void WonderFunction(Tile currentTile, Tile selectedTile)
         {
-            if (currentTile.MyTileType == TileType.River)
+            if (currentTile.MyTileTerrain == TileTerrain.Grassland ||
+                currentTile.MyTileTerrain == TileTerrain.Plains)
             {
                 if (selectedTile.MyTileType == TileType.HolyLand)
                 {
@@ -20,10 +21,14 @@
             }
         }
 
-        // currentTile이 강 타일이라면 건설 가능
+        // 초원이나 평원에 지을 수 있음
         public override bool WonderLimit(Tile currentTile)
         {
-            if (currentTile.MyTileType == TileType.River)
+            if (currentTile.MyTileTerrain == TileTerrain.Grassland)
+            {
+                return true;
+            }
+            else if (currentTile.MyTileTerrain == TileTerrain.Plains)
             {
                 return true;
             }

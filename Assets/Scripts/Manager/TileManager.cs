@@ -42,6 +42,9 @@ namespace TilePuzzle
         public Material SelectedMaterial;
         public Material NormalMaterial;
 
+        [Space, Header("SelectTileCost")]
+        public int SelectTileCost = 0;
+
         // 이전에 마우스가 위에 올라가있던 타일
         private Tile prevOverTile = null;
 
@@ -323,6 +326,7 @@ namespace TilePuzzle
                         SelectedTile.transform.position = overTile.transform.position + Vector3.up * 0.1f;
                         overTile.TurnRangeGrid(true);
 
+                        SelectTileCost = SelectedTile.Cost;
                         MyWonderCost(overTile, SelectedTile);
 
                         prevOverTile = overTile;
@@ -405,9 +409,11 @@ namespace TilePuzzle
                                 }
 
                                 ((BuildingTile)SelectedTile).RefreshBonus();
-                                MyWonderBonus(clickedTile, SelectedTile);
-                                GameManager.Instance.RefreshPoint(SelectedTile.Bonus);
                             }
+
+                            // 불가사의로 인한 보너스 추가, 보너스 출력
+                            MyWonderBonus(clickedTile, SelectedTile);
+                            GameManager.Instance.RefreshPoint(SelectedTile.Bonus);
 
                             Destroy(clickedTile.gameObject);
                             SelectedTile = null;

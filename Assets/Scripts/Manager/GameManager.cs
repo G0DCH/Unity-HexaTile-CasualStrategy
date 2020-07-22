@@ -37,7 +37,7 @@ namespace TilePuzzle
         public void RefreshPoint(int point)
         {
             // 타일 배치로 인한 포인트 감소
-            BuildPoint -= 3;
+            BuildPoint -= TileManager.Instance.SelectTileCost;
 
             Score += point;
             BuildPoint += point;
