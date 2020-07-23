@@ -23,6 +23,15 @@ namespace TilePuzzle.Procedural
         public int Y => pos.y;
         public int Z => pos.z;
 
+        public static HexagonPos TopRight => new HexagonPos(0, 1);
+        public static HexagonPos Right => new HexagonPos(1, 0);
+        public static HexagonPos BottomRight => new HexagonPos(1, -1);
+        public static HexagonPos BottomLeft => new HexagonPos(0, -1);
+        public static HexagonPos Left => new HexagonPos(-1, 0);
+        public static HexagonPos TopLeft => new HexagonPos(-1, 1);
+
+        public int HexagonDistance => Mathf.Max(Mathf.Abs(pos.x), Mathf.Abs(pos.y), Mathf.Abs(pos.z));
+
         public static HexagonPos FromArrayXY(int x, int y)
         {
             int hexX = x - (y >> 1);
@@ -67,6 +76,18 @@ namespace TilePuzzle.Procedural
         public static HexagonPos operator +(HexagonPos left, HexagonPos right)
         {
             Vector3Int newHexPos = left.pos + right.pos;
+            return new HexagonPos(newHexPos.x, newHexPos.z);
+        }
+
+        public static HexagonPos operator -(HexagonPos right)
+        {
+            Vector3Int newHexPos = -right.pos;
+            return new HexagonPos(newHexPos.x, newHexPos.z);
+        }
+
+        public static HexagonPos operator -(HexagonPos left, HexagonPos right)
+        {
+            Vector3Int newHexPos = left.pos - right.pos;
             return new HexagonPos(newHexPos.x, newHexPos.z);
         }
 
