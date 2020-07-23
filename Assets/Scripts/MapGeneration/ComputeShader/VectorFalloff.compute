@@ -1,0 +1,29 @@
+﻿#pragma kernel evaluateFalloff
+
+StructuredBuffer<float2> samplePoints;
+RWStructuredBuffer<float> results;
+int totalPoints;
+float maxX;
+float maxY;
+float2 falloffParameter;
+
+[numthreads(32, 1, 1)]
+void evaluateFalloff(int3 id : SV_DispatchThreadID)
+{
+	if (id.x >= totalPoints)
+	{
+		return;
+	}
+	
+	float2 worldPos = samplePoints[id.x];
+
+	float x = abs(worldPos.x / maxX * 2 - 1);
+	float y = abs(worldPos.y / maxY * 2 - 1);
+	float value = max(x, y);
+
+	float a = falloffParameter.x;
+	float b = falloffParameter.y;
+	float finalValue = 1 - (pow(value, a) / (pow(value, a) + pow(b - b * value, a)));
+
+	results[id.x] = finalValue;
+}
