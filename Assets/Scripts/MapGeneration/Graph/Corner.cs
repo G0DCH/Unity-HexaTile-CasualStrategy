@@ -17,8 +17,9 @@ namespace TilePuzzle.Procedural
         public bool isBorder = false;
         public float elevation = 0f;
         public float moisture = 0f;
-        public float temperature = 0f;
-        public int riverStrength = 0;
+        //public float temperature = 0f;
+        public int river = 0;
+        public Corner downslope;
 
         private readonly List<Center> neighborCenters;
         private readonly List<Corner> neighborCorners;

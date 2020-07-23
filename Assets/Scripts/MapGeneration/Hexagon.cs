@@ -14,5 +14,6 @@ namespace TilePuzzle.Procedural
 
         [ReadOnly]
         public HexagonPos hexPos;
+        public MeshFilter meshFilter;
     }
 }

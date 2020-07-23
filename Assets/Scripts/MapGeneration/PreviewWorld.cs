@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TilePuzzle.Rendering;
 using UnityEngine;
 using UnityEngine.Profiling;
 
@@ -20,6 +21,65 @@ namespace TilePuzzle.Procedural
 
         private Vector2Int mapSize;
         private Hexagon[] hexagons;
+
+        public void BuildHexagonMeshes(Vector2Int mapSize, ref Center[] centers)
+        {
+            int width = mapSize.x;
+            int height = mapSize.y;
+
+            if (hexagons == null || this.mapSize != mapSize)
+            {
+                DestroyAllHexagons();
+                hexagons = new Hexagon[width * height];
+            }
+            this.mapSize = mapSize;
+
+            HexagonMeshGenerator meshGenerator = new HexagonMeshGenerator();
+            Mesh planeHexagonMesh = meshGenerator.BuildMesh(Hexagon.Size);
+            Mesh cliffHexagonMesh = meshGenerator.BuildMesh(Hexagon.Size, 1);
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    Center center = centers[x + y * width];
+                    HexagonMeshGenerator.VertexDirection riverDirection = 0;
+                    for (int i = 0; i < center.NeighborCorners.Length; i++)
+                    {
+                        Corner neighborCorner = center.NeighborCorners[i];
+                        if (neighborCorner.river > 0)
+                        {
+                            riverDirection |= (HexagonMeshGenerator.VertexDirection)(1 << i);
+                        }
+                    }
+
+                    Mesh hexagonMesh;
+                    if (center.isSea)
+                    {
+                        hexagonMesh = null;
+                    }
+                    else if (riverDirection > 0 && center.isWater == false)
+                    {
+                        hexagonMesh = meshGenerator.BuildMesh(Hexagon.Size, 1, 0.3f, riverDirection);
+                    }
+                    else if (center.isCoast)
+                    {
+                        hexagonMesh = cliffHexagonMesh;
+                    }
+                    else
+                    {
+                        hexagonMesh = planeHexagonMesh;
+                    }
+
+                    if (hexagons[x + y * width] == null)
+                    {
+                        Hexagon newHexagon = CreateNewHexagon(HexagonPos.FromArrayXY(x, y));
+                        hexagons[x + y * width] = newHexagon;
+                    }
+                    hexagons[x + y * width].meshFilter.sharedMesh = hexagonMesh;
+                }
+            }
+        }
 
         [Button]
         public void GenerateDefaultHexagons(Vector2Int mapSize)
