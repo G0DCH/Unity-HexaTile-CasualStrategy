@@ -24,12 +24,12 @@ namespace TilePuzzle.Procedural
         public bool isBorder = false;
         public float elevation = 0f;
         public float moisture = 0f;
-        public float temperature = 0f;
         public int biomeId = 0;
 
         private readonly Dictionary<HexagonPos, Center> neighborCenters;
         private readonly Corner[] neighborCorners;
 
+        public float Temperature => 1 - elevation;
         public IReadOnlyDictionary<HexagonPos, Center> NeighborCenters => neighborCenters;
         public Corner[] NeighborCorners => neighborCorners;
 
