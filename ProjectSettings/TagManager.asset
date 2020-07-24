@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Hexagon
+  - MountainTest
   layers:
   - Default
   - TransparentFX

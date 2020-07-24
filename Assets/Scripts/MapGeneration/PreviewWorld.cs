@@ -18,6 +18,8 @@ namespace TilePuzzle.Procedural
         [Required]
         public Material hexagonMaterial;
         public Transform hexagonHolder;
+        public GameObject mountainPrefab;
+        public Transform mountainHolder;
 
         private Vector2Int mapSize;
         private Hexagon[] hexagons;
@@ -54,15 +56,15 @@ namespace TilePuzzle.Procedural
                     }
 
                     Mesh hexagonMesh;
-                    if (center.isSea)
-                    {
-                        hexagonMesh = null;
-                    }
-                    else if (riverDirection > 0 && center.isWater == false)
+                    //if (center.isSea)
+                    //{
+                    //    hexagonMesh = null;
+                    //}
+                    if (riverDirection > 0 && center.isWater == false)
                     {
                         hexagonMesh = meshGenerator.BuildMesh(Hexagon.Size, 1, 0.3f, riverDirection);
                     }
-                    else if (center.isCoast)
+                    else if (center.isWater == false && center.NeighborCenters.Values.Any(neighborCenter => neighborCenter.isWater))
                     {
                         hexagonMesh = cliffHexagonMesh;
                     }
@@ -81,26 +83,20 @@ namespace TilePuzzle.Procedural
             }
         }
 
-        [Button]
-        public void GenerateDefaultHexagons(Vector2Int mapSize)
+        public void MountainTest(Vector2Int mapSize, ref bool[] mountains)
         {
-            if (hexagons != null && this.mapSize == mapSize)
-            {
-                return;
-            }
+            int width = mapSize.x;
+            int height = mapSize.y;
 
-            DestroyAllHexagons();
-
-            this.mapSize = mapSize;
-            hexagons = new Hexagon[mapSize.x * mapSize.y];
-            for (int y = 0; y < mapSize.y; y++)
+            DestroyAllMountains();
+            for (int y = 0; y < height; y++)
             {
-                for (int x = 0; x < mapSize.x; x++)
+                for (int x = 0; x < width; x++)
                 {
-                    Hexagon newHexagon = CreateNewHexagon(HexagonPos.FromArrayXY(x, y));
-
-                    int index = XYToIndex(x, y);
-                    hexagons[index] = newHexagon;
+                    if (mountains[x + y * width])
+                    {
+                        CreateNewMountain(HexagonPos.FromArrayXY(x, y));
+                    }
                 }
             }
         }
@@ -146,14 +142,17 @@ namespace TilePuzzle.Procedural
         {
             foreach (var hexagon in GameObject.FindGameObjectsWithTag("Hexagon"))
             {
-                DestroyImmediate(hexagon);
+                DestroyImmediate(hexagon.gameObject);
             }
             hexagons = null;
         }
 
-        private int XYToIndex(int x, int y)
+        private void DestroyAllMountains()
         {
-            return x + y * mapSize.x;
+            foreach (var mountain in GameObject.FindGameObjectsWithTag("MountainTest"))
+            {
+                DestroyImmediate(mountain.gameObject);
+            }
         }
 
         private Hexagon CreateNewHexagon(HexagonPos hexPos)
@@ -165,6 +164,17 @@ namespace TilePuzzle.Procedural
             newHexagon.GetComponent<MeshRenderer>().sharedMaterial = hexagonMaterial;
 
             return newHexagon;
+        }
+
+        private GameObject CreateNewMountain(HexagonPos hexPos)
+        {
+            GameObject newMountain = Instantiate(mountainPrefab, hexagonHolder);
+            newMountain.name = $"Mountain";
+            newMountain.transform.parent = mountainHolder;
+            Vector3 mountainPos = hexPos.ToWorldPos();
+            mountainPos.y = -0.2f;
+            newMountain.transform.position = mountainPos;
+            return newMountain;
         }
     }
 }

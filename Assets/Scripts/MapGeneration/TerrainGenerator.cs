@@ -25,6 +25,11 @@ namespace TilePuzzle.Procedural
         public float riverSpawnMultiplier;
         public Vector2 riverSpawnRange;
         public BiomeTableSettings biomeTableSettings;
+        public int mountainSeed;
+        public float mountainSpawnMultiplier;
+        public Vector2 mountainSpawnRange;
+        public int mountainN;
+        public float force;
 
         [Title("Preview")]
         [Required]
@@ -102,19 +107,21 @@ namespace TilePuzzle.Procedural
             BiomeTable biomeTable = biomeTableSettings.GetBiomeTable();
             CalculateBiome(biomeTable, ref centers);
 
+            //int mountainSpawnTry = (int)((width + height) / 2 * mountainSpawnMultiplier);
+            //CalculateMountain(mountainSeed, mountainSpawnTry, mountainSpawnRange, mountainN, force, ref centers, out bool[] mountains);
 
-            float[] heightMap = centers.Select(x => x.elevation).ToArray();
+            float[] heightMap = centers.Select(x => x.isWater ? -0.25f : 0).ToArray();
             Color[] hexColors = new Color[centers.Length];
             for (int i = 0; i < centers.Length; i++)
             {
-                //hexColors[i] = Color.Lerp(Color.black, Color.white, centers[i].elevation);  // elevation
+                hexColors[i] = Color.Lerp(Color.black, Color.white, centers[i].elevation);  // elevation
                 //hexColors[i] = Color.Lerp(Color.black, Color.blue, centers[i].moisture);  // moisture
                 //hexColors[i] = Color.HSVToRGB(Mathf.Lerp(0.666666f, 0, centers[i].Temperature), 1, 1);   // temperature
                 hexColors[i] = biomeTable.biomeDictionary[centers[i].biomeId].color;   // biome
 
                 if (centers[i].isSea)
                 {
-                    //hexColors[i] = Color.blue;
+                    hexColors[i] = new Color(0.3f, 0.3f, 1);
                 }
                 else if (centers[i].isCoast)
                 {
@@ -131,6 +138,7 @@ namespace TilePuzzle.Procedural
             }
 
             previewWorld.BuildHexagonMeshes(mapSize, ref centers);
+            //previewWorld.MountainTest(mapSize, ref mountains);
             previewWorld.SetHexagonColorMap(width, height, ref hexColors);
             previewWorld.SetHexagonsElevation(ref heightMap, heightMultiplier);
         }
@@ -396,6 +404,36 @@ namespace TilePuzzle.Procedural
             {
                 BiomeTable.Biome biome = biomeTable.EvaluateBiome(center.moisture, center.Temperature);
                 center.biomeId = biome.id;
+            }
+        }
+
+        private void CalculateMountain(int mountainSeed, int mountainSpawnTry, Vector2 mountainSpawnRange, int n, float force, ref Center[] centers, out bool[] mountains)
+        {
+            mountains = new bool[centers.Length];
+            System.Random random = new System.Random(mountainSeed);
+
+            for (int i = 0; i < centers.Length; i++)
+            {
+                Center center = centers[i];
+                if (center.elevation >= force)
+                {
+                    mountains[i] = true;
+                }
+            }
+
+            for (int i = 0; i < mountainSpawnTry; i++)
+            {
+                int randomIndex = random.Next(centers.Length);
+                Center randomCenter = centers[randomIndex];
+                if (randomCenter.isSea || randomCenter.elevation < riverSpawnRange.x || randomCenter.elevation > riverSpawnRange.y)
+                {
+                    continue;
+                }
+
+                if (randomCenter.NeighborCenters.Values.Where(x => x.elevation < randomCenter.elevation).Count() >= n)
+                {
+                    mountains[randomIndex] = true;
+                }
             }
         }
 
