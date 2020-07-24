@@ -1815,7 +1815,7 @@ PrefabInstance:
     - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
         type: 3}
       propertyPath: previewMode
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
         type: 3}
@@ -1851,6 +1851,11 @@ PrefabInstance:
         type: 3}
       propertyPath: terrainShapeNoiseSettings.weightMultiplier
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
+        type: 3}
+      propertyPath: exportSettingsPath
+      value: Assets/Settings
       objectReference: {fileID: 0}
     - target: {fileID: 8162323017801458240, guid: 41f3f6d3547e8754098b0a7062bf1222,
         type: 3}

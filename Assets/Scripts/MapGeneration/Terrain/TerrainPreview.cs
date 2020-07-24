@@ -5,7 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TilePuzzle.Rendering;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace TilePuzzle.Procedural
 {
@@ -38,6 +40,10 @@ namespace TilePuzzle.Procedural
         [Required]
         public Transform hexagonHolder;
 
+        [Title("Export Settings")]
+        [FolderPath]
+        public string exportPath = "Assets/Settings";
+
         private bool settingUpdated;
         private TerrainGenerateSettings generateSettings;
         private Hexagon[] hexagons;
@@ -57,7 +63,6 @@ namespace TilePuzzle.Procedural
             {
                 settingUpdated = false;
 
-                UpdateTerrainGenerateSettings();
                 UpdateTerrainPreview();
             }
         }
@@ -70,9 +75,30 @@ namespace TilePuzzle.Procedural
             }
         }
 
-        public void SaveGenerateSettings()
+        [Button]
+        public void ExportGenerateSettings()
         {
-            // TODO: 지형 생성 설정값 저장
+            UpdateTerrainGenerateSettings();
+
+            AssetDatabase.CreateAsset(generateSettings, $"{exportPath}/{nameof(TerrainGenerateSettings)}_{DateTime.Now.Ticks}.asset");
+            AssetDatabase.SaveAssets();
+            EditorUtility.FocusProjectWindow();
+            Selection.activeObject = generateSettings;
+
+            generateSettings = null;
+            UpdateTerrainPreview();
+        }
+
+        [Button]
+        private void UpdateTerrainPreview()
+        {
+            UpdateTerrainGenerateSettings();
+
+            TerrainData terrainData = TerrainGenerator.GenerateTerrain(generateSettings);
+            CreateHexagonMap(generateSettings.terrainSize);
+            UpdateHexagonMeshes(terrainData);
+            UpdateHexagonHeight(terrainData);
+            UpdateHexagonColorMap(terrainData);
         }
 
         private void UpdateTerrainGenerateSettings()
@@ -92,16 +118,6 @@ namespace TilePuzzle.Procedural
             generateSettings.riverSpawnRange = riverSpawnRange;
             generateSettings.riverSpawnMultiplier = riverSpawnMultiplier;
             generateSettings.biomeTableSettings = biomeTableSettings;
-    }
-
-        [Button]
-        private void UpdateTerrainPreview()
-        {
-            TerrainData terrainData = TerrainGenerator.GenerateTerrain(generateSettings);
-            CreateHexagonMap(generateSettings.terrainSize);
-            UpdateHexagonMeshes(terrainData);
-            UpdateHexagonHeight(terrainData);
-            UpdateHexagonColorMap(terrainData);
         }
 
         private void CreateHexagonMap(Vector2Int mapSize)

@@ -30,7 +30,7 @@ Material:
     - Vector1_712BC85A: 0.068
     - Vector1_D1B7B97C: 0.23
     - Vector1_ED19B813: 0.3
-    - _EnableBrightNoise: 1
+    - _EnableBrightNoise: 0
     m_Colors:
     - Vector2_BCB628E3: {r: 32, g: 32, b: 0, a: 0}
     - _ColorMapSize: {r: 64, g: 64, b: 0, a: 0}
