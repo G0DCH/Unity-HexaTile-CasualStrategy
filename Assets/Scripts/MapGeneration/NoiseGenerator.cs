@@ -4,47 +4,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TilePuzzle.Utility;
 using UnityEngine;
 using UnityEngine.Profiling;
 
 namespace TilePuzzle.Procedural
 {
-    public class NoiseGenerator : MonoBehaviour
+    public class NoiseGenerator : Singleton<NoiseGenerator>
     {
         [Required]
         public ComputeShader hexagonNoiseMap;
         [Required]
         public ComputeShader vectorNoise;
 
-        [Title("Noise")]
-        [EnumToggleButtons]
-        public NoiseType noiseType;
-        [FoldoutGroup("Noise options"), HideLabel]
-        public NoiseSettings settings;
-
-        [TitleGroup("Debug")]
-        public TerrainGenerator terrainGenerator;
-        public bool autoUpdateTerrain;
-
         private Queue<ComputeBuffer> bufferToRelease;
 
-        public enum NoiseType
-        {
-            Perlin, Simplex
-        }
-
-        private void OnValidate()
-        {
-            if (autoUpdateTerrain)
-            {
-                if (terrainGenerator != null)
-                {
-                    terrainGenerator.hasParameterUpdated = true;
-                }
-            }
-        }
-
-        public void GenerateHexagonNoiseMap(int width, int height, ComputeBuffer noiseMapBuffer)
+        public void GenerateHexagonNoiseMap(int width, int height, ComputeBuffer noiseMapBuffer, NoiseSettings settings)
         {
             if (bufferToRelease == null)
             {
@@ -53,10 +28,10 @@ namespace TilePuzzle.Procedural
 
             ComputeBuffer octaveOffsetsBuffer = new ComputeBuffer(settings.octaves, sizeof(float) * 3);
             bufferToRelease.Enqueue(octaveOffsetsBuffer);
-            Vector3[] octaveOffsets = CalculateOctaveOffsets();
+            Vector3[] octaveOffsets = CalculateOctaveOffsets(settings);
             octaveOffsetsBuffer.SetData(octaveOffsets);
 
-            int kernelIndex = GetKernelIndex(noiseType);
+            int kernelIndex = GetKernelIndex(settings.noiseType);
             hexagonNoiseMap.SetBuffer(kernelIndex, "noiseMap", noiseMapBuffer);
             hexagonNoiseMap.SetBuffer(kernelIndex, "octaveOffsets", octaveOffsetsBuffer);
 
@@ -77,13 +52,13 @@ namespace TilePuzzle.Procedural
             hexagonNoiseMap.Dispatch(kernelIndex, threadGroupsX, threadGroupsY, 1);
         }
 
-        public void GenerateHexagonNoiseMap(int width, int height, out float[] noiseMap)
+        public void GenerateHexagonNoiseMap(int width, int height, out float[] noiseMap, NoiseSettings settings)
         {
             Profiler.BeginSample(nameof(GenerateHexagonNoiseMap));
 
             int noiseBufferSize = width * height;
             ComputeBuffer noiseMapBuffer = new ComputeBuffer(noiseBufferSize, sizeof(float));
-            GenerateHexagonNoiseMap(width, height, noiseMapBuffer);
+            GenerateHexagonNoiseMap(width, height, noiseMapBuffer, settings);
 
             noiseMap = new float[noiseBufferSize];
             noiseMapBuffer.GetData(noiseMap);
@@ -96,7 +71,7 @@ namespace TilePuzzle.Procedural
             Profiler.EndSample();
         }
 
-        public void EvaluateNoise(ComputeBuffer samplePointsBuffer, ComputeBuffer resultsBuffer, int totalPoints)
+        public void EvaluateNoise(ComputeBuffer samplePointsBuffer, ComputeBuffer resultsBuffer, int totalPoints, NoiseSettings settings)
         {
             if (bufferToRelease == null)
             {
@@ -105,10 +80,10 @@ namespace TilePuzzle.Procedural
 
             ComputeBuffer octaveOffsetsBuffer = new ComputeBuffer(settings.octaves, sizeof(float) * 3);
             bufferToRelease.Enqueue(octaveOffsetsBuffer);
-            Vector3[] octaveOffsets = CalculateOctaveOffsets();
+            Vector3[] octaveOffsets = CalculateOctaveOffsets(settings);
             octaveOffsetsBuffer.SetData(octaveOffsets);
 
-            int kernelIndex = GetKernelIndex(noiseType);
+            int kernelIndex = GetKernelIndex(settings.noiseType);
             vectorNoise.SetBuffer(kernelIndex, "samplePoints", samplePointsBuffer);
             vectorNoise.SetBuffer(kernelIndex, "results", resultsBuffer);
             vectorNoise.SetBuffer(kernelIndex, "octaveOffsets", octaveOffsetsBuffer);
@@ -127,7 +102,7 @@ namespace TilePuzzle.Procedural
             vectorNoise.Dispatch(kernelIndex, threadGroupsX, 1, 1);
         }
 
-        public void EvaluateNoise(ref Vector2[] samplePoints, out float[] results)
+        public void EvaluateNoise(ref Vector2[] samplePoints, out float[] results, NoiseSettings settings)
         {
             Profiler.BeginSample(nameof(EvaluateNoise));
 
@@ -136,7 +111,7 @@ namespace TilePuzzle.Procedural
             ComputeBuffer resultsBuffer = new ComputeBuffer(totalPoints, sizeof(float));
             samplePointsBuffer.SetData(samplePoints);
 
-            EvaluateNoise(samplePointsBuffer, resultsBuffer, totalPoints);
+            EvaluateNoise(samplePointsBuffer, resultsBuffer, totalPoints, settings);
 
             results = new float[totalPoints];
             resultsBuffer.GetData(results);
@@ -150,7 +125,7 @@ namespace TilePuzzle.Procedural
             Profiler.EndSample();
         }
 
-        private Vector3[] CalculateOctaveOffsets()
+        private Vector3[] CalculateOctaveOffsets(NoiseSettings settings)
         {
             System.Random random = new System.Random(settings.seed);
             Vector3[] octaveOffsets = new Vector3[settings.octaves];
@@ -166,30 +141,17 @@ namespace TilePuzzle.Procedural
             return octaveOffsets;
         }
 
-        private int GetKernelIndex(NoiseType noiseType)
+        private int GetKernelIndex(NoiseSettings.NoiseType noiseType)
         {
             switch (noiseType)
             {
-                case NoiseType.Perlin:
+                case NoiseSettings.NoiseType.Perlin:
                     return 0;
-                case NoiseType.Simplex:
+                case NoiseSettings.NoiseType.Simplex:
                     return 1;
                 default:
                     throw new InvalidOperationException();
             }
-        }
-
-        [Serializable]
-        public class NoiseSettings
-        {
-            public int seed;
-            public Vector3 offset;
-            [Range(1, 10)] public int octaves = 4;
-            [Min(0)] public float lacunarity = 2;
-            [Min(0)] public float persistance = 0.5f;
-            [Min(0)] public float scale = 1;
-            [Min(0)] public float strength = 1;
-            [Min(0)] public float weightMultiplier = 1;
         }
     }
 }

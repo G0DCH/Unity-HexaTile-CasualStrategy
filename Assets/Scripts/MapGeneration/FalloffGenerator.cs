@@ -1,35 +1,18 @@
 ﻿using Sirenix.OdinInspector;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TilePuzzle.Utility;
 using UnityEngine;
 using UnityEngine.Profiling;
 
 namespace TilePuzzle.Procedural
 {
-    public class FalloffGenerator : MonoBehaviour
+    public class FalloffGenerator : Singleton<FalloffGenerator>
     {
         [Required]
         public ComputeShader falloffMap;
         [Required]
         public ComputeShader vectorFalloff;
-        public Vector2 falloffParameter = new Vector2(3f, 2.2f);
 
-        [Title("Debug")]
-        public TerrainGenerator terrainGenerator;
-        public bool autoUpdateTerrain;
-
-        private void OnValidate()
-        {
-            if (autoUpdateTerrain && terrainGenerator != null)
-            {
-                terrainGenerator.hasParameterUpdated = true;
-            }
-        }
-
-        public void GenerateFalloffMap(int width, int height, ComputeBuffer falloffMapBuffer)
+        public void GenerateFalloffMap(int width, int height, ComputeBuffer falloffMapBuffer, FalloffSettings settings)
         {
             float maxX = (width - 1) * Hexagon.Size + (Hexagon.Size / 2);
             float maxY = (height - 1) * Hexagon.Size * Mathf.Sin(Mathf.PI / 3);
@@ -39,7 +22,7 @@ namespace TilePuzzle.Procedural
             falloffMap.SetInt("mapHeight", height);
             falloffMap.SetFloat("maxX", maxX);
             falloffMap.SetFloat("maxY", maxY);
-            falloffMap.SetVector("falloffParameter", falloffParameter);
+            falloffMap.SetVector("falloffParameter", settings.falloffParameter);
             falloffMap.SetFloat("hexagonSize", Hexagon.Size);
 
             int threadGroupsX = Mathf.CeilToInt(width / 16f);
@@ -47,13 +30,13 @@ namespace TilePuzzle.Procedural
             falloffMap.Dispatch(0, threadGroupsX, threadGroupsY, 1);
         }
 
-        public void GenerateFalloffMap(int width, int height, out float[] falloffMap)
+        public void GenerateFalloffMap(int width, int height, out float[] falloffMap, FalloffSettings settings)
         {
             Profiler.BeginSample(nameof(GenerateFalloffMap));
 
             int bufferSize = width * height;
             ComputeBuffer falloffMapBuffer = new ComputeBuffer(bufferSize, sizeof(float));
-            GenerateFalloffMap(width, height, falloffMapBuffer);
+            GenerateFalloffMap(width, height, falloffMapBuffer, settings);
 
             falloffMap = new float[bufferSize];
             falloffMapBuffer.GetData(falloffMap);
@@ -62,7 +45,7 @@ namespace TilePuzzle.Procedural
             Profiler.EndSample();
         }
 
-        private void EvaluateFalloff(int width, int height, ComputeBuffer samplePointsBuffer, ComputeBuffer resultsBuffer, int totalPoints)
+        private void EvaluateFalloff(int width, int height, ComputeBuffer samplePointsBuffer, ComputeBuffer resultsBuffer, int totalPoints, FalloffSettings settings)
         {
             float maxX = (width - 1) * Hexagon.Size + (Hexagon.Size / 2);
             float maxY = (height - 1) * Hexagon.Size * Mathf.Sin(Mathf.PI / 3);
@@ -73,13 +56,13 @@ namespace TilePuzzle.Procedural
             vectorFalloff.SetInt("totalPoints", totalPoints);
             vectorFalloff.SetFloat("maxX", maxX);
             vectorFalloff.SetFloat("maxY", maxY);
-            vectorFalloff.SetVector("falloffParameter", falloffParameter);
+            vectorFalloff.SetVector("falloffParameter", settings.falloffParameter);
 
             int threadGroupsX = Mathf.CeilToInt(totalPoints / 16f);
             vectorFalloff.Dispatch(0, threadGroupsX, 1, 1);
         }
 
-        public void EvaluateFalloff(int width, int height, ref Vector2[] samplePoints, out float[] results)
+        public void EvaluateFalloff(int width, int height, ref Vector2[] samplePoints, out float[] results, FalloffSettings settings)
         {
             Profiler.BeginSample(nameof(EvaluateFalloff));
 
@@ -88,7 +71,7 @@ namespace TilePuzzle.Procedural
             ComputeBuffer resultsBuffer = new ComputeBuffer(totalPoints, sizeof(float));
             samplePointsBuffer.SetData(samplePoints);
 
-            EvaluateFalloff(width, height, samplePointsBuffer, resultsBuffer, totalPoints);
+            EvaluateFalloff(width, height, samplePointsBuffer, resultsBuffer, totalPoints, settings);
 
             results = new float[totalPoints];
             resultsBuffer.GetData(results);

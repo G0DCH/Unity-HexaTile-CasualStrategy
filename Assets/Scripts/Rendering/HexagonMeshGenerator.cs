@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace TilePuzzle.Rendering
 {
-    public class HexagonMeshGenerator
+    public static class HexagonMeshGenerator
     {
         /// <summary>
         /// <see cref="Vector3.forward"/> 기준 시계방향으로 60도 간격씩 나누어진 헥사곤 꼭짓점 A~F
@@ -23,7 +23,7 @@ namespace TilePuzzle.Rendering
 
         /// <param name="hexagonSize">헥사곤의 중심으로부터 모서리까지의 길이</param>
         /// <returns>헥사곤 평면 메시</returns>
-        public Mesh BuildMesh(float hexagonSize)
+        public static Mesh BuildMesh(float hexagonSize)
         {
             return BuildMesh(hexagonSize, 0, false, 0, 0);
         }
@@ -31,7 +31,7 @@ namespace TilePuzzle.Rendering
         /// <param name="hexagonSize">헥사곤의 중심으로부터 모서리까지의 길이</param>
         /// <param name="cliffDepth">절벽 깊이 (헥사곤 옆면 높이)</param>
         /// <returns>옆면이 있는 헥사곤 메시</returns>
-        public Mesh BuildMesh(float hexagonSize, float cliffDepth)
+        public static Mesh BuildMesh(float hexagonSize, float cliffDepth)
         {
             return BuildMesh(hexagonSize, cliffDepth, true, 0, 0);
         }
@@ -41,12 +41,12 @@ namespace TilePuzzle.Rendering
         /// <param name="riverSize">강의 폭</param>
         /// <param name="riverDirection">강이 지나가는 꼭짓점 방향들</param>
         /// <returns>강과 옆면이 포함된 헥사곤 메시</returns>
-        public Mesh BuildMesh(float hexagonSize, float cliffDepth, float riverSize, VertexDirection riverDirection)
+        public static Mesh BuildMesh(float hexagonSize, float cliffDepth, float riverSize, VertexDirection riverDirection)
         {
             return BuildMesh(hexagonSize, cliffDepth, true, riverSize, riverDirection);
         }
 
-        private Mesh BuildMesh(float hexagonSize, float cliffDepth, bool drawCliff, float riverSize, VertexDirection rivers)
+        private static Mesh BuildMesh(float hexagonSize, float cliffDepth, bool drawCliff, float riverSize, VertexDirection rivers)
         {
             Mesh mesh = new Mesh();
             List<Vector3> vertices = new List<Vector3>();
@@ -153,7 +153,7 @@ namespace TilePuzzle.Rendering
             return mesh;
         }
 
-        private int Modulo(int x, int m)
+        private static int Modulo(int x, int m)
         {
             int remainder = x % m;
             return remainder < 0 ? remainder + m : remainder;

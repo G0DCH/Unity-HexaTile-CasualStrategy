@@ -1,6 +1,4 @@
-﻿using Sirenix.OdinInspector;
-using Sirenix.Utilities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,146 +7,46 @@ using UnityEngine;
 
 namespace TilePuzzle.Procedural
 {
-    [ExecuteInEditMode]
-    public class TerrainGenerator : MonoBehaviour
+    public static class TerrainGenerator
     {
-        [Title("Generate options")]
-        public Vector2Int mapSize = new Vector2Int(30, 30);
-        public NoiseGenerator islandShape;
-        public FalloffGenerator islandShapeFalloff;
-        [ProgressBar(0, 1)]
-        public float seaLevel;
-        [ProgressBar(0, 1)]
-        public float lakeThreshold = 0.3f;
-        public float scaleFactor = 1.1f;
-        public int riverSeed;
-        public float riverSpawnMultiplier;
-        public Vector2 riverSpawnRange;
-        public BiomeTableSettings biomeTableSettings;
-        public int mountainSeed;
-        public float mountainSpawnMultiplier;
-        public Vector2 mountainSpawnRange;
-        public int mountainN;
-        public float force;
-
-        [Title("Preview")]
-        [Required]
-        public PreviewWorld previewWorld;
-        public bool autoUpdateWorld;
-        public MeshRenderer waterMapRenderer;
-        public MeshRenderer nodeTypeMapRenderer;
-        public MeshRenderer heightMapRenderer;
-        public MeshRenderer riverMapRenderer;
-        public MeshRenderer moistureMapRenderer;
-        public MeshRenderer temperatureMapRenderer;
-        public MeshRenderer biomeMapRenderer;
-
-        [Title("Debug options")]
-        public float heightMultiplier;
-
-        [HideInInspector]
-        public bool hasParameterUpdated;
-
-        public enum NodeType : int
+        public static TerrainData GenerateTerrain(TerrainGenerateSettings settings)
         {
-            Invalid = 0, Land = 1, Coast = 2, Sea = 3, Lake = 4
-        }
-
-        private void Update()
-        {
-            if (hasParameterUpdated && autoUpdateWorld)
-            {
-                hasParameterUpdated = false;
-                GenerateTerrain2();
-            }
-        }
-
-        private void OnValidate()
-        {
-            hasParameterUpdated = true;
-        }
-
-        [Button]
-        public void GenerateTerrain2()
-        {
-            int width = mapSize.x;
-            int height = mapSize.y;
-
-            // Center, Corner 그래프 생성
-            GraphGenerator.CreateHexagonGraph(width, height, out Center[] centers, out Corner[] corners);
+            Vector2Int terrainSize = settings.terrainSize;
+            GraphGenerator.CreateHexagonGraph(terrainSize.x, terrainSize.y, out Center[] centers, out Corner[] corners);
 
             // 섬 모양 계산
-            CalculateIslandShape(seaLevel, islandShape, islandShapeFalloff, ref corners);
+            CalculateIslandShape(terrainSize, settings.landRatio, settings.terrainShapeNoiseSettings, settings.terrainShapeFalloffSettings, ref corners);
 
             // 물, 바다, 땅, 해변 설정
-            CalculateWaterGroundType(lakeThreshold, ref centers, ref corners);
+            CalculateWaterGroundType(settings.lakeThreshold, ref centers, ref corners);
 
             // 높이 분포 계산
-            CalculateElevation(scaleFactor, ref centers, ref corners);
+            CalculateElevation(settings.peakMultiplier, ref centers, ref corners);
 
             // 내리막 계산
             CalculateDownSlope(ref corners);
 
             // 강 생성
-            int riverSpawnTry = (int)((width + height) / 2 * riverSpawnMultiplier);
-            CalculateRiver(riverSeed, riverSpawnTry, riverSpawnRange, ref corners);
-            foreach (var corner in corners)
-            {
-                if (corner.river > 0)
-                {
-                    Debug.DrawLine(corner.cornerPos, corner.downslope.cornerPos, Color.blue, 0.1f);
-                }
-            }
+            int riverSpawnTry = (int)((terrainSize.x + terrainSize.y) / 2 * settings.riverSpawnMultiplier);
+            CalculateRiver(settings.riverSeed, riverSpawnTry, settings.riverSpawnRange, ref corners);
 
             // 습도 계산
             CalculateMoisture(ref centers, ref corners);
 
             // 바이옴 계산
-            BiomeTable biomeTable = biomeTableSettings.GetBiomeTable();
+            BiomeTable biomeTable = settings.biomeTableSettings.GetBiomeTable();
             CalculateBiome(biomeTable, ref centers);
 
-            //int mountainSpawnTry = (int)((width + height) / 2 * mountainSpawnMultiplier);
-            //CalculateMountain(mountainSeed, mountainSpawnTry, mountainSpawnRange, mountainN, force, ref centers, out bool[] mountains);
-
-            float[] heightMap = centers.Select(x => x.isWater ? -0.25f : 0).ToArray();
-            Color[] hexColors = new Color[centers.Length];
-            for (int i = 0; i < centers.Length; i++)
-            {
-                hexColors[i] = Color.Lerp(Color.black, Color.white, centers[i].elevation);  // elevation
-                //hexColors[i] = Color.Lerp(Color.black, Color.blue, centers[i].moisture);  // moisture
-                //hexColors[i] = Color.HSVToRGB(Mathf.Lerp(0.666666f, 0, centers[i].Temperature), 1, 1);   // temperature
-                hexColors[i] = biomeTable.biomeDictionary[centers[i].biomeId].color;   // biome
-
-                if (centers[i].isSea)
-                {
-                    hexColors[i] = new Color(0.3f, 0.3f, 1);
-                }
-                else if (centers[i].isCoast)
-                {
-                    //hexColors[i] = Color.yellow;
-                }
-                else if (centers[i].isWater)
-                {
-                    hexColors[i] = new Color(0.4f, 0.4f, 1);
-                }
-                else
-                {
-                }
-
-            }
-
-            previewWorld.BuildHexagonMeshes(mapSize, ref centers);
-            //previewWorld.MountainTest(mapSize, ref mountains);
-            previewWorld.SetHexagonColorMap(width, height, ref hexColors);
-            previewWorld.SetHexagonsElevation(ref heightMap, heightMultiplier);
+            TerrainData terrainData = new TerrainData(terrainSize, centers, corners, biomeTable);
+            return terrainData;
         }
 
-        private void CalculateIslandShape(float seaLevel, NoiseGenerator islandShapeNoise, FalloffGenerator islandShapeFalloff, ref Corner[] corners)
+        private static void CalculateIslandShape(Vector2Int mapSize, float seaLevel, NoiseSettings noiseSettings, FalloffSettings falloffSettings, ref Corner[] corners)
         {
             // 노이즈 값이 seaLevel 보다 낮으면 물로 설정
             Vector2[] cornerPoints = corners.Select(x => new Vector2(x.cornerPos.x, x.cornerPos.z)).ToArray();
-            islandShapeNoise.EvaluateNoise(ref cornerPoints, out float[] cornerNoiseValues);
-            islandShapeFalloff.EvaluateFalloff(mapSize.x, mapSize.y, ref cornerPoints, out float[] cornerFalloffValues);    // TODO: radial falloff 으로 변경
+            NoiseGenerator.Instance.EvaluateNoise(ref cornerPoints, out float[] cornerNoiseValues, noiseSettings);
+            FalloffGenerator.Instance.EvaluateFalloff(mapSize.x, mapSize.y, ref cornerPoints, out float[] cornerFalloffValues, falloffSettings);    // TODO: radial falloff 으로 변경
             for (int i = 0; i < corners.Length; i++)
             {
                 if (cornerNoiseValues[i] * cornerFalloffValues[i] < seaLevel)
@@ -193,7 +91,7 @@ namespace TilePuzzle.Procedural
             }
         }
 
-        private void CalculateWaterGroundType(float lakeThreshold, ref Center[] centers, ref Corner[] corners)
+        private static void CalculateWaterGroundType(float lakeThreshold, ref Center[] centers, ref Corner[] corners)
         {
             Queue<Center> seaFloodFill = new Queue<Center>();
             foreach (Center center in centers)
@@ -271,7 +169,7 @@ namespace TilePuzzle.Procedural
             }
         }
 
-        private void CalculateElevation(float scaleFactor, ref Center[] centers, ref Corner[] corners)
+        private static void CalculateElevation(float scaleFactor, ref Center[] centers, ref Corner[] corners)
         {
             Corner[] sortedLandCorners = corners
                 .Where(x => x.isSea == false && x.isCoast == false)
@@ -301,7 +199,7 @@ namespace TilePuzzle.Procedural
             }
         }
 
-        private void CalculateDownSlope(ref Corner[] corners)
+        private static void CalculateDownSlope(ref Corner[] corners)
         {
             foreach (Corner corner in corners)
             {
@@ -317,7 +215,7 @@ namespace TilePuzzle.Procedural
             }
         }
 
-        private void CalculateRiver(int riverSeed, int riverSpawnTry, Vector2 riverSpawnRange, ref Corner[] corners)
+        private static void CalculateRiver(int riverSeed, int riverSpawnTry, Vector2 riverSpawnRange, ref Corner[] corners)
         {
             System.Random random = new System.Random(riverSeed);
             for (int i = 0; i < riverSpawnTry; i++)
@@ -345,12 +243,12 @@ namespace TilePuzzle.Procedural
             }
         }
 
-        private void CalculateMoisture(ref Center[] centers, ref Corner[] corners)
+        private static void CalculateMoisture(ref Center[] centers, ref Corner[] corners)
         {
             Queue<Corner> moistureFloodFill = new Queue<Corner>();
             foreach (Corner corner in corners)
             {
-                if (corner.isSea == false && (corner.isWater || corner.river>0))
+                if (corner.isSea == false && (corner.isWater || corner.river > 0))
                 {
                     corner.moisture = corner.river > 0 ? Mathf.Min(0.2f * corner.river, 3f) : 1f;
                     moistureFloodFill.Enqueue(corner);
@@ -398,7 +296,7 @@ namespace TilePuzzle.Procedural
             }
         }
 
-        private void CalculateBiome(BiomeTable biomeTable, ref Center[] centers)
+        private static void CalculateBiome(BiomeTable biomeTable, ref Center[] centers)
         {
             foreach (Center center in centers)
             {
@@ -407,35 +305,6 @@ namespace TilePuzzle.Procedural
             }
         }
 
-        private void CalculateMountain(int mountainSeed, int mountainSpawnTry, Vector2 mountainSpawnRange, int n, float force, ref Center[] centers, out bool[] mountains)
-        {
-            mountains = new bool[centers.Length];
-            System.Random random = new System.Random(mountainSeed);
-
-            for (int i = 0; i < centers.Length; i++)
-            {
-                Center center = centers[i];
-                if (center.elevation >= force)
-                {
-                    mountains[i] = true;
-                }
-            }
-
-            for (int i = 0; i < mountainSpawnTry; i++)
-            {
-                int randomIndex = random.Next(centers.Length);
-                Center randomCenter = centers[randomIndex];
-                if (randomCenter.isSea || randomCenter.elevation < riverSpawnRange.x || randomCenter.elevation > riverSpawnRange.y)
-                {
-                    continue;
-                }
-
-                if (randomCenter.NeighborCenters.Values.Where(x => x.elevation < randomCenter.elevation).Count() >= n)
-                {
-                    mountains[randomIndex] = true;
-                }
-            }
-        }
 
         //[Button]
         //public void GenerateTerrain()
@@ -933,19 +802,19 @@ namespace TilePuzzle.Procedural
         //    }
         //}
 
-        private void UpdatePreviewTexture(int width, int height, MeshRenderer renderer, Color[] colors)
-        {
-            Texture2D texture = new Texture2D(width, height)
-            {
-                filterMode = FilterMode.Point
-            };
+        //private void UpdatePreviewTexture(int width, int height, MeshRenderer renderer, Color[] colors)
+        //{
+        //    Texture2D texture = new Texture2D(width, height)
+        //    {
+        //        filterMode = FilterMode.Point
+        //    };
 
-            texture.SetPixels(colors);
-            texture.Apply();
+        //    texture.SetPixels(colors);
+        //    texture.Apply();
 
-            var properties = new MaterialPropertyBlock();
-            properties.SetTexture("_Texture", texture);
-            renderer.SetPropertyBlock(properties);
-        }
+        //    var properties = new MaterialPropertyBlock();
+        //    properties.SetTexture("_Texture", texture);
+        //    renderer.SetPropertyBlock(properties);
+        //}
     }
 }
