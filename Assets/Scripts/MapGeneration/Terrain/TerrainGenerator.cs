@@ -9,7 +9,7 @@ namespace TilePuzzle.Procedural
 {
     public static class TerrainGenerator
     {
-        public static TerrainData GenerateTerrain(TerrainGenerateSettings settings)
+        public static TerrainData GenerateTerrainData(TerrainGenerateSettings settings)
         {
             Vector2Int terrainSize = settings.terrainSize;
             GraphGenerator.CreateHexagonGraph(terrainSize.x, terrainSize.y, out Center[] centers, out Corner[] corners);

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c4ddb14f842c9a4c8ed1df445dcb299, type: 3}
+  m_Name: TerrainRenderingSettings_637312737376547544
+  m_EditorClassIdentifier: 
+  cliffDepth: 1.5
+  seaColor: {r: 0.17853329, g: 0.36800086, b: 0.6415094, a: 0}
+  lakeColor: {r: 0.40583837, g: 0.87440735, b: 0.9056604, a: 0}
+  enableBrightNoise: 1

@@ -99,7 +99,7 @@ LightmapSettings:
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: 5e25f973a31e1714bbd636537dad2dec,
     type: 2}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -920,7 +920,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 905169250}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20, y: -0.24, z: 16}
+  m_LocalPosition: {x: 20, y: -0.26, z: 16}
   m_LocalScale: {x: 3.68, y: 1, z: 3.12}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1623,6 +1623,87 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &2487568528654527954
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6848110699991131977, guid: 9f218873ebb49414c988e776ba1c4f1c,
+        type: 3}
+      propertyPath: m_Name
+      value: World
+      objectReference: {fileID: 0}
+    - target: {fileID: 7557564662450409726, guid: 9f218873ebb49414c988e776ba1c4f1c,
+        type: 3}
+      propertyPath: generateSettings
+      value: 
+      objectReference: {fileID: 11400000, guid: 390df644a939dd84a9da5b7425bc1245,
+        type: 2}
+    - target: {fileID: 7557564662450409726, guid: 9f218873ebb49414c988e776ba1c4f1c,
+        type: 3}
+      propertyPath: renderingSettings
+      value: 
+      objectReference: {fileID: 11400000, guid: 11944acff3274164cac2e635f2d9804e,
+        type: 2}
+    - target: {fileID: 8550946858816477357, guid: 9f218873ebb49414c988e776ba1c4f1c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8550946858816477357, guid: 9f218873ebb49414c988e776ba1c4f1c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8550946858816477357, guid: 9f218873ebb49414c988e776ba1c4f1c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8550946858816477357, guid: 9f218873ebb49414c988e776ba1c4f1c,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8550946858816477357, guid: 9f218873ebb49414c988e776ba1c4f1c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8550946858816477357, guid: 9f218873ebb49414c988e776ba1c4f1c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8550946858816477357, guid: 9f218873ebb49414c988e776ba1c4f1c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8550946858816477357, guid: 9f218873ebb49414c988e776ba1c4f1c,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 8550946858816477357, guid: 9f218873ebb49414c988e776ba1c4f1c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8550946858816477357, guid: 9f218873ebb49414c988e776ba1c4f1c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8550946858816477357, guid: 9f218873ebb49414c988e776ba1c4f1c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9f218873ebb49414c988e776ba1c4f1c, type: 3}
 --- !u!1001 &5693764131827564598
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1774,12 +1855,12 @@ PrefabInstance:
     - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
         type: 3}
       propertyPath: terrainSize.x
-      value: 40
+      value: 27
       objectReference: {fileID: 0}
     - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
         type: 3}
       propertyPath: terrainSize.y
-      value: 40
+      value: 27
       objectReference: {fileID: 0}
     - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
         type: 3}
@@ -1810,12 +1891,12 @@ PrefabInstance:
     - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
         type: 3}
       propertyPath: autoUpdatePreview
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
         type: 3}
       propertyPath: previewMode
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
         type: 3}
@@ -1830,12 +1911,12 @@ PrefabInstance:
     - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
         type: 3}
       propertyPath: terrainShapeNoiseSettings.seed
-      value: 1156
+      value: 1345
       objectReference: {fileID: 0}
     - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
         type: 3}
       propertyPath: terrainShapeFalloffSettings.falloffParameter.y
-      value: 4.09
+      value: 3.1
       objectReference: {fileID: 0}
     - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
         type: 3}
@@ -1856,6 +1937,46 @@ PrefabInstance:
         type: 3}
       propertyPath: exportSettingsPath
       value: Assets/Settings
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
+        type: 3}
+      propertyPath: enableBrightNoise
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
+        type: 3}
+      propertyPath: seaColor.r
+      value: 0.17853329
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
+        type: 3}
+      propertyPath: seaColor.g
+      value: 0.36800086
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
+        type: 3}
+      propertyPath: seaColor.b
+      value: 0.6415094
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
+        type: 3}
+      propertyPath: lakeColor.r
+      value: 0.40583837
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
+        type: 3}
+      propertyPath: lakeColor.g
+      value: 0.87440735
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
+        type: 3}
+      propertyPath: lakeColor.b
+      value: 0.9056604
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
+        type: 3}
+      propertyPath: terrainShapeFalloffSettings.falloffParameter.x
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 8162323017801458240, guid: 41f3f6d3547e8754098b0a7062bf1222,
         type: 3}
