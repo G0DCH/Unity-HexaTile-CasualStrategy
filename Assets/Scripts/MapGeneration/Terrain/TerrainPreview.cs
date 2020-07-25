@@ -29,6 +29,12 @@ namespace TilePuzzle.Procedural
         [Required]
         public BiomeTableSettings biomeTableSettings;
 
+        [Title("Rendering Settings")]
+        public float cliffDepth = 1.5f;
+        public Color seaColor;
+        public Color lakeColor;
+        public bool enableBrightNoise = true;
+
         [Title("Preview Settings")]
         public bool autoUpdatePreview;
         [EnumToggleButtons]
@@ -46,12 +52,13 @@ namespace TilePuzzle.Procedural
 
         private bool settingUpdated;
         private TerrainGenerateSettings generateSettings;
+        private TerrainRenderingSettings renderingSettings;
         private Hexagon[] hexagons;
         private Vector2Int previousHexagonMapSize;
 
         public enum PreviewMode
         {
-            Water, Height, Moisture, Temperature, Biome
+            Water, Height, Moisture, Temperature, Biome, Combine
         }
 
         // 프리뷰 모드 (높이맵, 습도맵 보기 등)
@@ -78,7 +85,7 @@ namespace TilePuzzle.Procedural
         [Button]
         public void ExportGenerateSettings()
         {
-            UpdateTerrainGenerateSettings();
+            UpdateGenerateSettings();
 
             AssetDatabase.CreateAsset(generateSettings, $"{exportPath}/{nameof(TerrainGenerateSettings)}_{DateTime.Now.Ticks}.asset");
             AssetDatabase.SaveAssets();
@@ -86,22 +93,43 @@ namespace TilePuzzle.Procedural
             Selection.activeObject = generateSettings;
 
             generateSettings = null;
-            UpdateTerrainPreview();
+            if (autoUpdatePreview)
+            {
+                UpdateTerrainPreview();
+            }
+        }
+
+        [Button]
+        public void ExportRenderingSettings()
+        {
+            UpdateRenderingSettings();
+
+            AssetDatabase.CreateAsset(renderingSettings, $"{exportPath}/{nameof(TerrainRenderingSettings)}_{DateTime.Now.Ticks}.asset");
+            AssetDatabase.SaveAssets();
+            EditorUtility.FocusProjectWindow();
+            Selection.activeObject = renderingSettings;
+
+            renderingSettings = null;
+            if (autoUpdatePreview)
+            {
+                UpdateTerrainPreview(); 
+            }
         }
 
         [Button]
         private void UpdateTerrainPreview()
         {
-            UpdateTerrainGenerateSettings();
+            UpdateGenerateSettings();
+            UpdateRenderingSettings();
 
-            TerrainData terrainData = TerrainGenerator.GenerateTerrain(generateSettings);
+            TerrainData terrainData = TerrainGenerator.GenerateTerrainData(generateSettings);
             CreateHexagonMap(generateSettings.terrainSize);
-            UpdateHexagonMeshes(terrainData);
+            UpdateHexagonMeshes(terrainData, renderingSettings);
             UpdateHexagonHeight(terrainData);
-            UpdateHexagonColorMap(terrainData);
+            UpdateHexagonColorMap(terrainData, renderingSettings);
         }
 
-        private void UpdateTerrainGenerateSettings()
+        private void UpdateGenerateSettings()
         {
             if (generateSettings == null)
             {
@@ -118,6 +146,19 @@ namespace TilePuzzle.Procedural
             generateSettings.riverSpawnRange = riverSpawnRange;
             generateSettings.riverSpawnMultiplier = riverSpawnMultiplier;
             generateSettings.biomeTableSettings = biomeTableSettings;
+        }
+
+        private void UpdateRenderingSettings()
+        {
+            if (renderingSettings == null)
+            {
+                renderingSettings = ScriptableObject.CreateInstance<TerrainRenderingSettings>();
+            }
+
+            renderingSettings.cliffDepth = cliffDepth;
+            renderingSettings.seaColor = seaColor;
+            renderingSettings.lakeColor = lakeColor;
+            renderingSettings.enableBrightNoise = enableBrightNoise;
         }
 
         private void CreateHexagonMap(Vector2Int mapSize)
@@ -142,10 +183,10 @@ namespace TilePuzzle.Procedural
             }
         }
 
-        private void UpdateHexagonMeshes(TerrainData terrainData)
+        private void UpdateHexagonMeshes(TerrainData terrainData, TerrainRenderingSettings renderingSettings)
         {
             Mesh planeHexagonMesh = HexagonMeshGenerator.BuildMesh(Hexagon.Size);
-            Mesh cliffHexagonMesh = HexagonMeshGenerator.BuildMesh(Hexagon.Size, 1);
+            Mesh cliffHexagonMesh = HexagonMeshGenerator.BuildMesh(Hexagon.Size, renderingSettings.cliffDepth);
 
             for (int i = 0; i < hexagons.Length; i++)
             {
@@ -167,7 +208,7 @@ namespace TilePuzzle.Procedural
                 //}
                 if (riverDirection > 0 && center.isWater == false)
                 {
-                    hexagonMesh = HexagonMeshGenerator.BuildMesh(Hexagon.Size, 1, 0.3f, riverDirection);
+                    hexagonMesh = HexagonMeshGenerator.BuildMesh(Hexagon.Size, renderingSettings.cliffDepth, renderingSettings.riverSize, riverDirection);
                 }
                 else if (center.isWater == false && center.NeighborCenters.Values.Any(neighborCenter => neighborCenter.isWater))
                 {
@@ -193,7 +234,7 @@ namespace TilePuzzle.Procedural
             }
         }
 
-        private void UpdateHexagonColorMap(TerrainData terrainData)
+        private void UpdateHexagonColorMap(TerrainData terrainData, TerrainRenderingSettings renderingSettings)
         {
             int mapWidth = terrainData.terrainSize.x;
             int mapHeight = terrainData.terrainSize.y;
@@ -228,6 +269,20 @@ namespace TilePuzzle.Procedural
                         case PreviewMode.Biome:
                             color = terrainData.biomeTable.biomeDictionary[center.biomeId].color;
                             break;
+                        case PreviewMode.Combine:
+                            if (center.isSea)
+                            {
+                                color = renderingSettings.seaColor;
+                            }
+                            else if (center.isWater)
+                            {
+                                color = renderingSettings.lakeColor;
+                            }
+                            else
+                            {
+                                color = terrainData.biomeTable.biomeDictionary[center.biomeId].color;
+                            }
+                            break;
                         default:
                             color = Color.magenta;
                             break;
@@ -240,7 +295,7 @@ namespace TilePuzzle.Procedural
 
             hexagonMaterial.SetTexture("_ColorMap", colorMapTexture);
             hexagonMaterial.SetVector("_ColorMapSize", new Vector2(textureWidth, textureHeight));
-            hexagonMaterial.SetInt("_EnableBrightNoise", previewMode == PreviewMode.Biome ? 1 : 0);
+            hexagonMaterial.SetInt("_EnableBrightNoise", renderingSettings.enableBrightNoise ? 1 : 0);
         }
 
         private Hexagon CreateNewHexagon(HexagonPos hexPos)
