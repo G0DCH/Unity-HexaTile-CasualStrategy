@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 namespace TilePuzzle.Procedural
 {
@@ -12,6 +13,8 @@ namespace TilePuzzle.Procedural
     {
         public static TerrainData GenerateTerrainData(TerrainGenerateSettings settings)
         {
+            Profiler.BeginSample(nameof(GenerateTerrainData));
+
             Vector2Int terrainSize = settings.terrainSize;
             GraphGenerator.CreateHexagonGraph(terrainSize.x, terrainSize.y, out Center[] centers, out Corner[] corners);
 
@@ -44,21 +47,45 @@ namespace TilePuzzle.Procedural
             // 숲 생성
             CalculateForest(settings.forestSpawnRange, settings.forestThreshold, settings.globalSeed, settings.forestNoiseSettings, ref centers);
 
+            Profiler.EndSample();
+
             TerrainData terrainData = new TerrainData(terrainSize, centers, corners, biomeTable);
             return terrainData;
         }
 
-        private static void CalculateIslandShape(Vector2Int mapSize, float seaLevel, int globalSeed, NoiseSettings noiseSettings, FalloffSettings falloffSettings, ref Corner[] corners)
+        private static void CalculateIslandShape(Vector2Int mapSize, float targetLandRatio, int globalSeed, NoiseSettings noiseSettings, FalloffSettings falloffSettings, ref Corner[] corners)
         {
             // 노이즈 값이 seaLevel 보다 낮으면 물로 설정
             Vector2[] cornerPoints = corners.Select(x => new Vector2(x.cornerPos.x, x.cornerPos.z)).ToArray();
             NoiseGenerator.Instance.EvaluateNoise(ref cornerPoints, out float[] cornerNoiseValues, globalSeed, noiseSettings);
             FalloffGenerator.Instance.EvaluateFalloff(mapSize.x, mapSize.y, ref cornerPoints, out float[] cornerFalloffValues, falloffSettings);    // TODO: radial falloff 으로 변경
-            for (int i = 0; i < corners.Length; i++)
+
+            // Binary search
+            float min = 0;
+            float max = 1;
+            float seaLevel = 0.5f;
+            int iteration = 0;
+            while (iteration++ < 10)
             {
-                if (cornerNoiseValues[i] * cornerFalloffValues[i] < seaLevel)
+                for (int i = 0; i < corners.Length; i++)
                 {
-                    corners[i].isWater = true;
+                    corners[i].isWater = cornerNoiseValues[i] * cornerFalloffValues[i] < seaLevel;
+                }
+
+                float currentLandRatio = corners.Count(x => x.isWater == false) / (float)corners.Length;
+                if (Mathf.Abs(currentLandRatio - targetLandRatio) <= 0.01f)
+                {
+                    break;
+                }
+                else if (currentLandRatio < targetLandRatio)
+                {
+                    max = seaLevel;
+                    seaLevel = (seaLevel + min) / 2;
+                }
+                else
+                {
+                    min = seaLevel;
+                    seaLevel = (seaLevel + max) / 2;
                 }
             }
 

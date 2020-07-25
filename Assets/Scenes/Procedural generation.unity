@@ -1966,7 +1966,7 @@ PrefabInstance:
     - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
         type: 3}
       propertyPath: landRatio
-      value: 0.145
+      value: 0.60157406
       objectReference: {fileID: 0}
     - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
         type: 3}
@@ -2087,7 +2087,7 @@ PrefabInstance:
     - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
         type: 3}
       propertyPath: mountainNoiseSettings.seed
-      value: 487
+      value: 514
       objectReference: {fileID: 0}
     - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
         type: 3}
@@ -2107,7 +2107,7 @@ PrefabInstance:
     - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
         type: 3}
       propertyPath: globalSeed
-      value: 214
+      value: 406
       objectReference: {fileID: 0}
     - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
         type: 3}
@@ -2169,6 +2169,11 @@ PrefabInstance:
         type: 3}
       propertyPath: forestSpawnRange.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
+        type: 3}
+      propertyPath: lakeThreshold
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 8162323017801458240, guid: 41f3f6d3547e8754098b0a7062bf1222,
         type: 3}

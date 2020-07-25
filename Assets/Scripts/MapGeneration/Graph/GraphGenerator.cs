@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 namespace TilePuzzle.Procedural
 {
@@ -9,6 +10,8 @@ namespace TilePuzzle.Procedural
     {
         public static void CreateHexagonGraph(int width, int height, out Center[] centers, out Corner[] corners)
         {
+            Profiler.BeginSample(nameof(CreateHexagonGraph));
+
             int totalCenters = width * height;
 
             centers = new Center[totalCenters];
@@ -53,7 +56,7 @@ namespace TilePuzzle.Procedural
                     }
                 }
             }
-             
+
             // center에 corner 할당
             foreach (Center center in centers)
             {
@@ -73,6 +76,8 @@ namespace TilePuzzle.Procedural
                 cornerSet.AddRange(center.NeighborCorners);
             }
             corners = cornerSet.ToArray();
+
+            Profiler.EndSample();
         }
     }
 }
