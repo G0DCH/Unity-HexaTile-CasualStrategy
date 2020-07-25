@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Hexagon 2
+  m_Name: Hexagon Land
   m_Shader: {fileID: -6465566751694194690, guid: 3f06eea26dfdc0b4c955c98c218fcfb0,
     type: 3}
   m_ShaderKeywords: 

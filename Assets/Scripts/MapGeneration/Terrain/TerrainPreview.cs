@@ -68,7 +68,9 @@ namespace TilePuzzle.Procedural
         [Required]
         public Hexagon hexagonPrefab;
         [Required]
-        public Material hexagonMaterial;
+        public Material hexagonLandMaterial;
+        [Required]
+        public Material hexagonWaterMaterial;
         [Required]
         public Transform hexagonHolder;
         public GameObject mountainPrefab;
@@ -114,12 +116,12 @@ namespace TilePuzzle.Procedural
         public void ExportGenerateSettings()
         {
             UpdateGenerateSettings();
-
+#if UNITY_EDITOR
             AssetDatabase.CreateAsset(generateSettings, $"{exportPath}/{nameof(TerrainGenerateSettings)}_{DateTime.Now.Ticks}.asset");
             AssetDatabase.SaveAssets();
             EditorUtility.FocusProjectWindow();
             Selection.activeObject = generateSettings;
-
+#endif
             generateSettings = null;
             if (autoUpdatePreview)
             {
@@ -131,12 +133,13 @@ namespace TilePuzzle.Procedural
         public void ExportRenderingSettings()
         {
             UpdateRenderingSettings();
+#if UNITY_EDITOR
 
             AssetDatabase.CreateAsset(renderingSettings, $"{exportPath}/{nameof(TerrainRenderingSettings)}_{DateTime.Now.Ticks}.asset");
             AssetDatabase.SaveAssets();
             EditorUtility.FocusProjectWindow();
             Selection.activeObject = renderingSettings;
-
+#endif
             renderingSettings = null;
             if (autoUpdatePreview)
             {
@@ -255,6 +258,7 @@ namespace TilePuzzle.Procedural
                     hexagonMesh = planeHexagonMesh;
                 }
 
+                hexagons[i].GetComponent<MeshRenderer>().sharedMaterial = center.isWater ? hexagonWaterMaterial : hexagonLandMaterial;
                 hexagons[i].meshFilter.sharedMesh = hexagonMesh;
             }
         }
@@ -346,9 +350,9 @@ namespace TilePuzzle.Procedural
             colorMapTexture.SetPixels(colorMap);
             colorMapTexture.Apply();
 
-            hexagonMaterial.SetTexture("_ColorMap", colorMapTexture);
-            hexagonMaterial.SetVector("_ColorMapSize", new Vector2(textureWidth, textureHeight));
-            hexagonMaterial.SetInt("_EnableBrightNoise", renderingSettings.enableBrightNoise ? 1 : 0);
+            hexagonLandMaterial.SetTexture("_ColorMap", colorMapTexture);
+            hexagonLandMaterial.SetVector("_ColorMapSize", new Vector2(textureWidth, textureHeight));
+            hexagonLandMaterial.SetInt("_EnableBrightNoise", renderingSettings.enableBrightNoise ? 1 : 0);
         }
 
         private Hexagon CreateNewHexagon(HexagonPos hexPos)
@@ -357,7 +361,6 @@ namespace TilePuzzle.Procedural
             newHexagon.hexPos = hexPos;
             newHexagon.name = $"Hexagon {newHexagon.hexPos}";
             newHexagon.transform.position = newHexagon.hexPos.ToWorldPos();
-            newHexagon.GetComponent<MeshRenderer>().sharedMaterial = hexagonMaterial;
 
             return newHexagon;
         }
