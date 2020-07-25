@@ -187,12 +187,9 @@ namespace TilePuzzle.Procedural
             for (int i = 0; i < hexagons.Length; i++)
             {
                 Center center = terrainData.centers[i];
-                if (center.isWater)
-                {
-                    Vector3 newPosition = hexagons[i].transform.position;
-                    newPosition.y = -0.25f;
-                    hexagons[i].transform.position = newPosition;
-                }
+                Vector3 newPosition = hexagons[i].transform.position;
+                newPosition.y = center.isWater ? -0.25f : 0f;
+                hexagons[i].transform.position = newPosition;
             }
         }
 
