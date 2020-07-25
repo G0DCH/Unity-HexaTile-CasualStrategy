@@ -439,6 +439,49 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07650e71b67897048bca7d6710764dfe, type: 3}
+--- !u!1 &570735407
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 570735409}
+  - component: {fileID: 570735408}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!122 &570735408
+Halo:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 570735407}
+  m_Enabled: 1
+  m_Color:
+    serializedVersion: 2
+    rgba: 4294898227
+  m_Size: 5
+--- !u!4 &570735409
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 570735407}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 14.43692, y: -3.5429688, z: 11.169922}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &595296770
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1413,10 +1456,10 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 1
+    m_Strength: 0.6
     m_Bias: 1
     m_NormalBias: 1
     m_NearPlane: 0.2
@@ -1635,17 +1678,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: World
       objectReference: {fileID: 0}
+    - target: {fileID: 6848110699991131977, guid: 9f218873ebb49414c988e776ba1c4f1c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7557564662450409726, guid: 9f218873ebb49414c988e776ba1c4f1c,
         type: 3}
       propertyPath: generateSettings
       value: 
-      objectReference: {fileID: 11400000, guid: 390df644a939dd84a9da5b7425bc1245,
+      objectReference: {fileID: 11400000, guid: e96e23aad13a35945bcefdea32d84026,
         type: 2}
     - target: {fileID: 7557564662450409726, guid: 9f218873ebb49414c988e776ba1c4f1c,
         type: 3}
       propertyPath: renderingSettings
       value: 
-      objectReference: {fileID: 11400000, guid: 11944acff3274164cac2e635f2d9804e,
+      objectReference: {fileID: 11400000, guid: 81ae6218439049945bf6deaad1848535,
         type: 2}
     - target: {fileID: 8550946858816477357, guid: 9f218873ebb49414c988e776ba1c4f1c,
         type: 3}
@@ -1702,6 +1750,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9107712067944563279, guid: 9f218873ebb49414c988e776ba1c4f1c,
+        type: 3}
+      propertyPath: forestPrefab
+      value: 
+      objectReference: {fileID: 912289101956576826, guid: b0d940e421657414cb501f14fe1cba1c,
+        type: 3}
+    - target: {fileID: 9107712067944563279, guid: 9f218873ebb49414c988e776ba1c4f1c,
+        type: 3}
+      propertyPath: mountainPrefab
+      value: 
+      objectReference: {fileID: 1884904741310042, guid: 06b2c7378654f24459aef84f4aec4a0f,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f218873ebb49414c988e776ba1c4f1c, type: 3}
 --- !u!1001 &5693764131827564598
@@ -1855,12 +1915,12 @@ PrefabInstance:
     - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
         type: 3}
       propertyPath: terrainSize.x
-      value: 27
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
         type: 3}
       propertyPath: terrainSize.y
-      value: 27
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
         type: 3}
@@ -1891,7 +1951,7 @@ PrefabInstance:
     - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
         type: 3}
       propertyPath: autoUpdatePreview
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
         type: 3}
@@ -1911,7 +1971,7 @@ PrefabInstance:
     - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
         type: 3}
       propertyPath: terrainShapeNoiseSettings.seed
-      value: 1345
+      value: 1578
       objectReference: {fileID: 0}
     - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
         type: 3}
@@ -1921,7 +1981,7 @@ PrefabInstance:
     - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
         type: 3}
       propertyPath: riverSeed
-      value: 281
+      value: 384
       objectReference: {fileID: 0}
     - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
         type: 3}
@@ -1977,6 +2037,138 @@ PrefabInstance:
         type: 3}
       propertyPath: terrainShapeFalloffSettings.falloffParameter.x
       value: 1.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
+        type: 3}
+      propertyPath: mountainNoiseSettings.isRigid
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
+        type: 3}
+      propertyPath: mountainPrefab
+      value: 
+      objectReference: {fileID: 1884904741310042, guid: 06b2c7378654f24459aef84f4aec4a0f,
+        type: 3}
+    - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
+        type: 3}
+      propertyPath: mountainThreshold
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
+        type: 3}
+      propertyPath: mountainParam1
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
+        type: 3}
+      propertyPath: mountainNoiseSettings.scale
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
+        type: 3}
+      propertyPath: mountainNoiseSettings.offset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
+        type: 3}
+      propertyPath: mountainNoiseSettings.offset.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
+        type: 3}
+      propertyPath: mountainNoiseSettings.offset.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
+        type: 3}
+      propertyPath: mountainNoiseSettings.octaves
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
+        type: 3}
+      propertyPath: mountainNoiseSettings.seed
+      value: 487
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
+        type: 3}
+      propertyPath: mountainNoiseSettings.weightMultiplier
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
+        type: 3}
+      propertyPath: mountainNoiseSettings.strength
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
+        type: 3}
+      propertyPath: mountainParam2
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
+        type: 3}
+      propertyPath: globalSeed
+      value: 214
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
+        type: 3}
+      propertyPath: mountainNoiseThreshold
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
+        type: 3}
+      propertyPath: forestPrefab
+      value: 
+      objectReference: {fileID: 912289101956576826, guid: b0d940e421657414cb501f14fe1cba1c,
+        type: 3}
+    - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
+        type: 3}
+      propertyPath: forestNoiseSettings.seed
+      value: 774
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
+        type: 3}
+      propertyPath: forestNoiseSettings.scale
+      value: 23.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
+        type: 3}
+      propertyPath: forestNoiseSettings.octaves
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
+        type: 3}
+      propertyPath: forestNoiseSettings.weightMultiplier
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
+        type: 3}
+      propertyPath: forestNoiseSettings.noiseType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
+        type: 3}
+      propertyPath: forestNoiseSettings.isRigid
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
+        type: 3}
+      propertyPath: forestNoiseSettings.strength
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
+        type: 3}
+      propertyPath: forestThreshold
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
+        type: 3}
+      propertyPath: forestSpawnRange.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536607415268099643, guid: 41f3f6d3547e8754098b0a7062bf1222,
+        type: 3}
+      propertyPath: forestSpawnRange.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8162323017801458240, guid: 41f3f6d3547e8754098b0a7062bf1222,
         type: 3}

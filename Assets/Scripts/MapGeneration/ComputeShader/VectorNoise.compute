@@ -8,6 +8,7 @@ RWStructuredBuffer<float> results;
 int totalPoints;
 
 // Noise
+bool isRigid;
 StructuredBuffer<float2> octaveOffsets;
 float2 offset;
 int octaves;
@@ -33,8 +34,7 @@ void evaluatePerlinNoise(int3 id : SV_DispatchThreadID)
     for (int i = 0; i < octaves; i++)
     {
         float noise = cnoise(worldPos * frequency + octaveOffsets[i] + offset);
-        float value = (noise + 1) / 2;
-        //float value = 1 - abs(noise); rigid
+        float value = isRigid ? 1 - abs(noise) : (noise + 1) / 2;
         value = value * value;
         value *= weight;
         weight = max(min(value * weightMultiplier, 1), 0);
@@ -64,8 +64,7 @@ void evaluateSimplexNoise(int3 id : SV_DispatchThreadID)
     for (int i = 0; i < octaves; i++)
     {
         float noise = snoise(worldPos * frequency + octaveOffsets[i] + offset);
-        float value = (noise + 1) / 2;
-        //float value = 1 - abs(noise); rigid
+        float value = isRigid ? 1 - abs(noise) : (noise + 1) / 2;
         value = value * value;
         value *= weight;
         weight = max(min(value * weightMultiplier, 1), 0);

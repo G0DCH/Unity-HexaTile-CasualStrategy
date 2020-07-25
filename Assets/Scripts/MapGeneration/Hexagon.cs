@@ -15,5 +15,19 @@ namespace TilePuzzle.Procedural
         [ReadOnly]
         public HexagonPos hexPos;
         public MeshFilter meshFilter;
+
+        public bool IsWater { get; private set; }
+        public bool IsLand => !IsWater;
+        public bool HasRiver { get; private set; }
+        public bool HasMountain { get; private set; }
+        public bool HasForest { get; private set; }
+        public int BiomeId { get; private set; }
+
+        public void SetProperties(Center center)
+        {
+            IsWater = center.isWater;
+            HasRiver = center.NeighborCorners.Any(x => x.river > 0);
+            BiomeId = center.biomeId;
+        }
     }
 }

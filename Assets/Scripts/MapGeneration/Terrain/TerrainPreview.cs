@@ -14,28 +14,54 @@ namespace TilePuzzle.Procedural
     [ExecuteInEditMode]
     public class TerrainPreview : MonoBehaviour
     {
-        // 지형 생성 설정 값
-        [Title("Generate Settings")]
-        public Vector2Int terrainSize = new Vector2Int(30, 30);
-        public NoiseSettings terrainShapeNoiseSettings;
-        public FalloffSettings terrainShapeFalloffSettings;
-        // falloff settings
+        [Title("General", Bold = true, TitleAlignment = TitleAlignments.Centered)]
+        [Min(10)]
+        public Vector2Int terrainSize = new Vector2Int(20, 20);
+        public int globalSeed;
+
+        [Title("Island Shape")]
+        [ProgressBar(0, 1, 0.4f, 0.9f, 0.2f)]
         public float landRatio = 0.6f;
+        [Range(0.1f, 1f)]
         public float lakeThreshold = 0.3f;
+        [Range(0f, 2f)]
         public float peakMultiplier = 1.1f;
+        [FoldoutGroup("Island Shape Noise", GroupName = "Noise Settings"), HideLabel]
+        public NoiseSettings terrainShapeNoiseSettings;
+        [FoldoutGroup("Island Shape Falloff", GroupName = "Falloff Settings"), HideLabel]
+        public FalloffSettings terrainShapeFalloffSettings;
+
+        [Title("River")]
         public int riverSeed;
+        [MinMaxSlider(0, 1, true)]
         public Vector2 riverSpawnRange = new Vector2(0.3f, 0.9f);
-        public float riverSpawnMultiplier = 1f;
+        public float riverSpawnMultiplier = 1;
+
+        [Title("Biome")]
         [Required]
         public BiomeTableSettings biomeTableSettings;
 
-        [Title("Rendering Settings")]
+        [Title("Mountain")]
+        [MinMaxSlider(0, 1, true)]
+        public Vector2 mountainSpawnRange = new Vector2(0.3f, 1f);
+        public float mountainThreshold = 1.3f;
+        [FoldoutGroup("Mountain", GroupName = "Noise Settings"), HideLabel]
+        public NoiseSettings mountainNoiseSettings;
+
+        [Title("Forest")]
+        [MinMaxSlider(0, 1, true)]
+        public Vector2 forestSpawnRange = new Vector2(0.1f, 1f);
+        public float forestThreshold = 0.6f;
+        [FoldoutGroup("Forest", GroupName = "Noise Settings"), HideLabel]
+        public NoiseSettings forestNoiseSettings;
+
+        [Title("Rendering Settings", Bold = true, TitleAlignment = TitleAlignments.Centered)]
         public float cliffDepth = 1.5f;
         public Color seaColor;
         public Color lakeColor;
         public bool enableBrightNoise = true;
 
-        [Title("Preview Settings")]
+        [Title("Preview Settings", Bold = true, TitleAlignment = TitleAlignments.Centered)]
         public bool autoUpdatePreview;
         [EnumToggleButtons]
         public PreviewMode previewMode;
@@ -45,8 +71,10 @@ namespace TilePuzzle.Procedural
         public Material hexagonMaterial;
         [Required]
         public Transform hexagonHolder;
+        public GameObject mountainPrefab;
+        public GameObject forestPrefab;
 
-        [Title("Export Settings")]
+        [Title("Export Settings", Bold = true, TitleAlignment = TitleAlignments.Centered)]
         [FolderPath]
         public string exportPath = "Assets/Settings";
 
@@ -126,6 +154,7 @@ namespace TilePuzzle.Procedural
             CreateHexagonMap(generateSettings.terrainSize);
             UpdateHexagonMeshes(terrainData, renderingSettings);
             UpdateHexagonHeight(terrainData);
+            UpdateDecorations(terrainData);
             UpdateHexagonColorMap(terrainData, renderingSettings);
         }
 
@@ -137,6 +166,7 @@ namespace TilePuzzle.Procedural
             }
 
             generateSettings.terrainSize = terrainSize;
+            generateSettings.globalSeed = globalSeed;
             generateSettings.terrainShapeNoiseSettings = terrainShapeNoiseSettings;
             generateSettings.terrainShapeFalloffSettings = terrainShapeFalloffSettings;
             generateSettings.landRatio = landRatio;
@@ -146,6 +176,12 @@ namespace TilePuzzle.Procedural
             generateSettings.riverSpawnRange = riverSpawnRange;
             generateSettings.riverSpawnMultiplier = riverSpawnMultiplier;
             generateSettings.biomeTableSettings = biomeTableSettings;
+            generateSettings.mountainNoiseSettings = mountainNoiseSettings;
+            generateSettings.mountainSpawnRange = mountainSpawnRange;
+            generateSettings.mountainThreshold = mountainThreshold;
+            generateSettings.forestNoiseSettings = forestNoiseSettings;
+            generateSettings.forestSpawnRange = forestSpawnRange;
+            generateSettings.forestThreshold = forestThreshold;
         }
 
         private void UpdateRenderingSettings()
@@ -234,6 +270,23 @@ namespace TilePuzzle.Procedural
             }
         }
 
+        private void UpdateDecorations(TerrainData terrainData)
+        {
+            DestroyAllDecorations();
+            for (int i = 0; i < hexagons.Length; i++)
+            {
+                Center center = terrainData.centers[i];
+                if (center.hasMountain)
+                {
+                    CreateDecoration(mountainPrefab, hexagons[i].transform);
+                }
+                else if (center.hasForest)
+                {
+                    CreateDecoration(forestPrefab, hexagons[i].transform);
+                }
+            }
+        }
+
         private void UpdateHexagonColorMap(TerrainData terrainData, TerrainRenderingSettings renderingSettings)
         {
             int mapWidth = terrainData.terrainSize.x;
@@ -317,6 +370,22 @@ namespace TilePuzzle.Procedural
                 DestroyImmediate(hexagon);
             }
             hexagons = null;
+        }
+
+        private GameObject CreateDecoration(GameObject decorationPrefab, Transform parent)
+        {
+            GameObject decoration = Instantiate(decorationPrefab, parent);
+            decoration.name = decorationPrefab.name;
+
+            return decoration;
+        }
+
+        private void DestroyAllDecorations()
+        {
+            foreach (var decoration in GameObject.FindGameObjectsWithTag("DecorationTest"))
+            {
+                DestroyImmediate(decoration);
+            }
         }
     }
 }

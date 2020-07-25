@@ -25,6 +25,8 @@ namespace TilePuzzle.Procedural
         public float elevation = 0f;
         public float moisture = 0f;
         public int biomeId = 0;
+        public bool hasMountain = false;
+        public bool hasForest = false;
 
         private readonly Dictionary<HexagonPos, Center> neighborCenters;
         private readonly Corner[] neighborCorners;

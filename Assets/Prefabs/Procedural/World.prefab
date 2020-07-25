@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   terrain: {fileID: 9107712067944563279}
-  generateSettings: {fileID: 0}
-  renderingSettings: {fileID: 0}
+  generateSettings: {fileID: 11400000, guid: e96e23aad13a35945bcefdea32d84026, type: 2}
+  renderingSettings: {fileID: 11400000, guid: 81ae6218439049945bf6deaad1848535, type: 2}
 --- !u!114 &9107712067944563279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,6 +59,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f5e3d0fff2c2e04dad2c94a13bf8a83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hexagonMaterial: {fileID: 2100000, guid: 1b2b06b2d7b92e74fa734f8af7a1a293, type: 2}
   hexagonPrefab: {fileID: 5370844482985068196, guid: 01d46510b0e7c814f9df2f8602b6bc82,
     type: 3}
-  hexagonMaterial: {fileID: 2100000, guid: 1b2b06b2d7b92e74fa734f8af7a1a293, type: 2}
+  mountainPrefab: {fileID: 1884904741310042, guid: 06b2c7378654f24459aef84f4aec4a0f,
+    type: 3}
+  forestPrefab: {fileID: 912289101956576826, guid: b0d940e421657414cb501f14fe1cba1c,
+    type: 3}

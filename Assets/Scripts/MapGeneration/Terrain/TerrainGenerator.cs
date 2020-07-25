@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JetBrains.Annotations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,7 @@ namespace TilePuzzle.Procedural
             GraphGenerator.CreateHexagonGraph(terrainSize.x, terrainSize.y, out Center[] centers, out Corner[] corners);
 
             // 섬 모양 계산
-            CalculateIslandShape(terrainSize, settings.landRatio, settings.terrainShapeNoiseSettings, settings.terrainShapeFalloffSettings, ref corners);
+            CalculateIslandShape(terrainSize, settings.landRatio, settings.globalSeed, settings.terrainShapeNoiseSettings, settings.terrainShapeFalloffSettings, ref corners);
 
             // 물, 바다, 땅, 해변 설정
             CalculateWaterGroundType(settings.lakeThreshold, ref centers, ref corners);
@@ -28,24 +29,30 @@ namespace TilePuzzle.Procedural
 
             // 강 생성
             int riverSpawnTry = (int)((terrainSize.x + terrainSize.y) / 2 * settings.riverSpawnMultiplier);
-            CalculateRiver(settings.riverSeed, riverSpawnTry, settings.riverSpawnRange, ref corners);
+            CalculateRiver(settings.globalSeed + settings.riverSeed, riverSpawnTry, settings.riverSpawnRange, ref corners);
 
             // 습도 계산
             CalculateMoisture(ref centers, ref corners);
 
-            // 바이옴 계산
+            // 바이옴 생성
             BiomeTable biomeTable = settings.biomeTableSettings.GetBiomeTable();
             CalculateBiome(biomeTable, ref centers);
+
+            // 산 생성
+            CalculateMountain(settings.mountainSpawnRange, settings.mountainThreshold, settings.globalSeed, settings.mountainNoiseSettings, ref centers);
+
+            // 숲 생성
+            CalculateForest(settings.forestSpawnRange, settings.forestThreshold, settings.globalSeed, settings.forestNoiseSettings, ref centers);
 
             TerrainData terrainData = new TerrainData(terrainSize, centers, corners, biomeTable);
             return terrainData;
         }
 
-        private static void CalculateIslandShape(Vector2Int mapSize, float seaLevel, NoiseSettings noiseSettings, FalloffSettings falloffSettings, ref Corner[] corners)
+        private static void CalculateIslandShape(Vector2Int mapSize, float seaLevel, int globalSeed, NoiseSettings noiseSettings, FalloffSettings falloffSettings, ref Corner[] corners)
         {
             // 노이즈 값이 seaLevel 보다 낮으면 물로 설정
             Vector2[] cornerPoints = corners.Select(x => new Vector2(x.cornerPos.x, x.cornerPos.z)).ToArray();
-            NoiseGenerator.Instance.EvaluateNoise(ref cornerPoints, out float[] cornerNoiseValues, noiseSettings);
+            NoiseGenerator.Instance.EvaluateNoise(ref cornerPoints, out float[] cornerNoiseValues, globalSeed, noiseSettings);
             FalloffGenerator.Instance.EvaluateFalloff(mapSize.x, mapSize.y, ref cornerPoints, out float[] cornerFalloffValues, falloffSettings);    // TODO: radial falloff 으로 변경
             for (int i = 0; i < corners.Length; i++)
             {
@@ -215,9 +222,9 @@ namespace TilePuzzle.Procedural
             }
         }
 
-        private static void CalculateRiver(int riverSeed, int riverSpawnTry, Vector2 riverSpawnRange, ref Corner[] corners)
+        private static void CalculateRiver(int seed, int riverSpawnTry, Vector2 riverSpawnRange, ref Corner[] corners)
         {
-            System.Random random = new System.Random(riverSeed);
+            System.Random random = new System.Random(seed);
             for (int i = 0; i < riverSpawnTry; i++)
             {
                 Corner randomCorner = corners[random.Next(corners.Length)];
@@ -305,6 +312,45 @@ namespace TilePuzzle.Procedural
             }
         }
 
+        private static void CalculateMountain(Vector2 spawnRange, float mountainThreshold, int globalSeed, NoiseSettings mountainNoiseSettings, ref Center[] centers)
+        {
+            Vector2[] centerPoints = centers.Select(x => new Vector2(x.centerPos.x, x.centerPos.z)).ToArray();
+            NoiseGenerator.Instance.EvaluateNoise(ref centerPoints, out float[] noiseValues, globalSeed, mountainNoiseSettings);
+
+            for (int i = 0; i < centers.Length; i++)
+            {
+                Center center = centers[i];
+                if (center.isWater != false || center.elevation < spawnRange.x || center.elevation > spawnRange.y)
+                {
+                    continue;
+                }
+
+                if (noiseValues[i] >= mountainThreshold)
+                {
+                    center.hasMountain = true;
+                }
+            }
+        }
+
+        private static void CalculateForest(Vector2 spawnRange, float forestThreshold, int globalSeed, NoiseSettings forestNoiseSettings, ref Center[] centers)
+        {
+            Vector2[] centerPoints = centers.Select(x => new Vector2(x.centerPos.x, x.centerPos.z)).ToArray();
+            NoiseGenerator.Instance.EvaluateNoise(ref centerPoints, out float[] noiseValues, globalSeed, forestNoiseSettings);
+
+            for (int i = 0; i < centers.Length; i++)
+            {
+                Center center = centers[i];
+                if (center.isWater || center.hasMountain || center.elevation < spawnRange.x || center.elevation > spawnRange.y)
+                {
+                    continue;
+                }
+
+                if (noiseValues[i] >= forestThreshold)
+                {
+                    center.hasForest = true;
+                }
+            }
+        }
 
         //[Button]
         //public void GenerateTerrain()

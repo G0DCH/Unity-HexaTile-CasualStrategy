@@ -19,7 +19,7 @@ namespace TilePuzzle.Procedural
 
         private Queue<ComputeBuffer> bufferToRelease;
 
-        public void GenerateHexagonNoiseMap(int width, int height, ComputeBuffer noiseMapBuffer, NoiseSettings settings)
+        public void GenerateHexagonNoiseMap(int width, int height, ComputeBuffer noiseMapBuffer, int globalSeed, NoiseSettings settings)
         {
             if (bufferToRelease == null)
             {
@@ -28,7 +28,7 @@ namespace TilePuzzle.Procedural
 
             ComputeBuffer octaveOffsetsBuffer = new ComputeBuffer(settings.octaves, sizeof(float) * 3);
             bufferToRelease.Enqueue(octaveOffsetsBuffer);
-            Vector3[] octaveOffsets = CalculateOctaveOffsets(settings);
+            Vector3[] octaveOffsets = CalculateOctaveOffsets(globalSeed, settings);
             octaveOffsetsBuffer.SetData(octaveOffsets);
 
             int kernelIndex = GetKernelIndex(settings.noiseType);
@@ -39,6 +39,7 @@ namespace TilePuzzle.Procedural
             hexagonNoiseMap.SetInt("mapHeight", height);
             hexagonNoiseMap.SetFloat("hexagonSize", Hexagon.Size);
 
+            hexagonNoiseMap.SetBool("isRigid", settings.isRigid);
             hexagonNoiseMap.SetVector("offset", settings.offset);
             hexagonNoiseMap.SetInt("octaves", settings.octaves);
             hexagonNoiseMap.SetFloat("lacunarity", settings.lacunarity);
@@ -52,13 +53,13 @@ namespace TilePuzzle.Procedural
             hexagonNoiseMap.Dispatch(kernelIndex, threadGroupsX, threadGroupsY, 1);
         }
 
-        public void GenerateHexagonNoiseMap(int width, int height, out float[] noiseMap, NoiseSettings settings)
+        public void GenerateHexagonNoiseMap(int width, int height, out float[] noiseMap, int globalSeed, NoiseSettings settings)
         {
             Profiler.BeginSample(nameof(GenerateHexagonNoiseMap));
 
             int noiseBufferSize = width * height;
             ComputeBuffer noiseMapBuffer = new ComputeBuffer(noiseBufferSize, sizeof(float));
-            GenerateHexagonNoiseMap(width, height, noiseMapBuffer, settings);
+            GenerateHexagonNoiseMap(width, height, noiseMapBuffer, globalSeed, settings);
 
             noiseMap = new float[noiseBufferSize];
             noiseMapBuffer.GetData(noiseMap);
@@ -71,7 +72,7 @@ namespace TilePuzzle.Procedural
             Profiler.EndSample();
         }
 
-        public void EvaluateNoise(ComputeBuffer samplePointsBuffer, ComputeBuffer resultsBuffer, int totalPoints, NoiseSettings settings)
+        public void EvaluateNoise(ComputeBuffer samplePointsBuffer, ComputeBuffer resultsBuffer, int totalPoints, int globalSeed, NoiseSettings settings)
         {
             if (bufferToRelease == null)
             {
@@ -80,7 +81,7 @@ namespace TilePuzzle.Procedural
 
             ComputeBuffer octaveOffsetsBuffer = new ComputeBuffer(settings.octaves, sizeof(float) * 3);
             bufferToRelease.Enqueue(octaveOffsetsBuffer);
-            Vector3[] octaveOffsets = CalculateOctaveOffsets(settings);
+            Vector3[] octaveOffsets = CalculateOctaveOffsets(globalSeed, settings);
             octaveOffsetsBuffer.SetData(octaveOffsets);
 
             int kernelIndex = GetKernelIndex(settings.noiseType);
@@ -90,6 +91,7 @@ namespace TilePuzzle.Procedural
 
             vectorNoise.SetInt("totalPoints", totalPoints);
 
+            vectorNoise.SetBool("isRigid", settings.isRigid);
             vectorNoise.SetVector("offset", settings.offset);
             vectorNoise.SetInt("octaves", settings.octaves);
             vectorNoise.SetFloat("lacunarity", settings.lacunarity);
@@ -102,7 +104,7 @@ namespace TilePuzzle.Procedural
             vectorNoise.Dispatch(kernelIndex, threadGroupsX, 1, 1);
         }
 
-        public void EvaluateNoise(ref Vector2[] samplePoints, out float[] results, NoiseSettings settings)
+        public void EvaluateNoise(ref Vector2[] samplePoints, out float[] results, int globalSeed, NoiseSettings settings)
         {
             Profiler.BeginSample(nameof(EvaluateNoise));
 
@@ -111,7 +113,7 @@ namespace TilePuzzle.Procedural
             ComputeBuffer resultsBuffer = new ComputeBuffer(totalPoints, sizeof(float));
             samplePointsBuffer.SetData(samplePoints);
 
-            EvaluateNoise(samplePointsBuffer, resultsBuffer, totalPoints, settings);
+            EvaluateNoise(samplePointsBuffer, resultsBuffer, totalPoints, globalSeed, settings);
 
             results = new float[totalPoints];
             resultsBuffer.GetData(results);
@@ -125,9 +127,9 @@ namespace TilePuzzle.Procedural
             Profiler.EndSample();
         }
 
-        private Vector3[] CalculateOctaveOffsets(NoiseSettings settings)
+        private Vector3[] CalculateOctaveOffsets(int globalSeed, NoiseSettings settings)
         {
-            System.Random random = new System.Random(settings.seed);
+            System.Random random = new System.Random(globalSeed + settings.seed);
             Vector3[] octaveOffsets = new Vector3[settings.octaves];
             float offsetRange = 1000;
             for (int i = 0; i < settings.octaves; i++)
