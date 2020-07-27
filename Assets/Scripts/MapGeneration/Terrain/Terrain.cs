@@ -11,11 +11,6 @@ namespace TilePuzzle.Procedural
 {
     public class Terrain : MonoBehaviour
     {
-        public Material hexagonMaterial;
-        public Hexagon hexagonPrefab;
-        public GameObject mountainPrefab;
-        public GameObject forestPrefab;
-
         private bool isInitialized = false;
         private TerrainData terrainData;
         private Hexagon[] hexagons;
@@ -48,78 +43,82 @@ namespace TilePuzzle.Procedural
                 for (int x = 0; x < width; x++)
                 {
                     Center center = terrainData.centers[x + y * width];
-                    Hexagon newHexagon = CreateNewHexagon(HexagonPos.FromArrayXY(x, y));
+                    Hexagon newHexagon = CreateNewHexagon(renderingSettings.hexagonPrefab, HexagonPos.FromArrayXY(x, y));
                     newHexagon.SetProperties(center);
                     hexagons[x + y * width] = newHexagon;
 
-                    // mesh
-                    HexagonMeshGenerator.VertexDirection riverDirection = 0;
-                    for (int neighborIndex = 0; neighborIndex < center.NeighborCorners.Length; neighborIndex++)
+                    if (center.isWater)
                     {
-                        Corner neighborCorner = center.NeighborCorners[neighborIndex];
-                        if (neighborCorner.river > 0)
-                        {
-                            riverDirection |= (HexagonMeshGenerator.VertexDirection)(1 << neighborIndex);
-                        }
+                        newHexagon.meshFilter.sharedMesh = flatHexagonMesh;
+                        newHexagon.GetComponent<MeshRenderer>().sharedMaterial = center.isSea ? renderingSettings.seaMaterial : renderingSettings.lakeMaterial;
                     }
-
-                    Mesh mesh;
-                    // 강이 있을때
-                    if (center.isWater == false && riverDirection > 0)
-                    {
-                        if (riverMeshCache.TryGetValue(riverDirection, out mesh) == false)
-                        {
-                            mesh = HexagonMeshGenerator.BuildMesh(Hexagon.Size, renderingSettings.cliffDepth, renderingSettings.riverSize, riverDirection);
-                            riverMeshCache.Add(riverDirection, mesh);
-                        }
-                    }
-                    // 절벽일때 (주변에 물)
-                    else if (center.isWater == false && center.NeighborCenters.Values.Any(neighborrCenter => neighborrCenter.isWater))
-                    {
-                        mesh = cliffHexagonMesh;
-                    }
-                    // 평지일때
                     else
                     {
-                        mesh = flatHexagonMesh;
-                    }
-                    newHexagon.meshFilter.sharedMesh = mesh;
+                        HexagonMeshGenerator.VertexDirection riverDirection = 0;
+                        for (int neighborIndex = 0; neighborIndex < center.NeighborCorners.Length; neighborIndex++)
+                        {
+                            Corner neighborCorner = center.NeighborCorners[neighborIndex];
+                            if (neighborCorner.river > 0)
+                            {
+                                riverDirection |= (HexagonMeshGenerator.VertexDirection)(1 << neighborIndex);
+                            }
+                        }
 
+                        Mesh mesh;
+                        // 강이 있을때
+                        if (center.isWater == false && riverDirection > 0)
+                        {
+                            if (riverMeshCache.TryGetValue(riverDirection, out mesh) == false)
+                            {
+                                mesh = HexagonMeshGenerator.BuildMesh(Hexagon.Size, renderingSettings.cliffDepth, renderingSettings.riverSize, riverDirection);
+                                riverMeshCache.Add(riverDirection, mesh);
+                            }
+                        }
+                        // 절벽일때 (주변에 물)
+                        else if (center.isWater == false && center.NeighborCenters.Values.Any(neighborrCenter => neighborrCenter.isWater))
+                        {
+                            mesh = cliffHexagonMesh;
+                        }
+                        // 평지일때
+                        else
+                        {
+                            mesh = flatHexagonMesh;
+                        }
+                        newHexagon.meshFilter.sharedMesh = mesh;
+                        newHexagon.GetComponent<MeshRenderer>().sharedMaterial = renderingSettings.landMaterial;
+                    }
+                    
                     // decoration
                     // TODO: Spawn mountain, tree, etc...
                     if (center.hasMountain)
                     {
-                        CreateNewDecoration(mountainPrefab, newHexagon.transform);
+                        CreateNewDecoration(renderingSettings.mountainPrefab, newHexagon.transform);
                     }
                     else if (center.hasForest)
                     {
-                        CreateNewDecoration(forestPrefab, newHexagon.transform);
+                        CreateNewDecoration(renderingSettings.forestPrefab, newHexagon.transform);
                     }
 
                     // height
                     Vector3 newPos = newHexagon.transform.position;
-                    newPos.y = center.isWater ? -0.25f : 0;
+                    newPos.y = center.isWater ? -renderingSettings.waterDepth : 0;
                     newHexagon.transform.position = newPos;
 
                     // color
-                    Color color;
-                    if (center.isSea)
-                    {
-                        color = renderingSettings.seaColor;
-                    }
-                    else if (center.isWater)
-                    {
-                        color = renderingSettings.lakeColor;
-                    }
-                    else
-                    {
-                        color = terrainData.biomeTable.biomeDictionary[center.biomeId].color;
-                    }
+                    Color color = terrainData.biomeTable.biomeDictionary[center.biomeId].color;
                     colorMap[x + y * textureWidth] = color;
                 }
             }
 
-            ApplyColorMap(renderingSettings, textureWidth, textureHeight, ref colorMap);
+            Texture2D colorMapTexture = new Texture2D(textureWidth, textureHeight)
+            {
+                filterMode = FilterMode.Point
+            };
+            colorMapTexture.SetPixels(colorMap);
+            colorMapTexture.Apply();
+            renderingSettings.landMaterial.SetTexture("_ColorMap", colorMapTexture);
+            renderingSettings.landMaterial.SetVector("_ColorMapSize", new Vector2(textureWidth, textureHeight));
+            renderingSettings.landMaterial.SetInt("_EnableBrightNoise", renderingSettings.enableBrightNoise ? 1 : 0);
 
             isInitialized = true;
         }
@@ -168,14 +167,12 @@ namespace TilePuzzle.Procedural
             }
         }
 
-        private Hexagon CreateNewHexagon(HexagonPos hexPos)
+        private Hexagon CreateNewHexagon(Hexagon hexagonPrefab, HexagonPos hexPos)
         {
             Hexagon newHexagon = Instantiate(hexagonPrefab, transform);
             newHexagon.name = $"Hexagon {hexPos}";
             newHexagon.transform.position = hexPos.ToWorldPos();
-
             newHexagon.meshFilter = newHexagon.GetComponent<MeshFilter>();
-            newHexagon.GetComponent<MeshRenderer>().sharedMaterial = hexagonMaterial;
 
             newHexagon.hexPos = hexPos;
 
@@ -187,19 +184,6 @@ namespace TilePuzzle.Procedural
             GameObject newDecoration = Instantiate(decorationPrefab, parent);
             newDecoration.name = decorationPrefab.name;
             return newDecoration;
-        }
-
-        private void ApplyColorMap(TerrainRenderingSettings renderingSettings, int textureWidth, int textureHeight, ref Color[] colorMap)
-        {
-            Texture2D colorMapTexture = new Texture2D(textureWidth, textureHeight)
-            {
-                filterMode = FilterMode.Point
-            };
-            colorMapTexture.SetPixels(colorMap);
-            colorMapTexture.Apply();
-            hexagonMaterial.SetTexture("_ColorMap", colorMapTexture);
-            hexagonMaterial.SetVector("_ColorMapSize", new Vector2(textureWidth, textureHeight));
-            hexagonMaterial.SetInt("_EnableBrightNoise", renderingSettings.enableBrightNoise ? 1 : 0);
         }
     }
 }
