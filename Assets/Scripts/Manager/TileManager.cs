@@ -7,8 +7,6 @@ namespace TilePuzzle
 {
     public class TileManager : Utility.Singleton<TileManager>
     {
-        // 타일 프리팹들
-        public List<GameObject> TilePrefabs;
         // 범위 표기 프리팹
         public GameObject GridPrefab;
 
@@ -16,11 +14,6 @@ namespace TilePuzzle
         [Header("Selected Tile")]
         [ReadOnly]
         public Tile SelectedTile;
-
-        [Space]
-        [Header("Tile Numbers")]
-        public int rowNum;
-        public int columnNum;
 
         [Space]
         [Header("Tile Material")]
@@ -56,17 +49,17 @@ namespace TilePuzzle
             StartCoroutine(TileClickCheck());
         }
 
-        public TileType StringToType(string tileType)
+        public TileBuilding StringToType(string tileType)
         {
 
-            if (System.Enum.TryParse(tileType, out TileType enumType))
+            if (System.Enum.TryParse(tileType, out TileBuilding enumType))
             {
                 return enumType;
             }
             else
             {
                 Debug.LogError("타일 타입이 아님");
-                return TileType.Empty;
+                return TileBuilding.Empty;
             }
         }
 
@@ -176,6 +169,8 @@ namespace TilePuzzle
                             // 불가사의로 인한 보너스 추가, 보너스 출력
                             MyWonderBonus(clickedTile, tileBuilding);
                             GameManager.Instance.RefreshPoint(clickedTile.Bonus);
+
+                            // TODO : 건물 오브젝트 얹기
 
                             // 타일 타입을 건설한 건물로 변경
                             clickedTile.MyTileBuilding = tileBuilding;

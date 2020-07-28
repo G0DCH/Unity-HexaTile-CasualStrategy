@@ -150,6 +150,7 @@ namespace TilePuzzle.Rendering
             mesh.SetVertices(vertices);
             mesh.SetTriangles(triangles, 0);
             mesh.RecalculateNormals();
+            mesh.RecalculateBounds();
             return mesh;
         }
 

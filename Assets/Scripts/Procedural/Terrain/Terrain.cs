@@ -91,7 +91,9 @@ namespace TilePuzzle.Procedural
                     }
                     
                     // 컬라이더 메시 할당
-                    hexCollider.sharedMesh = newHexagon.meshFilter.sharedMesh;
+                    hexCollider.sharedMesh = newHexagon.meshFilter.mesh;
+                    hexCollider.enabled = false;
+                    hexCollider.enabled = true;
 
                     // decoration
                     // TODO: Spawn mountain, tree, etc...
