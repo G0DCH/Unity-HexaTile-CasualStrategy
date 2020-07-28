@@ -30,11 +30,11 @@ namespace TilePuzzle
 
         // 점수 보너스 delegate
         public delegate void WonderBonus(Tile currentTile, TileBuilding tileBuilding);
-        public WonderBonus MyWonderBonus;
+        public WonderBonus MyWonderBonus = null;
 
         // 소모 점수 보너스 delegate
         public delegate void WonderCost(Tile currentTile, TileBuilding tileBuilding);
-        public WonderCost MyWonderCost;
+        public WonderCost MyWonderCost = null;
 
         private void Start()
         {
@@ -101,7 +101,7 @@ namespace TilePuzzle
                         overTile.TurnRangeGrid(true);
 
                         SelectTileCost = SelectedTile.Cost;
-                        MyWonderCost(overTile, SelectedTile.MyTileBuilding);
+                        MyWonderCost?.Invoke(overTile, SelectedTile.MyTileBuilding);
 
                         prevOverTile = overTile;
                     }
@@ -167,7 +167,7 @@ namespace TilePuzzle
                             }
 
                             // 불가사의로 인한 보너스 추가, 보너스 출력
-                            MyWonderBonus(clickedTile, tileBuilding);
+                            MyWonderBonus?.Invoke(clickedTile, tileBuilding);
                             GameManager.Instance.RefreshPoint(clickedTile.Bonus);
 
                             // TODO : 건물 오브젝트 얹기

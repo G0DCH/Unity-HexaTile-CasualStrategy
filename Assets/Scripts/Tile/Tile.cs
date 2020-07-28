@@ -153,12 +153,12 @@ namespace TilePuzzle
 
         private List<Tile> GetRangeTiles(int range)
         {
-            List<Hexagon> neighborHexagons = (List<Hexagon>)Procedural.Terrain.Instance.GetNeighborHexagons(MyHexagon.hexPos, range);
+            IEnumerable<Hexagon> neighborHexagons = Procedural.Terrain.Instance.GetNeighborHexagons(MyHexagon.hexPos, range);
             List<Tile> neighborTiles = new List<Tile>();
 
-            foreach (Hexagon neighbor in neighborHexagons)
+            foreach(Hexagon neighbor in neighborHexagons)
             {
-                Tile tile = neighbor.GetComponent<Tile>();
+                Tile tile = neighbor.gameObject.GetComponent<Tile>();
 
                 if (tile == null)
                 {
@@ -263,6 +263,11 @@ namespace TilePuzzle
         // 격자 on off
         public void TurnGrid(bool isOn)
         {
+            if (RangeGrid == null)
+            {
+                MakeGrid(TileManager.Instance.GridPrefab);
+            }
+
             if (isOn)
             {
                 RangeGrid.SetActive(true);

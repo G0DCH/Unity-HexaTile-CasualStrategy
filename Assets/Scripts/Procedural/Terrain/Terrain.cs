@@ -89,11 +89,6 @@ namespace TilePuzzle.Procedural
                         newHexagon.meshFilter.sharedMesh = mesh;
                         newHexagon.GetComponent<MeshRenderer>().sharedMaterial = renderingSettings.landMaterial;
                     }
-                    
-                    // 컬라이더 메시 할당
-                    hexCollider.sharedMesh = newHexagon.meshFilter.mesh;
-                    hexCollider.enabled = false;
-                    hexCollider.enabled = true;
 
                     // decoration
                     // TODO: Spawn mountain, tree, etc...
