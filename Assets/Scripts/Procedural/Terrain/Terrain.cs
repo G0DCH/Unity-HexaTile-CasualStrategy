@@ -141,7 +141,7 @@ namespace TilePuzzle.Procedural
             return hexagons[arrayXY.x + arrayXY.y * TerrainSize.x];
         }
 
-        public IEnumerator<Hexagon> GetNeighborHexagons(HexagonPos hexPos, int range)
+        public IEnumerable<Hexagon> GetNeighborHexagons(HexagonPos hexPos, int range)
         {
             Vector2Int arrayXY = hexPos.ToArrayXY();
             if (arrayXY.x < 0 || arrayXY.x >= TerrainSize.x || arrayXY.y < 0 || arrayXY.y >= TerrainSize.y)
