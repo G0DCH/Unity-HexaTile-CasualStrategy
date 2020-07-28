@@ -9,13 +9,13 @@
         }
 
         // 강 타일에 도시 타일을 배치하면 점수 +wonderBonus
-        public override void WonderFunction(Tile currentTile, Tile selectedTile)
+        public override void WonderFunction(Tile currentTile, TileBuilding tileBuilding)
         {
-            if (currentTile.MyTileType ==TileType.River)
+            if (currentTile.MyTileType == TileType.River)
             {
-                if(selectedTile.MyTileType == TileType.City)
+                if (tileBuilding == TileBuilding.City)
                 {
-                    selectedTile.ChangeBonus(wonderBonus);
+                    currentTile.ChangeBonus(wonderBonus);
                 }
             }
         }

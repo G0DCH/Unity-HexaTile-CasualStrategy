@@ -2,65 +2,143 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TilePuzzle.Procedural;
 
 namespace TilePuzzle
 {
-    [System.Serializable]
-    public struct Position
-    {
-        public int Row;
-        public int Column;
-
-        public Position(int myRow, int myColumn)
-        {
-            Row = myRow;
-            Column = myColumn;
-        }
-    }
-
     public class Tile : MonoBehaviour
     {
+        public Hexagon MyHexagon
+        {
+            get
+            {
+                if (myHexagon == null)
+                {
+                    Hexagon hexagon = GetComponent<Hexagon>();
+                    myHexagon = hexagon;
+                }
+
+                return myHexagon;
+            }
+            set
+            {
+                myHexagon = value;
+            }
+        }
+        [SerializeField]
+        private Hexagon myHexagon = null;
+
         // 이 타일의 타입
-        public TileType MyTileType { get { return myTileType; } private set { myTileType = value; } }
+        public TileType MyTileType
+        {
+            get
+            {
+                if (myTileType == TileType.Empty)
+                {
+                    if (MyHexagon.HasMountain)
+                    {
+                        myTileType = TileType.Mountain;
+                    }
+                    else
+                    {
+                        if (MyHexagon.IsLand)
+                        {
+                            myTileType = TileType.Ground;
+
+                            if (MyHexagon.HasRiver)
+                            {
+                                myTileType = TileType.River;
+                            }
+                        }
+                        else
+                        {
+                            myTileType = TileType.Water;
+                        }
+                    }
+                }
+                return myTileType;
+            }
+            set
+            {
+                myTileType = value;
+            }
+        }
         [SerializeField]
         private TileType myTileType = TileType.Empty;
 
+        public TileBuilding MyTileBuilding { get { return myTileBuilding; } set { myTileBuilding = value; } }
+        [SerializeField]
+        private TileBuilding myTileBuilding = TileBuilding.Empty;
+
         // 타일에 얹힌 열대우림이나 숲
-        public TileFeature MyTileFeature { get { return myTileFeature; } private set { myTileFeature = value; } }
+        public TileFeature MyTileFeature
+        {
+            get
+            {
+                if (myTileFeature == TileFeature.Empty)
+                {
+                    if (MyHexagon.HasForest)
+                    {
+                        myTileFeature = TileFeature.Forest;
+                    }
+                }
+                return myTileFeature;
+            }
+            set
+            {
+                myTileFeature = value;
+            }
+        }
         [SerializeField]
         private TileFeature myTileFeature = TileFeature.Empty;
 
-        // 타일의 지형 특성, 평원, 설원 등등
+        // 타일의 지형 특성. 평원, 설원 등등
         public TileTerrain MyTileTerrain { get { return myTileTerrain; } private set { myTileTerrain = value; } }
         [SerializeField]
         private TileTerrain myTileTerrain = TileTerrain.Plains;
 
         // 이웃한 타일
-        public List<Tile> NeighborTiles { get { return neighborTiles; } private set { neighborTiles = value; } }
+        public List<Tile> NeighborTiles
+        {
+            get
+            {
+                if (neighborTiles.Count == 0)
+                {
+                    neighborTiles = GetRangeTiles(1);
+                }
+
+                return neighborTiles;
+            }
+        }
         [SerializeField, Space]
         [ReadOnly]
-        private List<Tile> neighborTiles;
+        private List<Tile> neighborTiles = new List<Tile>();
 
         // 영역 범위, 영역 내 타일
         public int Range { get { return range; } private set { range = value; } }
         [SerializeField]
         private int range = 2;
-        public List<Tile> RangeTiles { get { return rangeTiles; } private set { rangeTiles = value; } }
+        public List<Tile> RangeTiles
+        {
+            get
+            {
+                if (rangeTiles.Count == 0)
+                {
+                    rangeTiles = GetRangeTiles(Range);
+                }
+
+                return rangeTiles;
+            }
+        }
         [SerializeField, Header("Tiles In Range")]
         [ReadOnly]
-        private List<Tile> rangeTiles;
+        private List<Tile> rangeTiles = new List<Tile>();
 
         // 이 타일이 받는 보너스
         public int Bonus { get { return bonus; } protected set { bonus = value; } }
         [SerializeField, Space]
         [ReadOnly]
         private int bonus = 0;
-
-        // 이 타일의 위치
-        public Position MyPosition { get { return myPosition; } private set { myPosition = value; } }
-        [SerializeField, Space]
-        [ReadOnly]
-        private Position myPosition = new Position(0, 0);
 
         // 범위 표시용 격자
         public GameObject RangeGrid { get; private set; }
@@ -73,62 +151,25 @@ namespace TilePuzzle
         [SerializeField, Space, Header("Tile Cost")]
         private int cost = 0;
 
-        public void ChangeTileType(TileType tileType)
+        private List<Tile> GetRangeTiles(int range)
         {
-            MyTileType = tileType;
-        }
+            List<Hexagon> neighborHexagons = (List<Hexagon>)Procedural.Terrain.Instance.GetNeighborHexagons(MyHexagon.hexPos, range);
+            List<Tile> neighborTiles = new List<Tile>();
 
-        public void InitTile(TileType tileType, int row, int column)
-        {
-            ChangeTileType(tileType);
-            InitPosition(row, column);
-        }
-
-        public void InitNeighborTiles(List<Tile> neighbors)
-        {
-            neighborTiles = neighbors;
-        }
-
-        private void InitPosition(int row, int column)
-        {
-            MyPosition = new Position(row, column);
-        }
-
-        // 범위 내의 타일 초기화
-        public void InitRangeTiles()
-        {
-            List<Tile> rangeTiles = new List<Tile>(NeighborTiles);
-
-            for (int i = 0; i < NeighborTiles.Count; i++)
+            foreach (Hexagon neighbor in neighborHexagons)
             {
-                NeighborTiles[i].initRangeTiles(rangeTiles, Range);
-            }
+                Tile tile = neighbor.GetComponent<Tile>();
 
-            RangeTiles = rangeTiles;
-        }
-
-        public void InitRangeTiles(List<Tile> tiles)
-        {
-            RangeTiles = tiles;
-        }
-
-        // 내 이웃 타일 중 rangeList에 들어있지 않은 타일이 있다면 넣어줌.
-        // rangeCount의 범위 내의 타일만 들어가게 됨.
-        private void initRangeTiles(List<Tile> rangeList, int rangeCount)
-        {
-            if (rangeCount <= 1)
-            {
-                return;
-            }
-
-            foreach (var neighborTile in NeighborTiles)
-            {
-                if (!rangeList.Contains(neighborTile))
+                if (tile == null)
                 {
-                    rangeList.Add(neighborTile);
-                    neighborTile.initRangeTiles(rangeList, rangeCount - 1);
+                    Debug.LogError(string.Format("No Tile Component At {0}", neighbor.hexPos));
+                    return null;
                 }
+
+                neighborTiles.Add(neighbor.GetComponent<Tile>());
             }
+
+            return neighborTiles;
         }
 
         public void ChangeMaterial(bool isSelected)
@@ -174,37 +215,37 @@ namespace TilePuzzle
             }
         }
 
-        // 내 타일이 pivotType의 보너스에 해당하는지 검사하고 해당 점수 return
-        public int CountSpecificBonus(TileType pivotType)
+        // 내 타일이 pivotBuilding의 보너스에 해당하는지 검사하고 해당 점수 return
+        public int CountSpecificBonus(TileBuilding pivotBuilding)
         {
             int bonusPoint = 0;
 
-            if (MyTileType == TileType.GovernmentBuilding)
+            if (MyTileBuilding == TileBuilding.GovernmentBuilding)
             {
                 bonusPoint = 1;
             }
-            else if (pivotType == TileType.Campus)
+            else if (pivotBuilding == TileBuilding.Campus)
             {
                 if (MyTileType == TileType.Mountain)
                 {
                     bonusPoint = 1;
                 }
             }
-            else if (pivotType == TileType.Factory)
+            else if (pivotBuilding == TileBuilding.Factory)
             {
-                if (MyTileType == TileType.WaterPipe)
+                if (MyTileBuilding == TileBuilding.WaterPipe)
                 {
                     bonusPoint = 2;
                 }
             }
-            else if (pivotType == TileType.HolyLand)
+            else if (pivotBuilding == TileBuilding.HolyLand)
             {
                 if (MyTileType == TileType.Mountain)
                 {
                     bonusPoint = 1;
                 }
             }
-            else if (pivotType == TileType.Theator)
+            else if (pivotBuilding == TileBuilding.Theator)
             {
                 // 나중에 불가사의 추가할 것
             }
@@ -234,8 +275,8 @@ namespace TilePuzzle
 
         // 범위 내의 격자 on off
         public void TurnRangeGrid(bool isOn)
-        { 
-            foreach(Tile rangeTile in RangeTiles)
+        {
+            foreach (Tile rangeTile in RangeTiles)
             {
                 rangeTile.TurnGrid(isOn);
             }
