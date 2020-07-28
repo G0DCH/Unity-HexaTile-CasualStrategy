@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6209541680748038837}
   - component: {fileID: 2372766070977816098}
   - component: {fileID: 4102278702141878452}
+  - component: {fileID: 2020817592322799756}
   - component: {fileID: -5170390129653347879}
   m_Layer: 0
   m_Name: City
@@ -96,6 +97,19 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: ec55075d188c17f409c030e2fa6d4ebf, type: 3}
+--- !u!114 &2020817592322799756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2989713340644630987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb588b47bc975064aa5d1c2451001bad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meshFilter: {fileID: 0}
 --- !u!114 &-5170390129653347879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,14 +122,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b627b0d30b53df64297c988db7fda3d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myTileType: 10
+  myHexagon: {fileID: 0}
+  myTileType: 3
+  myTileBuilding: 7
+  myTileFeature: 2
+  myTileTerrain: 1
   neighborTiles: []
   range: 2
   rangeTiles: []
   bonus: 0
-  myPosition:
-    Row: 0
-    Column: 0
+  cost: 0
 --- !u!1 &9068937274463129081
 GameObject:
   m_ObjectHideFlags: 0

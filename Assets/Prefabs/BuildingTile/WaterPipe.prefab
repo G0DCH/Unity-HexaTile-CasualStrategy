@@ -91,6 +91,7 @@ GameObject:
   - component: {fileID: 4679256255490289246}
   - component: {fileID: 4673792315909306218}
   - component: {fileID: 4642698088216237328}
+  - component: {fileID: -6259599368985191631}
   - component: {fileID: -4337628095861211166}
   m_Layer: 0
   m_Name: WaterPipe
@@ -175,6 +176,19 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 31048d640905d5a448a723dd7007433e, type: 3}
+--- !u!114 &-6259599368985191631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4651325682830532056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb588b47bc975064aa5d1c2451001bad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meshFilter: {fileID: 0}
 --- !u!114 &-4337628095861211166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,11 +201,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81b8d4316c77dfa4bbfbaab24238b36b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myTileType: 10
+  myHexagon: {fileID: 0}
+  myTileType: 3
+  myTileBuilding: 7
+  myTileFeature: 2
+  myTileTerrain: 1
   neighborTiles: []
   range: 2
   rangeTiles: []
   bonus: 0
-  myPosition:
-    Row: 0
-    Column: 0
+  cost: 0

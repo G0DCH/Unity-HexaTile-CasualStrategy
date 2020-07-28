@@ -21,7 +21,7 @@ MonoBehaviour:
   waterDepth: 0.5
   hexagonPrefab: {fileID: 5370844482985068196, guid: 01d46510b0e7c814f9df2f8602b6bc82,
     type: 3}
-  mountainPrefab: {fileID: 1884904741310042, guid: 06b2c7378654f24459aef84f4aec4a0f,
+  mountainPrefab: {fileID: 1884904741310042, guid: 90841e0103af621489435e6335d5d50a,
     type: 3}
-  forestPrefab: {fileID: 912289101956576826, guid: b0d940e421657414cb501f14fe1cba1c,
+  forestPrefab: {fileID: 912289101956576826, guid: 196b0c436177acb44b855891c1e0a042,
     type: 3}
