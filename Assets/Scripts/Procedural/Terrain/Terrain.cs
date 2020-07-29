@@ -158,7 +158,7 @@ namespace TilePuzzle.Procedural
                         continue;
                     }
 
-                    Vector2Int neighborXY = new HexagonPos(hexX, hexZ).ToArrayXY();
+                    Vector2Int neighborXY = (new HexagonPos(hexX, hexZ) + hexPos).ToArrayXY();
                     if (neighborXY.x < 0 || neighborXY.x >= TerrainSize.x || neighborXY.y < 0 || neighborXY.y >= TerrainSize.y)
                     {
                         continue;
