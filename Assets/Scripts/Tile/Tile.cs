@@ -144,7 +144,9 @@ namespace TilePuzzle
         public GameObject RangeGrid { get; private set; }
 
         // 이 타일을 소유하고 있는 도시
-        public CityTile OwnerCity { get; private set; } = null;
+        public CityTile OwnerCity { get { return ownerCity; } private set { ownerCity = value; } }
+        [SerializeField, ReadOnly, Header("Owner Of This Tile")]
+        private CityTile ownerCity = null;
 
         // 타일 설치 비용
         public int Cost { get { return cost; } set { cost = value; } }
