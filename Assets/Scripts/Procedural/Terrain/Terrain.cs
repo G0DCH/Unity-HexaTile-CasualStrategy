@@ -153,14 +153,13 @@ namespace TilePuzzle.Procedural
             {
                 for (int hexX = -range; hexX <= range; hexX++)
                 {
-                    HexagonPos neighborPos = new HexagonPos(hexX, hexZ);
-
-                    if (neighborPos.HexagonDistance > range)
+                    HexagonPos neighborHexOffset = new HexagonPos(hexX, hexZ);
+                    if (neighborHexOffset.HexagonDistance > range)
                     {
                         continue;
                     }                    
 
-                    Vector2Int neighborXY = (neighborPos + hexPos).ToArrayXY();
+                    Vector2Int neighborXY = (hexPos + neighborHexOffset).ToArrayXY();
                     if (neighborXY.x < 0 || neighborXY.x >= TerrainSize.x || neighborXY.y < 0 || neighborXY.y >= TerrainSize.y)
                     {
                         continue;
