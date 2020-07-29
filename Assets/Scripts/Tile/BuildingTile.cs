@@ -15,19 +15,19 @@ namespace TilePuzzle
             }
 
             // 포인트가 없는 타일은 패스
-            if (MyTileType == TileType.City)
+            if (MyTileBuilding == TileBuilding.City)
             {
                 return;
             }
-            else if (MyTileType == TileType.GovernmentBuilding)
+            else if (MyTileBuilding == TileBuilding.GovernmentBuilding)
             {
                 return;
             }
-            else if (MyTileType == TileType.WaterPipe)
+            else if (MyTileBuilding == TileBuilding.WaterPipe)
             {
                 return;
             }
-            else if (MyTileType == TileType.Empty)
+            else if (MyTileBuilding == TileBuilding.Empty)
             {
                 Debug.LogError(string.Format("Error Tile Exist : {0}, {1}", name, transform.GetSiblingIndex()));
                 return;
@@ -38,7 +38,7 @@ namespace TilePuzzle
             // 특수지구 별 보너스 점수
             int specificBonus = 0;
 
-            // 특수지구 개수를 세고, 내 타일 타입의 보너스 추가
+            // 특수지구 개수를 세고, 내 타일 빌딩의 보너스 추가
             for (int i = 0; i < RangeTiles.Count; i++)
             {
                 if (RangeTiles[i] is BuildingTile)
@@ -46,7 +46,7 @@ namespace TilePuzzle
                     buildingCount += 1;
                 }
 
-                specificBonus += RangeTiles[i].CountSpecificBonus(MyTileType);
+                specificBonus += RangeTiles[i].CountSpecificBonus(MyTileBuilding);
             }
 
             Bonus = buildingCount / 2 + specificBonus;

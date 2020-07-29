@@ -35,3 +35,6 @@ sysinfo.txt
 *.apk
 *.unitypackage
 .DS_Store
+
+Assets/3rd Party/Hidden.meta
+Assets/3rd Party/Hidden/*

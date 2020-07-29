@@ -3,7 +3,12 @@
     [System.Serializable]
     public enum TileType
     {
-        Water, River, Mountain, Ground,
+        Water, River, Mountain, Ground, Empty
+    }
+
+    [System.Serializable]
+    public enum TileBuilding
+    {
         Campus, Factory, GovernmentBuilding, HolyLand,
         Theator, WaterPipe, City, Empty
     }

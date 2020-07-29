@@ -41,12 +41,12 @@ namespace TilePuzzle
         }
 
         // 범위 내 해당 타입의 타일이 존재하는지 검사
-        public bool HasThatTile(TileType tileType)
+        public bool HasThatTile(TileBuilding tileBuilding)
         {
             foreach(var rangeTile in RangeTiles)
             {
                 // 존재 한다면 true return
-                if (rangeTile.MyTileType == tileType)
+                if (rangeTile.MyTileBuilding == tileBuilding)
                 {
                     return true;
                 }

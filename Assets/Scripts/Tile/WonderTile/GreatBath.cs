@@ -9,13 +9,13 @@
         }
 
         // currentTile이 강 타일일 때 여기에 성지를 지으면 +wonderBonus
-        public override void WonderFunction(Tile currentTile, Tile selectedTile)
+        public override void WonderFunction(Tile currentTile, TileBuilding tileBuilding)
         {
             if (currentTile.MyTileType == TileType.River)
             {
-                if (selectedTile.MyTileType == TileType.HolyLand)
+                if (tileBuilding == TileBuilding.HolyLand)
                 {
-                    selectedTile.ChangeBonus(wonderBonus);
+                    currentTile.ChangeBonus(wonderBonus);
                 }
             }
         }

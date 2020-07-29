@@ -9,7 +9,7 @@ using UnityEngine.UIElements;
 
 namespace TilePuzzle.Procedural
 {
-    public class Terrain : MonoBehaviour
+    public class Terrain : Utility.Singleton<Terrain>
     {
         private bool isInitialized = false;
         private TerrainData terrainData;
@@ -46,6 +46,8 @@ namespace TilePuzzle.Procedural
                     Hexagon newHexagon = CreateNewHexagon(renderingSettings.hexagonPrefab, HexagonPos.FromArrayXY(x, y));
                     newHexagon.SetProperties(center);
                     hexagons[x + y * width] = newHexagon;
+
+                    MeshCollider hexCollider = newHexagon.GetComponent<MeshCollider>();
 
                     if (center.isWater)
                     {
@@ -87,7 +89,7 @@ namespace TilePuzzle.Procedural
                         newHexagon.meshFilter.sharedMesh = mesh;
                         newHexagon.GetComponent<MeshRenderer>().sharedMaterial = renderingSettings.landMaterial;
                     }
-                    
+
                     // decoration
                     // TODO: Spawn mountain, tree, etc...
                     if (center.hasMountain)
@@ -134,7 +136,7 @@ namespace TilePuzzle.Procedural
             return hexagons[arrayXY.x + arrayXY.y * TerrainSize.x];
         }
 
-        public IEnumerator<Hexagon> GetNeighborHexagons(HexagonPos hexPos, int range)
+        public IEnumerable<Hexagon> GetNeighborHexagons(HexagonPos hexPos, int range)
         {
             Vector2Int arrayXY = hexPos.ToArrayXY();
             if (arrayXY.x < 0 || arrayXY.x >= TerrainSize.x || arrayXY.y < 0 || arrayXY.y >= TerrainSize.y)

@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 5370844482985068196}
   - component: {fileID: 3275871038054117664}
   - component: {fileID: 3266130381770784384}
+  - component: {fileID: 5043557219141517942}
+  - component: {fileID: -1391325717313379321}
   m_Layer: 0
   m_Name: Hexagon
   m_TagString: Hexagon
@@ -93,3 +95,39 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &5043557219141517942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3243964367293150818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b980345f3e385fd488010de787a05dcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myHexagon: {fileID: 0}
+  myTileType: 4
+  myTileBuilding: 7
+  myTileFeature: 2
+  myTileTerrain: 1
+  neighborTiles: []
+  range: 2
+  rangeTiles: []
+  bonus: 0
+  cost: 0
+--- !u!64 &-1391325717313379321
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3243964367293150818}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 377365ddcd8a2d9429545de7cfc8e850, type: 2}

@@ -20,8 +20,8 @@ namespace TilePuzzle
 
             // 타입 변경
             string[] tileName = TileManager.Instance.SelectedTile.name.Split('(');
-            TileType tileType = TileManager.Instance.StringToType(tileName[0]);
-            TileManager.Instance.SelectedTile.ChangeTileType(tileType);
+            TileBuilding tileBuilding = TileManager.Instance.StringToType(tileName[0]);
+            TileManager.Instance.SelectedTile.MyTileBuilding = tileBuilding;
 
             TileManager.Instance.SelectedTile.ChangeMaterial(true);
             TileManager.Instance.SelectedTile.MakeGrid(TileManager.Instance.GridPrefab);

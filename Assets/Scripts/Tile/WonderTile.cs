@@ -18,6 +18,6 @@ namespace TilePuzzle
         // 불가사의 건설 제한
         public abstract bool WonderLimit(Tile currentTile);
         // 불가사의 효과
-        public abstract void WonderFunction(Tile currentTile, Tile selectedTile);
+        public abstract void WonderFunction(Tile currentTile, TileBuilding tileBuilding);
     }
 }

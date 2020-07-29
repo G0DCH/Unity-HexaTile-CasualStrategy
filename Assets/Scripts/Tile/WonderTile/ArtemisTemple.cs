@@ -9,14 +9,14 @@
         }
 
         // 초원이나 평원에 성지를 지으면 +wonderBonus
-        public override void WonderFunction(Tile currentTile, Tile selectedTile)
+        public override void WonderFunction(Tile currentTile, TileBuilding tileBuilding)
         {
             if (currentTile.MyTileTerrain == TileTerrain.Grassland ||
                 currentTile.MyTileTerrain == TileTerrain.Plains)
             {
-                if (selectedTile.MyTileType == TileType.HolyLand)
+                if (tileBuilding == TileBuilding.HolyLand)
                 {
-                    selectedTile.ChangeBonus(wonderBonus);
+                    currentTile.ChangeBonus(wonderBonus);
                 }
             }
         }
