@@ -116,6 +116,7 @@ MonoBehaviour:
   range: 2
   rangeTiles: []
   bonus: 0
+  ownerCity: {fileID: 0}
   cost: 0
 --- !u!64 &-1391325717313379321
 MeshCollider:
