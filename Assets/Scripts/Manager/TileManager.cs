@@ -139,7 +139,6 @@ namespace TilePuzzle
 
                             TileBuilding tileBuilding = SelectedTile.MyTileBuilding;
 
-                            // 보너스 갱신
                             if (SelectedTile is BuildingTile)
                             {
                                 // 기존 타일 컴포넌트 제거하고
@@ -162,20 +161,24 @@ namespace TilePuzzle
                                     clickedTile = clickedObject.AddComponent<BuildingTile>();
                                     clickedTile.MyHexagon = hexagon;
                                 }
-
-                                ((BuildingTile)clickedTile).RefreshBonus();
                             }
 
                             // 불가사의로 인한 보너스 추가, 보너스 출력
                             MyWonderBonus?.Invoke(clickedTile, tileBuilding);
+                            if (clickedTile is BuildingTile)
+                            {
+                                // 타일 타입을 건설한 건물로 변경
+                                clickedTile.MyTileBuilding = tileBuilding;
+                                ((BuildingTile)clickedTile).RefreshBonus();
+                            }
                             GameManager.Instance.RefreshPoint(clickedTile.Bonus);
 
                             // TODO : 건물 오브젝트 얹기
+                            Transform building = SelectedTile.transform.GetChild(0);
+                            building.SetParent(clickedTile.transform, true);
+                            building.localPosition = Vector3.zero;
 
-                            // 타일 타입을 건설한 건물로 변경
-                            clickedTile.MyTileBuilding = tileBuilding;
-
-                            Destroy(SelectedTile);
+                            Destroy(SelectedTile.gameObject);
                             SelectedTile = null;
                         }
                     }

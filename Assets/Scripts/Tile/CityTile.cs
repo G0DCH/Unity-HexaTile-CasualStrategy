@@ -43,6 +43,12 @@ namespace TilePuzzle
         // 범위 내 해당 타입의 타일이 존재하는지 검사
         public bool HasThatTile(TileBuilding tileBuilding)
         {
+            // 도시 범위 내에 도시를 설치할 수 없음.
+            if (tileBuilding == TileBuilding.City)
+            {
+                return true;
+            }
+
             foreach(var rangeTile in RangeTiles)
             {
                 // 존재 한다면 true return
