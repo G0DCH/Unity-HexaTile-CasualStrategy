@@ -172,49 +172,6 @@ namespace TilePuzzle
             return neighborTiles;
         }
 
-        public void ChangeMaterial(bool isSelected)
-        {
-            MeshRenderer myRenderer = GetComponent<MeshRenderer>();
-            MeshRenderer childRenderer = transform.GetChild(0).GetComponent<MeshRenderer>();
-
-            if (isSelected)
-            {
-                myRenderer.material = TileManager.Instance.SelectedMaterial;
-                childRenderer.material = TileManager.Instance.SelectedMaterial;
-            }
-            else
-            {
-                myRenderer.material = TileManager.Instance.NormalMaterial;
-                childRenderer.material = TileManager.Instance.NormalMaterial;
-            }
-        }
-
-        // 이웃 타일들에게서 prev를 제거하고 current를 넣음
-        public void UpdateNeighborTile(Tile prev, Tile current)
-        {
-            for (int i = 0; i < NeighborTiles.Count; i++)
-            {
-                NeighborTiles[i].updateNeighborTile(prev, current);
-            }
-        }
-
-        // 내 이웃 타일에서 prev를 제거하고 current를 넣음
-        private void updateNeighborTile(Tile prev, Tile current)
-        {
-            NeighborTiles.Remove(prev);
-            NeighborTiles.Add(current);
-        }
-
-        // 내 Range 타일에서 prev를 제거하고 current를 넣음
-        public void UpdateRangeTile(Tile prev, Tile current)
-        {
-            if (RangeTiles.Contains(prev))
-            {
-                RangeTiles.Remove(prev);
-                RangeTiles.Add(current);
-            }
-        }
-
         // 내 타일이 pivotBuilding의 보너스에 해당하는지 검사하고 해당 점수 return
         public int CountSpecificBonus(TileBuilding pivotBuilding)
         {

@@ -23,7 +23,6 @@ namespace TilePuzzle
             TileBuilding tileBuilding = TileManager.Instance.StringToType(tileName[0]);
             TileManager.Instance.SelectedTile.MyTileBuilding = tileBuilding;
 
-            TileManager.Instance.SelectedTile.ChangeMaterial(true);
             TileManager.Instance.SelectedTile.MakeGrid(TileManager.Instance.GridPrefab);
             TileManager.Instance.SelectedTile.TurnGrid(false);
         }
