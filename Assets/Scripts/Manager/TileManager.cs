@@ -15,11 +15,6 @@ namespace TilePuzzle
         [ReadOnly]
         public Tile SelectedTile;
 
-        [Space]
-        [Header("Tile Material")]
-        public Material SelectedMaterial;
-        public Material NormalMaterial;
-
         [Space, Header("SelectTileCost")]
         public int SelectTileCost = 0;
 
@@ -173,7 +168,12 @@ namespace TilePuzzle
                             }
                             GameManager.Instance.RefreshPoint(clickedTile.Bonus);
 
-                            // TODO : 건물 오브젝트 얹기
+                            // 타일 위에 얹혀져 있는 데코레이션 삭제
+                            if(clickedTile.transform.childCount > 1)
+                            {
+                                Destroy(clickedTile.transform.GetChild(0).gameObject);
+                            }
+
                             Transform building = SelectedTile.transform.GetChild(0);
                             building.SetParent(clickedTile.transform, true);
                             building.localPosition = Vector3.zero;
