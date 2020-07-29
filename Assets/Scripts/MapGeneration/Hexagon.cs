@@ -27,6 +27,8 @@ namespace TilePuzzle.Procedural
         {
             IsWater = center.isWater;
             HasRiver = center.NeighborCorners.Any(x => x.river > 0);
+            HasMountain = center.hasMountain;
+            HasForest = center.hasForest;
             BiomeId = center.biomeId;
         }
     }
