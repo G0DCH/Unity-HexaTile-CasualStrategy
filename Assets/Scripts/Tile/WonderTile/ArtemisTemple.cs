@@ -14,7 +14,7 @@
             if (currentTile.MyTileTerrain == TileTerrain.Grassland ||
                 currentTile.MyTileTerrain == TileTerrain.Plains)
             {
-                if (tileBuilding == TileBuilding.HolyLand)
+                if (tileBuilding == TileBuilding.HolySite)
                 {
                     currentTile.ChangeBonus(wonderBonus);
                 }

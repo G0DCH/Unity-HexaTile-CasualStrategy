@@ -13,7 +13,7 @@
         {
             if (currentTile.MyTileType == TileType.River)
             {
-                if (tileBuilding == TileBuilding.HolyLand)
+                if (tileBuilding == TileBuilding.HolySite)
                 {
                     currentTile.ChangeBonus(wonderBonus);
                 }

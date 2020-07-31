@@ -13,7 +13,7 @@
             if (currentTile.MyTileTerrain == TileTerrain.Grassland ||
                 currentTile.MyTileTerrain == TileTerrain.Plains)
             {
-                if (tileBuilding == TileBuilding.HolyLand)
+                if (tileBuilding == TileBuilding.HolySite)
                 {
                     TileManager.Instance.SelectTileCost -= wonderBonus;
                 }
@@ -25,7 +25,7 @@
         {
             foreach (var neighbor in currentTile.NeighborTiles)
             {
-                if (neighbor.MyTileBuilding == TileBuilding.HolyLand)
+                if (neighbor.MyTileBuilding == TileBuilding.HolySite)
                 {
                     return true;
                 }
