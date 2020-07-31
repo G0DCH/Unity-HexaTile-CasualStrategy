@@ -158,14 +158,16 @@ namespace TilePuzzle
                                 }
                             }
 
-                            // 불가사의로 인한 보너스 추가, 보너스 출력
-                            MyWonderBonus?.Invoke(clickedTile, tileBuilding);
+                            // 건물 보너스 갱신
                             if (clickedTile is BuildingTile)
                             {
                                 // 타일 타입을 건설한 건물로 변경
                                 clickedTile.MyTileBuilding = tileBuilding;
                                 ((BuildingTile)clickedTile).RefreshBonus();
                             }
+                            // 불가사의로 인한 보너스 추가, 보너스 출력
+                            MyWonderBonus?.Invoke(clickedTile, tileBuilding);
+
                             GameManager.Instance.RefreshPoint(clickedTile.Bonus);
 
                             // 타일 위에 얹혀져 있는 데코레이션 삭제
@@ -225,7 +227,7 @@ namespace TilePuzzle
                 }
 
                 // 송수로의 경우 주변에 도시와 산이 있는지 검사
-                if (SelectedTile.MyTileBuilding == TileBuilding.WaterPipe)
+                if (SelectedTile.MyTileBuilding == TileBuilding.Aqueduct)
                 {
                     bool nearCity = false;
                     bool nearMountain = false;

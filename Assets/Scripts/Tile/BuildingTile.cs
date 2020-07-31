@@ -19,11 +19,11 @@ namespace TilePuzzle
             {
                 return;
             }
-            else if (MyTileBuilding == TileBuilding.GovernmentBuilding)
+            else if (MyTileBuilding == TileBuilding.GovernmentPlaza)
             {
                 return;
             }
-            else if (MyTileBuilding == TileBuilding.WaterPipe)
+            else if (MyTileBuilding == TileBuilding.Aqueduct)
             {
                 return;
             }

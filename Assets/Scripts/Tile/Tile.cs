@@ -179,7 +179,7 @@ namespace TilePuzzle
         {
             int bonusPoint = 0;
 
-            if (MyTileBuilding == TileBuilding.GovernmentBuilding)
+            if (MyTileBuilding == TileBuilding.GovernmentPlaza)
             {
                 bonusPoint = 1;
             }
@@ -190,21 +190,21 @@ namespace TilePuzzle
                     bonusPoint = 1;
                 }
             }
-            else if (pivotBuilding == TileBuilding.Factory)
+            else if (pivotBuilding == TileBuilding.IndustrialZone)
             {
-                if (MyTileBuilding == TileBuilding.WaterPipe)
+                if (MyTileBuilding == TileBuilding.Aqueduct)
                 {
                     bonusPoint = 2;
                 }
             }
-            else if (pivotBuilding == TileBuilding.HolyLand)
+            else if (pivotBuilding == TileBuilding.HolySite)
             {
                 if (MyTileType == TileType.Mountain)
                 {
                     bonusPoint = 1;
                 }
             }
-            else if (pivotBuilding == TileBuilding.Theator)
+            else if (pivotBuilding == TileBuilding.TheaterSquare)
             {
                 // 나중에 불가사의 추가할 것
             }
@@ -261,12 +261,6 @@ namespace TilePuzzle
         public void ChangeBonus(int n)
         {
             Bonus += n;
-        }
-
-        // 이 타일의 비용을 n만큼 변경함
-        public void ChangeCost(int n)
-        {
-            Cost += n;
         }
     }
 }
