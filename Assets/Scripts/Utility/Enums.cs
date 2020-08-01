@@ -10,7 +10,8 @@
     public enum TileBuilding
     {
         Campus, IndustrialZone, GovernmentPlaza, HolySite,
-        TheaterSquare, Aqueduct, City, Harbor, CommercialHub, Empty
+        TheaterSquare, Aqueduct, City, Harbor,
+        CommercialHub, Encampment, Wonder, EntertainmentComplex, Empty
     }
 
     [System.Serializable]
