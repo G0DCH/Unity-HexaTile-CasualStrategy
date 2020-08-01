@@ -23,6 +23,11 @@
             bool nearHarbor = false;
             bool nearLand = false;
 
+            if (currentTile.MyTileType != TileType.Water)
+            {
+                return false;
+            }
+
             foreach (Tile neighbor in currentTile.NeighborTiles)
             {
                 if (neighbor.MyTileBuilding == TileBuilding.Harbor)

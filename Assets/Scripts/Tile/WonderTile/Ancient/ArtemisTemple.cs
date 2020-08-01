@@ -24,11 +24,14 @@
         // 초원이나 평원에 지을 수 있음
         public override bool WonderLimit(Tile currentTile)
         {
-            if (currentTile.MyTileTerrain == TileTerrain.Grassland)
+            if (currentTile.MyTileType == TileType.Water ||
+                currentTile.MyTileType == TileType.Mountain)
             {
-                return true;
+                return false;
             }
-            else if (currentTile.MyTileTerrain == TileTerrain.Plains)
+
+            if (currentTile.MyTileTerrain == TileTerrain.Grassland ||
+                currentTile.MyTileTerrain == TileTerrain.Plains)
             {
                 return true;
             }

@@ -1,5 +1,6 @@
 ﻿namespace TilePuzzle
 {
+    // 스톤헨지
     public class StoneHenge : WonderTile
     {
         public override void AddToDelegate()
@@ -23,6 +24,12 @@
         // 성지 옆에 건설 가능
         public override bool WonderLimit(Tile currentTile)
         {
+            if (currentTile.MyTileType == TileType.Water ||
+                currentTile.MyTileType == TileType.Mountain)
+            {
+                return false;
+            }
+
             foreach (var neighbor in currentTile.NeighborTiles)
             {
                 if (neighbor.MyTileBuilding == TileBuilding.HolySite)
