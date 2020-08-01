@@ -3510,8 +3510,6 @@ MonoBehaviour:
   GridPrefab: {fileID: 610993075651065042, guid: 82c5869b1d4759d48bfde08462d926ea,
     type: 3}
   SelectedTile: {fileID: 0}
-  SelectedMaterial: {fileID: 2100000, guid: bb94460d759f172489d760060db45acb, type: 2}
-  NormalMaterial: {fileID: 2100000, guid: cf051fba995609b459f0eb4baf4bb478, type: 2}
   SelectTileCost: 0
 --- !u!4 &1796399865
 Transform:
@@ -4247,7 +4245,7 @@ PrefabInstance:
         type: 3}
       propertyPath: renderingSettings
       value: 
-      objectReference: {fileID: 11400000, guid: 81ae6218439049945bf6deaad1848535,
+      objectReference: {fileID: 11400000, guid: 5a63b0ca3fdd8e940b8cc2fd466f3f4e,
         type: 2}
     - target: {fileID: 8550946858816477357, guid: 9f218873ebb49414c988e776ba1c4f1c,
         type: 3}
