@@ -9,7 +9,7 @@ using UnityEngine.UIElements;
 
 namespace TilePuzzle.Procedural
 {
-    public class Terrain : Utility.Singleton<Terrain>
+    public class TerrainRenderer : Utility.Singleton<TerrainRenderer>
     {
         private bool isInitialized = false;
         private TerrainData terrainData;
@@ -17,7 +17,7 @@ namespace TilePuzzle.Procedural
 
         public Vector2Int TerrainSize => terrainData.terrainSize;
 
-        public void Initialize(TerrainData terrainData, TerrainRenderingSettings renderingSettings)
+        public void Build(TerrainData terrainData, TerrainRenderingSettings renderingSettings)
         {
             if (isInitialized)
             {
@@ -92,14 +92,14 @@ namespace TilePuzzle.Procedural
 
                     // decoration
                     // TODO: Spawn mountain, tree, etc...
-                    if (center.hasMountain)
-                    {
-                        CreateNewDecoration(renderingSettings.mountainPrefab, newHexagon.transform);
-                    }
-                    else if (center.hasForest)
-                    {
-                        CreateNewDecoration(renderingSettings.forestPrefab, newHexagon.transform);
-                    }
+                    //if (center.hasMountain)
+                    //{
+                    //    CreateNewDecoration(renderingSettings.mountainPrefab, newHexagon.transform);
+                    //}
+                    //else if (center.hasForest)
+                    //{
+                    //    CreateNewDecoration(renderingSettings.forestPrefab, newHexagon.transform);
+                    //}
 
                     // height
                     Vector3 newPos = newHexagon.transform.position;

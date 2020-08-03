@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c4ddb14f842c9a4c8ed1df445dcb299, type: 3}
+  m_Name: TerrainRenderingSettings_637318223176571694
+  m_EditorClassIdentifier: 
+  landMaterial: {fileID: 2100000, guid: 1b2b06b2d7b92e74fa734f8af7a1a293, type: 2}
+  cliffDepth: 1.5
+  enableBrightNoise: 1
+  seaMaterial: {fileID: 2100000, guid: c07cee2026c562244a9d0f1000b65fae, type: 2}
+  lakeMaterial: {fileID: 2100000, guid: c07cee2026c562244a9d0f1000b65fae, type: 2}
+  riverSize: 0.2
+  waterDepth: 0.5
+  hexagonPrefab: {fileID: 5370844482985068196, guid: 01d46510b0e7c814f9df2f8602b6bc82,
+    type: 3}
+  mountainPrefab: {fileID: 1884904741310042, guid: 90841e0103af621489435e6335d5d50a,
+    type: 3}
+  forestPrefab: {fileID: 3707225019380550613, guid: f6b71c9f2a525634baa0c3293631c8b5,
+    type: 3}

@@ -11,22 +11,45 @@ namespace TilePuzzle.Procedural
     public class World : MonoBehaviour
     {
         [Required]
-        public Terrain terrain;
+        public TerrainRenderer terrainRenderer;
         [Required]
+        public DecorationRenderer decorationRenderer;
+
         public TerrainGenerateSettings generateSettings;
-        [Required]
         public TerrainRenderingSettings renderingSettings;
+        public DecorationSpawnSettings decorationSpawnSettings;
+
+        private Vector2Int mapSize;
+        private TerrainData terrainData;
+        private DecorationData decorationData;
 
         private void Awake()
         {
-            Debug.Assert(generateSettings != null);
-            Debug.Assert(renderingSettings != null);
+            Debug.Assert(terrainRenderer != null, $"Missing {nameof(terrainRenderer)}");
+            Debug.Assert(decorationRenderer != null, $"Missing {nameof(decorationRenderer)}");
         }
 
         private void Start()
         {
             TerrainData terrainData = TerrainGenerator.GenerateTerrainData(generateSettings);
-            terrain.Initialize(terrainData, renderingSettings);
+            DecorationData decorationData = DecorationGenerator.GenerateDecorations(generateSettings.globalSeed, terrainData, decorationSpawnSettings);
+            BuildWorld(terrainData.terrainSize, terrainData, decorationData);
+        }
+
+        public void BuildWorld(Vector2Int mapSize, TerrainData terrainData, DecorationData decorationData)
+        {
+            this.mapSize = mapSize;
+            this.terrainData = terrainData ?? throw new ArgumentNullException(nameof(terrainData));
+            this.decorationData = decorationData ?? throw new ArgumentNullException(nameof(decorationData));
+
+            terrainRenderer.Build(terrainData, renderingSettings);
+            decorationRenderer.Build(mapSize, decorationData.renderDatas);
+        }
+
+        public Decoration? GetDecorationAt(HexagonPos hexPos)
+        {
+            Vector2Int arrayXY = hexPos.ToArrayXY();
+            return decorationData.decorations[arrayXY.x + arrayXY.y * mapSize.x];
         }
     }
 }

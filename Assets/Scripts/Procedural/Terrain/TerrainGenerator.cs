@@ -41,12 +41,6 @@ namespace TilePuzzle.Procedural
             BiomeTable biomeTable = settings.biomeTableSettings.GetBiomeTable();
             CalculateBiome(biomeTable, ref centers);
 
-            // 산 생성
-            CalculateMountain(settings.mountainSpawnRange, settings.mountainThreshold, settings.globalSeed, settings.mountainNoiseSettings, ref centers);
-
-            // 숲 생성
-            CalculateForest(settings.forestSpawnRange, settings.forestThreshold, settings.globalSeed, settings.forestNoiseSettings, ref centers);
-
             Profiler.EndSample();
 
             TerrainData terrainData = new TerrainData(terrainSize, centers, corners, biomeTable);
@@ -334,48 +328,8 @@ namespace TilePuzzle.Procedural
         {
             foreach (Center center in centers)
             {
-                BiomeTable.Biome biome = biomeTable.EvaluateBiome(center.moisture, center.Temperature);
+                Biome biome = biomeTable.EvaluateBiome(center.moisture, center.Temperature);
                 center.biomeId = biome.id;
-            }
-        }
-
-        private static void CalculateMountain(Vector2 spawnRange, float mountainThreshold, int globalSeed, NoiseSettings mountainNoiseSettings, ref Center[] centers)
-        {
-            Vector2[] centerPoints = centers.Select(x => new Vector2(x.centerPos.x, x.centerPos.z)).ToArray();
-            NoiseGenerator.Instance.EvaluateNoise(ref centerPoints, out float[] noiseValues, globalSeed, mountainNoiseSettings);
-
-            for (int i = 0; i < centers.Length; i++)
-            {
-                Center center = centers[i];
-                if (center.isWater != false || center.elevation < spawnRange.x || center.elevation > spawnRange.y)
-                {
-                    continue;
-                }
-
-                if (noiseValues[i] >= mountainThreshold)
-                {
-                    center.hasMountain = true;
-                }
-            }
-        }
-
-        private static void CalculateForest(Vector2 spawnRange, float forestThreshold, int globalSeed, NoiseSettings forestNoiseSettings, ref Center[] centers)
-        {
-            Vector2[] centerPoints = centers.Select(x => new Vector2(x.centerPos.x, x.centerPos.z)).ToArray();
-            NoiseGenerator.Instance.EvaluateNoise(ref centerPoints, out float[] noiseValues, globalSeed, forestNoiseSettings);
-
-            for (int i = 0; i < centers.Length; i++)
-            {
-                Center center = centers[i];
-                if (center.isWater || center.hasMountain || center.elevation < spawnRange.x || center.elevation > spawnRange.y)
-                {
-                    continue;
-                }
-
-                if (noiseValues[i] >= forestThreshold)
-                {
-                    center.hasForest = true;
-                }
             }
         }
 

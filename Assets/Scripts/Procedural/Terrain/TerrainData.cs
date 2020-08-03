@@ -9,10 +9,10 @@ namespace TilePuzzle.Procedural
 {
     public class TerrainData
     {
-        public readonly Vector2Int terrainSize;
-        public readonly Center[] centers;
-        public readonly Corner[] corners;
-        public readonly BiomeTable biomeTable;
+        public Vector2Int terrainSize;
+        public Center[] centers;
+        public Corner[] corners;
+        public BiomeTable biomeTable;
 
         public TerrainData(Vector2Int terrainSize, Center[] centers, Corner[] corners, BiomeTable biomeTable)
         {

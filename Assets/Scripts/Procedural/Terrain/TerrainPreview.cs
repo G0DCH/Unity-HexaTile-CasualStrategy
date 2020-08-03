@@ -184,12 +184,6 @@ namespace TilePuzzle.Procedural
             generateSettings.riverSpawnRange = riverSpawnRange;
             generateSettings.riverSpawnMultiplier = riverSpawnMultiplier;
             generateSettings.biomeTableSettings = biomeTableSettings;
-            generateSettings.mountainNoiseSettings = mountainNoiseSettings;
-            generateSettings.mountainSpawnRange = mountainSpawnRange;
-            generateSettings.mountainThreshold = mountainThreshold;
-            generateSettings.forestNoiseSettings = forestNoiseSettings;
-            generateSettings.forestSpawnRange = forestSpawnRange;
-            generateSettings.forestThreshold = forestThreshold;
         }
 
         private void UpdateRenderingSettings()
@@ -293,14 +287,14 @@ namespace TilePuzzle.Procedural
             for (int i = 0; i < hexagons.Length; i++)
             {
                 Center center = terrainData.centers[i];
-                if (center.hasMountain)
-                {
-                    CreateDecoration(mountainPrefab, hexagons[i].transform);
-                }
-                else if (center.hasForest)
-                {
-                    CreateDecoration(forestPrefab, hexagons[i].transform);
-                }
+                //if (center.hasMountain)
+                //{
+                //    CreateDecoration(mountainPrefab, hexagons[i].transform);
+                //}
+                //else if (center.hasForest)
+                //{
+                //    CreateDecoration(forestPrefab, hexagons[i].transform);
+                //}
             }
         }
 
@@ -387,10 +381,10 @@ namespace TilePuzzle.Procedural
 
         private void DestroyAllDecorations()
         {
-            foreach (var decoration in GameObject.FindGameObjectsWithTag("DecorationTest"))
-            {
-                DestroyImmediate(decoration);
-            }
+            //foreach (var decoration in GameObject.FindGameObjectsWithTag("DecorationTest"))
+            //{
+            //    DestroyImmediate(decoration);
+            //}
         }
     }
 }

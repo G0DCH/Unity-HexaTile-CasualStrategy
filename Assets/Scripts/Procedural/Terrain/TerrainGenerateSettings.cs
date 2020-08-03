@@ -36,19 +36,5 @@ namespace TilePuzzle.Procedural
         [Title("Biome")]
         [Required]
         public BiomeTableSettings biomeTableSettings;
-
-        [Title("Mountain")]
-        [MinMaxSlider(0, 1, true)]
-        public Vector2 mountainSpawnRange = new Vector2(0.3f, 1f);
-        public float mountainThreshold = 1.3f;
-        [FoldoutGroup("Mountain", GroupName = "Noise Settings"), HideLabel]
-        public NoiseSettings mountainNoiseSettings;
-
-        [Title("Forest")]
-        [MinMaxSlider(0, 1, true)]
-        public Vector2 forestSpawnRange = new Vector2(0.1f, 1f);
-        public float forestThreshold = 0.6f;
-        [FoldoutGroup("Forest", GroupName = "Noise Settings"), HideLabel]
-        public NoiseSettings forestNoiseSettings;
     }
 }
