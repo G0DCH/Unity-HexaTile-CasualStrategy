@@ -67,6 +67,7 @@ namespace TilePuzzle.Procedural
             public float spawnRate;
             public BiomeForest[] biomeForests;
             public int tryCount;
+            public bool useRandomRotation;
             public Dictionary<int, GameObject[]> BiomeDecorationTable => biomeForests.ToDictionary(k => Biome.BiomeNameToId(k.biomeName), v => v.decorationPrefabs);
 
             [Serializable]

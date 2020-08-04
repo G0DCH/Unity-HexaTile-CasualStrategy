@@ -173,6 +173,11 @@ namespace TilePuzzle.Procedural
                     continue;
                 }
 
+                if (center.moisture < random.NextDouble())
+                {
+                    continue;
+                }
+
                 if (spawnSetting.BiomeDecorationTable.TryGetValue(center.biomeId, out GameObject[] decorationPrefabs) == false)
                 {
                     continue;
@@ -239,7 +244,7 @@ namespace TilePuzzle.Procedural
                 }
 
                 float moisture = terrainData.centers[i].moisture;
-                if (random.NextDouble() > moisture)
+                if (random.NextDouble() > moisture / 2f)
                 {
                     continue;
                 }
@@ -254,7 +259,9 @@ namespace TilePuzzle.Procedural
 
                 // 렌더 데이터 생성
                 Vector3 scale = randomDecoPrefab.transform.localScale;
-                Vector3 lookDirection = Vector3.forward;
+                Vector3 lookDirection = spawnSetting.useRandomRotation
+                        ? Quaternion.AngleAxis((float)random.NextDouble() * 360 * i, Vector3.up) * Vector3.forward
+                        : Vector3.forward;
 
                 // 데코 데이터에 저장
                 decorationData.decorations[i] = new Decoration("Forest", Decoration.Type.Mountain, false);
@@ -269,6 +276,11 @@ namespace TilePuzzle.Procedural
 
             for (int i = 0; i < terrainData.centers.Length; i++)
             {
+                if (terrainData.centers[i].isWater || terrainData.centers[i].isCoast)
+                {
+                    continue;
+                }
+
                 if (decorationData.decorations[i].HasValue
                     && (decorationData.decorations[i].Value.type == Decoration.Type.Mountain || decorationData.decorations[i].Value.type == Decoration.Type.Forest))
                 {

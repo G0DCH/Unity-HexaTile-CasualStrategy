@@ -436,7 +436,7 @@ PrefabInstance:
         type: 3}
       propertyPath: decorationSpawnSettings
       value: 
-      objectReference: {fileID: 11400000, guid: ac11f16cd8c471441a7741736510b80e,
+      objectReference: {fileID: 11400000, guid: 8c5d9b4495168e14c97032cc3aa81eb0,
         type: 2}
     - target: {fileID: 8550946858816477357, guid: 9f218873ebb49414c988e776ba1c4f1c,
         type: 3}

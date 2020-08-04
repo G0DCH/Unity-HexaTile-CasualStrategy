@@ -26,6 +26,7 @@ namespace TilePuzzle.Procedural
         public Transform sampleObjectHolder;
         [FolderPath]
         public string savePath;
+        public string saveName;
 
         [Title("Neighbor")]
         public bool drawNeighbor;
@@ -112,7 +113,7 @@ namespace TilePuzzle.Procedural
             }
 
             GameObject newPrefab = Instantiate(decorationSample);
-            string uniquePath = AssetDatabase.GenerateUniqueAssetPath($"{savePath}/Decoration.prefab");
+            string uniquePath = AssetDatabase.GenerateUniqueAssetPath($"{savePath}/{saveName}.prefab");
             PrefabUtility.SaveAsPrefabAsset(newPrefab, uniquePath);
             DestroyImmediate(newPrefab);
         }

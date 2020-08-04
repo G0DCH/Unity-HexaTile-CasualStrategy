@@ -30,7 +30,7 @@ MonoBehaviour:
       weightMultiplier: 2
   forestSpawnSetting:
     spawnDistance: 2
-    spawnRate: 0.4
+    spawnRate: 0.5
     biomeForests:
     - biomeName: "\uC124\uC6D0"
       decorationPrefabs:
@@ -62,5 +62,6 @@ MonoBehaviour:
     - biomeName: "\uC5F4\uB300\uC6B0\uB9BC"
       decorationPrefabs:
       - {fileID: 1185063661233237665, guid: 4fdbef2d979d43448b4325c1f99582a4, type: 3}
-    tryCount: 100
+    tryCount: 130
+    useRandomRotation: 0
   spawnSettings: []
