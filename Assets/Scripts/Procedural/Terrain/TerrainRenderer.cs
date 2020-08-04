@@ -11,7 +11,6 @@ namespace TilePuzzle.Procedural
 {
     public class TerrainRenderer : Utility.Singleton<TerrainRenderer>
     {
-        private bool isInitialized = false;
         private TerrainData terrainData;
         private Hexagon[] hexagons;
 
@@ -19,11 +18,6 @@ namespace TilePuzzle.Procedural
 
         public void Build(TerrainData terrainData, TerrainRenderingSettings renderingSettings)
         {
-            if (isInitialized)
-            {
-                throw new InvalidOperationException($"지형이 이미 초기화 됨");
-            }
-
             this.terrainData = terrainData ?? throw new ArgumentNullException(nameof(terrainData));
 
             Mesh flatHexagonMesh = HexagonMeshGenerator.BuildMesh(Hexagon.Size);
@@ -121,8 +115,6 @@ namespace TilePuzzle.Procedural
             renderingSettings.landMaterial.SetTexture("_ColorMap", colorMapTexture);
             renderingSettings.landMaterial.SetVector("_ColorMapSize", new Vector2(textureWidth, textureHeight));
             renderingSettings.landMaterial.SetInt("_EnableBrightNoise", renderingSettings.enableBrightNoise ? 1 : 0);
-
-            isInitialized = true;
         }
 
         public Hexagon GetHexagonAt(HexagonPos hexPos)

@@ -29,15 +29,13 @@ namespace TilePuzzle.Procedural
 
         public struct RenderData
         {
-            public Mesh mesh;
-            public Material[] materials;
+            public GameObject prefab;
             public Vector3 scale;
             public Vector3 lookDirection;
 
-            public RenderData(Mesh mesh, Material[] materials, Vector3 scale, Vector3 lookDirection)
+            public RenderData(GameObject prefab, Vector3 scale, Vector3 lookDirection)
             {
-                this.mesh = mesh;
-                this.materials = materials;
+                this.prefab = prefab;
                 this.scale = scale;
                 this.lookDirection = lookDirection;
             }

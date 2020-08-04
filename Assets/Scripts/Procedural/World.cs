@@ -36,6 +36,14 @@ namespace TilePuzzle.Procedural
             BuildWorld(terrainData.terrainSize, terrainData, decorationData);
         }
 
+        [Button]
+        public void Test()
+        {
+            TerrainData terrainData = TerrainGenerator.GenerateTerrainData(generateSettings);
+            DecorationData decorationData = DecorationGenerator.GenerateDecorations(generateSettings.globalSeed, terrainData, decorationSpawnSettings);
+            BuildWorld(terrainData.terrainSize, terrainData, decorationData);
+        }
+
         public void BuildWorld(Vector2Int mapSize, TerrainData terrainData, DecorationData decorationData)
         {
             this.mapSize = mapSize;

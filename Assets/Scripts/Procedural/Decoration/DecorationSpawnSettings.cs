@@ -11,7 +11,9 @@ namespace TilePuzzle.Procedural
     [CreateAssetMenu(menuName = "Tile Puzzle/Decoration Spawn Settings")]
     public class DecorationSpawnSettings : ScriptableObject
     {
-        [SerializeField]
+        public MountainSpawnSetting mountainSpawnSetting;
+        public ForestSpawnSetting forestSpawnSetting;
+        [SerializeField, ListDrawerSettings(NumberOfItemsPerPage = 5)]
         private SpawnSetting[] spawnSettings;
 
         public IReadOnlyDictionary<int, SpawnTable> SpawnTableByBiomeId { get; private set; }
@@ -50,23 +52,47 @@ namespace TilePuzzle.Procedural
         }
 
         [Serializable]
+        public struct MountainSpawnSetting
+        {
+            public Vector2 spawnRange;
+            public float spawnRate;
+            public GameObject[] decorationPrefabs;
+            public NoiseSettings noiseSettings;
+        }
+
+        [Serializable]
+        public struct ForestSpawnSetting
+        {
+            public int spawnDistance;
+            public float spawnRate;
+            public BiomeForest[] biomeForests;
+            public int tryCount;
+            public Dictionary<int, GameObject[]> BiomeDecorationTable => biomeForests.ToDictionary(k => Biome.BiomeNameToId(k.biomeName), v => v.decorationPrefabs);
+
+            [Serializable]
+            public struct BiomeForest
+            {
+                public string biomeName;
+                public GameObject[] decorationPrefabs;
+            }
+        }
+
+        [Serializable]
         public struct SpawnSetting
         {
             // Decoration
-            public string name;
-            [EnumToggleButtons]
-            public Decoration.Type type;
-            public bool isDestructible;
+            [TabGroup("Decoration Info"), Required] public string name;
+            [TabGroup("Decoration Info"), EnumToggleButtons] public Decoration.Type type;
+            [TabGroup("Decoration Info")] public bool isDestructible;
 
             // Spawn
-            public string[] spawnableBiomes;
-            [Range(0f, 1f)]
-            public float spawnRate;
+            [TabGroup("Spawn")] public string[] spawnableBiomes;
+            [TabGroup("Spawn"), Range(0f, 1f)] public float spawnRate;
 
             // Render
-            public GameObject[] decorationPrefabs;
-            public bool useRandomRotation;
-            public Vector3 scaleVariation;
+            [TabGroup("Render")] public GameObject[] decorationPrefabs;
+            [TabGroup("Render")] public bool useRandomRotation;
+            [TabGroup("Render")] public Vector3 scaleVariation;
 
             public void Validate()
             {
@@ -87,7 +113,7 @@ namespace TilePuzzle.Procedural
         {
             private readonly SpawnSetting[] spawnSettingTable;
             private readonly float[] weightTable;
-            private readonly float totalSpawnRate;
+            private readonly float randomRange;
 
             public SpawnTable(IEnumerable<SpawnSetting> spawnSettings)
             {
@@ -101,12 +127,12 @@ namespace TilePuzzle.Procedural
                     previousWeightSum = weightTable[i];
                 }
 
-                totalSpawnRate = weightTable[weightTable.Length - 1];
+                randomRange = Mathf.Max(weightTable[weightTable.Length - 1], 1);
             }
 
             public SpawnSetting? SelectRandomDecorationSetBasedOnSpawnRate(System.Random random)
             {
-                float randomValue = (float)random.NextDouble() * totalSpawnRate;
+                float randomValue = (float)random.NextDouble() * randomRange;
                 int index = Array.BinarySearch(weightTable, randomValue);
                 if (index < 0)
                 {

@@ -12,36 +12,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7aa80fcbaa36454b9ab9bc8d5039d67, type: 3}
   m_Name: Decoration Spawn Table
   m_EditorClassIdentifier: 
-  spawnSettings:
-  - name: Cactus
-    type: 0
-    isDestructible: 1
-    spawnableBiomes:
-    - "\uC5F4\uB300\uC0AC\uB9C9"
-    - "\uC628\uB300\uC0AC\uB9C9"
-    spawnRate: 0.171
+  mountainSpawnSetting:
+    spawnRange: {x: 0.2, y: 1}
+    spawnRate: 0.5
     decorationPrefabs:
-    - {fileID: 185962, guid: 9739a89a5ec460c4b94bb52719a0931c, type: 3}
-    - {fileID: 111550, guid: 1ca6c3cbc33a15a4aad3311b6c6f8c3c, type: 3}
-    useRandomRotation: 1
-    scaleVariation: {x: 1, y: 1, z: 1}
-  - name: Tree
-    type: 0
-    isDestructible: 1
-    spawnableBiomes:
-    - "\uCD08\uC6D0"
-    spawnRate: 0.353
-    decorationPrefabs:
-    - {fileID: 1150990664425982, guid: 8fa3604cb40c0e54db5cf3000e146aa1, type: 3}
-    useRandomRotation: 1
-    scaleVariation: {x: 1, y: 1, z: 1}
-  - name: 
-    type: 0
-    isDestructible: 0
-    spawnableBiomes:
-    - "\uCD08\uC6D0"
-    spawnRate: 0.263
-    decorationPrefabs:
-    - {fileID: 1014618343689560, guid: 481c635aed4fc7f4c84d327ae6a4378b, type: 3}
-    useRandomRotation: 1
-    scaleVariation: {x: 1, y: 1, z: 1}
+    - {fileID: 1884904741310042, guid: 90841e0103af621489435e6335d5d50a, type: 3}
+    noiseSettings:
+      noiseType: 0
+      isRigid: 0
+      seed: 0
+      offset: {x: 0, y: 0, z: 0}
+      octaves: 2
+      lacunarity: 2
+      persistance: 0.5
+      scale: 30
+      strength: 1
+      weightMultiplier: 2
+  forestSpawnSetting:
+    spawnDistance: 2
+    spawnRate: 0.4
+    biomeForests:
+    - biomeName: "\uC124\uC6D0"
+      decorationPrefabs:
+      - {fileID: 4323251430271119806, guid: ad5ca90dc848ec94bbeab0e5ca0b4890, type: 3}
+    - biomeName: "\uD230\uB4DC\uB77C"
+      decorationPrefabs:
+      - {fileID: 3707225019380550613, guid: f6b71c9f2a525634baa0c3293631c8b5, type: 3}
+    - biomeName: "\uCD08\uD1A0"
+      decorationPrefabs:
+      - {fileID: 3707225019380550613, guid: f6b71c9f2a525634baa0c3293631c8b5, type: 3}
+    - biomeName: "\uD0C0\uC774\uAC00"
+      decorationPrefabs:
+      - {fileID: 3707225019380550613, guid: f6b71c9f2a525634baa0c3293631c8b5, type: 3}
+    - biomeName: "\uAD00\uBAA9\uC9C0\uB300"
+      decorationPrefabs:
+      - {fileID: 3707225019380550613, guid: f6b71c9f2a525634baa0c3293631c8b5, type: 3}
+    - biomeName: "\uC628\uB300\uC6B0\uB9BC"
+      decorationPrefabs:
+      - {fileID: 1185063661233237665, guid: 4fdbef2d979d43448b4325c1f99582a4, type: 3}
+    - biomeName: "\uC628\uB300\uB099\uC5FD\uC218\uB9BC"
+      decorationPrefabs:
+      - {fileID: 1185063661233237665, guid: 4fdbef2d979d43448b4325c1f99582a4, type: 3}
+    - biomeName: "\uC5F4\uB300\uACC4\uC808\uB9BC"
+      decorationPrefabs:
+      - {fileID: 1185063661233237665, guid: 4fdbef2d979d43448b4325c1f99582a4, type: 3}
+    - biomeName: "\uCD08\uC6D0"
+      decorationPrefabs:
+      - {fileID: 1185063661233237665, guid: 4fdbef2d979d43448b4325c1f99582a4, type: 3}
+    - biomeName: "\uC5F4\uB300\uC6B0\uB9BC"
+      decorationPrefabs:
+      - {fileID: 1185063661233237665, guid: 4fdbef2d979d43448b4325c1f99582a4, type: 3}
+    tryCount: 100
+  spawnSettings: []

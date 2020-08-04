@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a8445528bbceda34eaee69551c502d7f, type: 3}
-  m_Name: Colorful biome
+  m_Name: Simplified biome
   m_EditorClassIdentifier: 
   biomeName: "\uCD08\uC6D0"
   biomeColor: {r: 0.52764964, g: 0.8679245, b: 0.3234247, a: 1}
@@ -40,21 +40,13 @@ MonoBehaviour:
     temperatureRange: {x: 1, y: 3}
     color: {r: 0.9056604, g: 0.75066113, b: 0.2007832, a: 1}
   - biomeName: "\uC628\uB300\uC6B0\uB9BC"
-    moistureRange: {x: 4, y: 5}
+    moistureRange: {x: 3, y: 5}
     temperatureRange: {x: 2, y: 4}
     color: {r: 0.5263733, g: 0.764151, b: 0.1477839, a: 1}
-  - biomeName: "\uC628\uB300\uB099\uC5FD\uC218\uB9BC"
-    moistureRange: {x: 3, y: 4}
-    temperatureRange: {x: 2, y: 4}
-    color: {r: 0.72087485, g: 0.8679245, b: 0.31523672, a: 1}
   - biomeName: "\uC5F4\uB300\uC6B0\uB9BC"
-    moistureRange: {x: 4, y: 5}
+    moistureRange: {x: 3, y: 5}
     temperatureRange: {x: 4, y: 5}
     color: {r: 0.29521582, g: 0.6132076, b: 0.21115166, a: 1}
-  - biomeName: "\uC5F4\uB300\uACC4\uC808\uB9BC"
-    moistureRange: {x: 2, y: 4}
-    temperatureRange: {x: 4, y: 5}
-    color: {r: 0.31771204, g: 0.745283, b: 0.25663045, a: 1}
   - biomeName: "\uC5F4\uB300\uC0AC\uB9C9"
     moistureRange: {x: 0, y: 1}
     temperatureRange: {x: 3, y: 5}

@@ -344,7 +344,7 @@ Light:
     m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 1
+    m_Strength: 0.562
     m_Bias: 0.05
     m_NormalBias: 0.4
     m_NearPlane: 0.2
@@ -594,11 +594,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cc47c93d2f395044a4dcf5b260cec42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  decorationPrefab: {fileID: 6085880787626395060, guid: 2d1fd63364377c744823aa2601afcdcd,
-    type: 3}
   decorationHolder: {fileID: 0}
-  initPoolSize: 500
-  maxPoolSize: 2000
 --- !u!1 &1809585835
 GameObject:
   m_ObjectHideFlags: 0

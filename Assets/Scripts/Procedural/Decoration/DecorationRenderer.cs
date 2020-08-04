@@ -11,40 +11,22 @@ namespace TilePuzzle.Procedural
 {
     public class DecorationRenderer : MonoBehaviour
     {
-        [Required]
-        public DecorationObject decorationPrefab;
         public Transform decorationHolder;
 
-        [Title("Object pooling")]
-        [PropertyRange(0, nameof(maxPoolSize))]
-        public int initPoolSize = 500;
-        [Min(100)]
-        public int maxPoolSize = 2000;
-
-        private ObjectPool<DecorationObject> decorationObjectPool;
-        private DecorationObject[] decorationObjectMap;
+        private GameObject[] decorationObjectMap;
 
         private void Awake()
         {
-            Debug.Assert(decorationPrefab != null, $"Missing {nameof(decorationPrefab)}");
             if (decorationHolder == null)
             {
                 decorationHolder = new GameObject("Decoration Holder").transform;
             }
-            decorationObjectPool = new ObjectPool<DecorationObject>(decorationPrefab, maxPoolSize, decorationHolder);
-        }
-
-        private void Start()
-        {
-            Profiler.BeginSample("Prepare Decoration Pool");
-            decorationObjectPool.Prepare(initPoolSize);
-            Profiler.EndSample();
         }
 
         public void Build(Vector2Int mapSize, DecorationData.RenderData?[] renderDatas)
         {
             CleanUpDecorations();
-            decorationObjectMap = new DecorationObject[mapSize.x * mapSize.y];
+            decorationObjectMap = new GameObject[mapSize.x * mapSize.y];
 
             for (int i = 0; i < decorationObjectMap.Length; i++)
             {
@@ -57,7 +39,7 @@ namespace TilePuzzle.Procedural
                 int y = i / mapSize.y;
                 Vector3 decorationPos = HexagonPos.FromArrayXY(x, y).ToWorldPos();
 
-                DecorationObject newDecorationObject = ReuseDecorationObject(renderDatas[i].Value, decorationPos);
+                GameObject newDecorationObject = CloneDecorationObject(renderDatas[i].Value, decorationHolder, decorationPos);
                 decorationObjectMap[i] = newDecorationObject;
             }
         }
@@ -69,28 +51,21 @@ namespace TilePuzzle.Procedural
                 return;
             }
 
-            foreach (DecorationObject decorationObject in decorationObjectMap)
+            foreach (GameObject decorationObject in decorationObjectMap)
             {
-                PoolDecorationObject(decorationObject);
+                Destroy(decorationObject);
             }
         }
 
-        private DecorationObject ReuseDecorationObject(DecorationData.RenderData renderData, Vector3 position)
+        private GameObject CloneDecorationObject(DecorationData.RenderData renderData, Transform parent, Vector3 position)
         {
-            DecorationObject decoration = decorationObjectPool.Pop();
-            decoration.meshFilter.sharedMesh = renderData.mesh;
-            decoration.meshRenderer.sharedMaterials = renderData.materials;
+            GameObject decoration = Instantiate(renderData.prefab, parent);
 
             decoration.transform.position = position;
             decoration.transform.LookAt(position + renderData.lookDirection);
             decoration.transform.localScale = renderData.scale;
 
             return decoration;
-        }
-
-        private void PoolDecorationObject(DecorationObject decoration)
-        {
-            decorationObjectPool.Push(decoration);
         }
     }
 }
