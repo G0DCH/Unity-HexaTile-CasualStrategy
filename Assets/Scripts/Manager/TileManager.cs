@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TilePuzzle.Procedural;
 
 namespace TilePuzzle
 {
@@ -31,6 +32,8 @@ namespace TilePuzzle
         public delegate void WonderCost(Tile currentTile, TileBuilding tileBuilding);
         public WonderCost MyWonderCost = null;
 
+        private Dictionary<HexagonPos, Tile> TileMap = new Dictionary<HexagonPos, Tile>();
+
         private void Start()
         {
 #if UNITY_EDITOR || UNITY_STANDALONE
@@ -42,6 +45,22 @@ namespace TilePuzzle
 #endif
             StartCoroutine(MouseOverCheck());
             StartCoroutine(TileClickCheck());
+        }
+
+        public void InitTileMap()
+        {
+            HexagonObject[] hexagonObjects = FindObjectsOfType<HexagonObject>();
+
+            foreach (HexagonObject hexagonObject in hexagonObjects)
+            {
+                Tile tile = hexagonObject.gameObject.AddComponent<Tile>();
+
+                HexagonInfo hexagonInfo = GameManager.Instance.World.GetHexagonInfoAt(hexagonObject.hexPos);
+                DecorationInfo decorationInfo = GameManager.Instance.World.GetDecorationInfoAt(hexagonObject.hexPos).GetValueOrDefault();
+
+                tile.InitInfo(hexagonInfo, decorationInfo);
+                TileMap.Add(hexagonObject.hexPos, tile);
+            }
         }
 
         public TileBuilding StringToType(string tileType)
@@ -56,6 +75,20 @@ namespace TilePuzzle
                 Debug.LogError("타일 타입이 아님");
                 return TileBuilding.Empty;
             }
+        }
+
+        // 범위 내 타일 return
+        public List<Tile> GetRangeTiles(Tile myTile, int range)
+        {
+            IEnumerable<HexagonInfo> neighborHexagons = GameManager.Instance.World.GetHexagonInfosInRange(myTile.MyHexagonInfo.hexPos, 1, range);
+            List<Tile> neighborTiles = new List<Tile>();
+
+            foreach (HexagonInfo neighbor in neighborHexagons)
+            {
+                neighborTiles.Add(TileMap[neighbor.hexPos]);
+            }
+
+            return neighborTiles;
         }
 
         // 마우스가 타일 맵 위에 올라갔는지 체크
@@ -139,14 +172,14 @@ namespace TilePuzzle
                                 // 기존 타일 컴포넌트 제거하고
                                 // 빌딩 혹은 도시 타일 컴포넌트로 교체
                                 GameObject clickedObject = clickedTile.gameObject;
-                                Procedural.Hexagon hexagon = clickedTile.MyHexagon;
+                                HexagonInfo hexagon = clickedTile.MyHexagonInfo;
                                 Destroy(clickedTile);
 
                                 // 격자 표기, 타일 소유권 이전
                                 if (SelectedTile is CityTile)
                                 {
                                     clickedTile = clickedObject.AddComponent<CityTile>();
-                                    clickedTile.MyHexagon = hexagon;
+                                    clickedTile.MyHexagonInfo = hexagon;
 
                                     ((CityTile)clickedTile).SetRangeGrids();
                                     ((CityTile)clickedTile).SetOwnerInRange();
@@ -154,7 +187,7 @@ namespace TilePuzzle
                                 else
                                 {
                                     clickedTile = clickedObject.AddComponent<BuildingTile>();
-                                    clickedTile.MyHexagon = hexagon;
+                                    clickedTile.MyHexagonInfo = hexagon;
                                 }
                             }
 

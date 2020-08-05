@@ -8,25 +8,43 @@ namespace TilePuzzle
 {
     public class Tile : MonoBehaviour
     {
-        public Hexagon MyHexagon
+        public HexagonInfo MyHexagonInfo
         {
             get
             {
-                if (myHexagon == null)
+                if (!isInit)
                 {
-                    Hexagon hexagon = GetComponent<Hexagon>();
-                    myHexagon = hexagon;
+                    InitInfo();
                 }
 
-                return myHexagon;
+                return myHexagonInfo;
             }
             set
             {
-                myHexagon = value;
+                myHexagonInfo = value;
             }
         }
         [SerializeField]
-        private Hexagon myHexagon = null;
+        private HexagonInfo myHexagonInfo = new HexagonInfo();
+
+        public DecorationInfo MyDecorationInfo
+        {
+            get
+            {
+                if (!isInit)
+                {
+                    InitInfo();
+                }
+
+                return myDecorationInfo;
+            }
+            set 
+            {
+                myDecorationInfo = value;
+            }
+        }
+        [SerializeField]
+        private DecorationInfo myDecorationInfo = new DecorationInfo();
 
         // 이 타일의 타입
         public TileType MyTileType
@@ -35,17 +53,17 @@ namespace TilePuzzle
             {
                 if (myTileType == TileType.Empty)
                 {
-                    if (MyHexagon.HasMountain)
+                    if (MyDecorationInfo.type == DecorationInfo.Type.Mountain)
                     {
                         myTileType = TileType.Mountain;
                     }
                     else
                     {
-                        if (MyHexagon.IsLand)
+                        if (!MyHexagonInfo.isWater)
                         {
                             myTileType = TileType.Ground;
 
-                            if (MyHexagon.HasRiver)
+                            if (MyHexagonInfo.hasRiver)
                             {
                                 myTileType = TileType.River;
                             }
@@ -77,7 +95,7 @@ namespace TilePuzzle
             {
                 if (myTileFeature == TileFeature.Empty)
                 {
-                    if (MyHexagon.HasForest)
+                    if (MyDecorationInfo.type == DecorationInfo.Type.Forest)
                     {
                         myTileFeature = TileFeature.Forest;
                     }
@@ -104,7 +122,7 @@ namespace TilePuzzle
             {
                 if (neighborTiles.Count == 0)
                 {
-                    neighborTiles = GetRangeTiles(1);
+                    neighborTiles = TileManager.Instance.GetRangeTiles(this, 1);
                 }
 
                 return neighborTiles;
@@ -124,7 +142,7 @@ namespace TilePuzzle
             {
                 if (rangeTiles.Count == 0)
                 {
-                    rangeTiles = GetRangeTiles(Range);
+                    rangeTiles = TileManager.Instance.GetRangeTiles(this, Range);
                 }
 
                 return rangeTiles;
@@ -153,25 +171,37 @@ namespace TilePuzzle
         [SerializeField, Space, Header("Tile Cost")]
         private int cost = 0;
 
-        private List<Tile> GetRangeTiles(int range)
+        // HexagonInfo, DecorationInfo가 초기화 되었는지 확인
+        private bool isInit = false;
+
+        // Info 초기화
+        public void InitInfo()
         {
-            IEnumerable<Hexagon> neighborHexagons = Procedural.TerrainRenderer.Instance.GetNeighborHexagons(MyHexagon.hexPos, range);
-            List<Tile> neighborTiles = new List<Tile>();
-
-            foreach(Hexagon neighbor in neighborHexagons)
+            if(!isInit)
             {
-                Tile tile = neighbor.gameObject.GetComponent<Tile>();
+                // 헥사곤 초기화
+                HexagonObject hexagonObject = GetComponent<HexagonObject>();
+                HexagonInfo hexagon = GameManager.Instance.World.GetHexagonInfoAt(hexagonObject.hexPos);
+                myHexagonInfo = hexagon;
 
-                if (tile == null)
-                {
-                    Debug.LogError(string.Format("No Tile Component At {0}", neighbor.hexPos));
-                    return null;
-                }
+                // 데코 초기화
+                DecorationInfo decorationInfo = GameManager.Instance.World.GetDecorationInfoAt(MyHexagonInfo.hexPos).GetValueOrDefault();
+                myDecorationInfo = decorationInfo;
 
-                neighborTiles.Add(neighbor.GetComponent<Tile>());
+                isInit = true;
             }
+        }
 
-            return neighborTiles;
+        // Info 초기화
+        public void InitInfo(HexagonInfo hexagonInfo, DecorationInfo decorationInfo)
+        {
+            if (!isInit)
+            {
+                myHexagonInfo = hexagonInfo;
+                myDecorationInfo = decorationInfo;
+
+                isInit = true;
+            }
         }
 
         // 내 타일이 pivotBuilding의 보너스에 해당하는지 검사하고 해당 점수 return

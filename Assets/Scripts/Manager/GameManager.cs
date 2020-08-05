@@ -20,6 +20,21 @@ namespace TilePuzzle
         public GameObject GameOverPanel;
         public Text GameOverText;
 
+        public Procedural.World World;
+
+        private void Awake()
+        {
+            if (World == null)
+            {
+                World = FindObjectOfType(typeof(Procedural.World)) as Procedural.World;
+
+                if (World == null)
+                {
+                    Debug.LogError("World 스크립트이 씬에 없음.");
+                }
+            }
+        }
+
         private void Start()
         {
             GameOverPanel.SetActive(false);
