@@ -1,19 +1,12 @@
-﻿using Sirenix.OdinInspector;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
-using UnityEngine.Profiling;
+﻿using UnityEngine;
 
 namespace TilePuzzle.Procedural
 {
     public class DecorationRenderer : MonoBehaviour
     {
-        public Transform decorationHolder;
-
-        private GameObject[] decorationObjectMap;
+        [SerializeField]
+        private Transform decorationHolder;
+        private GameObject[] spawnedDecorationObjects;
 
         private void Awake()
         {
@@ -23,12 +16,17 @@ namespace TilePuzzle.Procedural
             }
         }
 
-        public void Build(Vector2Int mapSize, DecorationData.RenderData?[] renderDatas)
+        /// <summary>
+        /// 입력을 기반으로 데코레이션 오브젝트 생성
+        /// </summary>
+        /// <param name="mapSize">데코레이션 맵 크기 (width, height)</param>
+        /// <param name="renderDatas">데코레이션 렌더링에 필요한 정보</param>
+        public void SpawnDecorations(Vector2Int mapSize, DecorationData.RenderData?[] renderDatas)
         {
             CleanUpDecorations();
-            decorationObjectMap = new GameObject[mapSize.x * mapSize.y];
+            spawnedDecorationObjects = new GameObject[mapSize.x * mapSize.y];
 
-            for (int i = 0; i < decorationObjectMap.Length; i++)
+            for (int i = 0; i < spawnedDecorationObjects.Length; i++)
             {
                 if (renderDatas[i].HasValue == false)
                 {
@@ -40,18 +38,18 @@ namespace TilePuzzle.Procedural
                 Vector3 decorationPos = HexagonPos.FromArrayXY(x, y).ToWorldPos();
 
                 GameObject newDecorationObject = CloneDecorationObject(renderDatas[i].Value, decorationHolder, decorationPos);
-                decorationObjectMap[i] = newDecorationObject;
+                spawnedDecorationObjects[i] = newDecorationObject;
             }
         }
 
         private void CleanUpDecorations()
         {
-            if (decorationObjectMap == null)
+            if (spawnedDecorationObjects == null)
             {
                 return;
             }
 
-            foreach (GameObject decorationObject in decorationObjectMap)
+            foreach (GameObject decorationObject in spawnedDecorationObjects)
             {
                 Destroy(decorationObject);
             }

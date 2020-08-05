@@ -1,11 +1,8 @@
 ﻿#if UNITY_EDITOR
 
 using Sirenix.OdinInspector;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
 
@@ -23,13 +20,14 @@ namespace TilePuzzle.Procedural
         public bool useRandomRotation;
         [Range(0f, 0.5f)]
         public float scaleVariant;
+        [Required]
         public Transform sampleObjectHolder;
         [FolderPath]
         public string savePath;
         public string saveName;
 
         [Title("Neighbor")]
-        public bool drawNeighbor;
+        public bool previewNeighbor;
         public bool useNeighborRandomRotation;
 
         [Title("Debug")]
@@ -61,6 +59,7 @@ namespace TilePuzzle.Procedural
             decorationSample = new GameObject("Decoration sample");
             decorationSample.transform.parent = transform;
 
+            seed++;
             System.Random random = new System.Random(seed);
             IEnumerable<Vector2> samplePoints = PoissonDiscSampling.GeneratePoints(random, objectRadius, new Vector2(Hexagon.Size, Hexagon.Size))
                 .Select(x => x - Vector2.one * (Hexagon.Size / 2f))
@@ -79,7 +78,7 @@ namespace TilePuzzle.Procedural
                 newObject.transform.localScale += newObject.transform.localScale * ((float)random.NextDouble() * scaleVariant * 2 - scaleVariant);
             }
 
-            if (drawNeighbor)
+            if (previewNeighbor)
             {
                 for (int hexZ = -1; hexZ <= 1; hexZ++)
                 {
@@ -104,7 +103,7 @@ namespace TilePuzzle.Procedural
         }
 
         [Button]
-        private void SaveToPrefab()
+        public void SaveToPrefab()
         {
             if (decorationSample == null)
             {
@@ -113,6 +112,7 @@ namespace TilePuzzle.Procedural
             }
 
             GameObject newPrefab = Instantiate(decorationSample);
+            newPrefab.tag = "Decoration";
             string uniquePath = AssetDatabase.GenerateUniqueAssetPath($"{savePath}/{saveName}.prefab");
             PrefabUtility.SaveAsPrefabAsset(newPrefab, uniquePath);
             DestroyImmediate(newPrefab);

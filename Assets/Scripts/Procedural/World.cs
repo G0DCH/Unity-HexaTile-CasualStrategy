@@ -16,7 +16,6 @@ namespace TilePuzzle.Procedural
         public DecorationRenderer decorationRenderer;
 
         public TerrainGenerateSettings generateSettings;
-        public TerrainRenderingSettings renderingSettings;
         public DecorationSpawnSettings decorationSpawnSettings;
 
         private Vector2Int mapSize;
@@ -32,7 +31,7 @@ namespace TilePuzzle.Procedural
         private void Start()
         {
             TerrainData terrainData = TerrainGenerator.GenerateTerrainData(generateSettings);
-            DecorationData decorationData = DecorationGenerator.GenerateDecorations(generateSettings.globalSeed, terrainData, decorationSpawnSettings);
+            DecorationData decorationData = DecorationGenerator.GenerateDecorationData(generateSettings.globalSeed, terrainData, decorationSpawnSettings);
             BuildWorld(terrainData.terrainSize, terrainData, decorationData);
         }
 
@@ -40,7 +39,7 @@ namespace TilePuzzle.Procedural
         public void Test()
         {
             TerrainData terrainData = TerrainGenerator.GenerateTerrainData(generateSettings);
-            DecorationData decorationData = DecorationGenerator.GenerateDecorations(generateSettings.globalSeed, terrainData, decorationSpawnSettings);
+            DecorationData decorationData = DecorationGenerator.GenerateDecorationData(generateSettings.globalSeed, terrainData, decorationSpawnSettings);
             BuildWorld(terrainData.terrainSize, terrainData, decorationData);
         }
 
@@ -50,14 +49,14 @@ namespace TilePuzzle.Procedural
             this.terrainData = terrainData ?? throw new ArgumentNullException(nameof(terrainData));
             this.decorationData = decorationData ?? throw new ArgumentNullException(nameof(decorationData));
 
-            terrainRenderer.Build(terrainData, renderingSettings);
-            decorationRenderer.Build(mapSize, decorationData.renderDatas);
+            terrainRenderer.SpawnHexagonTerrains(terrainData);
+            decorationRenderer.SpawnDecorations(mapSize, decorationData.renderDatas);
         }
 
         public Decoration? GetDecorationAt(HexagonPos hexPos)
         {
             Vector2Int arrayXY = hexPos.ToArrayXY();
-            return decorationData.decorations[arrayXY.x + arrayXY.y * mapSize.x];
+            return decorationData.decorationInfos[arrayXY.x + arrayXY.y * mapSize.x];
         }
     }
 }

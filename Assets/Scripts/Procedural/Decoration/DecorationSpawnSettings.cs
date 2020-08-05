@@ -11,8 +11,13 @@ namespace TilePuzzle.Procedural
     [CreateAssetMenu(menuName = "Tile Puzzle/Decoration Spawn Settings")]
     public class DecorationSpawnSettings : ScriptableObject
     {
+        [Title("Mountain"), HideLabel]
         public MountainSpawnSetting mountainSpawnSetting;
+
+        [Title("Forest"), HideLabel]
         public ForestSpawnSetting forestSpawnSetting;
+
+        [Title("Vegetation")]
         [SerializeField, ListDrawerSettings(NumberOfItemsPerPage = 5)]
         private SpawnSetting[] spawnSettings;
 

@@ -1,32 +1,49 @@
-﻿using System;
+﻿using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TilePuzzle.Rendering;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace TilePuzzle.Procedural
 {
-    public class TerrainRenderer : Utility.Singleton<TerrainRenderer>
+    public class TerrainRenderer : MonoBehaviour
     {
-        private TerrainData terrainData;
-        private Hexagon[] hexagons;
+        [Required] public Hexagon hexagonPrefab;
 
-        public Vector2Int TerrainSize => terrainData.terrainSize;
+        [Title("Land")]
+        [Required]
+        public Material landMaterial;
+        [Min(0.1f)] public float cliffDepth = 1.5f;
+        public bool enableBrightNoise = true;
 
-        public void Build(TerrainData terrainData, TerrainRenderingSettings renderingSettings)
+        [Title("Water")]
+        [Required]
+        public Material seaMaterial;
+        [Required]
+        public Material lakeMaterial;
+        [PropertyRange(0, nameof(cliffDepth))]
+        public float waterDepth = 0.3f;
+
+        [Title("River")]
+        [PropertyRange(0.05f, 1f)]
+        public float riverSize = 0.2f;
+
+        private Hexagon[] spawnedHexagonObjects;
+
+        /// <summary>
+        /// 입력을 기반으로 헥사곤 지형 오브젝트 생성
+        /// </summary>
+        /// <param name="terrainData">지형 생성에 필요한 정보</param>
+        public void SpawnHexagonTerrains(TerrainData terrainData)
         {
-            this.terrainData = terrainData ?? throw new ArgumentNullException(nameof(terrainData));
-
-            Mesh flatHexagonMesh = HexagonMeshGenerator.BuildMesh(Hexagon.Size);
-            Mesh cliffHexagonMesh = HexagonMeshGenerator.BuildMesh(Hexagon.Size, renderingSettings.cliffDepth);
-            var riverMeshCache = new Dictionary<HexagonMeshGenerator.VertexDirection, Mesh>();
-
+            CleanUpHexagons();
             int width = terrainData.terrainSize.x;
             int height = terrainData.terrainSize.y;
-            hexagons = new Hexagon[width * height];
+            spawnedHexagonObjects = new Hexagon[width * height];
+
+            Mesh flatHexagonMesh = HexagonMeshGenerator.BuildMesh(Hexagon.Size);
+            Mesh cliffHexagonMesh = HexagonMeshGenerator.BuildMesh(Hexagon.Size, cliffDepth);
+            var riverMeshCache = new Dictionary<HexagonMeshGenerator.VertexDirection, Mesh>();
 
             int textureWidth = (int)Mathf.Pow(2, Mathf.CeilToInt(Mathf.Log(width, 2)));
             int textureHeight = (int)Mathf.Pow(2, Mathf.CeilToInt(Mathf.Log(height, 2)));
@@ -37,16 +54,13 @@ namespace TilePuzzle.Procedural
                 for (int x = 0; x < width; x++)
                 {
                     Center center = terrainData.centers[x + y * width];
-                    Hexagon newHexagon = CreateNewHexagon(renderingSettings.hexagonPrefab, HexagonPos.FromArrayXY(x, y));
-                    newHexagon.SetProperties(center);
-                    hexagons[x + y * width] = newHexagon;
-
-                    MeshCollider hexCollider = newHexagon.GetComponent<MeshCollider>();
+                    Hexagon newHexagon = CreateNewHexagon(hexagonPrefab, HexagonPos.FromArrayXY(x, y));
+                    spawnedHexagonObjects[x + y * width] = newHexagon;
 
                     if (center.isWater)
                     {
                         newHexagon.meshFilter.sharedMesh = flatHexagonMesh;
-                        newHexagon.GetComponent<MeshRenderer>().sharedMaterial = center.isSea ? renderingSettings.seaMaterial : renderingSettings.lakeMaterial;
+                        newHexagon.GetComponent<MeshRenderer>().sharedMaterial = center.isSea ? seaMaterial : lakeMaterial;
                     }
                     else
                     {
@@ -66,7 +80,7 @@ namespace TilePuzzle.Procedural
                         {
                             if (riverMeshCache.TryGetValue(riverDirection, out mesh) == false)
                             {
-                                mesh = HexagonMeshGenerator.BuildMesh(Hexagon.Size, renderingSettings.cliffDepth, renderingSettings.riverSize, riverDirection);
+                                mesh = HexagonMeshGenerator.BuildMesh(Hexagon.Size, cliffDepth, riverSize, riverDirection);
                                 riverMeshCache.Add(riverDirection, mesh);
                             }
                         }
@@ -81,23 +95,12 @@ namespace TilePuzzle.Procedural
                             mesh = flatHexagonMesh;
                         }
                         newHexagon.meshFilter.sharedMesh = mesh;
-                        newHexagon.GetComponent<MeshRenderer>().sharedMaterial = renderingSettings.landMaterial;
+                        newHexagon.GetComponent<MeshRenderer>().sharedMaterial = landMaterial;
                     }
-
-                    // decoration
-                    // TODO: Spawn mountain, tree, etc...
-                    //if (center.hasMountain)
-                    //{
-                    //    CreateNewDecoration(renderingSettings.mountainPrefab, newHexagon.transform);
-                    //}
-                    //else if (center.hasForest)
-                    //{
-                    //    CreateNewDecoration(renderingSettings.forestPrefab, newHexagon.transform);
-                    //}
 
                     // height
                     Vector3 newPos = newHexagon.transform.position;
-                    newPos.y = center.isWater ? -renderingSettings.waterDepth : 0;
+                    newPos.y = center.isWater ? -waterDepth : 0;
                     newHexagon.transform.position = newPos;
 
                     // color
@@ -112,53 +115,21 @@ namespace TilePuzzle.Procedural
             };
             colorMapTexture.SetPixels(colorMap);
             colorMapTexture.Apply();
-            renderingSettings.landMaterial.SetTexture("_ColorMap", colorMapTexture);
-            renderingSettings.landMaterial.SetVector("_ColorMapSize", new Vector2(textureWidth, textureHeight));
-            renderingSettings.landMaterial.SetInt("_EnableBrightNoise", renderingSettings.enableBrightNoise ? 1 : 0);
+            landMaterial.SetTexture("_ColorMap", colorMapTexture);
+            landMaterial.SetVector("_ColorMapSize", new Vector2(textureWidth, textureHeight));
+            landMaterial.SetInt("_EnableBrightNoise", enableBrightNoise ? 1 : 0);
         }
 
-        public Hexagon GetHexagonAt(HexagonPos hexPos)
+        private void CleanUpHexagons()
         {
-            Vector2Int arrayXY = hexPos.ToArrayXY();
-            if (arrayXY.x < 0 || arrayXY.x >= TerrainSize.x || arrayXY.y < 0 || arrayXY.y >= TerrainSize.y)
+            if (spawnedHexagonObjects == null)
             {
-                throw new IndexOutOfRangeException($"지형 범위를 벗어남, hexPos: {hexPos}, arrayXY: {arrayXY}");
+                return;
             }
 
-            return hexagons[arrayXY.x + arrayXY.y * TerrainSize.x];
-        }
-
-        public IEnumerable<Hexagon> GetNeighborHexagons(HexagonPos hexPos, int range)
-        {
-            Vector2Int arrayXY = hexPos.ToArrayXY();
-            if (arrayXY.x < 0 || arrayXY.x >= TerrainSize.x || arrayXY.y < 0 || arrayXY.y >= TerrainSize.y)
+            foreach (Hexagon hexagon in spawnedHexagonObjects)
             {
-                throw new IndexOutOfRangeException($"지형 범위를 벗어남, hexPos: {hexPos}, arrayXY: {arrayXY}");
-            }
-
-            if (range < 0)
-            {
-                throw new InvalidOperationException($"range는 0보다 커야함, range: {range}");
-            }
-
-            for (int hexZ = -range; hexZ <= range; hexZ++)
-            {
-                for (int hexX = -range; hexX <= range; hexX++)
-                {
-                    HexagonPos neighborHexOffset = new HexagonPos(hexX, hexZ);
-                    if (neighborHexOffset.HexagonDistance > range)
-                    {
-                        continue;
-                    }                    
-
-                    Vector2Int neighborXY = (hexPos + neighborHexOffset).ToArrayXY();
-                    if (neighborXY.x < 0 || neighborXY.x >= TerrainSize.x || neighborXY.y < 0 || neighborXY.y >= TerrainSize.y)
-                    {
-                        continue;
-                    }
-
-                    yield return hexagons[neighborXY.x + neighborXY.y * TerrainSize.x];
-                }
+                Destroy(hexagon.gameObject);
             }
         }
 
@@ -172,13 +143,6 @@ namespace TilePuzzle.Procedural
             newHexagon.hexPos = hexPos;
 
             return newHexagon;
-        }
-
-        private GameObject CreateNewDecoration(GameObject decorationPrefab, Transform parent)
-        {
-            GameObject newDecoration = Instantiate(decorationPrefab, parent);
-            newDecoration.name = decorationPrefab.name;
-            return newDecoration;
         }
     }
 }

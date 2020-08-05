@@ -11,6 +11,10 @@ namespace TilePuzzle.Procedural
 {
     public static class TerrainGenerator
     {
+        /// <summary>
+        /// <paramref name="settings"/>을 기반으로 <see cref="TerrainData"/> 생성
+        /// </summary>
+        /// <param name="settings">지형 생성에 사용 될 설정 값</param>
         public static TerrainData GenerateTerrainData(TerrainGenerateSettings settings)
         {
             Profiler.BeginSample(nameof(GenerateTerrainData));

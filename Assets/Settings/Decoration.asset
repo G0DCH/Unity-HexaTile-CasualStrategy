@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Decoration
   m_EditorClassIdentifier: 
   mountainSpawnSetting:
-    spawnRange: {x: 0.2, y: 1}
+    spawnRange: {x: 0.3, y: 1}
     spawnRate: 0.5
     decorationPrefabs:
     - {fileID: 1884904741310042, guid: 90841e0103af621489435e6335d5d50a, type: 3}
