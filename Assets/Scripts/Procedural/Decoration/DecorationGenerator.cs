@@ -79,7 +79,7 @@ namespace TilePuzzle.Procedural
                 Vector3 lookDirection = Vector3.forward;
 
                 // 데코 데이터에 저장
-                decorationData.decorationInfos[i] = new Decoration("Mountain", Decoration.Type.Mountain, false);
+                decorationData.decorationInfos[i] = new DecorationInfo("Mountain", DecorationInfo.Type.Mountain, false);
                 decorationData.renderDatas[i] = new DecorationData.RenderData(randomDecoPrefab, scale, lookDirection);
             }
         }
@@ -94,7 +94,7 @@ namespace TilePuzzle.Procedural
             Queue<Center> floodFill = new Queue<Center>();
             for (int i = 0; i < distanceMap.Length; i++)
             {
-                if (decorationData.decorationInfos[i].HasValue && decorationData.decorationInfos[i].Value.type == Decoration.Type.Mountain)
+                if (decorationData.decorationInfos[i].HasValue && decorationData.decorationInfos[i].Value.type == DecorationInfo.Type.Mountain)
                 {
                     distanceMap[i] = 0;
                     floodFill.Enqueue(terrainData.centers[i]);
@@ -161,7 +161,7 @@ namespace TilePuzzle.Procedural
                         : Vector3.forward;
 
                 // 데코 데이터에 저장
-                decorationData.decorationInfos[i] = new Decoration("Forest", Decoration.Type.Mountain, false);
+                decorationData.decorationInfos[i] = new DecorationInfo("Forest", DecorationInfo.Type.Mountain, false);
                 decorationData.renderDatas[i] = new DecorationData.RenderData(randomDecoPrefab, scale, lookDirection);
             }
         }
@@ -232,7 +232,7 @@ namespace TilePuzzle.Procedural
                         Vector3 lookDirection = Vector3.forward;
 
                         // 데코 데이터에 저장
-                        decorationData.decorationInfos[neighborIndex] = new Decoration("Forest", Decoration.Type.Mountain, false);
+                        decorationData.decorationInfos[neighborIndex] = new DecorationInfo("Forest", DecorationInfo.Type.Mountain, false);
                         decorationData.renderDatas[neighborIndex] = new DecorationData.RenderData(randomDecoPrefab, scale, lookDirection);
                     }
                 }
@@ -272,7 +272,7 @@ namespace TilePuzzle.Procedural
                         : Vector3.forward;
 
                 // 데코 데이터에 저장
-                decorationData.decorationInfos[i] = new Decoration("Forest", Decoration.Type.Mountain, false);
+                decorationData.decorationInfos[i] = new DecorationInfo("Forest", DecorationInfo.Type.Mountain, false);
                 decorationData.renderDatas[i] = new DecorationData.RenderData(randomDecoPrefab, scale, lookDirection);
             }
         }
@@ -292,7 +292,7 @@ namespace TilePuzzle.Procedural
 
                 // 이미 다른 데코가 있는지 검사
                 if (decorationData.decorationInfos[i].HasValue
-                    && (decorationData.decorationInfos[i].Value.type == Decoration.Type.Mountain || decorationData.decorationInfos[i].Value.type == Decoration.Type.Forest))
+                    && (decorationData.decorationInfos[i].Value.type == DecorationInfo.Type.Mountain || decorationData.decorationInfos[i].Value.type == DecorationInfo.Type.Forest))
                 {
                     continue;
                 }
@@ -319,7 +319,7 @@ namespace TilePuzzle.Procedural
                         : Vector3.forward;
 
                     // 데코 데이터에 저장
-                    decorationData.decorationInfos[i] = new Decoration(decoSet.name, decoSet.type, decoSet.isDestructible);
+                    decorationData.decorationInfos[i] = new DecorationInfo(decoSet.name, decoSet.type, decoSet.isDestructible);
                     decorationData.renderDatas[i] = new DecorationData.RenderData(randomDecoPrefab, scale, lookDirection);
                 }
             }

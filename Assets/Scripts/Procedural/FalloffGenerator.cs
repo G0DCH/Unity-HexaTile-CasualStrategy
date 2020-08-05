@@ -14,8 +14,8 @@ namespace TilePuzzle.Procedural
 
         public void GenerateFalloffMap(int width, int height, ComputeBuffer falloffMapBuffer, FalloffSettings settings)
         {
-            float maxX = (width - 1) * Hexagon.Size + (Hexagon.Size / 2);
-            float maxY = (height - 1) * Hexagon.Size * Mathf.Sin(Mathf.PI / 3);
+            float maxX = (width - 1) * HexagonObject.Size + (HexagonObject.Size / 2);
+            float maxY = (height - 1) * HexagonObject.Size * Mathf.Sin(Mathf.PI / 3);
 
             falloffMap.SetBuffer(0, "falloffMap", falloffMapBuffer);
             falloffMap.SetInt("mapWidth", width);
@@ -23,7 +23,7 @@ namespace TilePuzzle.Procedural
             falloffMap.SetFloat("maxX", maxX);
             falloffMap.SetFloat("maxY", maxY);
             falloffMap.SetVector("falloffParameter", settings.falloffParameter);
-            falloffMap.SetFloat("hexagonSize", Hexagon.Size);
+            falloffMap.SetFloat("hexagonSize", HexagonObject.Size);
 
             int threadGroupsX = Mathf.CeilToInt(width / 16f);
             int threadGroupsY = Mathf.CeilToInt(height / 16f);
@@ -47,8 +47,8 @@ namespace TilePuzzle.Procedural
 
         private void EvaluateFalloff(int width, int height, ComputeBuffer samplePointsBuffer, ComputeBuffer resultsBuffer, int totalPoints, FalloffSettings settings)
         {
-            float maxX = (width - 1) * Hexagon.Size + (Hexagon.Size / 2);
-            float maxY = (height - 1) * Hexagon.Size * Mathf.Sin(Mathf.PI / 3);
+            float maxX = (width - 1) * HexagonObject.Size + (HexagonObject.Size / 2);
+            float maxY = (height - 1) * HexagonObject.Size * Mathf.Sin(Mathf.PI / 3);
 
             vectorFalloff.SetBuffer(0, "samplePoints", samplePointsBuffer);
             vectorFalloff.SetBuffer(0, "results", resultsBuffer);

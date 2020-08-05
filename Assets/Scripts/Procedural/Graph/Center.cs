@@ -58,7 +58,7 @@ namespace TilePuzzle.Procedural
         public void CreateOrAssignCorners()
         {
             int range = neighborOffsetTable.Length;
-            float distanceToVertex = Hexagon.Size * Mathf.Sin(Mathf.PI / 3) / 3 * 2;
+            float distanceToVertex = HexagonObject.Size * Mathf.Sin(Mathf.PI / 3) / 3 * 2;
             for (int i = 0; i < range; i++)
             {
                 HexagonPos rightNeighborOffset = neighborOffsetTable[i];

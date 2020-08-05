@@ -10,17 +10,13 @@ namespace TilePuzzle.Procedural
 {
     public class World : MonoBehaviour
     {
-        [Required]
-        public TerrainRenderer terrainRenderer;
-        [Required]
-        public DecorationRenderer decorationRenderer;
+        [SerializeField, Required] private TerrainRenderer terrainRenderer;
+        [SerializeField, Required] private DecorationRenderer decorationRenderer;
 
-        public TerrainGenerateSettings generateSettings;
-        public DecorationSpawnSettings decorationSpawnSettings;
+        private HexagonInfo[] hexagonInfos;
+        private DecorationInfo?[] decorationInfos;
 
-        private Vector2Int mapSize;
-        private TerrainData terrainData;
-        private DecorationData decorationData;
+        public Vector2Int WorldSize { get; private set; }
 
         private void Awake()
         {
@@ -30,33 +26,118 @@ namespace TilePuzzle.Procedural
 
         private void Start()
         {
-            TerrainData terrainData = TerrainGenerator.GenerateTerrainData(generateSettings);
-            DecorationData decorationData = DecorationGenerator.GenerateDecorationData(generateSettings.globalSeed, terrainData, decorationSpawnSettings);
-            BuildWorld(terrainData.terrainSize, terrainData, decorationData);
+            // init pool
         }
 
-        [Button]
-        public void Test()
+        public void InitializeWorld(Vector2Int worldSize, TerrainData terrainData, DecorationData decorationData)
         {
-            TerrainData terrainData = TerrainGenerator.GenerateTerrainData(generateSettings);
-            DecorationData decorationData = DecorationGenerator.GenerateDecorationData(generateSettings.globalSeed, terrainData, decorationSpawnSettings);
-            BuildWorld(terrainData.terrainSize, terrainData, decorationData);
-        }
+            WorldSize = worldSize;
 
-        public void BuildWorld(Vector2Int mapSize, TerrainData terrainData, DecorationData decorationData)
-        {
-            this.mapSize = mapSize;
-            this.terrainData = terrainData ?? throw new ArgumentNullException(nameof(terrainData));
-            this.decorationData = decorationData ?? throw new ArgumentNullException(nameof(decorationData));
+            hexagonInfos = new HexagonInfo[WorldSize.x * WorldSize.y];
+            for (int i = 0; i < hexagonInfos.Length; i++)
+            {
+                Center center = terrainData.centers[i];
+                hexagonInfos[i] = new HexagonInfo
+                {
+                    hexPos = center.hexPos,
+                    isWater = center.isWater,
+                    isSea = center.isSea,
+                    isCoast = center.isCoast,
+                    hasRiver = center.NeighborCorners.Any(x => x.river > 0),
+                    biome = terrainData.biomeTable.biomeDictionary[center.biomeId],
+                };
+            }
+            decorationInfos = decorationData.decorationInfos;
 
             terrainRenderer.SpawnHexagonTerrains(terrainData);
-            decorationRenderer.SpawnDecorations(mapSize, decorationData.renderDatas);
+            decorationRenderer.SpawnDecorations(WorldSize, decorationData.renderDatas);
         }
 
-        public Decoration? GetDecorationAt(HexagonPos hexPos)
+        /// <summary>
+        /// 특정 위치에 있는 <see cref="HexagonInfo"/> 반환
+        /// </summary>
+        public HexagonInfo GetHexagonInfoAt(HexagonPos hexPos)
         {
             Vector2Int arrayXY = hexPos.ToArrayXY();
-            return decorationData.decorationInfos[arrayXY.x + arrayXY.y * mapSize.x];
+            int index = arrayXY.x + arrayXY.y * WorldSize.x;
+            if (index < 0 || index >= hexagonInfos.Length)
+            {
+                throw new IndexOutOfRangeException(nameof(hexPos));
+            }
+
+            return hexagonInfos[index];
+        }
+
+        /// <summary>
+        /// 범위 내에 있는 모든 <see cref="HexagonInfo"/>들을 반환
+        /// </summary>
+        /// <param name="hexPos">중심 위치</param>
+        /// <param name="distanceFrom">중심으로 부터 최소 거리</param>
+        /// <param name="distanceTo">중심으로 부터 최대 거리</param>
+        public IEnumerable<HexagonInfo> GetHexagonInfosInRange(HexagonPos hexPos, int distanceFrom, int distanceTo)
+        {
+            foreach (int index in GetRangeIndexes(hexPos, distanceFrom, distanceTo))
+            {
+                yield return hexagonInfos[index];
+            }
+        }
+
+        /// <summary>
+        /// 특정 위치에 있는 <see cref="DecorationInfo"/> 반환
+        /// </summary>
+        public DecorationInfo? GetDecorationInfoAt(HexagonPos hexPos)
+        {
+            int index = hexPos.ToArrayIndex(WorldSize.x);
+            if (index < 0 || index >= hexagonInfos.Length)
+            {
+                throw new IndexOutOfRangeException(nameof(hexPos));
+            }
+
+            return decorationInfos[index];
+        }
+
+        /// <summary>
+        /// 범위 내에 있는 모든 <see cref="DecorationInfo"/>들을 반환
+        /// </summary>
+        /// <param name="hexPos">중심 위치</param>
+        /// <param name="distanceFrom">중심으로 부터 최소 거리</param>
+        /// <param name="distanceTo">중심으로 부터 최대 거리</param>
+        public IEnumerable<DecorationInfo?> GetNeighborDecorationInfos(HexagonPos hexPos, int distanceFrom, int distanceTo)
+        {
+            foreach (int index in GetRangeIndexes(hexPos, distanceFrom, distanceTo))
+            {
+                yield return decorationInfos[index];
+            }
+        }
+
+        private IEnumerable<int> GetRangeIndexes(HexagonPos hexPos, int from, int to)
+        {
+            if (from < 0 || to < from)
+            {
+                throw new InvalidOperationException($"잘못된 범위, from: {from}, to: {to}");
+            }
+
+            for (int hexZ = -to; hexZ <= to; hexZ++)
+            {
+                for (int hexX = -to; hexX <= to; hexX++)
+                {
+                    HexagonPos neighborHexOffset = new HexagonPos(hexX, hexZ);
+                    int offsetDistance = neighborHexOffset.HexagonDistance;
+                    if (offsetDistance < from || offsetDistance > to)
+                    {
+                        continue;
+                    }
+
+                    Vector2Int neighborXY = (hexPos + neighborHexOffset).ToArrayXY();
+                    if (neighborXY.x < 0 || neighborXY.x >= WorldSize.x || neighborXY.y < 0 || neighborXY.y >= WorldSize.y)
+                    {
+                        continue;
+                    }
+
+                    int neighborIndex = neighborXY.x + neighborXY.y * WorldSize.x;
+                    yield return neighborIndex;
+                }
+            }
         }
     }
 }

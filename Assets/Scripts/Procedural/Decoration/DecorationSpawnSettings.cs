@@ -88,7 +88,7 @@ namespace TilePuzzle.Procedural
         {
             // Decoration
             [TabGroup("Decoration Info"), Required] public string name;
-            [TabGroup("Decoration Info"), EnumToggleButtons] public Decoration.Type type;
+            [TabGroup("Decoration Info"), EnumToggleButtons] public DecorationInfo.Type type;
             [TabGroup("Decoration Info")] public bool isDestructible;
 
             // Spawn

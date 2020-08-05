@@ -13,9 +13,9 @@ namespace TilePuzzle.Procedural
     {
         [Title("General")]
         public int seed;
-        [Range(0.1f, Hexagon.Size / 2f)]
+        [Range(0.1f, HexagonObject.Size / 2f)]
         public float objectRadius;
-        [Range(0.1f, Hexagon.Size / 2f)]
+        [Range(0.1f, HexagonObject.Size / 2f)]
         public float spawnRadius;
         public bool useRandomRotation;
         [Range(0f, 0.5f)]
@@ -61,8 +61,8 @@ namespace TilePuzzle.Procedural
 
             seed++;
             System.Random random = new System.Random(seed);
-            IEnumerable<Vector2> samplePoints = PoissonDiscSampling.GeneratePoints(random, objectRadius, new Vector2(Hexagon.Size, Hexagon.Size))
-                .Select(x => x - Vector2.one * (Hexagon.Size / 2f))
+            IEnumerable<Vector2> samplePoints = PoissonDiscSampling.GeneratePoints(random, objectRadius, new Vector2(HexagonObject.Size, HexagonObject.Size))
+                .Select(x => x - Vector2.one * (HexagonObject.Size / 2f))
                 .Where(x => x.magnitude <= spawnRadius);
             foreach (Vector2 samplePoint in samplePoints)
             {

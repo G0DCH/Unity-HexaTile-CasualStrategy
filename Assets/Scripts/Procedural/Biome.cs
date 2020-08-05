@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace TilePuzzle.Procedural
 {
-    public class Biome
+    public struct Biome
     {
         /// <summary>
         /// 바이옴 유니크 아이디

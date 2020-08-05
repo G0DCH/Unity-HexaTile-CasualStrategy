@@ -37,7 +37,7 @@ namespace TilePuzzle.Procedural
 
             hexagonNoiseMap.SetInt("mapWidth", width);
             hexagonNoiseMap.SetInt("mapHeight", height);
-            hexagonNoiseMap.SetFloat("hexagonSize", Hexagon.Size);
+            hexagonNoiseMap.SetFloat("hexagonSize", HexagonObject.Size);
 
             hexagonNoiseMap.SetBool("isRigid", settings.isRigid);
             hexagonNoiseMap.SetVector("offset", settings.offset);

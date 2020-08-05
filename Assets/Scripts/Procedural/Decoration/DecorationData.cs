@@ -17,9 +17,9 @@ namespace TilePuzzle.Procedural
         /// </summary>
         public readonly Vector2Int mapSize;
         /// <summary>
-        /// <inheritdoc cref="Decoration"/>
+        /// <inheritdoc cref="DecorationInfo"/>
         /// </summary>
-        public readonly Decoration?[] decorationInfos;
+        public readonly DecorationInfo?[] decorationInfos;
         /// <summary>
         /// <inheritdoc cref="RenderData"/>
         /// </summary>
@@ -28,7 +28,7 @@ namespace TilePuzzle.Procedural
         public DecorationData(Vector2Int mapSize)
         {
             this.mapSize = mapSize;
-            decorationInfos = new Decoration?[mapSize.x * mapSize.y];
+            decorationInfos = new DecorationInfo?[mapSize.x * mapSize.y];
             renderDatas = new RenderData?[mapSize.x * mapSize.y];
         }
 
