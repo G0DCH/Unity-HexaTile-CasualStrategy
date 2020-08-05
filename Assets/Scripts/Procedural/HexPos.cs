@@ -23,6 +23,7 @@ namespace TilePuzzle.Procedural
         public int Y => pos.y;
         public int Z => pos.z;
 
+        public static HexagonPos Zero => new HexagonPos(0, 0);
         public static HexagonPos TopRight => new HexagonPos(0, 1);
         public static HexagonPos Right => new HexagonPos(1, 0);
         public static HexagonPos BottomRight => new HexagonPos(1, -1);

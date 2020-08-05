@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Hexagon
   - DecorationTest
+  - Decoration
   layers:
   - Default
   - TransparentFX

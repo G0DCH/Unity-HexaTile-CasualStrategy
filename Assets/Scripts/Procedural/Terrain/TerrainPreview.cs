@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TilePuzzle.Rendering;
 using UnityEditor;
 using UnityEngine;
@@ -14,7 +12,7 @@ namespace TilePuzzle.Procedural
     [ExecuteInEditMode]
     public class TerrainPreview : MonoBehaviour
     {
-        [Title("General", Bold = true, TitleAlignment = TitleAlignments.Centered)]
+        [Title("Generate Settings", Bold = true, TitleAlignment = TitleAlignments.Centered)]
         [Min(10)]
         public Vector2Int terrainSize = new Vector2Int(20, 20);
         public int globalSeed;
@@ -41,45 +39,39 @@ namespace TilePuzzle.Procedural
         [Required]
         public BiomeTableSettings biomeTableSettings;
 
-        [Title("Mountain")]
-        [MinMaxSlider(0, 1, true)]
-        public Vector2 mountainSpawnRange = new Vector2(0.3f, 1f);
-        public float mountainThreshold = 1.3f;
-        [FoldoutGroup("Mountain", GroupName = "Noise Settings"), HideLabel]
-        public NoiseSettings mountainNoiseSettings;
-
-        [Title("Forest")]
-        [MinMaxSlider(0, 1, true)]
-        public Vector2 forestSpawnRange = new Vector2(0.1f, 1f);
-        public float forestThreshold = 0.6f;
-        [FoldoutGroup("Forest", GroupName = "Noise Settings"), HideLabel]
-        public NoiseSettings forestNoiseSettings;
 
         [Title("Rendering Settings", Bold = true, TitleAlignment = TitleAlignments.Centered)]
+        [Required] public Hexagon hexagonPrefab;
+
         [Title("Land")]
+        [Required]
         public Material landMaterial;
         [Min(0.1f)] public float cliffDepth = 1.5f;
         public bool enableBrightNoise = true;
 
         [Title("Water")]
+        [Required]
         public Material seaMaterial;
+        [Required]
         public Material lakeMaterial;
-        [PropertyRange(0.05f, 1f)]
-        public float riverSize = 0.2f;
         [PropertyRange(0, nameof(cliffDepth))]
         public float waterDepth = 0.3f;
 
-        [Title("Prefabs")]
-        public Hexagon hexagonPrefab;
-        public GameObject mountainPrefab;
-        public GameObject forestPrefab;
+        [Title("River")]
+        [PropertyRange(0.05f, 1f)]
+        public float riverSize = 0.2f;
+
+
+        [Title("Decoration Settings", Bold = true, TitleAlignment = TitleAlignments.Centered)]
+        public DecorationSpawnSettings decorationSpawnSettings;
+
 
         [Title("Preview Settings", Bold = true, TitleAlignment = TitleAlignments.Centered)]
         public bool autoUpdatePreview;
+        public bool previewDecoration;
         [EnumToggleButtons]
         public PreviewMode previewMode;
-        [Required]
-        public Transform hexagonHolder;
+
 
         [Title("Export Settings", Bold = true, TitleAlignment = TitleAlignments.Centered)]
         [FolderPath]
@@ -87,16 +79,13 @@ namespace TilePuzzle.Procedural
 
         private bool settingUpdated;
         private TerrainGenerateSettings generateSettings;
-        private TerrainRenderingSettings renderingSettings;
-        private Hexagon[] hexagons;
+        private Hexagon[] spawnedHexagonObjects;
         private Vector2Int previousHexagonMapSize;
 
         public enum PreviewMode
         {
             Water, Height, Moisture, Temperature, Biome, Combine
         }
-
-        // 프리뷰 모드 (높이맵, 습도맵 보기 등)
 
         private void Update()
         {
@@ -118,7 +107,24 @@ namespace TilePuzzle.Procedural
         }
 
         [Button]
-        public void ExportGenerateSettings()
+        private void UpdateTerrainPreview()
+        {
+            UpdateGenerateSettings();
+
+            TerrainData terrainData = TerrainGenerator.GenerateTerrainData(generateSettings);
+            SpawnHexagons(terrainData);
+            UpdateHexagonColors(terrainData);
+
+            CleanUpDecorations();
+            if (previewDecoration)
+            {
+                DecorationData decorationData = DecorationGenerator.GenerateDecorationData(globalSeed, terrainData, decorationSpawnSettings);
+                SpawnDecorations(terrainData.terrainSize, decorationData.renderDatas);
+            }
+        }
+
+        [Button]
+        private void ExportGenerateSettings()
         {
             UpdateGenerateSettings();
 #if UNITY_EDITOR
@@ -132,38 +138,6 @@ namespace TilePuzzle.Procedural
             {
                 UpdateTerrainPreview();
             }
-        }
-
-        [Button]
-        public void ExportRenderingSettings()
-        {
-            UpdateRenderingSettings();
-#if UNITY_EDITOR
-
-            AssetDatabase.CreateAsset(renderingSettings, $"{exportPath}/{nameof(TerrainRenderingSettings)}_{DateTime.Now.Ticks}.asset");
-            AssetDatabase.SaveAssets();
-            EditorUtility.FocusProjectWindow();
-            Selection.activeObject = renderingSettings;
-#endif
-            renderingSettings = null;
-            if (autoUpdatePreview)
-            {
-                UpdateTerrainPreview(); 
-            }
-        }
-
-        [Button]
-        private void UpdateTerrainPreview()
-        {
-            UpdateGenerateSettings();
-            UpdateRenderingSettings();
-
-            TerrainData terrainData = TerrainGenerator.GenerateTerrainData(generateSettings);
-            CreateHexagonMap(generateSettings.terrainSize);
-            UpdateHexagonMeshes(terrainData, renderingSettings);
-            UpdateHexagonHeight(terrainData);
-            UpdateDecorations(terrainData);
-            UpdateHexagonColorMap(terrainData, renderingSettings);
         }
 
         private void UpdateGenerateSettings()
@@ -184,143 +158,94 @@ namespace TilePuzzle.Procedural
             generateSettings.riverSpawnRange = riverSpawnRange;
             generateSettings.riverSpawnMultiplier = riverSpawnMultiplier;
             generateSettings.biomeTableSettings = biomeTableSettings;
-            generateSettings.mountainNoiseSettings = mountainNoiseSettings;
-            generateSettings.mountainSpawnRange = mountainSpawnRange;
-            generateSettings.mountainThreshold = mountainThreshold;
-            generateSettings.forestNoiseSettings = forestNoiseSettings;
-            generateSettings.forestSpawnRange = forestSpawnRange;
-            generateSettings.forestThreshold = forestThreshold;
         }
 
-        private void UpdateRenderingSettings()
+        private void SpawnHexagons(TerrainData terrainData)
         {
-            if (renderingSettings == null)
+            int width = terrainData.terrainSize.x;
+            int height = terrainData.terrainSize.y;
+            if (previousHexagonMapSize != terrainData.terrainSize)
             {
-                renderingSettings = ScriptableObject.CreateInstance<TerrainRenderingSettings>();
+                CleanUpHexagons();
+                spawnedHexagonObjects = new Hexagon[width * height];
+                previousHexagonMapSize = terrainData.terrainSize;
             }
 
-            renderingSettings.landMaterial = landMaterial;
-            renderingSettings.cliffDepth = cliffDepth;
-            renderingSettings.enableBrightNoise = enableBrightNoise;
+            Mesh flatHexagonMesh = HexagonMeshGenerator.BuildMesh(Hexagon.Size);
+            Mesh cliffHexagonMesh = HexagonMeshGenerator.BuildMesh(Hexagon.Size, cliffDepth);
+            var riverMeshCache = new Dictionary<HexagonMeshGenerator.VertexDirection, Mesh>();
 
-            renderingSettings.seaMaterial = seaMaterial;
-            renderingSettings.lakeMaterial = lakeMaterial;
-            renderingSettings.riverSize = riverSize;
-            renderingSettings.waterDepth = waterDepth;
-
-            renderingSettings.hexagonPrefab = hexagonPrefab;
-            renderingSettings.mountainPrefab = mountainPrefab;
-            renderingSettings.forestPrefab = forestPrefab;
-        }
-
-        private void CreateHexagonMap(Vector2Int mapSize)
-        {
-            if (hexagons != null && previousHexagonMapSize == mapSize)
-            {
-                return;
-            }
-            previousHexagonMapSize = mapSize;
-
-            DestroyAllHexagons();
-
-            int width = mapSize.x;
-            int height = mapSize.y;
-            hexagons = new Hexagon[width * height];
             for (int y = 0; y < height; y++)
             {
                 for (int x = 0; x < width; x++)
                 {
-                    hexagons[x + y * width] = CreateNewHexagon(HexagonPos.FromArrayXY(x, y));
-                }
-            }
-        }
-
-        private void UpdateHexagonMeshes(TerrainData terrainData, TerrainRenderingSettings renderingSettings)
-        {
-            Mesh planeHexagonMesh = HexagonMeshGenerator.BuildMesh(Hexagon.Size);
-            Mesh cliffHexagonMesh = HexagonMeshGenerator.BuildMesh(Hexagon.Size, renderingSettings.cliffDepth);
-
-            for (int i = 0; i < hexagons.Length; i++)
-            {
-                Center center = terrainData.centers[i];
-                HexagonMeshGenerator.VertexDirection riverDirection = 0;
-                for (int cornerIndex = 0; cornerIndex < center.NeighborCorners.Length; cornerIndex++)
-                {
-                    Corner neighborCorner = center.NeighborCorners[cornerIndex];
-                    if (neighborCorner.river > 0)
+                    Center center = terrainData.centers[x + y * width];
+                    if (spawnedHexagonObjects[x + y * width] == null)
                     {
-                        riverDirection |= (HexagonMeshGenerator.VertexDirection)(1 << cornerIndex);
+                        spawnedHexagonObjects[x + y * width] = CreateNewHexagon(hexagonPrefab, HexagonPos.FromArrayXY(x, y));
                     }
-                }
+                    Hexagon currentHexagon = spawnedHexagonObjects[x + y * width];
 
-                Mesh hexagonMesh;
-                //if (center.isSea)
-                //{
-                //    hexagonMesh = null;
-                //}
-                if (riverDirection > 0 && center.isWater == false)
-                {
-                    hexagonMesh = HexagonMeshGenerator.BuildMesh(Hexagon.Size, renderingSettings.cliffDepth, renderingSettings.riverSize, riverDirection);
-                }
-                else if (center.isWater == false && center.NeighborCenters.Values.Any(neighborCenter => neighborCenter.isWater))
-                {
-                    hexagonMesh = cliffHexagonMesh;
-                }
-                else
-                {
-                    hexagonMesh = planeHexagonMesh;
-                }
+                    if (center.isWater)
+                    {
+                        currentHexagon.meshFilter.sharedMesh = flatHexagonMesh;
+                        currentHexagon.GetComponent<MeshRenderer>().sharedMaterial = center.isSea ? seaMaterial : lakeMaterial;
+                    }
+                    else
+                    {
+                        HexagonMeshGenerator.VertexDirection riverDirection = 0;
+                        for (int neighborIndex = 0; neighborIndex < center.NeighborCorners.Length; neighborIndex++)
+                        {
+                            Corner neighborCorner = center.NeighborCorners[neighborIndex];
+                            if (neighborCorner.river > 0)
+                            {
+                                riverDirection |= (HexagonMeshGenerator.VertexDirection)(1 << neighborIndex);
+                            }
+                        }
 
-                hexagons[i].GetComponent<MeshRenderer>().sharedMaterial = center.isWater ? center.isSea ? seaMaterial : lakeMaterial : landMaterial;
-                hexagons[i].meshFilter.sharedMesh = hexagonMesh;
-            }
-        }
+                        Mesh mesh;
+                        // 강이 있을때
+                        if (center.isWater == false && riverDirection > 0)
+                        {
+                            if (riverMeshCache.TryGetValue(riverDirection, out mesh) == false)
+                            {
+                                mesh = HexagonMeshGenerator.BuildMesh(Hexagon.Size, cliffDepth, riverSize, riverDirection);
+                                riverMeshCache.Add(riverDirection, mesh);
+                            }
+                        }
+                        // 절벽일때 (주변에 물)
+                        else if (center.isWater == false && center.NeighborCenters.Values.Any(neighborrCenter => neighborrCenter.isWater))
+                        {
+                            mesh = cliffHexagonMesh;
+                        }
+                        // 평지일때
+                        else
+                        {
+                            mesh = flatHexagonMesh;
+                        }
+                        currentHexagon.meshFilter.sharedMesh = mesh;
+                        currentHexagon.GetComponent<MeshRenderer>().sharedMaterial = landMaterial;
+                    }
 
-        private void UpdateHexagonHeight(TerrainData terrainData)
-        {
-            for (int i = 0; i < hexagons.Length; i++)
-            {
-                Center center = terrainData.centers[i];
-                Vector3 newPosition = hexagons[i].transform.position;
-                newPosition.y = center.isWater ? -waterDepth : 0f;
-                hexagons[i].transform.position = newPosition;
-            }
-        }
-
-        private void UpdateDecorations(TerrainData terrainData)
-        {
-            DestroyAllDecorations();
-            for (int i = 0; i < hexagons.Length; i++)
-            {
-                Center center = terrainData.centers[i];
-                if (center.hasMountain)
-                {
-                    CreateDecoration(mountainPrefab, hexagons[i].transform);
-                }
-                else if (center.hasForest)
-                {
-                    CreateDecoration(forestPrefab, hexagons[i].transform);
+                    // height
+                    Vector3 newPos = currentHexagon.transform.position;
+                    newPos.y = center.isWater ? -waterDepth : 0;
+                    currentHexagon.transform.position = newPos;
                 }
             }
         }
 
-        private void UpdateHexagonColorMap(TerrainData terrainData, TerrainRenderingSettings renderingSettings)
+        private void UpdateHexagonColors(TerrainData terrainData)
         {
-            int mapWidth = terrainData.terrainSize.x;
-            int mapHeight = terrainData.terrainSize.y;
-            int textureWidth = (int)Mathf.Pow(2, Mathf.CeilToInt(Mathf.Log(mapWidth, 2)));
-            int textureHeight = (int)Mathf.Pow(2, Mathf.CeilToInt(Mathf.Log(mapHeight, 2)));
-            Texture2D colorMapTexture = new Texture2D(textureWidth, textureHeight)
-            {
-                filterMode = FilterMode.Point
-            };
+            int textureWidth = (int)Mathf.Pow(2, Mathf.CeilToInt(Mathf.Log(terrainData.terrainSize.x, 2)));
+            int textureHeight = (int)Mathf.Pow(2, Mathf.CeilToInt(Mathf.Log(terrainData.terrainSize.y, 2)));
+            var colorMap = new Color[textureWidth * textureHeight];
 
-            Color[] colorMap = new Color[textureWidth * textureHeight];
-            for (int y = 0; y < mapHeight; y++)
+            for (int y = 0; y < terrainData.terrainSize.y; y++)
             {
-                for (int x = 0; x < mapWidth; x++)
+                for (int x = 0; x < terrainData.terrainSize.x; x++)
                 {
-                    Center center = terrainData.centers[x + y * mapWidth];
+                    Center center = terrainData.centers[x + y * terrainData.terrainSize.x];
                     Color color;
                     switch (previewMode)
                     {
@@ -349,48 +274,86 @@ namespace TilePuzzle.Procedural
                     colorMap[x + y * textureWidth] = color;
                 }
             }
+
+            Texture2D colorMapTexture = new Texture2D(textureWidth, textureHeight)
+            {
+                filterMode = FilterMode.Point
+            };
             colorMapTexture.SetPixels(colorMap);
             colorMapTexture.Apply();
-
             landMaterial.SetTexture("_ColorMap", colorMapTexture);
             landMaterial.SetVector("_ColorMapSize", new Vector2(textureWidth, textureHeight));
-            landMaterial.SetInt("_EnableBrightNoise", renderingSettings.enableBrightNoise ? 1 : 0);
+            landMaterial.SetInt("_EnableBrightNoise", enableBrightNoise ? 1 : 0);
         }
 
-        private Hexagon CreateNewHexagon(HexagonPos hexPos)
+        private void CleanUpHexagons()
         {
-            Hexagon newHexagon = Instantiate(hexagonPrefab, hexagonHolder);
-            newHexagon.hexPos = hexPos;
-            newHexagon.name = $"Hexagon {newHexagon.hexPos}";
-            newHexagon.transform.position = newHexagon.hexPos.ToWorldPos();
-
-            return newHexagon;
-        }
-
-        [Button]
-        private void DestroyAllHexagons()
-        {
-            foreach (GameObject hexagon in GameObject.FindGameObjectsWithTag("Hexagon"))
+            foreach (GameObject hexagonObject in GameObject.FindGameObjectsWithTag("Hexagon"))
             {
-                DestroyImmediate(hexagon);
+                if (Application.isPlaying)
+                {
+                    Destroy(hexagonObject);
+                }
+                else
+                {
+                    DestroyImmediate(hexagonObject);
+                }
             }
-            hexagons = null;
         }
 
-        private GameObject CreateDecoration(GameObject decorationPrefab, Transform parent)
+        private void SpawnDecorations(Vector2Int mapSize, DecorationData.RenderData?[] renderDatas)
         {
-            GameObject decoration = Instantiate(decorationPrefab, parent);
-            decoration.name = decorationPrefab.name;
+            for (int i = 0; i < renderDatas.Length; i++)
+            {
+                if (renderDatas[i].HasValue == false)
+                {
+                    continue;
+                }
+
+                int x = i % mapSize.x;
+                int y = i / mapSize.y;
+                Vector3 decorationPos = HexagonPos.FromArrayXY(x, y).ToWorldPos();
+
+                GameObject newDecorationObject = CloneDecorationObject(renderDatas[i].Value, transform, decorationPos);
+            }
+        }
+
+        private void CleanUpDecorations()
+        {
+            foreach (GameObject hexagonObject in GameObject.FindGameObjectsWithTag("Decoration"))
+            {
+                if (Application.isPlaying)
+                {
+                    Destroy(hexagonObject);
+                }
+                else
+                {
+                    DestroyImmediate(hexagonObject);
+                }
+            }
+        }
+
+        private GameObject CloneDecorationObject(DecorationData.RenderData renderData, Transform parent, Vector3 position)
+        {
+            GameObject decoration = Instantiate(renderData.prefab, parent);
+
+            decoration.transform.position = position;
+            decoration.transform.LookAt(position + renderData.lookDirection);
+            decoration.transform.localScale = renderData.scale;
 
             return decoration;
         }
 
-        private void DestroyAllDecorations()
+        private Hexagon CreateNewHexagon(Hexagon hexagonPrefab, HexagonPos hexPos)
         {
-            foreach (var decoration in GameObject.FindGameObjectsWithTag("DecorationTest"))
-            {
-                DestroyImmediate(decoration);
-            }
+            Hexagon newHexagon = Instantiate(hexagonPrefab, transform);
+            newHexagon.name = $"Hexagon {hexPos}";
+            newHexagon.transform.position = hexPos.ToWorldPos();
+            newHexagon.meshFilter = newHexagon.GetComponent<MeshFilter>();
+
+            newHexagon.hexPos = hexPos;
+
+            return newHexagon;
         }
     }
 }

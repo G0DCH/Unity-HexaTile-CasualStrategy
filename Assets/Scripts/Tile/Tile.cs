@@ -155,7 +155,7 @@ namespace TilePuzzle
 
         private List<Tile> GetRangeTiles(int range)
         {
-            IEnumerable<Hexagon> neighborHexagons = Procedural.Terrain.Instance.GetNeighborHexagons(MyHexagon.hexPos, range);
+            IEnumerable<Hexagon> neighborHexagons = Procedural.TerrainRenderer.Instance.GetNeighborHexagons(MyHexagon.hexPos, range);
             List<Tile> neighborTiles = new List<Tile>();
 
             foreach(Hexagon neighbor in neighborHexagons)

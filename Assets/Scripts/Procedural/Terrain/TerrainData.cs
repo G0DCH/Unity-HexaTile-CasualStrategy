@@ -1,16 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace TilePuzzle.Procedural
 {
     public class TerrainData
     {
+        /// <summary>
+        /// 지형 크기 (width, height)
+        /// </summary>
         public readonly Vector2Int terrainSize;
+        /// <summary>
+        /// 헥사곤 중심 속성
+        /// </summary>
         public readonly Center[] centers;
+        /// <summary>
+        /// 헥사곤 꼭짓점 속성
+        /// </summary>
         public readonly Corner[] corners;
         public readonly BiomeTable biomeTable;
 

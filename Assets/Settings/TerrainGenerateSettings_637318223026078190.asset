@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a717ac7471453b4389187f372c6adc9, type: 3}
+  m_Name: TerrainGenerateSettings_637318223026078190
+  m_EditorClassIdentifier: 
+  terrainSize: {x: 40, y: 40}
+  globalSeed: 1364
+  landRatio: 0.5981034
+  lakeThreshold: 0.3
+  peakMultiplier: 1.1
+  terrainShapeNoiseSettings:
+    noiseType: 0
+    isRigid: 0
+    seed: 1578
+    offset: {x: 0, y: 0, z: 0}
+    octaves: 4
+    lacunarity: 2
+    persistance: 0.5
+    scale: 12.29
+    strength: 1
+    weightMultiplier: 2
+  terrainShapeFalloffSettings:
+    falloffParameter: {x: 1.6, y: 3.1}
+  riverSeed: 407
+  riverSpawnRange: {x: 0.3, y: 0.9}
+  riverSpawnMultiplier: 1
+  biomeTableSettings: {fileID: 11400000, guid: 03b953bd3d823814a948d1ae444575f4, type: 2}

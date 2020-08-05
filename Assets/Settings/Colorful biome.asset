@@ -19,7 +19,7 @@ MonoBehaviour:
     moistureRange: {x: 3, y: 5}
     temperatureRange: {x: 0, y: 1}
     color: {r: 1, g: 1, b: 1, a: 1}
-  - biomeName: "\uD230\uD2B8\uB77C"
+  - biomeName: "\uD230\uB4DC\uB77C"
     moistureRange: {x: 1, y: 3}
     temperatureRange: {x: 0, y: 1}
     color: {r: 0.70211816, g: 0.9245283, b: 0.8921777, a: 1}

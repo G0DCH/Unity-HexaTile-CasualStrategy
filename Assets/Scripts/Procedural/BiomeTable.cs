@@ -29,10 +29,9 @@ namespace TilePuzzle.Procedural
             biomeMap = new Biome[MoistureLevels, TemperatureLevels];
 
             var newBiomeDictionary = new Dictionary<int, Biome>();
-            int nextBiomeId = 0;
 
             // 메인 바이옴으로 바이옴 맵 초기화
-            Biome mainBiome = new Biome(nextBiomeId++, mainBiomeData.biomeName, mainBiomeData.color);
+            Biome mainBiome = new Biome(mainBiomeData.biomeName, mainBiomeData.color);
             newBiomeDictionary.Add(mainBiome.id, mainBiome);
             for (int y = 0; y < TemperatureLevels; y++)
             {
@@ -45,7 +44,7 @@ namespace TilePuzzle.Procedural
             // 서브 바이옴들을 바이옴 맵에 할당
             foreach (var subBiomeData in subBiomeDatas)
             {
-                Biome subBiome = new Biome(nextBiomeId++, subBiomeData.biomeName, subBiomeData.color);
+                Biome subBiome = new Biome(subBiomeData.biomeName, subBiomeData.color);
                 newBiomeDictionary.Add(subBiome.id, subBiome);
                 for (int y = subBiomeData.temperatureRange.x; y < subBiomeData.temperatureRange.y; y++)
                 {
@@ -69,32 +68,6 @@ namespace TilePuzzle.Procedural
             int x = Mathf.Clamp(Mathf.FloorToInt(moisture * MoistureLevels), 0, MoistureLevels - 1);
             int y = Mathf.Clamp(Mathf.FloorToInt(temperature * TemperatureLevels), 0, TemperatureLevels - 1);
             return biomeMap[x, y];
-        }
-
-        public class Biome
-        {
-            /// <summary>
-            /// 바이옴 유니크 아이디
-            /// </summary>
-            public readonly int id;
-            /// <summary>
-            /// 바이옴 이름
-            /// </summary>
-            public readonly string name;
-            /// <summary>
-            /// 바이옴 대표 색
-            /// </summary>
-            public readonly Color color;
-
-            /// <param name="name">바이옴 유니크 아이디</param>
-            /// <param name="name">바이옴 이름</param>
-            /// <param name="color">바이옴 대표 색</param>
-            public Biome(int id, string name, Color color)
-            {
-                this.id = id;
-                this.name = name;
-                this.color = color;
-            }
         }
     }
 }
