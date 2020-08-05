@@ -89,8 +89,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4628931425661100335}
   m_Layer: 0
-  m_Name: Decoration 2
-  m_TagString: Untagged
+  m_Name: Cactus 2
+  m_TagString: Decoration
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

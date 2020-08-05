@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 2970757955860438770}
   m_Layer: 0
   m_Name: Tree Stump Dark 1
-  m_TagString: Untagged
+  m_TagString: Decoration
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -248,7 +248,7 @@ GameObject:
   - component: {fileID: 7910944308277472457}
   m_Layer: 0
   m_Name: Desert Rock 4
-  m_TagString: Untagged
+  m_TagString: Decoration
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

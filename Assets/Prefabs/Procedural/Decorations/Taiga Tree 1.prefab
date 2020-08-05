@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2017797594610467459}
   m_Layer: 0
-  m_Name: Reed 7
-  m_TagString: Untagged
+  m_Name: Taiga Tree 1
+  m_TagString: Decoration
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

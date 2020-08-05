@@ -89,8 +89,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4516129185270963329}
   m_Layer: 0
-  m_Name: Decoration
-  m_TagString: Untagged
+  m_Name: Bone 2
+  m_TagString: Decoration
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

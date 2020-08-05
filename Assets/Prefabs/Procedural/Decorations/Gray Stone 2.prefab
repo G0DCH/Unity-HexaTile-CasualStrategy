@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 2040020995134934806}
   m_Layer: 0
   m_Name: Gray Stone 2
-  m_TagString: Untagged
+  m_TagString: Decoration
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
