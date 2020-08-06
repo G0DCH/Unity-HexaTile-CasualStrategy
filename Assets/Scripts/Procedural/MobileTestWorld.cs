@@ -16,6 +16,11 @@ namespace TilePuzzle.Procedural
         [Required]
         public DecorationSpawnSettings decorationSpawnSettings;
 
+        private void Awake()
+        {
+            Application.targetFrameRate = 60;
+        }
+
         private void Update()
         {
 

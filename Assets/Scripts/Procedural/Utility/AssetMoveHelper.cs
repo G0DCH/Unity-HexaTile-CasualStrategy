@@ -1,4 +1,6 @@
-﻿using Sirenix.OdinInspector;
+﻿#if UNITY_EDITOR
+
+using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using System;
 using System.Collections.Generic;
@@ -58,3 +60,5 @@ namespace TilePuzzle.Procedural
         }
     }
 }
+
+#endif

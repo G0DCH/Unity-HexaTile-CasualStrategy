@@ -33,4 +33,4 @@ Material:
     - _EnableBrightNoise: 1
     m_Colors:
     - Vector2_BCB628E3: {r: 32, g: 32, b: 0, a: 0}
-    - _ColorMapSize: {r: 64, g: 64, b: 0, a: 0}
+    - _ColorMapSize: {r: 32, g: 32, b: 0, a: 0}
