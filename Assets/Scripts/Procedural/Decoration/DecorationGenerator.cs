@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 namespace TilePuzzle.Procedural
 {
@@ -18,6 +19,8 @@ namespace TilePuzzle.Procedural
         /// <param name="spawnSettings">데코레이션 생성 설정</param>
         public static DecorationData GenerateDecorationData(int seed, TerrainData terrainData, DecorationSpawnSettings spawnSettings)
         {
+            Profiler.BeginSample("Generate Decoration");
+
             int salt = 483268917;
             seed += salt;
 
@@ -31,6 +34,8 @@ namespace TilePuzzle.Procedural
 
             // 나무, 꽃, 돌맹이, 기타 데코
             CalculateVegetation(seed, spawnSettings.SpawnTableByBiomeId, terrainData, decorationData);
+
+            Profiler.EndSample();
 
             return decorationData;
         }

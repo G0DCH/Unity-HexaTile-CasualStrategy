@@ -16,7 +16,7 @@ namespace TilePuzzle.Procedural
         private HexagonInfo[] hexagonInfos;
         private DecorationInfo?[] decorationInfos;
 
-        public Vector2Int WorldSize { get; private set; }
+        public Vector2Int WorldSize { get; protected set; }
 
         private void Awake()
         {
@@ -51,6 +51,16 @@ namespace TilePuzzle.Procedural
 
             terrainRenderer.SpawnHexagonTerrains(terrainData);
             decorationRenderer.SpawnDecorations(WorldSize, decorationData.renderDatas);
+        }
+
+        [Button]
+        protected void CleanUp()
+        {
+            hexagonInfos = null;
+            decorationInfos = null;
+
+            terrainRenderer.CleanUpHexagons();
+            decorationRenderer.CleanUpDecorations();
         }
 
         /// <summary>

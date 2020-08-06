@@ -1,20 +1,13 @@
 ﻿using UnityEngine;
+using UnityEngine.Profiling;
 
 namespace TilePuzzle.Procedural
 {
     public class DecorationRenderer : MonoBehaviour
     {
-        [SerializeField]
-        private Transform decorationHolder;
-        private GameObject[] spawnedDecorationObjects;
+        public Transform decorationHolder;
 
-        private void Awake()
-        {
-            if (decorationHolder == null)
-            {
-                decorationHolder = new GameObject("Decoration Holder").transform;
-            }
-        }
+        private GameObject[] spawnedDecorationObjects;
 
         /// <summary>
         /// 입력을 기반으로 데코레이션 오브젝트 생성
@@ -23,8 +16,15 @@ namespace TilePuzzle.Procedural
         /// <param name="renderDatas">데코레이션 렌더링에 필요한 정보</param>
         public void SpawnDecorations(Vector2Int mapSize, DecorationData.RenderData?[] renderDatas)
         {
+            Profiler.BeginSample(nameof(SpawnDecorations));
+
             CleanUpDecorations();
             spawnedDecorationObjects = new GameObject[mapSize.x * mapSize.y];
+
+            if (decorationHolder == null)
+            {
+                decorationHolder = new GameObject("Decoration Holder").transform;
+            }
 
             for (int i = 0; i < spawnedDecorationObjects.Length; i++)
             {
@@ -40,18 +40,29 @@ namespace TilePuzzle.Procedural
                 GameObject newDecorationObject = CloneDecorationObject(renderDatas[i].Value, decorationHolder, decorationPos);
                 spawnedDecorationObjects[i] = newDecorationObject;
             }
+
+            Profiler.EndSample();
         }
 
-        private void CleanUpDecorations()
+        public void CleanUpDecorations()
         {
-            if (spawnedDecorationObjects == null)
+            if (Application.isPlaying)
             {
-                return;
+                if (spawnedDecorationObjects != null)
+                {
+                    foreach (GameObject decorationObject in spawnedDecorationObjects)
+                    {
+                        Destroy(decorationObject);
+                    }
+                    spawnedDecorationObjects = null;
+                }
             }
-
-            foreach (GameObject decorationObject in spawnedDecorationObjects)
+            else
             {
-                Destroy(decorationObject);
+                foreach (GameObject decorationObject in GameObject.FindGameObjectsWithTag("Decoration"))
+                {
+                    DestroyImmediate(decorationObject);
+                }
             }
         }
 
