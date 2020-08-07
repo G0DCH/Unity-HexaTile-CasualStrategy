@@ -32,6 +32,10 @@ namespace TilePuzzle
         public delegate void WonderCost(Tile currentTile, TileBuilding tileBuilding);
         public WonderCost MyWonderCost = null;
 
+        // 범위 보너스 delegate
+        public delegate void WonderRange(Tile currentTile, TileBuilding tileBuilding);
+        public WonderRange MyWonderRange = null;
+
         private Dictionary<HexagonPos, Tile> TileMap = new Dictionary<HexagonPos, Tile>();
 
         private void Start()
@@ -128,8 +132,13 @@ namespace TilePuzzle
                         SelectedTile.transform.position = overTile.transform.position + Vector3.up * 0.1f;
                         overTile.TurnRangeGrid(true);
 
+                        // 코스트 계산
                         SelectTileCost = SelectedTile.Cost;
                         MyWonderCost?.Invoke(overTile, SelectedTile.MyTileBuilding);
+
+                        // 범위 계산, 범위 내 타일 갱신
+                        MyWonderRange?.Invoke(overTile, SelectedTile.MyTileBuilding);
+                        overTile.UpdateRangeTiles();
 
                         prevOverTile = overTile;
                     }
@@ -204,7 +213,7 @@ namespace TilePuzzle
                             GameManager.Instance.RefreshPoint(clickedTile.Bonus);
 
                             // 타일 위에 얹혀져 있는 데코레이션 삭제
-                            if(clickedTile.transform.childCount > 1)
+                            if (clickedTile.transform.childCount > 1)
                             {
                                 Destroy(clickedTile.transform.GetChild(0).gameObject);
                             }
@@ -234,8 +243,14 @@ namespace TilePuzzle
             {
                 return false;
             }
+            // 이미 다른 건물이 지어졌다면 false return
+            else if (currentTile.MyTileBuilding != TileBuilding.Empty)
+            {
+                return false;
+            }
             else if (currentTile.MyTileType != TileType.Ground)
             {
+                // TODO : 나중에 수정
                 // 땅과 강 타일이 아니라면 false return
                 if (currentTile.MyTileType != TileType.River)
                 {
@@ -253,36 +268,45 @@ namespace TilePuzzle
             }
             else
             {
-                // 소유 도시에 이미 해당 건물이 설치 되었는지 검사
-                if (currentTile.OwnerCity.HasThatTile(SelectedTile.MyTileBuilding))
+                // 불가사의 타일이라면 전용 검사.
+                if (SelectedTile is WonderTile)
                 {
-                    return false;
+                    return ((WonderTile)SelectedTile).WonderLimit(currentTile);
                 }
-
-                // 송수로의 경우 주변에 도시와 산이 있는지 검사
-                if (SelectedTile.MyTileBuilding == TileBuilding.Aqueduct)
+                // 불가사의 타일이 아니라면 건물 검사
+                else
                 {
-                    bool nearCity = false;
-                    bool nearMountain = false;
-
-                    for (int i = 0; i < currentTile.NeighborTiles.Count; i++)
+                    // 소유 도시에 이미 해당 건물이 설치 되었는지 검사
+                    if (currentTile.OwnerCity.HasThatTile(SelectedTile.MyTileBuilding))
                     {
-                        if (currentTile.NeighborTiles[i].MyTileBuilding == TileBuilding.City)
-                        {
-                            nearCity = true;
-                        }
-                        else if (currentTile.NeighborTiles[i].MyTileType == TileType.Mountain)
-                        {
-                            nearMountain = true;
-                        }
-
-                        if (nearMountain && nearCity)
-                        {
-                            return true;
-                        }
+                        return false;
                     }
 
-                    return false;
+                    // 송수로의 경우 주변에 도시와 산이 있는지 검사
+                    if (SelectedTile.MyTileBuilding == TileBuilding.Aqueduct)
+                    {
+                        bool nearCity = false;
+                        bool nearMountain = false;
+
+                        for (int i = 0; i < currentTile.NeighborTiles.Count; i++)
+                        {
+                            if (currentTile.NeighborTiles[i].MyTileBuilding == TileBuilding.City)
+                            {
+                                nearCity = true;
+                            }
+                            else if (currentTile.NeighborTiles[i].MyTileType == TileType.Mountain)
+                            {
+                                nearMountain = true;
+                            }
+
+                            if (nearMountain && nearCity)
+                            {
+                                return true;
+                            }
+                        }
+
+                        return false;
+                    }
                 }
             }
 
