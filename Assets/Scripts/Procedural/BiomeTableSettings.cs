@@ -22,6 +22,8 @@ namespace TilePuzzle.Procedural
         private string biomeName;
         [BoxGroup("Main biome"), SerializeField]
         private Color biomeColor = Color.green;
+        [BoxGroup("Main biome"), SerializeField]
+        private List<string> biomeTags = new List<string>();
 
         [SerializeField, ListDrawerSettings(Expanded = true)]
         private List<BiomeData> subBiomes; 
@@ -38,6 +40,7 @@ namespace TilePuzzle.Procedural
         {
             mainBiome.biomeName = biomeName;
             mainBiome.color = biomeColor;
+            mainBiome.tags = biomeTags;
 
             Validation();
             UpdateBiomeColorMap();
@@ -166,14 +169,13 @@ namespace TilePuzzle.Procedural
         public class BiomeData : IEquatable<BiomeData>
         {
             [Required]
-            public List<string> tags;
-            [Required]
             public string biomeName;
             [MinMaxSlider(0, MoistureLevels, true)]
             public Vector2Int moistureRange;
             [MinMaxSlider(0, TemperatureLevels, true)]
             public Vector2Int temperatureRange;
             public Color color;
+            public List<string> tags;
 
             private BiomeData() { }
 
