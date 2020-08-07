@@ -5,7 +5,7 @@
     {
         public override void AddToDelegate()
         {
-            throw new System.NotImplementedException();
+            TileManager.Instance.MyWonderBonus += WonderFunction;
         }
 
         // 사막 타일에 짓는 성지 점수 +WonderBonus
