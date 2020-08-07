@@ -22,10 +22,14 @@ namespace TilePuzzle.Procedural
         /// 바이옴 대표 색
         /// </summary>
         public readonly Color color;
+        /// <summary>
+        /// 바이옴 태그
+        /// </summary>
         public readonly List<string> tags;
 
         /// <param name="name">바이옴 이름</param>
         /// <param name="color">바이옴 대표 색</param>
+        /// <param name="tags">바이옴 태그</param>
         public Biome(string name, Color color, List<string> tags)
         {
             id = BiomeNameToId(name);
