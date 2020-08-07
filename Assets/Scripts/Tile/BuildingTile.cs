@@ -9,11 +9,6 @@ namespace TilePuzzle
         // 내 타일의 보너스 갱신
         public void RefreshBonus()
         {
-            if (!(this is BuildingTile))
-            {
-                return;
-            }
-
             // 포인트가 없는 타일은 패스
             if (MyTileBuilding == TileBuilding.City)
             {

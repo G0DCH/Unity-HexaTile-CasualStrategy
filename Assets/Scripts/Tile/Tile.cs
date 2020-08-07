@@ -38,7 +38,7 @@ namespace TilePuzzle
 
                 return myDecorationInfo;
             }
-            set 
+            set
             {
                 myDecorationInfo = value;
             }
@@ -136,6 +136,7 @@ namespace TilePuzzle
         public int Range { get { return range; } private set { range = value; } }
         [SerializeField]
         private int range = 2;
+        private int baseRange = 2;// 기본 범위
         public List<Tile> RangeTiles
         {
             get
@@ -174,10 +175,27 @@ namespace TilePuzzle
         // HexagonInfo, DecorationInfo가 초기화 되었는지 확인
         private bool isInit = false;
 
+        #region 범위 불가사의 on off
+        // 다음 불가사의의 효과를 받았는가
+        // 킬와 키시와니
+        // 옥스퍼드 대학
+        // 브로드 웨이
+        // 리오의 예수상
+        private bool activeKilwa = false;
+        private bool activeOxford = false;
+        private bool activeBroadway = false;
+        private bool activeLio = false;
+        #endregion
+
+        private void Awake()
+        {
+            baseRange = Range;
+        }
+
         // Info 초기화
         public void InitInfo()
         {
-            if(!isInit)
+            if (!isInit)
             {
                 // 헥사곤 초기화
                 HexagonObject hexagonObject = GetComponent<HexagonObject>();
@@ -291,6 +309,48 @@ namespace TilePuzzle
         public void ChangeBonus(int n)
         {
             Bonus += n;
+        }
+
+        // 범위 내 타일 갱신
+        public void UpdateRangeTiles()
+        {
+            if (baseRange != Range)
+            {
+                rangeTiles = TileManager.Instance.GetRangeTiles(this, Range);
+            }
+        }
+
+        // 범위 변경 용 bool 값 변경
+        public void ChangeRange(WonderTile wonder, bool active)
+        {
+            if (wonder is KilwaKisiwani)
+            {
+                activeKilwa = active;
+            }
+            ChangeRange();
+        }
+
+        // 진짜 범위 변경
+        private void ChangeRange()
+        {
+            Range = baseRange;
+
+            if (activeKilwa)
+            {
+                Range += 1;
+            }
+            if (activeOxford)
+            {
+                Range += 1;
+            }
+            if (activeBroadway)
+            {
+                Range += 1;
+            }
+            if (activeLio)
+            {
+                Range += 1;
+            }
         }
     }
 }
