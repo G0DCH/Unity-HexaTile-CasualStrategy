@@ -31,7 +31,7 @@ namespace TilePuzzle.Procedural
             var newBiomeDictionary = new Dictionary<int, Biome>();
 
             // 메인 바이옴으로 바이옴 맵 초기화
-            Biome mainBiome = new Biome(mainBiomeData.biomeName, mainBiomeData.color);
+            Biome mainBiome = new Biome(mainBiomeData.biomeName, mainBiomeData.color, mainBiomeData.tags);
             newBiomeDictionary.Add(mainBiome.id, mainBiome);
             for (int y = 0; y < TemperatureLevels; y++)
             {
@@ -44,7 +44,7 @@ namespace TilePuzzle.Procedural
             // 서브 바이옴들을 바이옴 맵에 할당
             foreach (var subBiomeData in subBiomeDatas)
             {
-                Biome subBiome = new Biome(subBiomeData.biomeName, subBiomeData.color);
+                Biome subBiome = new Biome(subBiomeData.biomeName, subBiomeData.color, subBiomeData.tags);
                 newBiomeDictionary.Add(subBiome.id, subBiome);
                 for (int y = subBiomeData.temperatureRange.x; y < subBiomeData.temperatureRange.y; y++)
                 {

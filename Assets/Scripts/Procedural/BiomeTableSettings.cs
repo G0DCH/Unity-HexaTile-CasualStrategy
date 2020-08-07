@@ -166,6 +166,8 @@ namespace TilePuzzle.Procedural
         public class BiomeData : IEquatable<BiomeData>
         {
             [Required]
+            public List<string> tags;
+            [Required]
             public string biomeName;
             [MinMaxSlider(0, MoistureLevels, true)]
             public Vector2Int moistureRange;
