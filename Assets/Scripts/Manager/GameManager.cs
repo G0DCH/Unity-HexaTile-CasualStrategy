@@ -1,10 +1,11 @@
 ﻿#pragma warning disable CS0649
 
-using System.Collections;
-using System.Collections.Generic;
+using Sirenix.OdinInspector;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TilePuzzle.Procedural;
 
 namespace TilePuzzle
 {
@@ -20,7 +21,12 @@ namespace TilePuzzle
         public GameObject GameOverPanel;
         public Text GameOverText;
 
-        public Procedural.World World;
+        public World World;
+
+        [Required]
+        public TerrainGenerateSettings terrainGenerateSettings;
+        [Required]
+        public DecorationSpawnSettings decorationSpawnSettings;
 
         private void Awake()
         {
@@ -41,6 +47,27 @@ namespace TilePuzzle
             Score = 0;
             BuildPoint = 6;
             pointText.text = string.Format("Score : {0}\n BuildPoint : {1}", Score, BuildPoint);
+
+            MakeMap();
+        }
+
+        // 맵 생성
+        [Button]
+        public void MakeMap()
+        {
+            int seed = (int)DateTime.Now.Ticks;
+            terrainGenerateSettings.globalSeed = seed;
+
+            Procedural.TerrainData terrainData = TerrainGenerator.GenerateTerrainData(terrainGenerateSettings);
+            DecorationData decorationData = DecorationGenerator.GenerateDecorationData(seed, terrainData, decorationSpawnSettings);
+
+            World.InitializeWorld(World.WorldSize, terrainData, decorationData);
+
+
+            if (FindObjectOfType<TileManager>() != null)
+            {
+                TileManager.Instance.InitTileMap();
+            }
         }
 
         public void Restart()

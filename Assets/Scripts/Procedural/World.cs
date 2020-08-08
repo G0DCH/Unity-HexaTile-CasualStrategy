@@ -51,11 +51,6 @@ namespace TilePuzzle.Procedural
 
             terrainRenderer.SpawnHexagonTerrains(terrainData);
             decorationRenderer.SpawnDecorations(WorldSize, decorationData.renderDatas);
-
-            if (FindObjectOfType<TileManager>() != null)
-            {
-                TileManager.Instance.InitTileMap();
-            }
         }
 
         [Button]
