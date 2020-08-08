@@ -40,7 +40,7 @@ namespace TilePuzzle.Procedural
 
         public static int BiomeNameToId(string biomeName)
         {
-            return biomeName.GetHashCode();
+            return StringHash.SDBMLower(biomeName);
         }
     }
 }
