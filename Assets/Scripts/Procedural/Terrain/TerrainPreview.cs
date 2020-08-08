@@ -257,7 +257,7 @@ namespace TilePuzzle.Procedural
                             color = Color.Lerp(Color.black, Color.blue, center.moisture);
                             break;
                         case PreviewMode.Temperature:
-                            color = Color.HSVToRGB(Mathf.Lerp(0, 0.66666f, center.Temperature), 1, 1);
+                            color = Color.HSVToRGB(Mathf.Lerp(0.66666f, 0, center.Temperature), 1, 1);
                             break;
                         case PreviewMode.Biome:
                             color = terrainData.biomeTable.biomeDictionary[center.biomeId].color;
