@@ -56,9 +56,8 @@ namespace TilePuzzle
         public void MakeMap()
         {
             int seed = (int)DateTime.Now.Ticks;
-            terrainGenerateSettings.globalSeed = seed;
 
-            Procedural.TerrainData terrainData = TerrainGenerator.GenerateTerrainData(terrainGenerateSettings);
+            Procedural.TerrainData terrainData = TerrainGenerator.GenerateTerrainData(seed, terrainGenerateSettings);
             DecorationData decorationData = DecorationGenerator.GenerateDecorationData(seed, terrainData, decorationSpawnSettings);
 
             World.InitializeWorld(World.WorldSize, terrainData, decorationData);

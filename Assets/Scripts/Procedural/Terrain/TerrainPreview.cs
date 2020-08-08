@@ -12,9 +12,9 @@ namespace TilePuzzle.Procedural
     public class TerrainPreview : MonoBehaviour
     {
         [Title("Generate Settings", Bold = true, TitleAlignment = TitleAlignments.Centered)]
+        public int globalSeed;
         [Min(10)]
         public Vector2Int terrainSize = new Vector2Int(20, 20);
-        public int globalSeed;
 
         [Title("Island Shape")]
         [ProgressBar(0, 1, 0.4f, 0.9f, 0.2f)]
@@ -110,7 +110,7 @@ namespace TilePuzzle.Procedural
         {
             UpdateGenerateSettings();
 
-            TerrainData terrainData = TerrainGenerator.GenerateTerrainData(generateSettings);
+            TerrainData terrainData = TerrainGenerator.GenerateTerrainData(globalSeed, generateSettings);
             SpawnHexagons(terrainData);
             UpdateHexagonColors(terrainData);
 
@@ -147,7 +147,6 @@ namespace TilePuzzle.Procedural
             }
 
             generateSettings.terrainSize = terrainSize;
-            generateSettings.globalSeed = globalSeed;
             generateSettings.terrainShapeNoiseSettings = terrainShapeNoiseSettings;
             generateSettings.terrainShapeFalloffSettings = terrainShapeFalloffSettings;
             generateSettings.landRatio = landRatio;
@@ -310,7 +309,7 @@ namespace TilePuzzle.Procedural
                 }
 
                 int x = i % mapSize.x;
-                int y = i / mapSize.y;
+                int y = i / mapSize.x;
                 Vector3 decorationPos = HexagonPos.FromArrayXY(x, y).ToWorldPos();
 
                 GameObject newDecorationObject = CloneDecorationObject(renderDatas[i].Value, transform, decorationPos);

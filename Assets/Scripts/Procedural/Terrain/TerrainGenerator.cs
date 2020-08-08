@@ -12,18 +12,22 @@ namespace TilePuzzle.Procedural
     public static class TerrainGenerator
     {
         /// <summary>
-        /// <paramref name="settings"/>을 기반으로 <see cref="TerrainData"/> 생성
+        /// <paramref name="seed"/>와 <paramref name="settings"/>을 기반으로 <see cref="TerrainData"/> 생성
         /// </summary>
+        /// <param name="seed">지형 생성 시드</param>
         /// <param name="settings">지형 생성에 사용 될 설정 값</param>
-        public static TerrainData GenerateTerrainData(TerrainGenerateSettings settings)
+        public static TerrainData GenerateTerrainData(int seed, TerrainGenerateSettings settings)
         {
             Profiler.BeginSample(nameof(GenerateTerrainData));
 
+            int salt = StringHash.SDBMLower("terrain");
+            seed += salt;
             Vector2Int terrainSize = settings.terrainSize;
+
             GraphGenerator.CreateHexagonGraph(terrainSize.x, terrainSize.y, out Center[] centers, out Corner[] corners);
 
             // 섬 모양 계산
-            CalculateIslandShape(terrainSize, settings.landRatio, settings.globalSeed, settings.terrainShapeNoiseSettings, settings.terrainShapeFalloffSettings, ref corners);
+            CalculateIslandShape(terrainSize, settings.landRatio, seed, settings.terrainShapeNoiseSettings, settings.terrainShapeFalloffSettings, ref corners);
 
             // 물, 바다, 땅, 해변 설정
             CalculateWaterGroundType(settings.lakeThreshold, ref centers, ref corners);
@@ -36,7 +40,7 @@ namespace TilePuzzle.Procedural
 
             // 강 생성
             int riverSpawnTry = (int)((terrainSize.x + terrainSize.y) / 2 * settings.riverSpawnMultiplier);
-            CalculateRiver(settings.globalSeed + settings.riverSeed, riverSpawnTry, settings.riverSpawnRange, ref corners);
+            CalculateRiver(seed + settings.riverSeed, riverSpawnTry, settings.riverSpawnRange, ref corners);
 
             // 습도 계산
             CalculateMoisture(ref centers, ref corners);

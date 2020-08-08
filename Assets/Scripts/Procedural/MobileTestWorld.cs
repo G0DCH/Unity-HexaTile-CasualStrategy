@@ -30,10 +30,9 @@ namespace TilePuzzle.Procedural
         public void CreateRandomWorld()
         {
             int seed = (int)DateTime.Now.Ticks;
-            terrainGenerateSettings.globalSeed = seed;
             WorldSize = terrainGenerateSettings.terrainSize;
 
-            TerrainData terrainData = TerrainGenerator.GenerateTerrainData(terrainGenerateSettings);
+            TerrainData terrainData = TerrainGenerator.GenerateTerrainData(seed, terrainGenerateSettings);
             DecorationData decorationData = DecorationGenerator.GenerateDecorationData(seed, terrainData, decorationSpawnSettings);
 
             InitializeWorld(WorldSize, terrainData, decorationData);

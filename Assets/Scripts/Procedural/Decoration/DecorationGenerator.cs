@@ -21,7 +21,7 @@ namespace TilePuzzle.Procedural
         {
             Profiler.BeginSample("Generate Decoration");
 
-            int salt = 483268917;
+            int salt = StringHash.SDBMLower("decoration");
             seed += salt;
 
             DecorationData decorationData = new DecorationData(terrainData.terrainSize);

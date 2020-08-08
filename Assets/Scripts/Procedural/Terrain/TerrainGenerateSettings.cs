@@ -13,7 +13,6 @@ namespace TilePuzzle.Procedural
         [Title("General")]
         [Min(10)]
         public Vector2Int terrainSize = new Vector2Int(20, 20);
-        public int globalSeed;
 
         [Title("Island Shape")]
         [ProgressBar(0, 1, 0.4f, 0.9f, 0.2f)]

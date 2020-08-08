@@ -1,1 +1,33 @@
-﻿{}
+{
+    "name": "Game Control",
+    "maps": [
+        {
+            "name": "Camera",
+            "id": "432ca353-86da-4014-9817-a943deb096d5",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "a1d8308b-dfc8-48dd-a192-bcadfc8f0c4e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "47d2ccf8-0635-45ca-bfc1-5bd5e958ff28",
+                    "path": "<Touchscreen>/primaryTouch/tap",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

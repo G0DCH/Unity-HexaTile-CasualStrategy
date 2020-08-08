@@ -34,7 +34,7 @@ namespace TilePuzzle.Procedural
                 }
 
                 int x = i % mapSize.x;
-                int y = i / mapSize.y;
+                int y = i / mapSize.x;
                 Vector3 decorationPos = HexagonPos.FromArrayXY(x, y).ToWorldPos();
 
                 GameObject newDecorationObject = CloneDecorationObject(renderDatas[i].Value, decorationHolder, decorationPos);
