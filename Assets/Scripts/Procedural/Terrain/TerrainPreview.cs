@@ -35,11 +35,13 @@ namespace TilePuzzle.Procedural
         public float riverSpawnMultiplier = 1;
 
         [Title("Biome")]
-        [Range(0, 1)]
-        public float riverMoistureFactor = 0.2f;
-        public bool isSeaProvideMoisture;
         [Required]
         public BiomeTableSettings biomeTableSettings;
+        [Range(0, 1)]
+        public float riverMoistureFactor = 0.2f;
+        public bool isSeaProvideMoisture = false;
+        [FoldoutGroup("Biome Noise", GroupName = "Noise Settings"), HideLabel]
+        public NoiseSettings biomeNoiseSettings;
 
 
         [Title("Rendering Settings", Bold = true, TitleAlignment = TitleAlignments.Centered)]
@@ -158,9 +160,10 @@ namespace TilePuzzle.Procedural
             generateSettings.riverSeed = riverSeed;
             generateSettings.riverSpawnRange = riverSpawnRange;
             generateSettings.riverSpawnMultiplier = riverSpawnMultiplier;
+            generateSettings.biomeTableSettings = biomeTableSettings;
             generateSettings.riverMoistureFactor = riverMoistureFactor;
             generateSettings.isSeaProvideMoisture = isSeaProvideMoisture;
-            generateSettings.biomeTableSettings = biomeTableSettings;
+            generateSettings.biomeNoiseSettings = biomeNoiseSettings;
         }
 
         private void SpawnHexagons(TerrainData terrainData)

@@ -48,7 +48,7 @@ namespace TilePuzzle.Procedural
 
             // 바이옴 생성
             BiomeTable biomeTable = settings.biomeTableSettings.GetBiomeTable();
-            CalculateBiome(terrainGraph, biomeTable);
+            CalculateBiome(terrainGraph, seed, biomeTable, settings.biomeNoiseSettings);
 
             Profiler.EndSample();
 
@@ -336,11 +336,23 @@ namespace TilePuzzle.Procedural
             }
         }
 
-        private static void CalculateBiome(HexagonGraph terrainGraph, BiomeTable biomeTable)
+        private static void CalculateBiome(HexagonGraph terrainGraph, int seed, BiomeTable biomeTable, NoiseSettings biomeNoiseSettings)
         {
-            foreach (Center center in terrainGraph.centers)
+            Vector2[] centerPoints = terrainGraph.centers.Select(x => new Vector2(x.centerPos.x, x.centerPos.z)).ToArray();
+            int moistureSeed = seed + StringHash.SDBMLower("moisture");
+            int temperatureSeed = seed + StringHash.SDBMLower("temperature");
+            NoiseGenerator.Instance.EvaluateNoise(ref centerPoints, out float[] moistureNoises, moistureSeed, biomeNoiseSettings);
+            NoiseGenerator.Instance.EvaluateNoise(ref centerPoints, out float[] temperatureNoises, temperatureSeed, biomeNoiseSettings);
+            float midNoiseValue = moistureNoises.Max() / 2;
+
+            for (int i = 0; i < terrainGraph.centers.Length; i++)
             {
-                Biome biome = biomeTable.EvaluateBiome(center.moisture, center.Temperature);
+                Center center = terrainGraph.centers[i];
+
+                float moisture = center.moisture + moistureNoises[i] - midNoiseValue;
+                float temperature = center.Temperature + temperatureNoises[i] - midNoiseValue;
+
+                Biome biome = biomeTable.EvaluateBiome(moisture, temperature);
                 center.biomeId = biome.id;
             }
         }

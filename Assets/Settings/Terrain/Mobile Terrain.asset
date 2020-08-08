@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Mobile Terrain
   m_EditorClassIdentifier: 
   terrainSize: {x: 40, y: 40}
-  globalSeed: 1364
   landRatio: 0.5981034
   lakeThreshold: 0.3
   peakMultiplier: 1.1
@@ -34,3 +33,16 @@ MonoBehaviour:
   riverSpawnRange: {x: 0.3, y: 0.9}
   riverSpawnMultiplier: 1
   biomeTableSettings: {fileID: 11400000, guid: 03b953bd3d823814a948d1ae444575f4, type: 2}
+  riverMoistureFactor: 0.2
+  isSeaProvideMoisture: 0
+  biomeNoiseSettings:
+    noiseType: 1
+    isRigid: 0
+    seed: 0
+    offset: {x: 0, y: 0, z: 0}
+    octaves: 2
+    lacunarity: 2
+    persistance: 0.5
+    scale: 40
+    strength: 0.07
+    weightMultiplier: 1

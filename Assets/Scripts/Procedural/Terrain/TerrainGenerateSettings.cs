@@ -33,10 +33,12 @@ namespace TilePuzzle.Procedural
         public float riverSpawnMultiplier = 1;
 
         [Title("Biome")]
+        [Required]
+        public BiomeTableSettings biomeTableSettings;
         [Range(0, 1)]
         public float riverMoistureFactor = 0.2f;
         public bool isSeaProvideMoisture = false;
-        [Required]
-        public BiomeTableSettings biomeTableSettings;
+        [FoldoutGroup("Biome Noise", GroupName = "Noise Settings"), HideLabel]
+        public NoiseSettings biomeNoiseSettings;
     }
 }
