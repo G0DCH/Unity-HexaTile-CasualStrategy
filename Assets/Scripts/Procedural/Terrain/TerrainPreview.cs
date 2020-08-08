@@ -35,6 +35,9 @@ namespace TilePuzzle.Procedural
         public float riverSpawnMultiplier = 1;
 
         [Title("Biome")]
+        [Range(0, 1)]
+        public float riverMoistureFactor = 0.2f;
+        public bool isSeaProvideMoisture;
         [Required]
         public BiomeTableSettings biomeTableSettings;
 
@@ -155,6 +158,8 @@ namespace TilePuzzle.Procedural
             generateSettings.riverSeed = riverSeed;
             generateSettings.riverSpawnRange = riverSpawnRange;
             generateSettings.riverSpawnMultiplier = riverSpawnMultiplier;
+            generateSettings.riverMoistureFactor = riverMoistureFactor;
+            generateSettings.isSeaProvideMoisture = isSeaProvideMoisture;
             generateSettings.biomeTableSettings = biomeTableSettings;
         }
 

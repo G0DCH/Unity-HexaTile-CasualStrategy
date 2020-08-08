@@ -44,7 +44,7 @@ namespace TilePuzzle.Procedural
             CalculateRiver(terrainGraph, seed + settings.riverSeed, riverSpawnTry, settings.riverSpawnRange);
 
             // 습도 계산
-            CalculateMoisture(terrainGraph);
+            CalculateMoisture(terrainGraph, settings.riverMoistureFactor, settings.isSeaProvideMoisture);
 
             // 바이옴 생성
             BiomeTable biomeTable = settings.biomeTableSettings.GetBiomeTable();
@@ -280,14 +280,14 @@ namespace TilePuzzle.Procedural
             }
         }
 
-        private static void CalculateMoisture(HexagonGraph terrainGraph)
+        private static void CalculateMoisture(HexagonGraph terrainGraph, float riverMoistureFactor, bool isSeaProvideMoisture)
         {
             Queue<Corner> moistureFloodFill = new Queue<Corner>();
             foreach (Corner corner in terrainGraph.corners)
             {
                 if (corner.isSea == false && (corner.isWater || corner.river > 0))
                 {
-                    corner.moisture = corner.river > 0 ? Mathf.Min(0.2f * corner.river, 3f) : 1f;
+                    corner.moisture = corner.river > 0 ? Mathf.Min(riverMoistureFactor * corner.river, 3f) : 1f;
                     moistureFloodFill.Enqueue(corner);
                 }
                 else
@@ -310,16 +310,19 @@ namespace TilePuzzle.Procedural
                 }
             }
 
-            foreach (Corner corner in terrainGraph.corners)
+            if (isSeaProvideMoisture)
             {
-                if (corner.isSea || corner.isCoast)
+                foreach (Corner corner in terrainGraph.corners)
                 {
-                    corner.moisture = 1f;
+                    if (corner.isSea || corner.isCoast)
+                    {
+                        corner.moisture = 1f;
+                    }
                 }
             }
 
             Corner[] sortedLandCorners = terrainGraph.corners
-                .Where(x => x.isSea == false && x.isCoast == false)
+                .Where(x => x.isSea == false && (isSeaProvideMoisture == false || x.isCoast == false))
                 .OrderBy(x => x.moisture)
                 .ToArray();
             for (int i = 0; i < sortedLandCorners.Length; i++)
