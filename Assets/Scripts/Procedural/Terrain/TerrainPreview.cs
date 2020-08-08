@@ -118,7 +118,7 @@ namespace TilePuzzle.Procedural
             if (previewDecoration)
             {
                 DecorationData decorationData = DecorationGenerator.GenerateDecorationData(globalSeed, terrainData, decorationSpawnSettings);
-                SpawnDecorations(terrainData.terrainSize, decorationData.renderDatas);
+                SpawnDecorations(terrainData.terrainGraph.size, decorationData.renderDatas);
             }
         }
 
@@ -160,13 +160,13 @@ namespace TilePuzzle.Procedural
 
         private void SpawnHexagons(TerrainData terrainData)
         {
-            int width = terrainData.terrainSize.x;
-            int height = terrainData.terrainSize.y;
-            if (previousHexagonMapSize != terrainData.terrainSize)
+            int width = terrainData.terrainGraph.size.x;
+            int height = terrainData.terrainGraph.size.y;
+            if (previousHexagonMapSize != terrainData.terrainGraph.size)
             {
                 CleanUpHexagons();
                 spawnedHexagonObjects = new HexagonObject[width * height];
-                previousHexagonMapSize = terrainData.terrainSize;
+                previousHexagonMapSize = terrainData.terrainGraph.size;
             }
 
             Mesh flatHexagonMesh = HexagonMeshGenerator.BuildMesh(HexagonObject.Size);
@@ -177,7 +177,7 @@ namespace TilePuzzle.Procedural
             {
                 for (int x = 0; x < width; x++)
                 {
-                    Center center = terrainData.centers[x + y * width];
+                    Center center = terrainData.terrainGraph.centers[x + y * width];
                     if (spawnedHexagonObjects[x + y * width] == null)
                     {
                         spawnedHexagonObjects[x + y * width] = CreateNewHexagon(hexagonObjectPrefab, HexagonPos.FromArrayXY(x, y));
@@ -235,15 +235,15 @@ namespace TilePuzzle.Procedural
 
         private void UpdateHexagonColors(TerrainData terrainData)
         {
-            int textureWidth = (int)Mathf.Pow(2, Mathf.CeilToInt(Mathf.Log(terrainData.terrainSize.x, 2)));
-            int textureHeight = (int)Mathf.Pow(2, Mathf.CeilToInt(Mathf.Log(terrainData.terrainSize.y, 2)));
+            int textureWidth = (int)Mathf.Pow(2, Mathf.CeilToInt(Mathf.Log(terrainData.terrainGraph.size.x, 2)));
+            int textureHeight = (int)Mathf.Pow(2, Mathf.CeilToInt(Mathf.Log(terrainData.terrainGraph.size.y, 2)));
             var colorMap = new Color[textureWidth * textureHeight];
 
-            for (int y = 0; y < terrainData.terrainSize.y; y++)
+            for (int y = 0; y < terrainData.terrainGraph.size.y; y++)
             {
-                for (int x = 0; x < terrainData.terrainSize.x; x++)
+                for (int x = 0; x < terrainData.terrainGraph.size.x; x++)
                 {
-                    Center center = terrainData.centers[x + y * terrainData.terrainSize.x];
+                    Center center = terrainData.terrainGraph.centers[x + y * terrainData.terrainGraph.size.x];
                     Color color;
                     switch (previewMode)
                     {

@@ -24,30 +24,30 @@ namespace TilePuzzle.Procedural
             int salt = StringHash.SDBMLower("decoration");
             seed += salt;
 
-            DecorationData decorationData = new DecorationData(terrainData.terrainSize);
+            DecorationData decorationData = new DecorationData(terrainData.terrainGraph.size);
 
             // 산 생성
-            CalculateMountain(seed, spawnSettings.mountainSpawnSetting, terrainData, decorationData);
+            CalculateMountain(decorationData, terrainData, seed, spawnSettings.mountainSpawnSetting);
 
             // 숲 생성
-            CalculateForest(seed, spawnSettings.forestSpawnSetting, terrainData, decorationData);
+            CalculateForest(decorationData, terrainData, seed, spawnSettings.forestSpawnSetting);
 
             // 나무, 꽃, 돌맹이, 기타 데코
-            CalculateVegetation(seed, spawnSettings.SpawnTableByBiomeId, terrainData, decorationData);
+            CalculateVegetation(decorationData, terrainData, seed, spawnSettings.SpawnTableByBiomeId);
 
             Profiler.EndSample();
 
             return decorationData;
         }
 
-        private static void CalculateMountain(int seed, DecorationSpawnSettings.MountainSpawnSetting spawnSetting,
-            TerrainData terrainData, DecorationData decorationData)
+        private static void CalculateMountain(DecorationData decorationData, TerrainData terrainData, int seed,
+            DecorationSpawnSettings.MountainSpawnSetting spawnSetting)
         {
             System.Random random = new System.Random(seed);
 
-            for (int i = 0; i < terrainData.centers.Length; i++)
+            for (int i = 0; i < terrainData.terrainGraph.centers.Length; i++)
             {
-                Center hexCenter = terrainData.centers[i];
+                Center hexCenter = terrainData.terrainGraph.centers[i];
 
                 if (hexCenter.isWater)
                 {
@@ -73,8 +73,8 @@ namespace TilePuzzle.Procedural
                 }
 
                 // TODO: 위치 섞기
-                int x = i % terrainData.terrainSize.x;
-                int y = i / terrainData.terrainSize.y;
+                int x = i % terrainData.terrainGraph.size.x;
+                int y = i / terrainData.terrainGraph.size.x;
 
                 // 데코 세트 중 프리팹 하나 랜덤으로 선택
                 var randomDecoPrefab = spawnSetting.decorationPrefabs[random.Next(spawnSetting.decorationPrefabs.Length)];
@@ -89,20 +89,20 @@ namespace TilePuzzle.Procedural
             }
         }
 
-        private static void CalculateForest(int seed, DecorationSpawnSettings.ForestSpawnSetting spawnSetting,
-            TerrainData terrainData, DecorationData decorationData)
+        private static void CalculateForest(DecorationData decorationData, TerrainData terrainData, int seed,
+            DecorationSpawnSettings.ForestSpawnSetting spawnSetting)
         {
             System.Random random = new System.Random(seed);
 
             // 산 까지의 거리 구하기
-            int[] distanceMap = new int[terrainData.centers.Length];
+            int[] distanceMap = new int[terrainData.terrainGraph.centers.Length];
             Queue<Center> floodFill = new Queue<Center>();
             for (int i = 0; i < distanceMap.Length; i++)
             {
                 if (decorationData.decorationInfos[i].HasValue && decorationData.decorationInfos[i].Value.type == DecorationInfo.Type.Mountain)
                 {
                     distanceMap[i] = 0;
-                    floodFill.Enqueue(terrainData.centers[i]);
+                    floodFill.Enqueue(terrainData.terrainGraph.centers[i]);
                 }
                 else
                 {
@@ -114,7 +114,7 @@ namespace TilePuzzle.Procedural
             {
                 Center center = floodFill.Dequeue();
                 Vector2Int xy = center.hexPos.ToArrayXY();
-                int index = xy.x + xy.y * terrainData.terrainSize.x;
+                int index = xy.x + xy.y * terrainData.terrainGraph.size.x;
                 int distance = distanceMap[index];
 
                 foreach (Center neighbor in center.NeighborCenters.Values)
@@ -125,7 +125,7 @@ namespace TilePuzzle.Procedural
                     }
 
                     Vector2Int neighborXY = neighbor.hexPos.ToArrayXY();
-                    int neighborIndex = neighborXY.x + neighborXY.y * terrainData.terrainSize.x;
+                    int neighborIndex = neighborXY.x + neighborXY.y * terrainData.terrainGraph.size.x;
 
                     int newDistance = distance + 1;
                     if (newDistance < distanceMap[neighborIndex])
@@ -139,7 +139,7 @@ namespace TilePuzzle.Procedural
             for (int i = 0; i < distanceMap.Length; i++)
             {
                 // 거리 필터링
-                if (distanceMap[i] ==  0 || distanceMap[i] > spawnSetting.spawnDistance)
+                if (distanceMap[i] == 0 || distanceMap[i] > spawnSetting.spawnDistance)
                 {
                     continue;
                 }
@@ -151,7 +151,7 @@ namespace TilePuzzle.Procedural
                 }
 
                 // 바이옴에 맞는 숲 데코 선택
-                if (spawnSetting.BiomeDecorationTable.TryGetValue(terrainData.centers[i].biomeId, out GameObject[] decorationPrefabs) == false)
+                if (spawnSetting.BiomeDecorationTable.TryGetValue(terrainData.terrainGraph.centers[i].biomeId, out GameObject[] decorationPrefabs) == false)
                 {
                     continue;
                 }
@@ -171,126 +171,15 @@ namespace TilePuzzle.Procedural
             }
         }
 
-        private static void CalculateForest2(int seed, DecorationSpawnSettings.ForestSpawnSetting spawnSetting,
-            TerrainData terrainData, DecorationData decorationData)
+        private static void CalculateVegetation(DecorationData decorationData, TerrainData terrainData, int seed,
+            IReadOnlyDictionary<int, DecorationSpawnSettings.SpawnTable> spawnTableByBiome)
         {
             System.Random random = new System.Random(seed);
 
-            for (int i = 0; i < spawnSetting.tryCount; i++)
-            {
-                int index = random.Next(terrainData.centers.Length);
-                Center center = terrainData.centers[index];
-
-                if (center.isWater || center.isCoast)
-                {
-                    continue;
-                }
-
-                if (center.moisture < random.NextDouble())
-                {
-                    continue;
-                }
-
-                if (spawnSetting.BiomeDecorationTable.TryGetValue(center.biomeId, out GameObject[] decorationPrefabs) == false)
-                {
-                    continue;
-                }
-
-                int distance = spawnSetting.spawnDistance;
-                for (int hexX = -distance; hexX <= distance; hexX++)
-                {
-                    for (int hexZ = -distance; hexZ <= distance; hexZ++)
-                    {
-                        HexagonPos hexOffset = new HexagonPos(hexX, hexZ);
-                        if (hexOffset.HexagonDistance > distance)
-                        {
-                            continue;
-                        }
-
-                        Vector2Int neighborXY = (center.hexPos + hexOffset).ToArrayXY();
-                        int neighborIndex = neighborXY.x + neighborXY.y * terrainData.terrainSize.x;
-                        if (terrainData.centers[neighborIndex].isWater || terrainData.centers[neighborIndex].isCoast)
-                        {
-                            continue;
-                        }
-
-                        if (terrainData.centers[neighborIndex].biomeId != center.biomeId)
-                        {
-                            //continue;
-                        }
-
-                        if (decorationData.decorationInfos[neighborIndex].HasValue)
-                        {
-                            continue;
-                        }
-
-                        if (random.NextDouble() > Mathf.Pow(spawnSetting.spawnRate, Mathf.Max(hexOffset.HexagonDistance, 0)))
-                        {
-                            continue;
-                        }
-
-                        // 데코 세트 중 프리팹 하나 랜덤으로 선택
-                        var randomDecoPrefab = decorationPrefabs[random.Next(decorationPrefabs.Length)];
-
-                        // 렌더 데이터 생성
-                        Vector3 scale = randomDecoPrefab.transform.localScale;
-                        Vector3 lookDirection = Vector3.forward;
-
-                        // 데코 데이터에 저장
-                        decorationData.decorationInfos[neighborIndex] = new DecorationInfo("Forest", DecorationInfo.Type.Mountain, false);
-                        decorationData.renderDatas[neighborIndex] = new DecorationData.RenderData(randomDecoPrefab, scale, lookDirection);
-                    }
-                }
-            }
-        }
-
-        private static void CalculateForest3(int seed, DecorationSpawnSettings.ForestSpawnSetting spawnSetting,
-            TerrainData terrainData, DecorationData decorationData)
-        {
-            System.Random random = new System.Random(seed);
-
-            for (int i = 0; i < terrainData.centers.Length; i++)
-            {
-                if (terrainData.centers[i].isWater || terrainData.centers[i].isCoast)
-                {
-                    continue;
-                }
-
-                float moisture = terrainData.centers[i].moisture;
-                if (random.NextDouble() > moisture / 2f)
-                {
-                    continue;
-                }
-
-                if (spawnSetting.BiomeDecorationTable.TryGetValue(terrainData.centers[i].biomeId, out GameObject[] decorationPrefabs) == false)
-                {
-                    continue;
-                }
-
-                // 데코 세트 중 프리팹 하나 랜덤으로 선택
-                var randomDecoPrefab = decorationPrefabs[random.Next(decorationPrefabs.Length)];
-
-                // 렌더 데이터 생성
-                Vector3 scale = randomDecoPrefab.transform.localScale;
-                Vector3 lookDirection = spawnSetting.useRandomRotation
-                        ? Quaternion.AngleAxis((float)random.NextDouble() * 360 * i, Vector3.up) * Vector3.forward
-                        : Vector3.forward;
-
-                // 데코 데이터에 저장
-                decorationData.decorationInfos[i] = new DecorationInfo("Forest", DecorationInfo.Type.Mountain, false);
-                decorationData.renderDatas[i] = new DecorationData.RenderData(randomDecoPrefab, scale, lookDirection);
-            }
-        }
-
-        private static void CalculateVegetation(int seed, IReadOnlyDictionary<int, DecorationSpawnSettings.SpawnTable> spawnTableByBiome,
-            TerrainData terrainData, DecorationData decorationData)
-        {
-            System.Random random = new System.Random(seed);
-
-            for (int i = 0; i < terrainData.centers.Length; i++)
+            for (int i = 0; i < terrainData.terrainGraph.centers.Length; i++)
             {
                 // 물, 해안에는 생성 안함
-                if (terrainData.centers[i].isWater || terrainData.centers[i].isCoast)
+                if (terrainData.terrainGraph.centers[i].isWater || terrainData.terrainGraph.centers[i].isCoast)
                 {
                     continue;
                 }
@@ -303,7 +192,7 @@ namespace TilePuzzle.Procedural
                 }
 
                 // 바이옴에 맞는 데코 테이블 선택
-                int currentBiomeId = terrainData.centers[i].biomeId;
+                int currentBiomeId = terrainData.terrainGraph.centers[i].biomeId;
                 if (spawnTableByBiome.TryGetValue(currentBiomeId, out var spawnTable))
                 {
                     // 스폰확률 따라 다른 가중치를 부여한 랜덤으로 데코 세트 하나 선택

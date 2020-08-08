@@ -1,4 +1,4 @@
-﻿using Sirenix.Utilities;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -6,12 +6,24 @@ using UnityEngine.Profiling;
 
 namespace TilePuzzle.Procedural
 {
-    public static class GraphGenerator
+    public class HexagonGraph
     {
-        public static void CreateHexagonGraph(int width, int height, out Center[] centers, out Corner[] corners)
-        {
-            Profiler.BeginSample(nameof(CreateHexagonGraph));
+        public readonly Vector2Int size;
+        public readonly Center[] centers;
+        public readonly Corner[] corners;
 
+        public HexagonGraph(Vector2Int graphSize)
+        {
+            Profiler.BeginSample("Create Hexagon Graph");
+
+            if (graphSize.x < 0 || graphSize.y < 0)
+            {
+                throw new ArgumentException($"그래프 크기가 0보다 작을 수 없음");
+            }
+
+            size = graphSize;
+            int width = graphSize.x;
+            int height = graphSize.y;
             int totalCenters = width * height;
 
             centers = new Center[totalCenters];
@@ -73,7 +85,7 @@ namespace TilePuzzle.Procedural
             HashSet<Corner> cornerSet = new HashSet<Corner>();
             foreach (Center center in centers)
             {
-                cornerSet.AddRange(center.NeighborCorners);
+                cornerSet.UnionWith(center.NeighborCorners);
             }
             corners = cornerSet.ToArray();
 

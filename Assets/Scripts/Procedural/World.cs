@@ -36,7 +36,7 @@ namespace TilePuzzle.Procedural
             hexagonInfos = new HexagonInfo[WorldSize.x * WorldSize.y];
             for (int i = 0; i < hexagonInfos.Length; i++)
             {
-                Center center = terrainData.centers[i];
+                Center center = terrainData.terrainGraph.centers[i];
                 hexagonInfos[i] = new HexagonInfo
                 {
                     hexPos = center.hexPos,

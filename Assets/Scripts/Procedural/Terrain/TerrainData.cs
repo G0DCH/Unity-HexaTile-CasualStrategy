@@ -3,32 +3,23 @@ using UnityEngine;
 
 namespace TilePuzzle.Procedural
 {
+    /// <summary>
+    /// 지형 정보를 그래프의 형태로 관리
+    /// </summary>
     public class TerrainData
     {
         /// <summary>
-        /// 지형 크기 (width, height)
+        /// 지형 정보 그래프
         /// </summary>
-        public readonly Vector2Int terrainSize;
+        public readonly HexagonGraph terrainGraph;
         /// <summary>
-        /// 헥사곤 중심 속성
+        /// 지형 정보 생성에 사용된 바이옴 테이블
         /// </summary>
-        public readonly Center[] centers;
-        /// <summary>
-        /// 헥사곤 꼭짓점 속성
-        /// </summary>
-        public readonly Corner[] corners;
         public readonly BiomeTable biomeTable;
 
-        public TerrainData(Vector2Int terrainSize, Center[] centers, Corner[] corners, BiomeTable biomeTable)
+        public TerrainData(HexagonGraph terrainGraph, BiomeTable biomeTable)
         {
-            if (terrainSize.x < 0 || terrainSize.y < 0)
-            {
-                throw new ArgumentException($"지형 크기가 0보다 작을 수 없음");
-            }
-
-            this.terrainSize = terrainSize;
-            this.centers = centers ?? throw new ArgumentNullException(nameof(centers));
-            this.corners = corners ?? throw new ArgumentNullException(nameof(corners));
+            this.terrainGraph = terrainGraph ?? throw new ArgumentNullException(nameof(terrainGraph));
             this.biomeTable = biomeTable ?? throw new ArgumentNullException(nameof(biomeTable));
         }
     }

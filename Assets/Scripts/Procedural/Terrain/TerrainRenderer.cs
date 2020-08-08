@@ -41,8 +41,8 @@ namespace TilePuzzle.Procedural
             Profiler.BeginSample(nameof(SpawnHexagonTerrains));
 
             CleanUpHexagons();
-            int width = terrainData.terrainSize.x;
-            int height = terrainData.terrainSize.y;
+            int width = terrainData.terrainGraph.size.x;
+            int height = terrainData.terrainGraph.size.y;
             spawnedHexagonObjects = new HexagonObject[width * height];
 
             if (hexagonHolder == null)
@@ -62,7 +62,7 @@ namespace TilePuzzle.Procedural
             {
                 for (int x = 0; x < width; x++)
                 {
-                    Center center = terrainData.centers[x + y * width];
+                    Center center = terrainData.terrainGraph.centers[x + y * width];
                     HexagonObject newHexagonObject = CreateNewHexagonObject(hexagonObjectPrefab, hexagonHolder, HexagonPos.FromArrayXY(x, y));
                     spawnedHexagonObjects[x + y * width] = newHexagonObject;
 

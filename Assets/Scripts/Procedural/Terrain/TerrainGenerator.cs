@@ -24,43 +24,44 @@ namespace TilePuzzle.Procedural
             seed += salt;
             Vector2Int terrainSize = settings.terrainSize;
 
-            GraphGenerator.CreateHexagonGraph(terrainSize.x, terrainSize.y, out Center[] centers, out Corner[] corners);
+            // 지형 그래프 생성
+            HexagonGraph terrainGraph = new HexagonGraph(terrainSize);
 
             // 섬 모양 계산
-            CalculateIslandShape(terrainSize, settings.landRatio, seed, settings.terrainShapeNoiseSettings, settings.terrainShapeFalloffSettings, ref corners);
+            CalculateIslandShape(terrainGraph, seed, settings.landRatio, settings.terrainShapeNoiseSettings, settings.terrainShapeFalloffSettings);
 
             // 물, 바다, 땅, 해변 설정
-            CalculateWaterGroundType(settings.lakeThreshold, ref centers, ref corners);
+            CalculateWaterGroundType(terrainGraph, settings.lakeThreshold);
 
             // 높이 분포 계산
-            CalculateElevation(settings.peakMultiplier, ref centers, ref corners);
+            CalculateElevation(terrainGraph, settings.peakMultiplier);
 
             // 내리막 계산
-            CalculateDownSlope(ref corners);
+            CalculateDownSlope(terrainGraph);
 
             // 강 생성
             int riverSpawnTry = (int)((terrainSize.x + terrainSize.y) / 2 * settings.riverSpawnMultiplier);
-            CalculateRiver(seed + settings.riverSeed, riverSpawnTry, settings.riverSpawnRange, ref corners);
+            CalculateRiver(terrainGraph, seed + settings.riverSeed, riverSpawnTry, settings.riverSpawnRange);
 
             // 습도 계산
-            CalculateMoisture(ref centers, ref corners);
+            CalculateMoisture(terrainGraph);
 
             // 바이옴 생성
             BiomeTable biomeTable = settings.biomeTableSettings.GetBiomeTable();
-            CalculateBiome(biomeTable, ref centers);
+            CalculateBiome(terrainGraph, biomeTable);
 
             Profiler.EndSample();
 
-            TerrainData terrainData = new TerrainData(terrainSize, centers, corners, biomeTable);
+            TerrainData terrainData = new TerrainData(terrainGraph, biomeTable);
             return terrainData;
         }
 
-        private static void CalculateIslandShape(Vector2Int mapSize, float targetLandRatio, int globalSeed, NoiseSettings noiseSettings, FalloffSettings falloffSettings, ref Corner[] corners)
+        private static void CalculateIslandShape(HexagonGraph terrainGraph, int seed, float targetLandRatio, NoiseSettings noiseSettings, FalloffSettings falloffSettings)
         {
             // 노이즈 값이 seaLevel 보다 낮으면 물로 설정
-            Vector2[] cornerPoints = corners.Select(x => new Vector2(x.cornerPos.x, x.cornerPos.z)).ToArray();
-            NoiseGenerator.Instance.EvaluateNoise(ref cornerPoints, out float[] cornerNoiseValues, globalSeed, noiseSettings);
-            FalloffGenerator.Instance.EvaluateFalloff(mapSize.x, mapSize.y, ref cornerPoints, out float[] cornerFalloffValues, falloffSettings);    // TODO: radial falloff 으로 변경
+            Vector2[] cornerPoints = terrainGraph.corners.Select(x => new Vector2(x.cornerPos.x, x.cornerPos.z)).ToArray();
+            NoiseGenerator.Instance.EvaluateNoise(ref cornerPoints, out float[] cornerNoiseValues, seed, noiseSettings);
+            FalloffGenerator.Instance.EvaluateFalloff(terrainGraph.size.x, terrainGraph.size.y, ref cornerPoints, out float[] cornerFalloffValues, falloffSettings);    // TODO: radial falloff 으로 변경
 
             // Binary search
             float min = 0;
@@ -69,12 +70,12 @@ namespace TilePuzzle.Procedural
             int iteration = 0;
             while (iteration++ < 10)
             {
-                for (int i = 0; i < corners.Length; i++)
+                for (int i = 0; i < terrainGraph.corners.Length; i++)
                 {
-                    corners[i].isWater = cornerNoiseValues[i] * cornerFalloffValues[i] < seaLevel;
+                    terrainGraph.corners[i].isWater = cornerNoiseValues[i] * cornerFalloffValues[i] < seaLevel;
                 }
 
-                float currentLandRatio = corners.Count(x => x.isWater == false) / (float)corners.Length;
+                float currentLandRatio = terrainGraph.corners.Count(x => x.isWater == false) / (float)terrainGraph.corners.Length;
                 if (Mathf.Abs(currentLandRatio - targetLandRatio) <= 0.01f)
                 {
                     break;
@@ -93,7 +94,7 @@ namespace TilePuzzle.Procedural
 
             // 맵 가장자리의 높이를 0으로 설정
             Queue<Corner> elevationFloodFill = new Queue<Corner>();
-            foreach (Corner corner in corners)
+            foreach (Corner corner in terrainGraph.corners)
             {
                 if (corner.isBorder)
                 {
@@ -127,10 +128,10 @@ namespace TilePuzzle.Procedural
             }
         }
 
-        private static void CalculateWaterGroundType(float lakeThreshold, ref Center[] centers, ref Corner[] corners)
+        private static void CalculateWaterGroundType(HexagonGraph terrainGraph, float lakeThreshold)
         {
             Queue<Center> seaFloodFill = new Queue<Center>();
-            foreach (Center center in centers)
+            foreach (Center center in terrainGraph.centers)
             {
                 int totalWaterCorner = 0;
                 foreach (Corner neighborCorner in center.NeighborCorners)
@@ -164,7 +165,7 @@ namespace TilePuzzle.Procedural
             }
 
             // 인접한 center가 바다와 땅이면 해변으로 설정
-            foreach (Center center in centers)
+            foreach (Center center in terrainGraph.centers)
             {
                 bool surroundedBySea = false;
                 bool surroundedByLand = false;
@@ -183,7 +184,7 @@ namespace TilePuzzle.Procedural
             }
 
             // 이웃한 center를 보고 corner의 물, 바다, 땅, 해변 설정
-            foreach (Corner corner in corners)
+            foreach (Corner corner in terrainGraph.corners)
             {
                 int neighborSeaCount = 0;
                 int neighborLandCount = 0;
@@ -205,9 +206,9 @@ namespace TilePuzzle.Procedural
             }
         }
 
-        private static void CalculateElevation(float scaleFactor, ref Center[] centers, ref Corner[] corners)
+        private static void CalculateElevation(HexagonGraph terrainGraph, float scaleFactor)
         {
-            Corner[] sortedLandCorners = corners
+            Corner[] sortedLandCorners = terrainGraph.corners
                 .Where(x => x.isSea == false && x.isCoast == false)
                 .OrderBy(x => x.elevation)
                 .ToArray();
@@ -220,7 +221,7 @@ namespace TilePuzzle.Procedural
             }
 
             // 바다와 해변의 높이를 0으로 설정
-            foreach (Corner corner in corners)
+            foreach (Corner corner in terrainGraph.corners)
             {
                 if (corner.isSea || corner.isCoast)
                 {
@@ -229,15 +230,15 @@ namespace TilePuzzle.Procedural
             }
 
             // 이웃한 corner 높이들의 평균으로 center의 높이를 계산
-            foreach (Center center in centers)
+            foreach (Center center in terrainGraph.centers)
             {
                 center.elevation = center.NeighborCorners.Sum(x => x.elevation) / center.NeighborCorners.Count();
             }
         }
 
-        private static void CalculateDownSlope(ref Corner[] corners)
+        private static void CalculateDownSlope(HexagonGraph terrainGraph)
         {
-            foreach (Corner corner in corners)
+            foreach (Corner corner in terrainGraph.corners)
             {
                 Corner lowestCorner = corner;
                 foreach (Corner neighborCorner in corner.NeighborCorners)
@@ -251,12 +252,12 @@ namespace TilePuzzle.Procedural
             }
         }
 
-        private static void CalculateRiver(int seed, int riverSpawnTry, Vector2 riverSpawnRange, ref Corner[] corners)
+        private static void CalculateRiver(HexagonGraph terrainGraph, int seed, int riverSpawnTry, Vector2 riverSpawnRange)
         {
             System.Random random = new System.Random(seed);
             for (int i = 0; i < riverSpawnTry; i++)
             {
-                Corner randomCorner = corners[random.Next(corners.Length)];
+                Corner randomCorner = terrainGraph.corners[random.Next(terrainGraph.corners.Length)];
                 if (randomCorner.isSea || randomCorner.elevation < riverSpawnRange.x || randomCorner.elevation > riverSpawnRange.y)
                 {
                     continue;
@@ -279,10 +280,10 @@ namespace TilePuzzle.Procedural
             }
         }
 
-        private static void CalculateMoisture(ref Center[] centers, ref Corner[] corners)
+        private static void CalculateMoisture(HexagonGraph terrainGraph)
         {
             Queue<Corner> moistureFloodFill = new Queue<Corner>();
-            foreach (Corner corner in corners)
+            foreach (Corner corner in terrainGraph.corners)
             {
                 if (corner.isSea == false && (corner.isWater || corner.river > 0))
                 {
@@ -309,7 +310,7 @@ namespace TilePuzzle.Procedural
                 }
             }
 
-            foreach (Corner corner in corners)
+            foreach (Corner corner in terrainGraph.corners)
             {
                 if (corner.isSea || corner.isCoast)
                 {
@@ -317,7 +318,7 @@ namespace TilePuzzle.Procedural
                 }
             }
 
-            Corner[] sortedLandCorners = corners
+            Corner[] sortedLandCorners = terrainGraph.corners
                 .Where(x => x.isSea == false && x.isCoast == false)
                 .OrderBy(x => x.moisture)
                 .ToArray();
@@ -326,15 +327,15 @@ namespace TilePuzzle.Procedural
                 sortedLandCorners[i].moisture = i / (float)(sortedLandCorners.Length - 1);
             }
 
-            foreach (Center center in centers)
+            foreach (Center center in terrainGraph.centers)
             {
                 center.moisture = center.NeighborCorners.Sum(x => x.moisture) / center.NeighborCorners.Length;
             }
         }
 
-        private static void CalculateBiome(BiomeTable biomeTable, ref Center[] centers)
+        private static void CalculateBiome(HexagonGraph terrainGraph, BiomeTable biomeTable)
         {
-            foreach (Center center in centers)
+            foreach (Center center in terrainGraph.centers)
             {
                 Biome biome = biomeTable.EvaluateBiome(center.moisture, center.Temperature);
                 center.biomeId = biome.id;
