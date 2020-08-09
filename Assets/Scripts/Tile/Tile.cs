@@ -186,7 +186,7 @@ namespace TilePuzzle
         private bool activeBasils = false;
         private bool activeOxford = false;
         private bool activeBroadway = false;
-        private bool activeLio = false;
+        private bool activeCristo = false;
         #endregion
 
         private void Awake()
@@ -337,6 +337,14 @@ namespace TilePuzzle
             {
                 activeOxford = active;
             }
+            if (wonder is BroadWay)
+            {
+                activeBroadway = active;
+            }
+            if (wonder is CristoRedentor)
+            {
+                activeCristo = active;
+            }
 
             ChangeRange();
         }
@@ -362,7 +370,7 @@ namespace TilePuzzle
             {
                 Range += 1;
             }
-            if (activeLio)
+            if (activeCristo)
             {
                 Range += 1;
             }
