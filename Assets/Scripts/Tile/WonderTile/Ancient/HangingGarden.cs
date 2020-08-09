@@ -23,6 +23,12 @@
         // 강 타일에 설치 가능
         public override bool WonderLimit(Tile currentTile)
         {
+            if (currentTile.MyTileType == TileType.Water ||
+                currentTile.MyTileType == TileType.Mountain)
+            {
+                return false;
+            }
+
             if (currentTile.MyTileType == TileType.River)
             {
                 return true;

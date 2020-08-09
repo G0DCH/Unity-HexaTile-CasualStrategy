@@ -23,6 +23,12 @@
         // currentTile이 강 타일이라면 건설 가능
         public override bool WonderLimit(Tile currentTile)
         {
+            if (currentTile.MyTileType == TileType.Water ||
+                currentTile.MyTileType == TileType.Mountain)
+            {
+                return false;
+            }
+
             if (currentTile.MyTileType == TileType.River)
             {
                 return true;

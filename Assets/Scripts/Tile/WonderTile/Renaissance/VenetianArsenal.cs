@@ -20,6 +20,7 @@
                     if (neighbor.MyTileType == TileType.Water)
                     {
                         currentTile.ChangeBonus(wonderBonus);
+                        return;
                     }
                 }
             }

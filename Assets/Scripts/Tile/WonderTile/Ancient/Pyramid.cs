@@ -20,6 +20,12 @@
         // 사막, 강 옆에만 지을 수 있음.
         public override bool WonderLimit(Tile currentTile)
         {
+            if (currentTile.MyTileType == TileType.Water ||
+                currentTile.MyTileType == TileType.Mountain)
+            {
+                return false;
+            }
+
             if (currentTile.MyTileTerrain == TileTerrain.Desert)
             {
                 if (currentTile.MyTileType == TileType.River)

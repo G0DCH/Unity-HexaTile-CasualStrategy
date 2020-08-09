@@ -1,7 +1,7 @@
 ﻿namespace TilePuzzle
 {
     // 타지마할
-    public class TajMahal: WonderTile
+    public class TajMahal : WonderTile
     {
         public override void AddToDelegate()
         {
@@ -17,7 +17,7 @@
             }
         }
 
-        // 강 옆에 건설 가능
+        // 강에 건설 가능
         public override bool WonderLimit(Tile currentTile)
         {
             if (currentTile.MyTileType == TileType.Water ||
@@ -26,12 +26,9 @@
                 return false;
             }
 
-            foreach (Tile neighbor in currentTile.NeighborTiles)
+            if (currentTile.MyTileType == TileType.River)
             {
-                if (neighbor.MyTileType == TileType.River)
-                {
-                    return true;
-                }
+                return true;
             }
 
             return false;
