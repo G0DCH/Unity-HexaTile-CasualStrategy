@@ -178,10 +178,12 @@ namespace TilePuzzle
         #region 범위 불가사의 on off
         // 다음 불가사의의 효과를 받았는가
         // 킬와 키시와니
+        // 성 바실리 대성당
         // 옥스퍼드 대학
         // 브로드 웨이
         // 리오의 예수상
         private bool activeKilwa = false;
+        private bool activeBasils = false;
         private bool activeOxford = false;
         private bool activeBroadway = false;
         private bool activeLio = false;
@@ -327,6 +329,11 @@ namespace TilePuzzle
             {
                 activeKilwa = active;
             }
+            if (wonder is SaintBasils)
+            {
+                activeBasils = active;
+            }
+
             ChangeRange();
         }
 
@@ -336,6 +343,10 @@ namespace TilePuzzle
             Range = baseRange;
 
             if (activeKilwa)
+            {
+                Range += 1;
+            }
+            if (activeBasils)
             {
                 Range += 1;
             }
