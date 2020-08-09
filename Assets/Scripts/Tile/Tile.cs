@@ -225,38 +225,90 @@ namespace TilePuzzle
         }
 
         // 내 타일이 pivotBuilding의 보너스에 해당하는지 검사하고 해당 점수 return
-        public int CountSpecificBonus(TileBuilding pivotBuilding)
+        public float CountSpecificBonus(TileBuilding pivotBuilding)
         {
-            int bonusPoint = 0;
+            float bonusPoint = 0;
 
             if (MyTileBuilding == TileBuilding.GovernmentPlaza)
             {
                 bonusPoint = 1;
             }
+            // 캠퍼스
             else if (pivotBuilding == TileBuilding.Campus)
             {
                 if (MyTileType == TileType.Mountain)
                 {
                     bonusPoint = 1;
                 }
+                else if (MyTileFeature == TileFeature.RainForest)
+                {
+                    bonusPoint = 0.5f;
+                }
             }
+            // 산업구역
             else if (pivotBuilding == TileBuilding.IndustrialZone)
             {
-                if (MyTileBuilding == TileBuilding.Aqueduct)
+                if (MyTileBuilding == TileBuilding.Aqueduct ||
+                    MyTileBuilding == TileBuilding.Carnal)
                 {
                     bonusPoint = 2;
                 }
             }
+            // 성지
             else if (pivotBuilding == TileBuilding.HolySite)
             {
                 if (MyTileType == TileType.Mountain)
                 {
                     bonusPoint = 1;
                 }
+                else if (MyTileFeature == TileFeature.Forest)
+                {
+                    bonusPoint = 0.5f;
+                }
             }
+            // 주둔지
+            else if (pivotBuilding == TileBuilding.Encampment)
+            {
+                if (MyTileBuilding == TileBuilding.City)
+                {
+                    bonusPoint = -1;
+                }
+            }
+            // 항만
+            else if (pivotBuilding == TileBuilding.Harbor)
+            {
+                if (MyTileBuilding == TileBuilding.City)
+                {
+                    bonusPoint = 2;
+                }
+            }
+            // 상업 중심지
+            else if (pivotBuilding == TileBuilding.CommercialHub)
+            {
+                if (MyTileBuilding == TileBuilding.Harbor)
+                {
+                    bonusPoint += 2;
+                }
+                if (MyTileType == TileType.River)
+                {
+                    bonusPoint += 1;
+                }
+            }
+            // 유흥단지
+            else if (pivotBuilding == TileBuilding.EntertainmentComplex)
+            {
+                if (MyTileBuilding == TileBuilding.City)
+                {
+                    bonusPoint = 2;
+                }
+            }
+            // 극장가
             else if (pivotBuilding == TileBuilding.TheaterSquare)
             {
-                // 나중에 불가사의 추가할 것
+                if (MyTileBuilding == TileBuilding.Wonder)
+                {
+                    bonusPoint = 2;
+                }
             }
 
             return bonusPoint;

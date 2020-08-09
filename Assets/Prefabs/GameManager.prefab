@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3259717438936863098}
   - component: {fileID: 3259717438936863097}
   - component: {fileID: 3259717438936863096}
+  - component: {fileID: 3259717439083867650}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -49,7 +50,7 @@ MonoBehaviour:
   BuildPoint: 6
   GameOverPanel: {fileID: 0}
   GameOverText: {fileID: 0}
-  World: {fileID: 0}
+  World: {fileID: 3259717439083867650}
   terrainGenerateSettings: {fileID: 11400000, guid: fcbf19e99f3e7254391891676b80a62b,
     type: 2}
   decorationSpawnSettings: {fileID: 11400000, guid: 8c5d9b4495168e14c97032cc3aa81eb0,
@@ -66,3 +67,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08a42c49222be3a4296e0a45b96a227e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3259717439083867650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3259717438936863095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8013e0e0878900f4686b9b0411e2472c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  terrainRenderer: {fileID: 0}
+  decorationRenderer: {fileID: 0}
