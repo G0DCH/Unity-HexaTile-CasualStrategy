@@ -13,7 +13,14 @@
         {
             if (tileBuilding == TileBuilding.HolySite)
             {
-                currentTile.ChangeBonus(wonderBonus);
+                foreach (Tile rangeTile in currentTile.RangeTiles)
+                {
+                    if (rangeTile.MyTileBuilding == TileBuilding.Encampment)
+                    {
+                        currentTile.ChangeBonus(wonderBonus);
+                        return;
+                    }
+                }
             }
         }
 

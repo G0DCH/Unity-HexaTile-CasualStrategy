@@ -18,6 +18,7 @@
                 if (neighbor.MyTileType == TileType.Water)
                 {
                     nearWater = true;
+                    break;
                 }
             }
 
