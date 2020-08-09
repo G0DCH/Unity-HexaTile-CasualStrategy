@@ -333,6 +333,10 @@ namespace TilePuzzle
             {
                 activeBasils = active;
             }
+            if (wonder is OxfordUniv)
+            {
+                activeOxford = active;
+            }
 
             ChangeRange();
         }

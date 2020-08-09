@@ -11,7 +11,8 @@
     {
         Campus, IndustrialZone, GovernmentPlaza, HolySite,
         TheaterSquare, Aqueduct, City, Harbor,
-        CommercialHub, Encampment, Wonder, EntertainmentComplex, Empty
+        CommercialHub, Encampment, Wonder, EntertainmentComplex,
+        Carnal, Empty
     }
 
     [System.Serializable]
