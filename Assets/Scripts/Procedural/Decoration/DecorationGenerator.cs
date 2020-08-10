@@ -166,7 +166,7 @@ namespace TilePuzzle.Procedural
                         : Vector3.forward;
 
                 // 데코 데이터에 저장
-                decorationData.decorationInfos[i] = new DecorationInfo("Forest", DecorationInfo.Type.Mountain, false);
+                decorationData.decorationInfos[i] = new DecorationInfo("Forest", DecorationInfo.Type.Forest, false);
                 decorationData.renderDatas[i] = new DecorationData.RenderData(randomDecoPrefab, scale, lookDirection);
             }
         }
