@@ -4,15 +4,19 @@ namespace TilePuzzle
 {
     public class UIManager : Utility.Singleton<UIManager>
     {
-        private bool isBuildingOn = false;
+        private enum PanelFlag { Building, WonderButton, Wonder }
+
+        private PanelFlag panelFlag = PanelFlag.Building;
 
         public GameObject BuildingButtonPanel;
         public GameObject WonderButtonPanel;
 
+        // 현재 열린 패널
+        private GameObject openedPanel;
+
         // 타일 선택
         public void ButtonSelect(GameObject tilePrefab)
         {
-
             if (TileManager.Instance.SelectedTile != null)
             {
                 Destroy(TileManager.Instance.SelectedTile.gameObject);
@@ -25,19 +29,50 @@ namespace TilePuzzle
             TileManager.Instance.SelectedTile.TurnGrid(false);
         }
 
+        // 건물, 불가사의 패널 전환
         public void ChangePanel()
         {
-            if (isBuildingOn)
+            if (panelFlag == PanelFlag.Building)
             {
                 BuildingButtonPanel.SetActive(false);
                 WonderButtonPanel.SetActive(true);
-                isBuildingOn = false;
+                panelFlag = PanelFlag.WonderButton;
+                openedPanel = WonderButtonPanel;
             }
-            else
+            else if (panelFlag == PanelFlag.WonderButton)
             {
                 WonderButtonPanel.SetActive(false);
                 BuildingButtonPanel.SetActive(true);
-                isBuildingOn = true;
+                panelFlag = PanelFlag.Building;
+                openedPanel = BuildingButtonPanel;
+            }
+        }
+
+        // 해당 시대의 불가사의 패널을 염.
+        public void OpenWonderPanel(GameObject panel)
+        {
+            WonderButtonPanel.SetActive(false);
+            panel.SetActive(true);
+            openedPanel = panel;
+            panelFlag = PanelFlag.Wonder;
+        }
+
+        // 이전 패널로 돌아가기.
+        public void ReturnButton()
+        {
+            if (panelFlag == PanelFlag.WonderButton)
+            {
+                WonderButtonPanel.SetActive(false);
+                BuildingButtonPanel.SetActive(true);
+                panelFlag = PanelFlag.Building;
+                openedPanel = BuildingButtonPanel;
+            }
+            else if (panelFlag == PanelFlag.Wonder)
+            {
+                openedPanel.SetActive(false);
+                WonderButtonPanel.SetActive(true);
+                panelFlag = PanelFlag.WonderButton;
+                openedPanel = WonderButtonPanel;
             }
         }
     }

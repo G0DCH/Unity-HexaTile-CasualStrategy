@@ -23,6 +23,9 @@ namespace TilePuzzle
 
         public World World;
 
+        [SerializeField]
+        private Vector2Int WorldSize;
+
         [Required]
         public TerrainGenerateSettings terrainGenerateSettings;
         [Required]
@@ -60,13 +63,9 @@ namespace TilePuzzle
             Procedural.TerrainData terrainData = TerrainGenerator.GenerateTerrainData(seed, terrainGenerateSettings);
             DecorationData decorationData = DecorationGenerator.GenerateDecorationData(seed, terrainData, decorationSpawnSettings);
 
-            World.InitializeWorld(World.WorldSize, terrainData, decorationData);
+            World.InitializeWorld(WorldSize, terrainData, decorationData);
 
-
-            if (FindObjectOfType<TileManager>() != null)
-            {
-                TileManager.Instance.InitTileMap();
-            }
+            TileManager.Instance.InitTileMap();
         }
 
         public void Restart()

@@ -176,19 +176,21 @@ namespace TilePuzzle
 
                             TileBuilding tileBuilding = SelectedTile.MyTileBuilding;
 
+                            // 기존 타일 컴포넌트 제거
+                            GameObject clickedObject = clickedTile.gameObject;
+                            HexagonInfo hexagon = clickedTile.MyHexagonInfo;
+                            DecorationInfo decorationInfo = clickedTile.MyDecorationInfo;
+                            int range = clickedTile.Range;
+                            TileMap.Remove(hexagon.hexPos);
+                            Destroy(clickedTile);
+
+                            // 빌딩 또는 도시 컴포넌트로 교체
                             if (SelectedTile is BuildingTile)
                             {
-                                // 기존 타일 컴포넌트 제거하고
-                                // 빌딩 혹은 도시 타일 컴포넌트로 교체
-                                GameObject clickedObject = clickedTile.gameObject;
-                                HexagonInfo hexagon = clickedTile.MyHexagonInfo;
-                                Destroy(clickedTile);
-
                                 // 격자 표기, 타일 소유권 이전
                                 if (SelectedTile is CityTile)
                                 {
                                     clickedTile = clickedObject.AddComponent<CityTile>();
-                                    clickedTile.MyHexagonInfo = hexagon;
 
                                     ((CityTile)clickedTile).SetRangeGrids();
                                     ((CityTile)clickedTile).SetOwnerInRange();
@@ -196,19 +198,34 @@ namespace TilePuzzle
                                 else
                                 {
                                     clickedTile = clickedObject.AddComponent<BuildingTile>();
-                                    clickedTile.MyHexagonInfo = hexagon;
                                 }
                             }
+                            // 원더 컴포넌트로 교체
+                            else if (SelectedTile is WonderTile)
+                            {                                
+                                clickedTile = (Tile)clickedObject.AddComponent(SelectedTile.GetType());
+                            }
+
+                            TileMap.Add(hexagon.hexPos, clickedTile);
+
+                            clickedTile.InitInfo(hexagon, decorationInfo, range);
+
+                            // 타일 타입을 건설한 건물로 변경
+                            clickedTile.MyTileBuilding = tileBuilding;
 
                             // 건물 보너스 갱신
                             if (clickedTile is BuildingTile)
                             {
-                                // 타일 타입을 건설한 건물로 변경
-                                clickedTile.MyTileBuilding = tileBuilding;
                                 ((BuildingTile)clickedTile).RefreshBonus();
                             }
                             // 불가사의로 인한 보너스 추가, 보너스 출력
                             MyWonderBonus?.Invoke(clickedTile, tileBuilding);
+
+                            if (clickedTile is WonderTile)
+                            {
+                                // 딜리케이트 추가
+                                ((WonderTile)clickedTile).AddToDelegate();
+                            }
 
                             GameManager.Instance.RefreshPoint(clickedTile.Bonus);
 

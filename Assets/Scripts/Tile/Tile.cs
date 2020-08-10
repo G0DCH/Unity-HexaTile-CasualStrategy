@@ -215,14 +215,23 @@ namespace TilePuzzle
         // Info 초기화
         public void InitInfo(HexagonInfo hexagonInfo, DecorationInfo decorationInfo)
         {
-            if (!isInit)
-            {
-                myHexagonInfo = hexagonInfo;
-                myDecorationInfo = decorationInfo;
+            myHexagonInfo = hexagonInfo;
+            myDecorationInfo = decorationInfo;
 
-                isInit = true;
-            }
+            isInit = true;
         }
+
+        // Info 초기화
+        public void InitInfo(HexagonInfo hexagonInfo, DecorationInfo decorationInfo, int range)
+        {
+            myHexagonInfo = hexagonInfo;
+            myDecorationInfo = decorationInfo;
+            baseRange = range;
+            Range = range;
+
+            isInit = true;
+        }
+
 
         // 내 타일이 pivotBuilding의 보너스에 해당하는지 검사하고 해당 점수 return
         public float CountSpecificBonus(TileBuilding pivotBuilding)
