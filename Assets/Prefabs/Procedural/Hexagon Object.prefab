@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4700569314209307663}
   - component: {fileID: 6605811517119367884}
   - component: {fileID: 8972961125880384353}
+  - component: {fileID: 3305730919030092232}
   m_Layer: 0
   m_Name: Hexagon Object
   m_TagString: Hexagon
@@ -94,3 +95,17 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &3305730919030092232
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7158445840029784857}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 377365ddcd8a2d9429545de7cfc8e850, type: 2}

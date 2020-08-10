@@ -3541,6 +3541,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameOverPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 7739428979192466774, guid: 7ceb1553cdc96e145b1bad7e9a0c8dd8,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 390545273}
+    - target: {fileID: 7739428979192466774, guid: 7ceb1553cdc96e145b1bad7e9a0c8dd8,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Restart
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ceb1553cdc96e145b1bad7e9a0c8dd8, type: 3}
 --- !u!1001 &9003389572461241377

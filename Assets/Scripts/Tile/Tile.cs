@@ -12,11 +12,6 @@ namespace TilePuzzle
         {
             get
             {
-                if (!isInit)
-                {
-                    InitInfo();
-                }
-
                 return myHexagonInfo;
             }
             set
@@ -31,11 +26,6 @@ namespace TilePuzzle
         {
             get
             {
-                if (!isInit)
-                {
-                    InitInfo();
-                }
-
                 return myDecorationInfo;
             }
             set
@@ -192,24 +182,6 @@ namespace TilePuzzle
         private void Awake()
         {
             baseRange = Range;
-        }
-
-        // Info 초기화
-        public void InitInfo()
-        {
-            if (!isInit)
-            {
-                // 헥사곤 초기화
-                HexagonObject hexagonObject = GetComponent<HexagonObject>();
-                HexagonInfo hexagon = GameManager.Instance.World.GetHexagonInfoAt(hexagonObject.hexPos);
-                myHexagonInfo = hexagon;
-
-                // 데코 초기화
-                DecorationInfo decorationInfo = GameManager.Instance.World.GetDecorationInfoAt(MyHexagonInfo.hexPos).GetValueOrDefault();
-                myDecorationInfo = decorationInfo;
-
-                isInit = true;
-            }
         }
 
         // Info 초기화
@@ -381,6 +353,13 @@ namespace TilePuzzle
             {
                 rangeTiles = TileManager.Instance.GetRangeTiles(this, Range);
             }
+        }
+
+        // 범위 내 타일과 이웃 타일 갱신
+        public void UpdateNeighborRange()
+        {
+            neighborTiles = TileManager.Instance.GetRangeTiles(this, 1);
+            rangeTiles = TileManager.Instance.GetRangeTiles(this, Range);
         }
 
         // 범위 변경 용 bool 값 변경
