@@ -192,7 +192,7 @@ MonoBehaviour:
   myTileFeature: 2
   myTileTerrain: 1
   neighborTiles: []
-  range: 2
+  range: 6
   rangeTiles: []
   bonus: 0
   ownerCity: {fileID: 0}
