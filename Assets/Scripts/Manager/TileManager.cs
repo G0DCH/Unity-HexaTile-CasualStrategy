@@ -189,7 +189,7 @@ namespace TilePuzzle
                             }
                             // 원더 컴포넌트로 교체
                             else if (SelectedTile is WonderTile)
-                            {                                
+                            {
                                 clickedTile = (Tile)clickedObject.AddComponent(SelectedTile.GetType());
                                 clickedTile.InitInfo(hexagon, decorationInfo, range);
                             }
@@ -312,7 +312,7 @@ namespace TilePuzzle
                         {
                             return false;
                         }
-                    }                    
+                    }
                     else
                     {
                         // 항만을 제외하고는 물이나 산 타일에 지을 수 없음.
@@ -323,10 +323,17 @@ namespace TilePuzzle
                         }
 
                         // 송수로의 경우 주변에 도시와 산이 있는지 검사
+                        // 또는 해당 타일이 도시 옆 강 타일인지 검사.
                         if (SelectedTile.MyTileBuilding == TileBuilding.Aqueduct)
                         {
+                            bool isRiver = false;
                             bool nearCity = false;
                             bool nearMountain = false;
+
+                            if (currentTile.MyTileType == TileType.River)
+                            {
+                                isRiver = true;
+                            }
 
                             for (int i = 0; i < currentTile.NeighborTiles.Count; i++)
                             {
@@ -339,7 +346,8 @@ namespace TilePuzzle
                                     nearMountain = true;
                                 }
 
-                                if (nearMountain && nearCity)
+                                if (nearMountain && nearCity ||
+                                    isRiver && nearCity)
                                 {
                                     return true;
                                 }
