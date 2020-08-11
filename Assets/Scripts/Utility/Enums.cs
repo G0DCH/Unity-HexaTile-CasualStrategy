@@ -19,5 +19,5 @@
     public enum TileFeature { Forest, RainForest, Empty }
 
     [System.Serializable]
-    public enum TileTerrain { Grassland, Plains, Desert, Snow, Tundra }
+    public enum TileTerrain { Grassland, Plains, Desert, Snow, Tundra, RainForest }
 }

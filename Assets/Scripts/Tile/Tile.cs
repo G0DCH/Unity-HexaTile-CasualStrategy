@@ -83,13 +83,6 @@ namespace TilePuzzle
         {
             get
             {
-                if (myTileFeature == TileFeature.Empty)
-                {
-                    if (MyDecorationInfo.type == DecorationInfo.Type.Forest)
-                    {
-                        myTileFeature = TileFeature.Forest;
-                    }
-                }
                 return myTileFeature;
             }
             set
@@ -189,6 +182,25 @@ namespace TilePuzzle
         {
             myHexagonInfo = hexagonInfo;
             myDecorationInfo = decorationInfo;
+            
+            // 일단 1개만 들어있다고 가정
+            foreach (var tag in MyHexagonInfo.biome.tags)
+            {
+                myTileTerrain = (TileTerrain)System.Enum.Parse(typeof(TileTerrain), tag);
+            }
+
+            // 얹힌 것도 추가
+            if (MyDecorationInfo.type == DecorationInfo.Type.Forest)
+            {
+                if (MyTileTerrain == TileTerrain.RainForest)
+                {
+                    myTileFeature = TileFeature.RainForest;
+                }
+                else
+                {
+                    myTileFeature = TileFeature.Forest;
+                }
+            }
 
             isInit = true;
         }
@@ -201,9 +213,26 @@ namespace TilePuzzle
             baseRange = range;
             Range = range;
 
+            // 일단 1개만 들어있다고 가정
+            foreach (var tag in MyHexagonInfo.biome.tags)
+            {
+                myTileTerrain = (TileTerrain)System.Enum.Parse(typeof(TileTerrain), tag);
+            }
+
+            if (MyDecorationInfo.type == DecorationInfo.Type.Forest)
+            {
+                if (MyTileTerrain == TileTerrain.RainForest)
+                {
+                    myTileFeature = TileFeature.RainForest;
+                }
+                else
+                {
+                    myTileFeature = TileFeature.Forest;
+                }
+            }
+
             isInit = true;
         }
-
 
         // 내 타일이 pivotBuilding의 보너스에 해당하는지 검사하고 해당 점수 return
         public float CountSpecificBonus(TileBuilding pivotBuilding)
