@@ -17,6 +17,8 @@ namespace TilePuzzle.Procedural
         /// </summary>
         public readonly BiomeTable biomeTable;
 
+        public Vector2Int TerrainSize => terrainGraph.size;
+
         public TerrainData(HexagonGraph terrainGraph, BiomeTable biomeTable)
         {
             this.terrainGraph = terrainGraph ?? throw new ArgumentNullException(nameof(terrainGraph));
