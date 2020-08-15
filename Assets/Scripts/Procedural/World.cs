@@ -1,4 +1,6 @@
-﻿using Sirenix.OdinInspector;
+﻿#pragma warning disable CS0649
+
+using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
