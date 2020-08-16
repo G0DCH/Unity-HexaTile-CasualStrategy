@@ -28,8 +28,7 @@ namespace TilePuzzle
 
         [Required]
         public TerrainGenerateSettings terrainGenerateSettings;
-        [Required]
-        public DecorationSpawnSettings decorationSpawnSettings;
+        public DecorationSpawner[] decorationSpawners;
 
         private void Awake()
         {
@@ -61,7 +60,7 @@ namespace TilePuzzle
             int seed = (int)DateTime.Now.Ticks;
 
             Procedural.TerrainData terrainData = TerrainGenerator.GenerateTerrainData(seed, terrainGenerateSettings);
-            DecorationData decorationData = DecorationGenerator.GenerateDecorationData(seed, terrainData, decorationSpawnSettings);
+            DecorationData decorationData = DecorationGenerator.GenerateDecorationData(seed, terrainData, decorationSpawners);
 
             World.InitializeWorld(WorldSize, terrainData, decorationData);
 

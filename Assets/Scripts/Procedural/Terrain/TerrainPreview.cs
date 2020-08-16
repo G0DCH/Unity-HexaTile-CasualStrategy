@@ -67,7 +67,7 @@ namespace TilePuzzle.Procedural
 
 
         [Title("Decoration Settings", Bold = true, TitleAlignment = TitleAlignments.Centered)]
-        public DecorationSpawnSettings decorationSpawnSettings;
+        public DecorationSpawner[] decorationSpawners;
 
 
         [Title("Preview Settings", Bold = true, TitleAlignment = TitleAlignments.Centered)]
@@ -122,7 +122,7 @@ namespace TilePuzzle.Procedural
             CleanUpDecorations();
             if (previewDecoration)
             {
-                DecorationData decorationData = DecorationGenerator.GenerateDecorationData(globalSeed, terrainData, decorationSpawnSettings);
+                DecorationData decorationData = DecorationGenerator.GenerateDecorationData(globalSeed, terrainData, decorationSpawners);
                 SpawnDecorations(terrainData.terrainGraph.size, decorationData.renderDatas);
             }
         }
