@@ -30,11 +30,14 @@ namespace TilePuzzle.Procedural
             // 섬 모양 계산
             CalculateIslandShape(terrainGraph, seed, settings.landRatio, settings.terrainShapeNoiseSettings, settings.terrainShapeFalloffSettings);
 
+            // 고도
+            CalculateElevation(terrainGraph);
+
             // 물, 바다, 땅, 해변 설정
             CalculateWaterGroundType(terrainGraph, settings.lakeThreshold);
 
             // 높이 분포 계산
-            CalculateElevation(terrainGraph, settings.peakMultiplier);
+            RedistributeElevation(terrainGraph, settings.peakMultiplier);
 
             // 내리막 계산
             CalculateDownSlope(terrainGraph);
@@ -56,27 +59,34 @@ namespace TilePuzzle.Procedural
             return terrainData;
         }
 
+        // TODO: Radial falloff으로 변경
         private static void CalculateIslandShape(HexagonGraph terrainGraph, int seed, float targetLandRatio, NoiseSettings noiseSettings, FalloffSettings falloffSettings)
         {
-            // 노이즈 값이 seaLevel 보다 낮으면 물로 설정
-            Vector2[] cornerPoints = terrainGraph.corners.Select(x => new Vector2(x.cornerPos.x, x.cornerPos.z)).ToArray();
-            NoiseGenerator.Instance.EvaluateNoise(ref cornerPoints, out float[] cornerNoiseValues, seed, noiseSettings);
-            FalloffGenerator.Instance.EvaluateFalloff(terrainGraph.size.x, terrainGraph.size.y, ref cornerPoints, out float[] cornerFalloffValues, falloffSettings);    // TODO: radial falloff 으로 변경
+            // Corner들의 고도 값 계산에 사용될 노이즈와 falloff 맵을 계산
+            int elevationSeed = seed + StringHash.SDBMLower("elevation");
+            Vector2[] cornerPositions = terrainGraph.corners.Select(x => new Vector2(x.cornerPos.x, x.cornerPos.z)).ToArray();
+            NoiseGenerator.Instance.EvaluateNoise(ref cornerPositions, out float[] elevationNoises, elevationSeed, noiseSettings);
+            FalloffGenerator.Instance.EvaluateFalloff(terrainGraph.size.x, terrainGraph.size.y, ref cornerPositions, out float[] cornerFalloffValues, falloffSettings);
 
-            // Binary search
+            // Binary search를 통해 땅과 물의 비율이 targetLandRatio와 비슷해지도록 seaLevel을 조정
             float min = 0;
             float max = 1;
             float seaLevel = 0.5f;
             int iteration = 0;
-            while (iteration++ < 10)
+            const int MaxIteration = 10;
+            const float Tolerance = 0.01f;
+            while (iteration++ < MaxIteration)
             {
+                // Corner의 고도 값이 seaLevel보다 낮으면 물로 설정
                 for (int i = 0; i < terrainGraph.corners.Length; i++)
                 {
-                    terrainGraph.corners[i].isWater = cornerNoiseValues[i] * cornerFalloffValues[i] < seaLevel;
+                    float elevation = elevationNoises[i] * cornerFalloffValues[i];
+                    terrainGraph.corners[i].isWater = elevation < seaLevel;
                 }
 
+                // Binary search
                 float currentLandRatio = terrainGraph.corners.Count(x => x.isWater == false) / (float)terrainGraph.corners.Length;
-                if (Mathf.Abs(currentLandRatio - targetLandRatio) <= 0.01f)
+                if (Mathf.Abs(currentLandRatio - targetLandRatio) <= Tolerance)
                 {
                     break;
                 }
@@ -91,15 +101,18 @@ namespace TilePuzzle.Procedural
                     seaLevel = (seaLevel + max) / 2;
                 }
             }
+        }
 
-            // 맵 가장자리의 높이를 0으로 설정
-            Queue<Corner> elevationFloodFill = new Queue<Corner>();
+        private static void CalculateElevation(HexagonGraph terrainGraph)
+        {
+            // Corner의 고도를 맵 외곽은 0, 나머지는 최댓값으로 초기화
+            Queue<Corner> elevationFloodFillQueue = new Queue<Corner>();
             foreach (Corner corner in terrainGraph.corners)
             {
                 if (corner.isBorder)
                 {
                     corner.elevation = 0;
-                    elevationFloodFill.Enqueue(corner);
+                    elevationFloodFillQueue.Enqueue(corner);
                 }
                 else
                 {
@@ -107,10 +120,10 @@ namespace TilePuzzle.Procedural
                 }
             }
 
-            // 맵 가장자리부터 땅의 높이를 증가시킴
-            while (elevationFloodFill.Count > 0)
+            // Flood fill 방식을 통해 맵의 외곽부터 Corner의 고도를 증가시킴
+            while (elevationFloodFillQueue.Count > 0)
             {
-                Corner currentCorner = elevationFloodFill.Dequeue();
+                Corner currentCorner = elevationFloodFillQueue.Dequeue();
                 foreach (Corner neighborCorner in currentCorner.NeighborCorners)
                 {
                     float newElevation = currentCorner.elevation + 0.01f;
@@ -122,7 +135,7 @@ namespace TilePuzzle.Procedural
                     if (newElevation < neighborCorner.elevation)
                     {
                         neighborCorner.elevation = newElevation;
-                        elevationFloodFill.Enqueue(neighborCorner);
+                        elevationFloodFillQueue.Enqueue(neighborCorner);
                     }
                 }
             }
@@ -130,7 +143,7 @@ namespace TilePuzzle.Procedural
 
         private static void CalculateWaterGroundType(HexagonGraph terrainGraph, float lakeThreshold)
         {
-            Queue<Center> seaFloodFill = new Queue<Center>();
+            Queue<Center> seaFloodFillQueue = new Queue<Center>();
             foreach (Center center in terrainGraph.centers)
             {
                 int totalWaterCorner = 0;
@@ -141,7 +154,7 @@ namespace TilePuzzle.Procedural
                         center.isBorder = true;
                         center.isSea = true;
                         neighborCorner.isWater = true;
-                        seaFloodFill.Enqueue(center);
+                        seaFloodFillQueue.Enqueue(center);
                     }
                     if (neighborCorner.isWater)
                     {
@@ -151,15 +164,15 @@ namespace TilePuzzle.Procedural
                 center.isWater = center.isSea || totalWaterCorner >= 6 * lakeThreshold;
             }
 
-            while (seaFloodFill.Count > 0)
+            while (seaFloodFillQueue.Count > 0)
             {
-                Center currentCenter = seaFloodFill.Dequeue();
+                Center currentCenter = seaFloodFillQueue.Dequeue();
                 foreach (Center neighborCenter in currentCenter.NeighborCenters.Values)
                 {
                     if (neighborCenter.isWater && neighborCenter.isSea == false)
                     {
                         neighborCenter.isSea = true;
-                        seaFloodFill.Enqueue(neighborCenter);
+                        seaFloodFillQueue.Enqueue(neighborCenter);
                     }
                 }
             }
@@ -206,7 +219,7 @@ namespace TilePuzzle.Procedural
             }
         }
 
-        private static void CalculateElevation(HexagonGraph terrainGraph, float scaleFactor)
+        private static void RedistributeElevation(HexagonGraph terrainGraph, float scaleFactor)
         {
             Corner[] sortedLandCorners = terrainGraph.corners
                 .Where(x => x.isSea == false && x.isCoast == false)
