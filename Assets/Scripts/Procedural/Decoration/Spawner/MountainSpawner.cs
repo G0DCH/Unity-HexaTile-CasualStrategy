@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sirenix.OdinInspector;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,12 +8,14 @@ using UnityEngine;
 
 namespace TilePuzzle.Procedural
 {
+    [CreateAssetMenu(menuName = "Tile Puzzle/Decoration Spawner/Mountain Spawner")]
     public class MountainSpawner : DecorationSpawner
     {
+        public GameObject[] mountainPrefabs;
+        [MinMaxSlider(0f, 1f, true)]
         public Vector2 spawnRange = new Vector2(0.3f, 1f);
         [Range(0, 1)]
         public float spawnRate = 0.5f;
-        public GameObject[] mountainPrefabs;
         public NoiseSettings noiseSettings;
 
         public override DecorationData Spawn(int seed, TerrainData terrainData, DecorationData inputDecorationData)

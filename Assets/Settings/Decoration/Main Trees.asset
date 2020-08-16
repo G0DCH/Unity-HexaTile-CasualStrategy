@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e0d599a9a95d8747b82c3a919cfcd92, type: 3}
+  m_Name: Main Trees
+  m_EditorClassIdentifier: 
+  saltString: Tree
+  prefabDatas:
+  - name: Cactus
+    prefabs:
+    - {fileID: 5386812949477121414, guid: 2239a81c1556a0a4696248299d69db4c, type: 3}
+    - {fileID: 4603547303674729736, guid: 8fa3bf18a241dff42b1e9d592b26cacc, type: 3}
+    - {fileID: 5025278586546623376, guid: 9d1e26f0aa60d444aaa91bf91ed57c1e, type: 3}
+    - {fileID: 3357482984838179926, guid: 274b42c8646825645aff8174f1f6abb9, type: 3}
+    - {fileID: 4141699081586321790, guid: f748ee3595e6062408887b3fcaab7c0f, type: 3}
+    - {fileID: 815311376010566824, guid: fba41d03f85224642b4d99fcb73cb461, type: 3}
+    - {fileID: 2078304311905411324, guid: a72e6826b6682f24e950039f9979222d, type: 3}
+    - {fileID: 4557955031295921934, guid: 24431497a96850a43bd79d4caeff8d4b, type: 3}
+    - {fileID: 2051840186909082491, guid: 4d848f1d6323c684b9bd60c3f60f6edb, type: 3}
+    - {fileID: 6368032609830795363, guid: ea0b9ed8825933544addd8daf001d21b, type: 3}
+    spawnableBiomeNames:
+    - "\uC5F4\uB300\uC0AC\uB9C9"
+    - "\uC628\uB300\uC0AC\uB9C9"
+  - name: Snow Tree
+    prefabs:
+    - {fileID: 8241679669470727587, guid: 076ca81f4a391bf40a9c62a1fea85c8b, type: 3}
+    - {fileID: 1772494408910165172, guid: bb0f8494d29588442ad7c81287d70f9a, type: 3}
+    - {fileID: 7418832988190911823, guid: 995092b543b76634597942d9da7ad94d, type: 3}
+    spawnableBiomeNames:
+    - "\uC124\uC6D0"
+  - name: Dark Tree
+    prefabs:
+    - {fileID: 431490494117953637, guid: fd29509b8960a2643ad8f9d41938862f, type: 3}
+    - {fileID: 1523592698074684004, guid: 2a94aa96be602c8468892f687b0fffda, type: 3}
+    - {fileID: 5290806161513592409, guid: 07f414393a7139946867d12413a0d4f7, type: 3}
+    spawnableBiomeNames:
+    - "\uD230\uB4DC\uB77C"
+    - "\uD0C0\uC774\uAC00"
+    - "\uAD00\uBAA9\uC9C0\uB300"
+  - name: Green Tree
+    prefabs:
+    - {fileID: 2210921887408100462, guid: 14159052c6324574aba1fe86b657d976, type: 3}
+    - {fileID: 4917705530406450165, guid: 2fa4141f0b80d914fb240a4ffd569b36, type: 3}
+    - {fileID: 2356997205415877212, guid: 5d4ae41e8dac3ac46a7522428212e5e9, type: 3}
+    spawnableBiomeNames:
+    - "\uC628\uB300\uC6B0\uB9BC"
+    - "\uC628\uB300\uB099\uC5FD\uC218\uB9BC"
+    - "\uC5F4\uB300\uC6B0\uB9BC"
+    - "\uC5F4\uB300\uACC4\uC808\uB9BC"
+    - "\uCD08\uC6D0"
+  - name: Dead Tree
+    prefabs:
+    - {fileID: 891973919658839196, guid: 4573a8906a3b23d4c931e2751c28ebc8, type: 3}
+    - {fileID: 151335145974814647, guid: f802352af30c89c43a1e23a1e27b8b08, type: 3}
+    - {fileID: 3561104842876632492, guid: 3657e59d53c36ce47b476234e68da560, type: 3}
+    - {fileID: 7144106712907346738, guid: f95d8cc4ef8b49440ad6d6c3dcdb0fa2, type: 3}
+    spawnableBiomeNames:
+    - "\uCD08\uD1A0"
+  spawnRate: 0.2
+  useRandomRotation: 1

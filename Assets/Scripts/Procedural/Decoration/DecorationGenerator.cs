@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,11 +13,33 @@ namespace TilePuzzle.Procedural
     public static class DecorationGenerator
     {
         /// <summary>
+        /// TerrainData의 지형 정보를 기반으로 데코레이션 데이터를 생성
+        /// </summary>
+        /// <param name="seed">생성 시드</param>
+        /// <param name="terrainData">데코레이션을 생성하게 될 지형의 데이터</param>
+        /// <param name="decorationSpawners">데코레이션 스포너</param>
+        /// <returns></returns>
+        public static DecorationData GenerateDecorationData(int seed, TerrainData terrainData, IEnumerable<DecorationSpawner> decorationSpawners)
+        {
+            Profiler.BeginSample(nameof(GenerateDecorationData));
+
+            DecorationData decorationData = new DecorationData(terrainData.terrainGraph.size);
+            foreach (DecorationSpawner spawner in decorationSpawners)
+            {
+                decorationData = spawner.Spawn(seed, terrainData, decorationData);
+            }
+
+            Profiler.EndSample();
+            return decorationData;
+        }
+
+        /// <summary>
         /// <paramref name="terrainData"/>와 <paramref name="spawnSettings"/>을 기반으로 <see cref="DecorationData"/> 생성
         /// </summary>
         /// <param name="seed">생성 시드</param>
         /// <param name="terrainData">데코레이션을 생성하게 될 지형의 데이터</param>
         /// <param name="spawnSettings">데코레이션 생성 설정</param>
+        [Obsolete("DecorationSpawner를 입력으로 받는 메서드를 사용", true)]
         public static DecorationData GenerateDecorationData(int seed, TerrainData terrainData, DecorationSpawnSettings spawnSettings)
         {
             Profiler.BeginSample("Generate Decoration");

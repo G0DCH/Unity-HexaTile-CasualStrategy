@@ -7,12 +7,15 @@ using UnityEngine;
 
 namespace TilePuzzle.Procedural
 {
+    [CreateAssetMenu(menuName = "Tile Puzzle/Decoration Spawner/Forest Spawner")]
     public class ForestSpawner : DecorationSpawner
     {
-        public int spawnDistance = 2;
-        public float spawnRate = 0.4f;
         public DecorationPrefabData[] forestPrefabDatas;
-        public bool useRandomRotation;
+        [Min(1)]
+        public int spawnDistance = 2;
+        [Range(0f, 1f)]
+        public float spawnRate = 0.4f;
+        public bool useRandomRotation = false;
 
         public override DecorationData Spawn(int seed, TerrainData terrainData, DecorationData inputDecorationData)
         {

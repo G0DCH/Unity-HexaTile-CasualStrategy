@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e0d599a9a95d8747b82c3a919cfcd92, type: 3}
+  m_Name: Plants
+  m_EditorClassIdentifier: 
+  saltString: Plant
+  prefabDatas:
+  - name: Flower
+    prefabs:
+    - {fileID: 5095462709674026553, guid: 863cf4d345d22b54186208e08ab19885, type: 3}
+    - {fileID: 6181727682252636784, guid: c6fb8990a418b484fb013ce4d5636b1d, type: 3}
+    - {fileID: 4944046304469455978, guid: 9566abb1b68be3d4ab0c2d892ee45dea, type: 3}
+    - {fileID: 6819216015545455142, guid: 05ba6f13127dc3345819efe72f31a989, type: 3}
+    - {fileID: 1237909032956729616, guid: 04faf0e5f9404b547a98d8f45337322a, type: 3}
+    - {fileID: 5492959029830382929, guid: 5ee8a10bbd348884d82d528108719649, type: 3}
+    - {fileID: 266813830204553632, guid: 3ef007ff0c351c6439cf573302002397, type: 3}
+    - {fileID: 2471501694583582577, guid: 3802822f1f33b1c469b1c55be7eae489, type: 3}
+    - {fileID: 2076259895393421088, guid: ba42480795bd8c944b3511abb1930e5e, type: 3}
+    - {fileID: 6071501213717417039, guid: 73dcafed27d3fc84e8916dc4afdc9ce9, type: 3}
+    - {fileID: 3163037672021822582, guid: f240094cbaac11f458f0ea1759e9e05b, type: 3}
+    spawnableBiomeNames:
+    - "\uCD08\uC6D0"
+    - "\uC628\uB300\uC6B0\uB9BC"
+    - "\uC628\uB300\uB099\uC5FD\uC218\uB9BC"
+    - "\uC5F4\uB300\uC6B0\uB9BC"
+    - "\uC5F4\uB300\uACC4\uC808\uB9BC"
+  - name: Mushroom
+    prefabs:
+    - {fileID: 5451550703775357885, guid: 7715c85fc5b8d4c45a10d43dde388a75, type: 3}
+    - {fileID: 231915477632273490, guid: 4b6a4905540efd24f86525656f353145, type: 3}
+    - {fileID: 1632146594851083080, guid: 5de9b1d3a1cde5246af93142de9023b9, type: 3}
+    - {fileID: 7513467345729747853, guid: 950b9c9e9d723534b8ab3debedcb0f69, type: 3}
+    - {fileID: 433331285996186400, guid: 318426cbfd8ac214680170829feeb303, type: 3}
+    - {fileID: 7356685399823212897, guid: d80618f2fdd793143b80c59581d52a17, type: 3}
+    spawnableBiomeNames:
+    - "\uD230\uB4DC\uB77C"
+    - "\uD0C0\uC774\uAC00"
+    - "\uAD00\uBAA9\uC9C0\uB300"
+  - name: Plant
+    prefabs:
+    - {fileID: 8717588978781859112, guid: 9048e5dc1494942419a70179bd24f255, type: 3}
+    - {fileID: 4368575730240381057, guid: 70c595e7f2d4b86419e7ffc6d2559597, type: 3}
+    spawnableBiomeNames:
+    - "\uD230\uB4DC\uB77C"
+    - "\uD0C0\uC774\uAC00"
+    - "\uAD00\uBAA9\uC9C0\uB300"
+    - "\uCD08\uC6D0"
+    - "\uC628\uB300\uC6B0\uB9BC"
+    - "\uC628\uB300\uB099\uC5FD\uC218\uB9BC"
+    - "\uC5F4\uB300\uC6B0\uB9BC"
+    - "\uC5F4\uB300\uACC4\uC808\uB9BC"
+  spawnRate: 0.1
+  useRandomRotation: 1

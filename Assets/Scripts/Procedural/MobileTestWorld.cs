@@ -13,12 +13,11 @@ namespace TilePuzzle.Procedural
     {
         [Required]
         public TerrainGenerateSettings terrainGenerateSettings;
-        [Required]
-        public DecorationSpawnSettings decorationSpawnSettings;
+        public DecorationSpawner[] decorationSpawners;
 
         private void Awake()
         {
-            Application.targetFrameRate = 60;
+            //Application.targetFrameRate = 60;
         }
 
         private void Update()
@@ -33,7 +32,7 @@ namespace TilePuzzle.Procedural
             WorldSize = terrainGenerateSettings.terrainSize;
 
             TerrainData terrainData = TerrainGenerator.GenerateTerrainData(seed, terrainGenerateSettings);
-            DecorationData decorationData = DecorationGenerator.GenerateDecorationData(seed, terrainData, decorationSpawnSettings);
+            DecorationData decorationData = DecorationGenerator.GenerateDecorationData(seed, terrainData, decorationSpawners);
 
             InitializeWorld(WorldSize, terrainData, decorationData);
         }

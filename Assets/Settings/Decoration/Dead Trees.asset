@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e0d599a9a95d8747b82c3a919cfcd92, type: 3}
+  m_Name: Dead Trees
+  m_EditorClassIdentifier: 
+  saltString: Dead Tree
+  prefabDatas:
+  - name: Dead Tree Dark
+    prefabs:
+    - {fileID: 891973919658839196, guid: 4573a8906a3b23d4c931e2751c28ebc8, type: 3}
+    - {fileID: 151335145974814647, guid: f802352af30c89c43a1e23a1e27b8b08, type: 3}
+    - {fileID: 3561104842876632492, guid: 3657e59d53c36ce47b476234e68da560, type: 3}
+    - {fileID: 7144106712907346738, guid: f95d8cc4ef8b49440ad6d6c3dcdb0fa2, type: 3}
+    spawnableBiomeNames:
+    - "\uD230\uB4DC\uB77C"
+    - "\uCD08\uD1A0"
+    - "\uAD00\uBAA9\uC9C0\uB300"
+    - "\uD0C0\uC774\uAC00"
+  - name: Dead Tree
+    prefabs:
+    - {fileID: 5024525428290918702, guid: b80a4362a892b884e91ac1784dc1e90f, type: 3}
+    - {fileID: 3596205656078725351, guid: 54a251da21cc0a74c8b56e995a6e796e, type: 3}
+    - {fileID: 7973841030736301877, guid: cdb83fb11dcd21c40b0f955697ae4a71, type: 3}
+    - {fileID: 1916175400929527434, guid: ea14c19890fbee143a1ae8fd7f79e3ba, type: 3}
+    spawnableBiomeNames:
+    - "\uC628\uB300\uC0AC\uB9C9"
+    - "\uC5F4\uB300\uC0AC\uB9C9"
+  - name: Tree Stump
+    prefabs:
+    - {fileID: 2936402017570297645, guid: e2899004fb78abb40873294701f53e3e, type: 3}
+    - {fileID: 2606048571521786540, guid: 90c340b3bd8e2664ba41b3d813fcb097, type: 3}
+    - {fileID: 558612369301477540, guid: 4c5e2ed363b760a4e8a061c71c799824, type: 3}
+    spawnableBiomeNames:
+    - "\uC628\uB300\uC6B0\uB9BC"
+    - "\uC628\uB300\uB099\uC5FD\uC218\uB9BC"
+    - "\uC5F4\uB300\uC6B0\uB9BC"
+    - "\uC5F4\uB300\uACC4\uC808\uB9BC"
+    - "\uCD08\uC6D0"
+  - name: Tree Stump Dark
+    prefabs:
+    - {fileID: 8607806047458904977, guid: d8f5c4ee4273f3e40a9657456bf3f16d, type: 3}
+    - {fileID: 3990272194748216595, guid: 02d0aa3fb6c8d6048a2bb9fb5f15281e, type: 3}
+    - {fileID: 3282697292966870035, guid: 14e422d9c06b9e048a6e6e65def4b7ff, type: 3}
+    spawnableBiomeNames:
+    - "\uC124\uC6D0"
+    - "\uCD08\uD1A0"
+    - "\uD0C0\uC774\uAC00"
+    - "\uAD00\uBAA9\uC9C0\uB300"
+    - "\uD230\uB4DC\uB77C"
+  spawnRate: 0.05
+  useRandomRotation: 1

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sirenix.OdinInspector;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using UnityEngine;
 
 namespace TilePuzzle.Procedural
 {
-    public abstract class DecorationSpawner : MonoBehaviour
+    public abstract class DecorationSpawner : ScriptableObject
     {
         public string saltString;
 
@@ -16,7 +17,10 @@ namespace TilePuzzle.Procedural
         [Serializable]
         public struct DecorationPrefabData
         {
+            public string name;
+            [ListDrawerSettings(Expanded = true)]
             public GameObject[] prefabs;
+            [ListDrawerSettings(Expanded = true)]
             public string[] spawnableBiomeNames;
         }
     }

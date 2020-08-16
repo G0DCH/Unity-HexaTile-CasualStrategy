@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e0d599a9a95d8747b82c3a919cfcd92, type: 3}
+  m_Name: Rock, Bones
+  m_EditorClassIdentifier: 
+  saltString: Rock, Bone
+  prefabDatas:
+  - name: 
+    prefabs:
+    - {fileID: 254962047708564209, guid: 32b73ddb3fd9e4d4db64ed78a8b20128, type: 3}
+    - {fileID: 4469133426314447489, guid: 3b408cae15b58f04c8e83e49ff2e6ce1, type: 3}
+    spawnableBiomeNames:
+    - "\uC628\uB300\uC0AC\uB9C9"
+    - "\uC5F4\uB300\uC0AC\uB9C9"
+  - name: 
+    prefabs:
+    - {fileID: 3752323070765857082, guid: 7c709e668e2a0b0469be82246322bec8, type: 3}
+    - {fileID: 6163669018179897406, guid: e7bfe5eb7ca14f941af183e55a981c03, type: 3}
+    - {fileID: 9177479225199438077, guid: 9406ce63bbcc19148b764cf60ee14f12, type: 3}
+    spawnableBiomeNames:
+    - "\uC124\uC6D0"
+    - "\uD230\uB4DC\uB77C"
+    - "\uCD08\uD1A0"
+    - "\uD0C0\uC774\uAC00"
+    - "\uAD00\uBAA9\uC9C0\uB300"
+  spawnRate: 0.05
+  useRandomRotation: 1
