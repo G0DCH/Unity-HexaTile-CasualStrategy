@@ -188,7 +188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myTileType: 3
-  myTileBuilding: 7
+  myTileBuilding: 4
   myTileFeature: 2
   myTileTerrain: 1
   neighborTiles: []
