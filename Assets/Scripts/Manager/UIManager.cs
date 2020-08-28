@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace TilePuzzle
 {
@@ -8,8 +9,13 @@ namespace TilePuzzle
 
         private PanelFlag panelFlag = PanelFlag.Building;
 
-        public GameObject BuildingButtonPanel;
-        public GameObject WonderButtonPanel;
+        [SerializeField]
+        private GameObject BuildingButtonPanel;
+        [SerializeField]
+        private GameObject WonderButtonPanel;
+
+        [SerializeField]
+        private Text ageText;
 
         // 현재 열린 패널
         private GameObject openedPanel;
@@ -74,6 +80,12 @@ namespace TilePuzzle
                 panelFlag = PanelFlag.WonderButton;
                 openedPanel = WonderButtonPanel;
             }
+        }
+
+        // 시대 표기 텍스트 갱신
+        public void UpdateAgeText()
+        {
+            ageText.text = AgeManager.Instance.WorldAge.ToString();
         }
     }
 }
