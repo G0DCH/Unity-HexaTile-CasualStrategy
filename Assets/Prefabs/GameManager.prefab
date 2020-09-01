@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3259717438936863097}
   - component: {fileID: 3259717438936863096}
   - component: {fileID: 3259717439083867650}
+  - component: {fileID: 7758246500625590769}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -51,10 +52,16 @@ MonoBehaviour:
   GameOverPanel: {fileID: 0}
   GameOverText: {fileID: 0}
   World: {fileID: 3259717439083867650}
+  WorldSize: {x: 40, y: 40}
   terrainGenerateSettings: {fileID: 11400000, guid: fcbf19e99f3e7254391891676b80a62b,
     type: 2}
-  decorationSpawnSettings: {fileID: 11400000, guid: 8c5d9b4495168e14c97032cc3aa81eb0,
-    type: 2}
+  decorationSpawners:
+  - {fileID: 11400000, guid: 783bbc96f8732ec49aa5036e1199f3b1, type: 2}
+  - {fileID: 11400000, guid: dd5e606832bd22945bdbd0cbeb5ac5ba, type: 2}
+  - {fileID: 11400000, guid: b33ba8e3b0c1bb0479aa3742f76264e4, type: 2}
+  - {fileID: 11400000, guid: 7ca52ab0db17a16429ed554aba61d26e, type: 2}
+  - {fileID: 11400000, guid: 31dcf2f37cf04c94689aa14c990adb2e, type: 2}
+  - {fileID: 11400000, guid: 3903d777a1d56464ca0215db5f4bdaf9, type: 2}
 --- !u!114 &3259717438936863096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67,6 +74,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08a42c49222be3a4296e0a45b96a227e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BuildingButtonPanel: {fileID: 0}
+  WonderButtonPanel: {fileID: 0}
+  ageText: {fileID: 0}
+  AncientButtons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  ClassicalButtons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  MedievalButtons:
+  - {fileID: 0}
+  IndustrialButtons: []
 --- !u!114 &3259717439083867650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,3 +106,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   terrainRenderer: {fileID: 0}
   decorationRenderer: {fileID: 0}
+--- !u!114 &7758246500625590769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3259717438936863095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 820b761c7649b68488b4dc4949132c1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WorldAge: 0

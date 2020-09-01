@@ -16,6 +16,7 @@ namespace TilePuzzle
         {
             WorldAge = Age.Ancient;
             UIManager.Instance.UpdateAgeText();
+            UIManager.Instance.ActiveBuildingButtons();
         }
 
         // 다음 시대로 바꿈
@@ -24,6 +25,7 @@ namespace TilePuzzle
             if (WorldAge < Age.Ancient)
             {
                 Debug.LogError(string.Format("잘못된 시대임.\nWorldAge : {0}", WorldAge));
+                return;
             }
 
             // 원자력 시대 이전이라면 다음 시대로 나아감
@@ -34,9 +36,15 @@ namespace TilePuzzle
             else
             {
                 Debug.LogError(string.Format("현재 시대가 원자력 시대 이상임.\nWorldAge : {0}", WorldAge));
+                return;
             }
 
-            // TODO : 다음 시대로 넘어가면 새 건물 해금, 기존 건물 효과 업그레이드를 진행함.
+            // 다음 시대로 넘어가면 새 건물 해금함.
+            UIManager.Instance.ActiveBuildingButtons();
+
+            // TODO : 
+            //        기존 건물 효과 업그레이드를 진행함.
+            //        섬의 새 구역을 해금함.
 
             // 시대 텍스트 갱신
             UIManager.Instance.UpdateAgeText();

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 namespace TilePuzzle
@@ -14,13 +15,23 @@ namespace TilePuzzle
         [SerializeField]
         private GameObject WonderButtonPanel;
 
-        [SerializeField]
+        [Space, SerializeField]
         private Text ageText;
+
+        // 시대 별로 활성화 될 버튼들
+        [Space, SerializeField]
+        private List<GameObject> AncientButtons;
+        [SerializeField]
+        private List<GameObject> ClassicalButtons;
+        [SerializeField]
+        private List<GameObject> MedievalButtons;
+        [SerializeField]
+        private List<GameObject> IndustrialButtons;
 
         // 현재 열린 패널
         private GameObject openedPanel;
 
-        // 타일 선택
+        // 버튼을 눌러 설치할 타일 선택
         public void ButtonSelect(GameObject tilePrefab)
         {
             if (TileManager.Instance.SelectedTile != null)
@@ -85,7 +96,41 @@ namespace TilePuzzle
         // 시대 표기 텍스트 갱신
         public void UpdateAgeText()
         {
-            ageText.text = AgeManager.Instance.WorldAge.ToString();
+            ageText.text = string.Format("시대 : {0}", AgeManager.Instance.WorldAge);
+        }
+
+        // 현재 시대에 해금되는 건물 버튼을 활성화 함.
+        public void ActiveBuildingButtons()
+        {
+            switch (AgeManager.Instance.WorldAge)
+            {
+                case Age.Ancient:
+                    foreach (var button in AncientButtons)
+                    {
+                        button.SetActive(true);
+                    }
+                    break;
+                case Age.Classical:
+                    foreach (var button in ClassicalButtons)
+                    {
+                        button.SetActive(true);
+                    }
+                    break;
+                case Age.Medieval:
+                    foreach (var button in MedievalButtons)
+                    {
+                        button.SetActive(true);
+                    }
+                    break;
+                case Age.Industrial:
+                    foreach (var button in IndustrialButtons)
+                    {
+                        button.SetActive(true);
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
