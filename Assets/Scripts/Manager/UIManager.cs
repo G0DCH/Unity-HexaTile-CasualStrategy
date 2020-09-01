@@ -18,15 +18,21 @@ namespace TilePuzzle
         [Space, SerializeField]
         private Text ageText;
 
-        // 시대 별로 활성화 될 버튼들
+        // 시대 별로 활성화 될 건물/불가사의 버튼들
         [Space, SerializeField]
-        private List<GameObject> AncientButtons;
+        private List<Button> AncientButtons;
         [SerializeField]
-        private List<GameObject> ClassicalButtons;
+        private List<Button> ClassicalButtons;
         [SerializeField]
-        private List<GameObject> MedievalButtons;
+        private List<Button> MedievalButtons;
         [SerializeField]
-        private List<GameObject> IndustrialButtons;
+        private List<Button> ReneissanceButtons;
+        [SerializeField]
+        private List<Button> IndustrialButtons;
+        [SerializeField]
+        private List<Button> ModernButtons;
+        [SerializeField]
+        private List<Button> AtomicButtons;
 
         // 현재 열린 패널
         private GameObject openedPanel;
@@ -99,7 +105,7 @@ namespace TilePuzzle
             ageText.text = string.Format("시대 : {0}", AgeManager.Instance.WorldAge);
         }
 
-        // 현재 시대에 해금되는 건물 버튼을 활성화 함.
+        // 현재 시대에 해금되는 건물/불가사의 버튼을 활성화 함.
         public void ActiveBuildingButtons()
         {
             switch (AgeManager.Instance.WorldAge)
@@ -107,25 +113,43 @@ namespace TilePuzzle
                 case Age.Ancient:
                     foreach (var button in AncientButtons)
                     {
-                        button.SetActive(true);
+                        button.interactable = true;
                     }
                     break;
                 case Age.Classical:
                     foreach (var button in ClassicalButtons)
                     {
-                        button.SetActive(true);
+                        button.interactable = true;
                     }
                     break;
                 case Age.Medieval:
                     foreach (var button in MedievalButtons)
                     {
-                        button.SetActive(true);
+                        button.interactable = true;
+                    }
+                    break;
+                case Age.Renaissance:
+                    foreach (var button in ReneissanceButtons)
+                    {
+                        button.interactable = true;
                     }
                     break;
                 case Age.Industrial:
                     foreach (var button in IndustrialButtons)
                     {
-                        button.SetActive(true);
+                        button.interactable = true;
+                    }
+                    break;
+                case Age.Modern:
+                    foreach (var button in ModernButtons)
+                    {
+                        button.interactable = true;
+                    }
+                    break;
+                case Age.Atomic:
+                    foreach (var button in AtomicButtons)
+                    {
+                        button.interactable = true;
                     }
                     break;
                 default:

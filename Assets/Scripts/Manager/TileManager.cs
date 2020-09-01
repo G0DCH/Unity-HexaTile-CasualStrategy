@@ -36,6 +36,10 @@ namespace TilePuzzle
         public delegate void WonderRange(Tile currentTile, TileBuilding tileBuilding);
         public WonderRange MyWonderRange = null;
 
+        // 건물 보너스 delegate
+        public delegate void BuildingBonus(Tile currentTile, TileBuilding tileBuilding);
+        public BuildingBonus MyBuildingBonus = null;
+
         private Dictionary<HexagonPos, Tile> TileMap = new Dictionary<HexagonPos, Tile>();
 
         private void Start()
@@ -362,6 +366,12 @@ namespace TilePuzzle
 
             // 다른 타일은 그냥 배치 가능
             return true;
+        }
+
+        // 시대 별 빌딩 보너스 업그레이드
+        public void BuildingUpgrade()
+        {
+            
         }
     }
 }
