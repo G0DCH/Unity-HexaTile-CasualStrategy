@@ -371,7 +371,158 @@ namespace TilePuzzle
         // 시대 별 빌딩 보너스 업그레이드
         public void BuildingUpgrade()
         {
-            
+            switch(AgeManager.Instance.WorldAge)
+            {
+                case Age.Classical:
+                    MyBuildingBonus += ClassicalBonus;
+                    break;
+                case Age.Medieval:
+                    MyBuildingBonus += MedievalBonus;
+                    break;
+                case Age.Renaissance:
+                    MyBuildingBonus += RenaissanceBonus;
+                    break;
+                case Age.Industrial:
+                    MyBuildingBonus += IndustrialBonus;
+                    break;
+                case Age.Modern:
+                    MyBuildingBonus += ModernBonus;
+                    break;
+                case Age.Atomic:
+                    MyBuildingBonus += AtomicBonus;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        // 고전 시대 건물 업그레이드 보너스
+        private void ClassicalBonus(Tile currentTile, TileBuilding tileBuilding)
+        {
+            switch(tileBuilding)
+            {
+                case TileBuilding.Campus:
+                    currentTile.ChangeBonus(2);
+                    break;
+                case TileBuilding.HolySite:
+                    currentTile.ChangeBonus(2);
+                    break;
+                case TileBuilding.Encampment:
+                    currentTile.ChangeBonus(2);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        // 중세 시대 건물 업그레이드 보너스
+        private void MedievalBonus(Tile currentTile, TileBuilding tileBuilding)
+        {
+            switch(tileBuilding)
+            {
+                case TileBuilding.HolySite:
+                    currentTile.ChangeBonus(4);
+                    break;
+                case TileBuilding.TheaterSquare:
+                    currentTile.ChangeBonus(2);
+                    break;
+                case TileBuilding.Harbor:
+                    currentTile.ChangeBonus(5);
+                    break;
+                case TileBuilding.CommercialHub:
+                    currentTile.ChangeBonus(3);
+                    break;
+                case TileBuilding.EntertainmentComplex:
+                    currentTile.ChangeBonus(2);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        // 르네상스 시대 건물 업그레이드 보너스
+        private void RenaissanceBonus(Tile currentTile, TileBuilding tileBuilding)
+        {
+            switch (tileBuilding)
+            {
+                case TileBuilding.Campus:
+                    currentTile.ChangeBonus(4);
+                    break;
+                case TileBuilding.IndustrialZone:
+                    currentTile.ChangeBonus(2);
+                    break;
+                case TileBuilding.Encampment:
+                    currentTile.ChangeBonus(5);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        // 산업 시대 건물 업그레이드 보너스
+        private void IndustrialBonus(Tile currentTile, TileBuilding tileBuilding)
+        {
+            switch (tileBuilding)
+            {
+                case TileBuilding.TheaterSquare:
+                    currentTile.ChangeBonus(2);
+                    break;
+                case TileBuilding.Harbor:
+                    currentTile.ChangeBonus(10);
+                    break;
+                case TileBuilding.CommercialHub:
+                    currentTile.ChangeBonus(5);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        // 현대 시대 건물 업그레이드 보너스
+        private void ModernBonus(Tile currentTile, TileBuilding tileBuilding)
+        {
+            switch (tileBuilding)
+            {
+                case TileBuilding.IndustrialZone:
+                    currentTile.ChangeBonus(6);
+                    break;
+                case TileBuilding.Encampment:
+                    currentTile.ChangeBonus(6);
+                    break;
+                case TileBuilding.CommercialHub:
+                    currentTile.ChangeBonus(10);
+                    break;
+                case TileBuilding.EntertainmentComplex:
+                    currentTile.ChangeBonus(4);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        // 원자력 시대 건물 업그레이드 보너스
+        private void AtomicBonus(Tile currentTile, TileBuilding tileBuilding)
+        {
+            switch (tileBuilding)
+            {
+                case TileBuilding.Campus:
+                    currentTile.ChangeBonus(8);
+                    break;
+                case TileBuilding.IndustrialZone:
+                    currentTile.ChangeBonus(9);
+                    break;
+                case TileBuilding.TheaterSquare:
+                    currentTile.ChangeBonus(6);
+                    break;
+                case TileBuilding.Harbor:
+                    currentTile.ChangeBonus(15);
+                    break;
+                case TileBuilding.EntertainmentComplex:
+                    currentTile.ChangeBonus(6);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

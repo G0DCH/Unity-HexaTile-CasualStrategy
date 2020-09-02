@@ -42,8 +42,10 @@ namespace TilePuzzle
             // 다음 시대로 넘어가면 새 건물 해금함.
             UIManager.Instance.ActiveBuildingButtons();
 
+            // 기존 건물 효과 업그레이드를 진행함.
+            TileManager.Instance.BuildingUpgrade();
+
             // TODO : 
-            //        기존 건물 효과 업그레이드를 진행함.
             //        섬의 새 구역을 해금함.
 
             // 시대 텍스트 갱신
