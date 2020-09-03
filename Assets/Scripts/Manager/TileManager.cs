@@ -40,6 +40,10 @@ namespace TilePuzzle
         public delegate void BuildingBonus(Tile currentTile, TileBuilding tileBuilding);
         public BuildingBonus MyBuildingBonus = null;
 
+        // 시대별 건물/불가사의 비용
+        public delegate void AgeCost();
+        public AgeCost MyAgeCost = null;
+
         private Dictionary<HexagonPos, Tile> TileMap = new Dictionary<HexagonPos, Tile>();
 
         private void Start()
@@ -124,6 +128,7 @@ namespace TilePuzzle
 
                         // 코스트 계산
                         SelectTileCost = SelectedTile.Cost;
+                        MyAgeCost?.Invoke();
                         MyWonderCost?.Invoke(overTile, SelectedTile.MyTileBuilding);
 
                         // 범위 계산, 범위 내 타일 갱신
@@ -217,6 +222,8 @@ namespace TilePuzzle
                             }
                             // 불가사의로 인한 보너스 추가, 보너스 출력
                             MyWonderBonus?.Invoke(clickedTile, tileBuilding);
+                            // 시대별 업그레이드 보너스 추가
+                            MyBuildingBonus?.Invoke(clickedTile, tileBuilding);
 
                             if (clickedTile is WonderTile)
                             {
@@ -368,6 +375,7 @@ namespace TilePuzzle
             return true;
         }
 
+        #region 시대별 건물 보너스
         // 시대 별 빌딩 보너스 업그레이드
         public void BuildingUpgrade()
         {
@@ -375,21 +383,27 @@ namespace TilePuzzle
             {
                 case Age.Classical:
                     MyBuildingBonus += ClassicalBonus;
+                    MyAgeCost += ClassicalCost;
                     break;
                 case Age.Medieval:
                     MyBuildingBonus += MedievalBonus;
+                    MyAgeCost += MedievalCost;
                     break;
                 case Age.Renaissance:
                     MyBuildingBonus += RenaissanceBonus;
+                    MyAgeCost += RenaissanceCost;
                     break;
                 case Age.Industrial:
                     MyBuildingBonus += IndustrialBonus;
+                    MyAgeCost += IndustrialCost;
                     break;
                 case Age.Modern:
                     MyBuildingBonus += ModernBonus;
+                    MyAgeCost += ModernCost;
                     break;
                 case Age.Atomic:
                     MyBuildingBonus += AtomicBonus;
+                    MyAgeCost += AtomicCost;
                     break;
                 default:
                     break;
@@ -524,5 +538,137 @@ namespace TilePuzzle
                     break;
             }
         }
+        #endregion
+
+        #region 시대 별 건물 비용 증가
+        // 고전 시대 건물 비용 증가
+        public void ClassicalCost()
+        {
+            switch(SelectedTile.MyTileBuilding)
+            {
+                case TileBuilding.Campus:
+                    SelectTileCost += 1;
+                    break;
+                case TileBuilding.HolySite:
+                    SelectTileCost += 1;
+                    break;
+                case TileBuilding.Encampment:
+                    SelectTileCost += 1;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        // 중세 시대 건물 비용 증가
+        public void MedievalCost()
+        {
+            switch (SelectedTile.MyTileBuilding)
+            {
+                case TileBuilding.HolySite:
+                    SelectTileCost += 2;
+                    break;
+                case TileBuilding.TheaterSquare:
+                    SelectTileCost += 1;
+                    break;
+                case TileBuilding.Harbor:
+                    SelectTileCost += 2;
+                    break;
+                case TileBuilding.CommercialHub:
+                    SelectTileCost += 1;
+                    break;
+                case TileBuilding.EntertainmentComplex:
+                    SelectTileCost += 1;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        // 르네상스 시대 건물 비용 증가
+        public void RenaissanceCost()
+        {
+            switch (SelectedTile.MyTileBuilding)
+            {
+                case TileBuilding.Campus:
+                    SelectTileCost += 2;
+                    break;
+                case TileBuilding.IndustrialZone:
+                    SelectTileCost += 1;
+                    break;
+                case TileBuilding.Encampment:
+                    SelectTileCost += 2;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        // 산업 시대 건물 비용 증가
+        public void IndustrialCost()
+        {
+            switch (SelectedTile.MyTileBuilding)
+            {
+                case TileBuilding.TheaterSquare:
+                    SelectTileCost += 2;
+                    break;
+                case TileBuilding.Harbor:
+                    SelectTileCost += 3;
+                    break;
+                case TileBuilding.CommercialHub:
+                    SelectTileCost += 3;
+                    break;
+                default:
+                    break;
+            }
+        }
+        
+        // 현대 시대 건물 비용 증가
+        public void ModernCost()
+        {
+            switch (SelectedTile.MyTileBuilding)
+            {
+                case TileBuilding.IndustrialZone:
+                    SelectTileCost += 2;
+                    break;
+                case TileBuilding.CommercialHub:
+                    SelectTileCost += 4;
+                    break;
+                case TileBuilding.Encampment:
+                    SelectTileCost += 3;
+                    break;
+                case TileBuilding.EntertainmentComplex:
+                    SelectTileCost += 2;
+                    break;
+                default:
+                    break;
+            }
+        }
+        
+        // 중세 시대 건물 비용 증가
+        public void AtomicCost()
+        {
+            switch (SelectedTile.MyTileBuilding)
+            {
+                case TileBuilding.Campus:
+                    SelectTileCost += 4;
+                    break;
+                case TileBuilding.IndustrialZone:
+                    SelectTileCost += 4;
+                    break;
+                case TileBuilding.TheaterSquare:
+                    SelectTileCost += 3;
+                    break;
+                case TileBuilding.Harbor:
+                    SelectTileCost += 7;
+                    break;
+                case TileBuilding.EntertainmentComplex:
+                    SelectTileCost += 3;
+                    break;
+                default:
+                    break;
+            }
+        }
+        #endregion
     }
 }
