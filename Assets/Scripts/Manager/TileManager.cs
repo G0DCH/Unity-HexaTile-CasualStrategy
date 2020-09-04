@@ -176,6 +176,8 @@ namespace TilePuzzle
                             HexagonInfo hexagon = clickedTile.MyHexagonInfo;
                             DecorationInfo decorationInfo = clickedTile.MyDecorationInfo;
                             int range = clickedTile.Range;
+                            CityTile city = clickedTile.OwnerCity;
+                            List<CityTile> rangeCitys = clickedTile.RangeCitys;
                             TileMap.Remove(hexagon.hexPos);
                             Destroy(clickedTile);
 
@@ -194,6 +196,8 @@ namespace TilePuzzle
                                 {
                                     clickedTile = clickedObject.AddComponent<BuildingTile>();
                                     clickedTile.InitInfo(hexagon, decorationInfo, range);
+                                    clickedTile.SetRangeCitys(rangeCitys);
+                                    clickedTile.SetCityTile(city);
                                 }
                             }
                             // 원더 컴포넌트로 교체
@@ -201,6 +205,8 @@ namespace TilePuzzle
                             {
                                 clickedTile = (Tile)clickedObject.AddComponent(SelectedTile.GetType());
                                 clickedTile.InitInfo(hexagon, decorationInfo, range);
+                                clickedTile.SetRangeCitys(rangeCitys);
+                                clickedTile.SetCityTile(city);
                             }
 
                             TileMap.Add(hexagon.hexPos, clickedTile);
@@ -307,7 +313,7 @@ namespace TilePuzzle
                 else
                 {
                     // 소유 도시에 이미 해당 건물이 설치 되었는지 검사
-                    if (currentTile.OwnerCity.HasThatTile(SelectedTile.MyTileBuilding))
+                    if (currentTile.OwnerCity.HasThatTile(SelectedTile.MyTileBuilding, true))
                     {
                         return false;
                     }

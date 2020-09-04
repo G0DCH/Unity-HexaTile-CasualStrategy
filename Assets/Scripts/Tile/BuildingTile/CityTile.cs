@@ -7,6 +7,7 @@ namespace TilePuzzle
     {
         // 도시 범위 표기용 격자
         private List<GameObject> grids = new List<GameObject>();
+        private static List<CityTile> checkedCitys = new List<CityTile>();
 
         private void Start()
         {
@@ -41,8 +42,15 @@ namespace TilePuzzle
         }
 
         // 범위 내 해당 타입의 타일이 존재하는지 검사
-        public bool HasThatTile(TileBuilding tileBuilding)
+        // checkStart는 검사 시작 유무
+        // true면 리스트 초기화, 아니면 초기화 안함.
+        public bool HasThatTile(TileBuilding tileBuilding, bool checkStart)
         {
+            if (checkStart)
+            {
+                checkedCitys.Clear();
+            }
+
             // 도시 범위 내에 도시를 설치할 수 없음.
             if (tileBuilding == TileBuilding.City)
             {
@@ -51,10 +59,20 @@ namespace TilePuzzle
 
             foreach(var rangeTile in RangeTiles)
             {
-                // 존재 한다면 true return
-                if (rangeTile.MyTileBuilding == tileBuilding)
+                if (rangeTile.MyTileBuilding == tileBuilding &&
+                    rangeTile.OwnerCity == this)
                 {
-                    return true;
+                    checkedCitys.Add(this);
+                    // 소유 도시를 변경 해보고
+                    // 변경 했다면 false return
+                    if (rangeTile.TryChangeOwner(checkedCitys))
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        return true;
+                    }
                 }
             }
 

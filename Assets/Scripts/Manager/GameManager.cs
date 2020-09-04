@@ -47,7 +47,7 @@ namespace TilePuzzle
         {
             GameOverPanel.SetActive(false);
             Score = 0;
-            BuildPoint = 6;
+            //BuildPoint = 6;
             pointText.text = string.Format("Score : {0}\n BuildPoint : {1}", Score, BuildPoint);
 
             MakeMap();

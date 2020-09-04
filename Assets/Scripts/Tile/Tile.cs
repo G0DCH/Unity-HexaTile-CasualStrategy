@@ -146,9 +146,23 @@ namespace TilePuzzle
         public GameObject RangeGrid { get; private set; }
 
         // 이 타일을 소유하고 있는 도시
-        public CityTile OwnerCity { get { return ownerCity; } private set { ownerCity = value; } }
+        public CityTile OwnerCity 
+        {
+            get { return ownerCity; } 
+            private set 
+            {
+                if (!RangeCitys.Contains(value))
+                {
+                    RangeCitys.Add(value);
+                }
+
+                ownerCity = value; 
+            }
+        }
         [SerializeField, ReadOnly, Header("Owner Of This Tile")]
         private CityTile ownerCity = null;
+
+        public List<CityTile> RangeCitys { get; private set; } = new List<CityTile>();
 
         // 타일 설치 비용
         public int Cost { get { return cost; } set { cost = value; } }
@@ -367,6 +381,34 @@ namespace TilePuzzle
             }
 
             OwnerCity = cityTile;
+        }
+
+        public void SetRangeCitys(List<CityTile> cityTiles)
+        {
+            RangeCitys = cityTiles;
+        }
+
+        // 현재 범위 내 도시 중
+        // 이 타일에 설치된 건물을 소지 하지 않은 도시가 있다면
+        // 그 도시에게 소유권을 넘기고 true return
+        // 없다면 false return
+        public bool TryChangeOwner(List<CityTile> checkedCitys)
+        {
+            foreach(var cityTile in RangeCitys)
+            {
+                if (checkedCitys.Contains(cityTile))
+                {
+                    continue;
+                }
+
+                if (!cityTile.HasThatTile(MyTileBuilding, false))
+                {
+                    SetCityTile(cityTile);
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         // 이 타일의 보너스를 n만큼 변경함
