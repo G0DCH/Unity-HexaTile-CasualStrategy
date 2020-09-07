@@ -12,9 +12,14 @@ namespace TilePuzzle
         /// </summary>
         public Age WorldAge = Age.Ancient;
 
+        [Space, Header("시대 별 다음 시대까지 벌어야 하는 점수")]
+        public List<int> AgeLimitList = new List<int>();
+        public int AgeLimit { get; private set; } = 0;
+
         private void Start()
         {
             WorldAge = Age.Ancient;
+            AgeLimit += AgeLimitList[(int)WorldAge];
             UIManager.Instance.UpdateAgeText();
             UIManager.Instance.ActiveBuildingButtons();
         }
@@ -27,15 +32,21 @@ namespace TilePuzzle
                 Debug.LogError(string.Format("잘못된 시대임.\nWorldAge : {0}", WorldAge));
                 return;
             }
+            else if (AgeLimit > GameManager.Instance.Score)
+            {
+                Debug.LogError(string.Format("점수가 모자름.\n Score : {0}", GameManager.Instance.Score));
+                return;
+            }
 
-            // 원자력 시대 이전이라면 다음 시대로 나아감
-            if (WorldAge < Age.Atomic)
+            // 미래 시대 이전이라면 다음 시대로 나아감
+            if (WorldAge < Age.Future)
             {
                 WorldAge++;
+                AgeLimit += AgeLimitList[(int)WorldAge];
             }
             else
             {
-                Debug.LogError(string.Format("현재 시대가 원자력 시대 이상임.\nWorldAge : {0}", WorldAge));
+                Debug.LogError(string.Format("현재 시대가 미래 시대 이상임.\nWorldAge : {0}", WorldAge));
                 return;
             }
 

@@ -11,15 +11,12 @@ namespace TilePuzzle
 {
     public class GameManager : Utility.Singleton<GameManager>
     {
-        // 점수
+        public int Score { get { return score; } private set { score = value; } }
         [SerializeField]
-        private Text pointText;
-
-        public int Score = 0;
-        public int BuildPoint = 6;
-
-        public GameObject GameOverPanel;
-        public Text GameOverText;
+        private int score = 0;
+        public int BuildPoint { get { return buildPoint; } private set { buildPoint = value; } }
+        [SerializeField]
+        private int buildPoint = 6;
 
         public World World;
 
@@ -45,10 +42,10 @@ namespace TilePuzzle
 
         private void Start()
         {
-            GameOverPanel.SetActive(false);
             Score = 0;
             //BuildPoint = 6;
-            pointText.text = string.Format("Score : {0}\n BuildPoint : {1}", Score, BuildPoint);
+
+            UIManager.Instance.RefreshPointText();
 
             MakeMap();
         }
@@ -80,19 +77,13 @@ namespace TilePuzzle
 
             Score += point;
             BuildPoint += point;
-            pointText.text = string.Format("Score : {0}\nBuildPoint : {1}", Score, BuildPoint);
+            UIManager.Instance.RefreshPointText();
+            UIManager.Instance.UpdateAgeText();
 
             if (BuildPoint < 3)
             {
-                ActiveGameOver();
+                UIManager.Instance.ActiveGameOver();
             }
-        }
-
-        // 게임 오버 패널 켜기
-        private void ActiveGameOver()
-        {
-            GameOverPanel.SetActive(true);
-            GameOverText.text = string.Format("GameOver!!\nScore : {0}", Score);
         }
     }
 }

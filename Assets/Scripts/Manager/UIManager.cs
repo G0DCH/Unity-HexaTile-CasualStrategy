@@ -37,6 +37,18 @@ namespace TilePuzzle
         // 현재 열린 패널
         private GameObject openedPanel;
 
+        [Space]
+        public GameObject GameOverPanel;
+        public Text GameOverText;
+        // 점수
+        [Space, SerializeField]
+        private Text pointText;
+
+        private void Start()
+        {
+            GameOverPanel.SetActive(false);
+        }
+
         // 버튼을 눌러 설치할 타일 선택
         public void ButtonSelect(GameObject tilePrefab)
         {
@@ -99,10 +111,11 @@ namespace TilePuzzle
             }
         }
 
-        // 시대 표기 텍스트 갱신
+        // 시대 표기, 요구 점수 텍스트 갱신
         public void UpdateAgeText()
         {
-            ageText.text = string.Format("시대 : {0}", AgeManager.Instance.WorldAge);
+            ageText.text = string.Format("시대 : {0}\n남은 점수 : {1}",
+                AgeManager.Instance.WorldAge, Mathf.Clamp(AgeManager.Instance.AgeLimit - GameManager.Instance.Score, 0, int.MaxValue));
         }
 
         // 현재 시대에 해금되는 건물/불가사의 버튼을 활성화 함.
@@ -155,6 +168,19 @@ namespace TilePuzzle
                 default:
                     break;
             }
+        }
+
+        // 게임 오버 패널 켜기
+        public void ActiveGameOver()
+        {
+            GameOverPanel.SetActive(true);
+            GameOverText.text = string.Format("GameOver!!\nScore : {0}", GameManager.Instance.Score);
+        }
+
+        public void RefreshPointText()
+        {
+            pointText.text = string.Format("Score : {0}\nBuildPoint : {1}", 
+                GameManager.Instance.Score, GameManager.Instance.BuildPoint);
         }
     }
 }

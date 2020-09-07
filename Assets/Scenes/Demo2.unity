@@ -4092,6 +4092,21 @@ PrefabInstance:
       propertyPath: AtomicButtons.Array.data[2]
       value: 
       objectReference: {fileID: 146940015}
+    - target: {fileID: 3259717438936863096, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
+        type: 3}
+      propertyPath: GameOverPanel
+      value: 
+      objectReference: {fileID: 2145889147}
+    - target: {fileID: 3259717438936863096, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
+        type: 3}
+      propertyPath: GameOverText
+      value: 
+      objectReference: {fileID: 2114355608}
+    - target: {fileID: 3259717438936863096, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
+        type: 3}
+      propertyPath: pointText
+      value: 
+      objectReference: {fileID: 970568700}
     - target: {fileID: 3259717438936863097, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
         type: 3}
       propertyPath: pointText
@@ -4110,6 +4125,27 @@ PrefabInstance:
     - target: {fileID: 3259717438936863097, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
         type: 3}
       propertyPath: BuildPoint
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3259717438936863097, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
+        type: 3}
+      propertyPath: terrainGenerateSettings
+      value: 
+      objectReference: {fileID: 11400000, guid: 3bae007107bb357429a5549ffd89a720,
+        type: 2}
+    - target: {fileID: 3259717438936863097, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
+        type: 3}
+      propertyPath: WorldSize.x
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 3259717438936863097, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
+        type: 3}
+      propertyPath: WorldSize.y
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 3259717438936863097, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
+        type: 3}
+      propertyPath: buildPoint
       value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 3259717438936863098, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
@@ -4177,6 +4213,96 @@ PrefabInstance:
       propertyPath: decorationRenderer
       value: 
       objectReference: {fileID: 1530461991}
+    - target: {fileID: 7758246500625590769, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
+        type: 3}
+      propertyPath: AgeLimit.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7758246500625590769, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
+        type: 3}
+      propertyPath: AgeLimitList.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7758246500625590769, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
+        type: 3}
+      propertyPath: AgeLimit.Array.data[0]
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7758246500625590769, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
+        type: 3}
+      propertyPath: AgeLimit.Array.data[1]
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 7758246500625590769, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
+        type: 3}
+      propertyPath: AgeLimit.Array.data[2]
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7758246500625590769, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
+        type: 3}
+      propertyPath: AgeLimit.Array.data[3]
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 7758246500625590769, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
+        type: 3}
+      propertyPath: AgeLimit.Array.data[4]
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 7758246500625590769, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
+        type: 3}
+      propertyPath: AgeLimit.Array.data[5]
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 7758246500625590769, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
+        type: 3}
+      propertyPath: AgeLimit.Array.data[6]
+      value: 210
+      objectReference: {fileID: 0}
+    - target: {fileID: 7758246500625590769, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
+        type: 3}
+      propertyPath: AgeLimit.Array.data[7]
+      value: 240
+      objectReference: {fileID: 0}
+    - target: {fileID: 7758246500625590769, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
+        type: 3}
+      propertyPath: AgeLimitList.Array.data[0]
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7758246500625590769, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
+        type: 3}
+      propertyPath: AgeLimitList.Array.data[1]
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 7758246500625590769, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
+        type: 3}
+      propertyPath: AgeLimitList.Array.data[2]
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7758246500625590769, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
+        type: 3}
+      propertyPath: AgeLimitList.Array.data[3]
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 7758246500625590769, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
+        type: 3}
+      propertyPath: AgeLimitList.Array.data[4]
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 7758246500625590769, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
+        type: 3}
+      propertyPath: AgeLimitList.Array.data[5]
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 7758246500625590769, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
+        type: 3}
+      propertyPath: AgeLimitList.Array.data[6]
+      value: 210
+      objectReference: {fileID: 0}
+    - target: {fileID: 7758246500625590769, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
+        type: 3}
+      propertyPath: AgeLimitList.Array.data[7]
+      value: 240
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 215cf9d9f0cb19f47b256a58a7d781f4, type: 3}
 --- !u!114 &3259717439083867650 stripped
