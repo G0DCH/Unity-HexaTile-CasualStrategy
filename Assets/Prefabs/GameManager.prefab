@@ -140,8 +140,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   GameOverPanel: {fileID: 0}
-  GameOverText: {fileID: 0}
   pointText: {fileID: 0}
+  toolTip: {fileID: 0}
 --- !u!114 &3259717439083867650
 MonoBehaviour:
   m_ObjectHideFlags: 0

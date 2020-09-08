@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿#pragma warning disable 0649
+
+using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -19,6 +21,7 @@ namespace TilePuzzle
         [Space, SerializeField]
         private Text ageText;
 
+        #region 시대 별로 활성화 될 건물/불가사의 버튼들
         // 시대 별로 활성화 될 건물/불가사의 버튼들
         [Space, SerializeField]
         private List<Button> AncientButtons;
@@ -34,19 +37,25 @@ namespace TilePuzzle
         private List<Button> ModernButtons;
         [SerializeField]
         private List<Button> AtomicButtons;
+        #endregion
 
         // 현재 열린 패널
         private GameObject openedPanel;
 
-        [Space]
-        public GameObject GameOverPanel;
-        public Text GameOverText;
+        [Space, SerializeField]
+        private GameObject GameOverPanel;
+        private Text GameOverText;
         // 점수
         [Space, SerializeField]
         private Text pointText;
 
         // 선택한 불가사의 버튼
         private Button SelectedWonderButton = null;
+
+        // 툴팁.
+        // 타일 속성, 건물 설명 등을 표기함.
+        [SerializeField]
+        private GameObject toolTip;
 
         private void Start()
         {
@@ -206,6 +215,16 @@ namespace TilePuzzle
         {
             pointText.text = string.Format("Score : {0}\nBuildPoint : {1}",
                 GameManager.Instance.Score, GameManager.Instance.BuildPoint);
+        }
+
+        // 툴팁 표기 여부
+        public void ShowToolTip(bool isShow, Vector3 pos)
+        {
+            if (isShow)
+            {
+                toolTip.transform.position = pos;
+            }
+            toolTip.SetActive(isShow);
         }
     }
 }
