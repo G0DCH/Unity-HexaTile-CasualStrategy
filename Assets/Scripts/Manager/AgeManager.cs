@@ -5,7 +5,7 @@ using UnityEngine;
 namespace TilePuzzle
 {
     // 시대 관리
-    public class AgeManager: Utility.Singleton<AgeManager>
+    public class AgeManager : Utility.Singleton<AgeManager>
     {
         /// <summary>
         /// 현재 시대

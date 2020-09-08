@@ -3754,41 +3754,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3259717438936863096, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
         type: 3}
-      propertyPath: AncientButtons.Array.size
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 3259717438936863096, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: ClassicalButtons.Array.size
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 3259717438936863096, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: MedievalButtons.Array.size
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 3259717438936863096, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: ReneissanceButtons.Array.size
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 3259717438936863096, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: IndustrialButtons.Array.size
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 3259717438936863096, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: ModernButtons.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3259717438936863096, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: AtomicButtons.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3259717438936863096, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
       propertyPath: BuildingButtonPanel
       value: 
       objectReference: {fileID: 1977118978}
@@ -3829,36 +3794,6 @@ PrefabInstance:
       objectReference: {fileID: 2317183818078586845}
     - target: {fileID: 3259717438936863096, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
         type: 3}
-      propertyPath: ClassicalButtons.Array.data[0]
-      value: 
-      objectReference: {fileID: 209090371}
-    - target: {fileID: 3259717438936863096, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: ClassicalButtons.Array.data[1]
-      value: 
-      objectReference: {fileID: 486553500}
-    - target: {fileID: 3259717438936863096, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: ClassicalButtons.Array.data[2]
-      value: 
-      objectReference: {fileID: 282674962}
-    - target: {fileID: 3259717438936863096, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: ClassicalButtons.Array.data[3]
-      value: 
-      objectReference: {fileID: 1657333641}
-    - target: {fileID: 3259717438936863096, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: ClassicalButtons.Array.data[4]
-      value: 
-      objectReference: {fileID: 462580359}
-    - target: {fileID: 3259717438936863096, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: MedievalButtons.Array.data[0]
-      value: 
-      objectReference: {fileID: 1108178866}
-    - target: {fileID: 3259717438936863096, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
       propertyPath: AncientButtons.Array.data[5]
       value: 
       objectReference: {fileID: 1276584239}
@@ -3887,6 +3822,31 @@ PrefabInstance:
       propertyPath: AncientButtons.Array.data[10]
       value: 
       objectReference: {fileID: 1252072029}
+    - target: {fileID: 3259717438936863096, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
+        type: 3}
+      propertyPath: ClassicalButtons.Array.data[0]
+      value: 
+      objectReference: {fileID: 209090371}
+    - target: {fileID: 3259717438936863096, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
+        type: 3}
+      propertyPath: ClassicalButtons.Array.data[1]
+      value: 
+      objectReference: {fileID: 486553500}
+    - target: {fileID: 3259717438936863096, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
+        type: 3}
+      propertyPath: ClassicalButtons.Array.data[2]
+      value: 
+      objectReference: {fileID: 282674962}
+    - target: {fileID: 3259717438936863096, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
+        type: 3}
+      propertyPath: ClassicalButtons.Array.data[3]
+      value: 
+      objectReference: {fileID: 1657333641}
+    - target: {fileID: 3259717438936863096, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
+        type: 3}
+      propertyPath: ClassicalButtons.Array.data[4]
+      value: 
+      objectReference: {fileID: 462580359}
     - target: {fileID: 3259717438936863096, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
         type: 3}
       propertyPath: ClassicalButtons.Array.data[5]
@@ -3942,6 +3902,11 @@ PrefabInstance:
       propertyPath: ClassicalButtons.Array.data[15]
       value: 
       objectReference: {fileID: 7429524954773064982}
+    - target: {fileID: 3259717438936863096, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
+        type: 3}
+      propertyPath: MedievalButtons.Array.data[0]
+      value: 
+      objectReference: {fileID: 1108178866}
     - target: {fileID: 3259717438936863096, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
         type: 3}
       propertyPath: MedievalButtons.Array.data[1]
@@ -4107,47 +4072,6 @@ PrefabInstance:
       propertyPath: pointText
       value: 
       objectReference: {fileID: 970568700}
-    - target: {fileID: 3259717438936863097, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: pointText
-      value: 
-      objectReference: {fileID: 970568700}
-    - target: {fileID: 3259717438936863097, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: GameOverPanel
-      value: 
-      objectReference: {fileID: 2145889147}
-    - target: {fileID: 3259717438936863097, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: GameOverText
-      value: 
-      objectReference: {fileID: 2114355608}
-    - target: {fileID: 3259717438936863097, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: BuildPoint
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 3259717438936863097, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: terrainGenerateSettings
-      value: 
-      objectReference: {fileID: 11400000, guid: 3bae007107bb357429a5549ffd89a720,
-        type: 2}
-    - target: {fileID: 3259717438936863097, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: WorldSize.x
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 3259717438936863097, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: WorldSize.y
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 3259717438936863097, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: buildPoint
-      value: 50
-      objectReference: {fileID: 0}
     - target: {fileID: 3259717438936863098, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4213,96 +4137,6 @@ PrefabInstance:
       propertyPath: decorationRenderer
       value: 
       objectReference: {fileID: 1530461991}
-    - target: {fileID: 7758246500625590769, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: AgeLimit.Array.size
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 7758246500625590769, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: AgeLimitList.Array.size
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 7758246500625590769, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: AgeLimit.Array.data[0]
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 7758246500625590769, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: AgeLimit.Array.data[1]
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 7758246500625590769, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: AgeLimit.Array.data[2]
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 7758246500625590769, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: AgeLimit.Array.data[3]
-      value: 120
-      objectReference: {fileID: 0}
-    - target: {fileID: 7758246500625590769, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: AgeLimit.Array.data[4]
-      value: 150
-      objectReference: {fileID: 0}
-    - target: {fileID: 7758246500625590769, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: AgeLimit.Array.data[5]
-      value: 180
-      objectReference: {fileID: 0}
-    - target: {fileID: 7758246500625590769, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: AgeLimit.Array.data[6]
-      value: 210
-      objectReference: {fileID: 0}
-    - target: {fileID: 7758246500625590769, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: AgeLimit.Array.data[7]
-      value: 240
-      objectReference: {fileID: 0}
-    - target: {fileID: 7758246500625590769, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: AgeLimitList.Array.data[0]
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 7758246500625590769, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: AgeLimitList.Array.data[1]
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 7758246500625590769, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: AgeLimitList.Array.data[2]
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 7758246500625590769, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: AgeLimitList.Array.data[3]
-      value: 120
-      objectReference: {fileID: 0}
-    - target: {fileID: 7758246500625590769, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: AgeLimitList.Array.data[4]
-      value: 150
-      objectReference: {fileID: 0}
-    - target: {fileID: 7758246500625590769, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: AgeLimitList.Array.data[5]
-      value: 180
-      objectReference: {fileID: 0}
-    - target: {fileID: 7758246500625590769, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: AgeLimitList.Array.data[6]
-      value: 210
-      objectReference: {fileID: 0}
-    - target: {fileID: 7758246500625590769, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: AgeLimitList.Array.data[7]
-      value: 240
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 215cf9d9f0cb19f47b256a58a7d781f4, type: 3}
 --- !u!114 &3259717439083867650 stripped

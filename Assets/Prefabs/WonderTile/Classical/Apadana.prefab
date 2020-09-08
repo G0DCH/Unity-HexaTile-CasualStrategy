@@ -119,6 +119,7 @@ MonoBehaviour:
   ownerCity: {fileID: 0}
   cost: 20
   wonderBonus: 2
+  WonderAge: 1
 --- !u!1 &7538604275280209546
 GameObject:
   m_ObjectHideFlags: 0

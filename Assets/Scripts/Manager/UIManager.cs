@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 namespace TilePuzzle
 {
@@ -44,6 +45,9 @@ namespace TilePuzzle
         [Space, SerializeField]
         private Text pointText;
 
+        // 선택한 불가사의 버튼
+        private Button SelectedWonderButton = null;
+
         private void Start()
         {
             GameOverPanel.SetActive(false);
@@ -55,10 +59,23 @@ namespace TilePuzzle
             if (TileManager.Instance.SelectedTile != null)
             {
                 Destroy(TileManager.Instance.SelectedTile.gameObject);
+                SelectedWonderButton = null;
             }
 
             TileManager.Instance.SelectedTile = Instantiate(tilePrefab, Vector3.up * 20f, Quaternion.identity).GetComponent<Tile>();
             TileManager.Instance.SelectedTile.GetComponent<MeshCollider>().enabled = false;
+
+            if (TileManager.Instance.SelectedTile.MyTileBuilding == TileBuilding.Wonder)
+            {
+                GameObject selectedObject = EventSystem.current.currentSelectedGameObject;
+                SelectedWonderButton = selectedObject.GetComponent<Button>();
+
+                if (SelectedWonderButton == null)
+                {
+                    Debug.LogError("클릭한 UI에 버튼 컴포넌트가 없음.");
+                }
+            }
+
 
             TileManager.Instance.SelectedTile.MakeGrid(TileManager.Instance.GridPrefab);
             TileManager.Instance.SelectedTile.TurnGrid(false);
@@ -177,9 +194,17 @@ namespace TilePuzzle
             GameOverText.text = string.Format("GameOver!!\nScore : {0}", GameManager.Instance.Score);
         }
 
+        // 이미 설치한 불가사의의 버튼을 비 활성화 시킴
+        public void DisableWonderButton()
+        {
+            SelectedWonderButton.interactable = false;
+            SelectedWonderButton = null;
+        }
+
+        // 점수 표기 갱신
         public void RefreshPointText()
         {
-            pointText.text = string.Format("Score : {0}\nBuildPoint : {1}", 
+            pointText.text = string.Format("Score : {0}\nBuildPoint : {1}",
                 GameManager.Instance.Score, GameManager.Instance.BuildPoint);
         }
     }
