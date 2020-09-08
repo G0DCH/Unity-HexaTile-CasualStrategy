@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 namespace TilePuzzle
 {
-    public class UIToolTip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    public class UIToolTipEvent : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         // 마우스 포인터가 UI 위로 올라오면 호출
         public void OnPointerEnter(PointerEventData eventData)
