@@ -46,6 +46,10 @@ namespace TilePuzzle
 
         private Dictionary<HexagonPos, Tile> TileMap = new Dictionary<HexagonPos, Tile>();
 
+        // 도시 타일 갯수
+        [SerializeField, ReadOnly]
+        private int CityNum = 0;
+
         private void Start()
         {
 #if UNITY_EDITOR || UNITY_STANDALONE
@@ -128,7 +132,14 @@ namespace TilePuzzle
                         overTile.TurnRangeGrid(true);
 
                         // 코스트 계산
-                        SelectTileCost = SelectedTile.Cost;
+                        if (SelectedTile.MyTileBuilding == TileBuilding.City)
+                        {
+                            SelectTileCost = CityNum;
+                        }
+                        else
+                        {
+                            SelectTileCost = SelectedTile.Cost;
+                        }
                         MyAgeCost?.Invoke();
                         MyWonderCost?.Invoke(overTile, SelectedTile.MyTileBuilding);
 
@@ -192,6 +203,8 @@ namespace TilePuzzle
                                     clickedTile.InitInfo(hexagon, decorationInfo, range);
                                     ((CityTile)clickedTile).SetRangeGrids();
                                     ((CityTile)clickedTile).SetOwnerInRange();
+                                    // 도시 개수 증가
+                                    CityNum++;
                                 }
                                 else
                                 {
