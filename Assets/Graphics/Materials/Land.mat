@@ -20,7 +20,15 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_EEA07EFC:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _ColorMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FogMask:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -28,9 +36,11 @@ Material:
     - Vector1_235EF580: 1
     - Vector1_506B3C22: 0
     - Vector1_712BC85A: 0.068
+    - Vector1_824CAD50: 0.5
     - Vector1_D1B7B97C: 0.23
     - Vector1_ED19B813: 0.3
     - _EnableBrightNoise: 1
     m_Colors:
+    - Color_7E1935EC: {r: 0.24418165, g: 0.244126, b: 0.24528301, a: 0}
     - Vector2_BCB628E3: {r: 32, g: 32, b: 0, a: 0}
     - _ColorMapSize: {r: 64, g: 64, b: 0, a: 0}
