@@ -661,7 +661,7 @@ namespace TilePuzzle
             }
         }
 
-        // 중세 시대 건물 비용 증가
+        // 원자력 시대 건물 비용 증가
         public void AtomicCost()
         {
             switch (SelectedTile.MyTileBuilding)
