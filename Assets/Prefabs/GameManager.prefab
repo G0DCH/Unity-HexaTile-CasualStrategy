@@ -46,14 +46,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63e32c99b46de3f41a9a3964351abc80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointText: {fileID: 0}
-  Score: 0
-  BuildPoint: 6
-  GameOverPanel: {fileID: 0}
-  GameOverText: {fileID: 0}
+  score: 0
+  buildPoint: 50
   World: {fileID: 3259717439083867650}
-  WorldSize: {x: 40, y: 40}
-  terrainGenerateSettings: {fileID: 11400000, guid: fcbf19e99f3e7254391891676b80a62b,
+  WorldSize: {x: 60, y: 60}
+  terrainGenerateSettings: {fileID: 11400000, guid: 3bae007107bb357429a5549ffd89a720,
     type: 2}
   decorationSpawners:
   - {fileID: 11400000, guid: 783bbc96f8732ec49aa5036e1199f3b1, type: 2}
@@ -83,7 +80,24 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   ClassicalButtons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -91,7 +105,43 @@ MonoBehaviour:
   - {fileID: 0}
   MedievalButtons:
   - {fileID: 0}
-  IndustrialButtons: []
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  ReneissanceButtons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  IndustrialButtons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  ModernButtons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  AtomicButtons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  GameOverPanel: {fileID: 0}
+  pointText: {fileID: 0}
+  toolTip: {fileID: 0}
 --- !u!114 &3259717439083867650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,3 +169,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WorldAge: 0
+  AgeLimitList: 1e0000003c0000005a0000007800000096000000b4000000d2000000f0000000

@@ -22,5 +22,5 @@
     public enum TileTerrain { Grassland, Plains, Desert, Snow, Tundra, RainForest }
 
     [System.Serializable]
-    public enum Age { Ancient, Classical, Medieval, Renaissance, Industrial, Modern, Atomic }
+    public enum Age { Ancient, Classical, Medieval, Renaissance, Industrial, Modern, Atomic, Future }
 }

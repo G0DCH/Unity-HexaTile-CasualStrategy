@@ -46,6 +46,10 @@ namespace TilePuzzle
 
         private Dictionary<HexagonPos, Tile> TileMap = new Dictionary<HexagonPos, Tile>();
 
+        // 도시 타일 갯수
+        [SerializeField, ReadOnly]
+        private int CityNum = 0;
+
         private void Start()
         {
 #if UNITY_EDITOR || UNITY_STANDALONE
@@ -55,6 +59,7 @@ namespace TilePuzzle
 #if UNITY_IOS || UNITY_ANDROID
             pointerID = 0;
 #endif
+            MyAgeCost += AgeWonderCost;
             StartCoroutine(MouseOverCheck());
             StartCoroutine(TileClickCheck());
         }
@@ -127,7 +132,14 @@ namespace TilePuzzle
                         overTile.TurnRangeGrid(true);
 
                         // 코스트 계산
-                        SelectTileCost = SelectedTile.Cost;
+                        if (SelectedTile.MyTileBuilding == TileBuilding.City)
+                        {
+                            SelectTileCost = CityNum;
+                        }
+                        else
+                        {
+                            SelectTileCost = SelectedTile.Cost;
+                        }
                         MyAgeCost?.Invoke();
                         MyWonderCost?.Invoke(overTile, SelectedTile.MyTileBuilding);
 
@@ -191,6 +203,8 @@ namespace TilePuzzle
                                     clickedTile.InitInfo(hexagon, decorationInfo, range);
                                     ((CityTile)clickedTile).SetRangeGrids();
                                     ((CityTile)clickedTile).SetOwnerInRange();
+                                    // 도시 개수 증가
+                                    CityNum++;
                                 }
                                 else
                                 {
@@ -235,15 +249,11 @@ namespace TilePuzzle
                             {
                                 // 딜리케이트 추가
                                 ((WonderTile)clickedTile).AddToDelegate();
+                                // 설치한 불가사의 버튼 비활성화
+                                UIManager.Instance.DisableWonderButton();
                             }
 
                             GameManager.Instance.RefreshPoint(clickedTile.Bonus);
-
-                            // 타일 위에 얹혀져 있는 데코레이션 삭제
-                            if (clickedTile.transform.childCount > 1)
-                            {
-                                Destroy(clickedTile.transform.GetChild(0).gameObject);
-                            }
 
                             Transform building = SelectedTile.transform.GetChild(0);
                             building.SetParent(clickedTile.transform, true);
@@ -381,11 +391,11 @@ namespace TilePuzzle
             return true;
         }
 
-        #region 시대별 건물 보너스
+        #region 시대 별 건물 보너스
         // 시대 별 빌딩 보너스 업그레이드
         public void BuildingUpgrade()
         {
-            switch(AgeManager.Instance.WorldAge)
+            switch (AgeManager.Instance.WorldAge)
             {
                 case Age.Classical:
                     MyBuildingBonus += ClassicalBonus;
@@ -419,7 +429,7 @@ namespace TilePuzzle
         // 고전 시대 건물 업그레이드 보너스
         private void ClassicalBonus(Tile currentTile, TileBuilding tileBuilding)
         {
-            switch(tileBuilding)
+            switch (tileBuilding)
             {
                 case TileBuilding.Campus:
                     currentTile.ChangeBonus(2);
@@ -438,7 +448,7 @@ namespace TilePuzzle
         // 중세 시대 건물 업그레이드 보너스
         private void MedievalBonus(Tile currentTile, TileBuilding tileBuilding)
         {
-            switch(tileBuilding)
+            switch (tileBuilding)
             {
                 case TileBuilding.HolySite:
                     currentTile.ChangeBonus(4);
@@ -546,11 +556,11 @@ namespace TilePuzzle
         }
         #endregion
 
-        #region 시대 별 건물 비용 증가
+        #region 시대 별 건물/불가사의 비용 증가
         // 고전 시대 건물 비용 증가
         public void ClassicalCost()
         {
-            switch(SelectedTile.MyTileBuilding)
+            switch (SelectedTile.MyTileBuilding)
             {
                 case TileBuilding.Campus:
                     SelectTileCost += 1;
@@ -628,7 +638,7 @@ namespace TilePuzzle
                     break;
             }
         }
-        
+
         // 현대 시대 건물 비용 증가
         public void ModernCost()
         {
@@ -650,7 +660,7 @@ namespace TilePuzzle
                     break;
             }
         }
-        
+
         // 중세 시대 건물 비용 증가
         public void AtomicCost()
         {
@@ -673,6 +683,24 @@ namespace TilePuzzle
                     break;
                 default:
                     break;
+            }
+        }
+
+        // 시대 별 불가사의 비용 증가
+        public void AgeWonderCost()
+        {
+            if (SelectedTile.MyTileBuilding != TileBuilding.Wonder)
+            {
+                return;
+            }
+
+            // 시대 차이
+            int AgeDiff = AgeManager.Instance.WorldAge - ((WonderTile)SelectedTile).WonderAge;
+
+            // AgeDiff + 1 배 만큼 불가사의 비용이 증가함.
+            for (int i = 0; i < AgeDiff; i++)
+            {
+                SelectTileCost += SelectedTile.Cost;
             }
         }
         #endregion

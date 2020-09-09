@@ -1,6 +1,9 @@
-﻿using UnityEngine;
+﻿#pragma warning disable 0649
+
+using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 namespace TilePuzzle
 {
@@ -18,6 +21,7 @@ namespace TilePuzzle
         [Space, SerializeField]
         private Text ageText;
 
+        #region 시대 별로 활성화 될 건물/불가사의 버튼들
         // 시대 별로 활성화 될 건물/불가사의 버튼들
         [Space, SerializeField]
         private List<Button> AncientButtons;
@@ -33,9 +37,30 @@ namespace TilePuzzle
         private List<Button> ModernButtons;
         [SerializeField]
         private List<Button> AtomicButtons;
+        #endregion
 
         // 현재 열린 패널
         private GameObject openedPanel;
+
+        [Space, SerializeField]
+        private GameObject GameOverPanel;
+        private Text GameOverText;
+        // 점수
+        [Space, SerializeField]
+        private Text pointText;
+
+        // 선택한 불가사의 버튼
+        private Button SelectedWonderButton = null;
+
+        // 툴팁.
+        // 타일 속성, 건물 설명 등을 표기함.
+        [SerializeField]
+        private GameObject toolTip;
+
+        private void Start()
+        {
+            GameOverPanel.SetActive(false);
+        }
 
         // 버튼을 눌러 설치할 타일 선택
         public void ButtonSelect(GameObject tilePrefab)
@@ -43,10 +68,23 @@ namespace TilePuzzle
             if (TileManager.Instance.SelectedTile != null)
             {
                 Destroy(TileManager.Instance.SelectedTile.gameObject);
+                SelectedWonderButton = null;
             }
 
             TileManager.Instance.SelectedTile = Instantiate(tilePrefab, Vector3.up * 20f, Quaternion.identity).GetComponent<Tile>();
             TileManager.Instance.SelectedTile.GetComponent<MeshCollider>().enabled = false;
+
+            if (TileManager.Instance.SelectedTile.MyTileBuilding == TileBuilding.Wonder)
+            {
+                GameObject selectedObject = EventSystem.current.currentSelectedGameObject;
+                SelectedWonderButton = selectedObject.GetComponent<Button>();
+
+                if (SelectedWonderButton == null)
+                {
+                    Debug.LogError("클릭한 UI에 버튼 컴포넌트가 없음.");
+                }
+            }
+
 
             TileManager.Instance.SelectedTile.MakeGrid(TileManager.Instance.GridPrefab);
             TileManager.Instance.SelectedTile.TurnGrid(false);
@@ -99,10 +137,11 @@ namespace TilePuzzle
             }
         }
 
-        // 시대 표기 텍스트 갱신
+        // 시대 표기, 요구 점수 텍스트 갱신
         public void UpdateAgeText()
         {
-            ageText.text = string.Format("시대 : {0}", AgeManager.Instance.WorldAge);
+            ageText.text = string.Format("시대 : {0}\n남은 점수 : {1}",
+                AgeManager.Instance.WorldAge, Mathf.Clamp(AgeManager.Instance.AgeLimit - GameManager.Instance.Score, 0, int.MaxValue));
         }
 
         // 현재 시대에 해금되는 건물/불가사의 버튼을 활성화 함.
@@ -155,6 +194,37 @@ namespace TilePuzzle
                 default:
                     break;
             }
+        }
+
+        // 게임 오버 패널 켜기
+        public void ActiveGameOver()
+        {
+            GameOverPanel.SetActive(true);
+            GameOverText.text = string.Format("GameOver!!\nScore : {0}", GameManager.Instance.Score);
+        }
+
+        // 이미 설치한 불가사의의 버튼을 비 활성화 시킴
+        public void DisableWonderButton()
+        {
+            SelectedWonderButton.interactable = false;
+            SelectedWonderButton = null;
+        }
+
+        // 점수 표기 갱신
+        public void RefreshPointText()
+        {
+            pointText.text = string.Format("Score : {0}\nBuildPoint : {1}",
+                GameManager.Instance.Score, GameManager.Instance.BuildPoint);
+        }
+
+        // 툴팁 표기 여부
+        public void ShowToolTip(bool isShow, Vector3 pos)
+        {
+            if (isShow)
+            {
+                toolTip.transform.position = pos;
+            }
+            toolTip.SetActive(isShow);
         }
     }
 }

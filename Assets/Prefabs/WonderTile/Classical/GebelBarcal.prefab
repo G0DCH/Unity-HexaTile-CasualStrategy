@@ -198,3 +198,4 @@ MonoBehaviour:
   ownerCity: {fileID: 0}
   cost: 20
   wonderBonus: 2
+  WonderAge: 1

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 303171079178289055}
   - component: {fileID: 303171079178289052}
   - component: {fileID: 303171079178289053}
+  - component: {fileID: 4807866028293992866}
   m_Layer: 5
   m_Name: SankoreUnivButton
   m_TagString: Untagged
@@ -36,9 +37,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1105.4545, y: -65}
+  m_AnchoredPosition: {x: 1055.4545, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171079178289055
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -131,6 +132,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &4807866028293992866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171079178288995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171079194793587
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,6 +234,7 @@ GameObject:
   - component: {fileID: 303171079208938413}
   - component: {fileID: 303171079208938418}
   - component: {fileID: 303171079208938419}
+  - component: {fileID: 5060288334132527967}
   m_Layer: 5
   m_Name: MausoleumButton
   m_TagString: Untagged
@@ -245,9 +259,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 906.6667, y: -65}
+  m_AnchoredPosition: {x: 856.6667, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171079208938413
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -340,6 +354,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5060288334132527967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171079208938417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171079234460717
 GameObject:
   m_ObjectHideFlags: 0
@@ -352,6 +378,7 @@ GameObject:
   - component: {fileID: 303171079234460713}
   - component: {fileID: 303171079234460718}
   - component: {fileID: 303171079234460719}
+  - component: {fileID: 4838879633018166327}
   m_Layer: 5
   m_Name: ChichenItzaButton
   m_TagString: Untagged
@@ -376,9 +403,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 290.9091, y: -65}
+  m_AnchoredPosition: {x: 240.90909, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171079234460713
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -471,6 +498,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &4838879633018166327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171079234460717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171079253964186
 GameObject:
   m_ObjectHideFlags: 0
@@ -483,6 +522,7 @@ GameObject:
   - component: {fileID: 303171079253964182}
   - component: {fileID: 303171079253964183}
   - component: {fileID: 303171079253964180}
+  - component: {fileID: 5302237096815569480}
   m_Layer: 5
   m_Name: GebelBarcalButton
   m_TagString: Untagged
@@ -507,9 +547,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 373.33334, y: -65}
+  m_AnchoredPosition: {x: 323.33334, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171079253964182
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -602,6 +642,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5302237096815569480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171079253964186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171079259091769
 GameObject:
   m_ObjectHideFlags: 0
@@ -744,6 +796,7 @@ GameObject:
   - component: {fileID: 303171079299699153}
   - component: {fileID: 303171079299699158}
   - component: {fileID: 303171079299699159}
+  - component: {fileID: 1771218649208611806}
   m_Layer: 5
   m_Name: CristoRedentorButton
   m_TagString: Untagged
@@ -768,9 +821,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 480, y: -65}
+  m_AnchoredPosition: {x: 430, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171079299699153
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -863,6 +916,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1771218649208611806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171079299699157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171079305072794
 GameObject:
   m_ObjectHideFlags: 0
@@ -875,6 +940,7 @@ GameObject:
   - component: {fileID: 303171079305072790}
   - component: {fileID: 303171079305072791}
   - component: {fileID: 303171079305072788}
+  - component: {fileID: 2521482362607885958}
   m_Layer: 5
   m_Name: OracleButton
   m_TagString: Untagged
@@ -899,9 +965,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 640, y: -65}
+  m_AnchoredPosition: {x: 590, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171079305072790
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -994,6 +1060,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2521482362607885958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171079305072794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171079318323806
 GameObject:
   m_ObjectHideFlags: 0
@@ -1224,6 +1302,7 @@ GameObject:
   - component: {fileID: 303171079451916696}
   - component: {fileID: 303171079451916697}
   - component: {fileID: 303171079451916702}
+  - component: {fileID: 5073522756190026928}
   m_Layer: 5
   m_Name: MahabodhiTempleButton
   m_TagString: Untagged
@@ -1248,9 +1327,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 800, y: -65}
+  m_AnchoredPosition: {x: 750, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171079451916696
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1343,6 +1422,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5073522756190026928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171079451916700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171079528543358
 GameObject:
   m_ObjectHideFlags: 0
@@ -1355,6 +1446,7 @@ GameObject:
   - component: {fileID: 303171079528543354}
   - component: {fileID: 303171079528543355}
   - component: {fileID: 303171079528543352}
+  - component: {fileID: 3735606443124577077}
   m_Layer: 5
   m_Name: TajMahalButton
   m_TagString: Untagged
@@ -1379,9 +1471,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 880, y: -65}
+  m_AnchoredPosition: {x: 830, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171079528543354
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1474,6 +1566,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3735606443124577077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171079528543358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171079542004724
 GameObject:
   m_ObjectHideFlags: 0
@@ -1486,6 +1590,7 @@ GameObject:
   - component: {fileID: 303171079542004720}
   - component: {fileID: 303171079542004721}
   - component: {fileID: 303171079542004726}
+  - component: {fileID: 8526453144562849586}
   m_Layer: 5
   m_Name: EiffelTowerButton
   m_TagString: Untagged
@@ -1510,9 +1615,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 800, y: -65}
+  m_AnchoredPosition: {x: 750, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171079542004720
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1605,6 +1710,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8526453144562849586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171079542004724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171079584735143
 GameObject:
   m_ObjectHideFlags: 0
@@ -1617,6 +1734,7 @@ GameObject:
   - component: {fileID: 303171079584735139}
   - component: {fileID: 303171079584735136}
   - component: {fileID: 303171079584735137}
+  - component: {fileID: 3846985490081049084}
   m_Layer: 5
   m_Name: MachuPicchuButton
   m_TagString: Untagged
@@ -1641,9 +1759,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 693.3333, y: -65}
+  m_AnchoredPosition: {x: 643.3333, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171079584735139
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1736,6 +1854,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3846985490081049084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171079584735143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171079634324141
 GameObject:
   m_ObjectHideFlags: 0
@@ -1748,6 +1878,7 @@ GameObject:
   - component: {fileID: 303171079634324137}
   - component: {fileID: 303171079634324142}
   - component: {fileID: 303171079634324143}
+  - component: {fileID: 1740331943175622242}
   m_Layer: 5
   m_Name: VenetianArsenalButton
   m_TagString: Untagged
@@ -1772,9 +1903,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1040, y: -65}
+  m_AnchoredPosition: {x: 990, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171079634324137
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1867,6 +1998,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1740331943175622242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171079634324141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171079684098681
 GameObject:
   m_ObjectHideFlags: 0
@@ -1879,6 +2022,7 @@ GameObject:
   - component: {fileID: 303171079684098677}
   - component: {fileID: 303171079684098682}
   - component: {fileID: 303171079684098683}
+  - component: {fileID: 7628464626342692126}
   m_Layer: 5
   m_Name: PetraButton
   m_TagString: Untagged
@@ -1903,9 +2047,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1013.3334, y: -65}
+  m_AnchoredPosition: {x: 963.3334, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171079684098677
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1998,6 +2142,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7628464626342692126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171079684098681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171079803708845
 GameObject:
   m_ObjectHideFlags: 0
@@ -2010,6 +2166,7 @@ GameObject:
   - component: {fileID: 303171079803708841}
   - component: {fileID: 303171079803708846}
   - component: {fileID: 303171079803708847}
+  - component: {fileID: 4788443220361865240}
   m_Layer: 5
   m_Name: AlhambraPalaceButton
   m_TagString: Untagged
@@ -2034,9 +2191,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 58.181885, y: -65}
+  m_AnchoredPosition: {x: 8.181885, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171079803708841
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2129,6 +2286,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &4788443220361865240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171079803708845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171079829345394
 GameObject:
   m_ObjectHideFlags: 0
@@ -2141,6 +2310,7 @@ GameObject:
   - component: {fileID: 303171079829345390}
   - component: {fileID: 303171079829345391}
   - component: {fileID: 303171079829345388}
+  - component: {fileID: 2710581359158297519}
   m_Layer: 5
   m_Name: GreatZimbabweButton
   m_TagString: Untagged
@@ -2165,9 +2335,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 400, y: -65}
+  m_AnchoredPosition: {x: 350, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171079829345390
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2260,6 +2430,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2710581359158297519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171079829345394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171079833851600
 GameObject:
   m_ObjectHideFlags: 0
@@ -2272,6 +2454,7 @@ GameObject:
   - component: {fileID: 303171079833851596}
   - component: {fileID: 303171079833851597}
   - component: {fileID: 303171079833851602}
+  - component: {fileID: 8195928156614244117}
   m_Layer: 5
   m_Name: HangingGardenButton
   m_TagString: Untagged
@@ -2296,9 +2479,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 457.14288, y: -65}
+  m_AnchoredPosition: {x: 407.14288, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171079833851596
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2391,6 +2574,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8195928156614244117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171079833851600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171079902688048
 GameObject:
   m_ObjectHideFlags: 0
@@ -2403,6 +2598,7 @@ GameObject:
   - component: {fileID: 303171079902688044}
   - component: {fileID: 303171079902688045}
   - component: {fileID: 303171079902688050}
+  - component: {fileID: 2591779905612749348}
   m_Layer: 5
   m_Name: GreatBathButton
   m_TagString: Untagged
@@ -2427,9 +2623,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 91.42847, y: -65}
+  m_AnchoredPosition: {x: 41.428467, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171079902688044
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2522,6 +2718,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2591779905612749348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171079902688048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171079930857542
 GameObject:
   m_ObjectHideFlags: 0
@@ -2534,6 +2742,7 @@ GameObject:
   - component: {fileID: 303171079930857538}
   - component: {fileID: 303171079930857539}
   - component: {fileID: 303171079930857536}
+  - component: {fileID: 6733252107478951896}
   m_Layer: 5
   m_Name: StoneHengeButton
   m_TagString: Untagged
@@ -2558,9 +2767,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1005.71436, y: -65}
+  m_AnchoredPosition: {x: 955.71436, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171079930857538
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2653,6 +2862,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &6733252107478951896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171079930857542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171079933601969
 GameObject:
   m_ObjectHideFlags: 0
@@ -2665,6 +2886,7 @@ GameObject:
   - component: {fileID: 303171079933601965}
   - component: {fileID: 303171079933601970}
   - component: {fileID: 303171079933601971}
+  - component: {fileID: 5493457894328730057}
   m_Layer: 5
   m_Name: ArtemisTempleButton
   m_TagString: Untagged
@@ -2689,9 +2911,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 274.2857, y: -65}
+  m_AnchoredPosition: {x: 224.2857, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171079933601965
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2784,6 +3006,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5493457894328730057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171079933601969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171080035873132
 GameObject:
   m_ObjectHideFlags: 0
@@ -2796,6 +3030,7 @@ GameObject:
   - component: {fileID: 303171080035873128}
   - component: {fileID: 303171080035873129}
   - component: {fileID: 303171080035873134}
+  - component: {fileID: 470813954748221264}
   m_Layer: 5
   m_Name: AmundsenScottButton
   m_TagString: Untagged
@@ -2820,9 +3055,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 160, y: -65}
+  m_AnchoredPosition: {x: 110, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171080035873128
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2915,6 +3150,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &470813954748221264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171080035873132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171080044344061
 GameObject:
   m_ObjectHideFlags: 0
@@ -2927,6 +3174,7 @@ GameObject:
   - component: {fileID: 303171080044344057}
   - component: {fileID: 303171080044344062}
   - component: {fileID: 303171080044344063}
+  - component: {fileID: 211844570783726521}
   m_Layer: 5
   m_Name: TerracottaWarriorsButton
   m_TagString: Untagged
@@ -2951,9 +3199,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1120.0001, y: -65}
+  m_AnchoredPosition: {x: 1070.0001, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171080044344057
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3046,6 +3294,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &211844570783726521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171080044344061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171080046312663
 GameObject:
   m_ObjectHideFlags: 0
@@ -3058,6 +3318,7 @@ GameObject:
   - component: {fileID: 303171080046312659}
   - component: {fileID: 303171080046312656}
   - component: {fileID: 303171080046312657}
+  - component: {fileID: 3193522213797405354}
   m_Layer: 5
   m_Name: MontSaintMichelButton
   m_TagString: Untagged
@@ -3082,9 +3343,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 872.7273, y: -65}
+  m_AnchoredPosition: {x: 822.7273, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171080046312659
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3177,6 +3438,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3193522213797405354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171080046312663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171080113789140
 GameObject:
   m_ObjectHideFlags: 0
@@ -3189,6 +3462,7 @@ GameObject:
   - component: {fileID: 303171080113789136}
   - component: {fileID: 303171080113789137}
   - component: {fileID: 303171080113789142}
+  - component: {fileID: 7250044344838645594}
   m_Layer: 5
   m_Name: LightHouseOfAlexandriaButton
   m_TagString: Untagged
@@ -3213,9 +3487,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 586.6666, y: -65}
+  m_AnchoredPosition: {x: 536.6666, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171080113789136
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3308,6 +3582,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7250044344838645594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171080113789140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171080262368652
 GameObject:
   m_ObjectHideFlags: 0
@@ -3320,6 +3606,7 @@ GameObject:
   - component: {fileID: 303171080262368648}
   - component: {fileID: 303171080262368649}
   - component: {fileID: 303171080262368654}
+  - component: {fileID: 4106556444493227368}
   m_Layer: 5
   m_Name: BroadWayButton
   m_TagString: Untagged
@@ -3344,9 +3631,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 160, y: -65}
+  m_AnchoredPosition: {x: 110, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171080262368648
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3439,6 +3726,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &4106556444493227368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171080262368652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171080316990183
 GameObject:
   m_ObjectHideFlags: 0
@@ -3451,6 +3750,7 @@ GameObject:
   - component: {fileID: 303171080316990179}
   - component: {fileID: 303171080316990176}
   - component: {fileID: 303171080316990177}
+  - component: {fileID: 5979901063236338713}
   m_Layer: 5
   m_Name: KilwaKisiwaniButton
   m_TagString: Untagged
@@ -3475,9 +3775,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 523.63635, y: -65}
+  m_AnchoredPosition: {x: 473.63635, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171080316990179
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3570,6 +3870,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5979901063236338713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171080316990183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171080405777791
 GameObject:
   m_ObjectHideFlags: 0
@@ -3582,6 +3894,7 @@ GameObject:
   - component: {fileID: 303171080405777787}
   - component: {fileID: 303171080405777784}
   - component: {fileID: 303171080405777785}
+  - component: {fileID: 8560545763939312936}
   m_Layer: 5
   m_Name: EstadioDoMarakanaButton
   m_TagString: Untagged
@@ -3606,9 +3919,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 480, y: -65}
+  m_AnchoredPosition: {x: 430, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171080405777787
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3701,6 +4014,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8560545763939312936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171080405777791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171080409944542
 GameObject:
   m_ObjectHideFlags: 0
@@ -3713,6 +4038,7 @@ GameObject:
   - component: {fileID: 303171080409944538}
   - component: {fileID: 303171080409944539}
   - component: {fileID: 303171080409944536}
+  - component: {fileID: 8128979662728657442}
   m_Layer: 5
   m_Name: SaintBasilsButton
   m_TagString: Untagged
@@ -3737,9 +4063,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 720, y: -65}
+  m_AnchoredPosition: {x: 670, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171080409944538
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3832,6 +4158,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8128979662728657442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171080409944542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171080460134860
 GameObject:
   m_ObjectHideFlags: 0
@@ -3844,6 +4182,7 @@ GameObject:
   - component: {fileID: 303171080460134856}
   - component: {fileID: 303171080460134857}
   - component: {fileID: 303171080460134862}
+  - component: {fileID: 7875684999122107108}
   m_Layer: 5
   m_Name: PyramidButton
   m_TagString: Untagged
@@ -3868,9 +4207,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 822.8572, y: -65}
+  m_AnchoredPosition: {x: 772.8572, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171080460134856
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3963,6 +4302,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7875684999122107108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171080460134860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171080499319834
 GameObject:
   m_ObjectHideFlags: 0
@@ -3975,6 +4326,7 @@ GameObject:
   - component: {fileID: 303171080499319830}
   - component: {fileID: 303171080499319831}
   - component: {fileID: 303171080499319828}
+  - component: {fileID: 2510835518330195649}
   m_Layer: 5
   m_Name: ForbiddenCityButton
   m_TagString: Untagged
@@ -3999,9 +4351,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 240, y: -65}
+  m_AnchoredPosition: {x: 190, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171080499319830
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4094,6 +4446,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2510835518330195649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171080499319834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171080500935353
 GameObject:
   m_ObjectHideFlags: 0
@@ -4210,6 +4574,7 @@ GameObject:
   - component: {fileID: 303171080650446772}
   - component: {fileID: 303171080650446773}
   - component: {fileID: 303171080650446778}
+  - component: {fileID: 1242859252181816842}
   m_Layer: 5
   m_Name: HueyiTeocalliButton
   m_TagString: Untagged
@@ -4234,9 +4599,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 407.2727, y: -65}
+  m_AnchoredPosition: {x: 357.2727, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171080650446772
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4329,6 +4694,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1242859252181816842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171080650446776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171080685085505
 GameObject:
   m_ObjectHideFlags: 0
@@ -4341,6 +4718,7 @@ GameObject:
   - component: {fileID: 303171080685085565}
   - component: {fileID: 303171080685085506}
   - component: {fileID: 303171080685085507}
+  - component: {fileID: 7481455373577574512}
   m_Layer: 5
   m_Name: KotokuInButton
   m_TagString: Untagged
@@ -4365,9 +4743,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 640, y: -65}
+  m_AnchoredPosition: {x: 590, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171080685085565
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4460,6 +4838,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7481455373577574512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171080685085505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171080718490626
 GameObject:
   m_ObjectHideFlags: 0
@@ -4622,6 +5012,7 @@ GameObject:
   - component: {fileID: 303171080932365746}
   - component: {fileID: 303171080932365747}
   - component: {fileID: 303171080932365744}
+  - component: {fileID: 7233556716265188944}
   m_Layer: 5
   m_Name: CasaDeContratacionButton
   m_TagString: Untagged
@@ -4646,9 +5037,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 80, y: -65}
+  m_AnchoredPosition: {x: 30, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171080932365746
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4741,6 +5132,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7233556716265188944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171080932365750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171080948348783
 GameObject:
   m_ObjectHideFlags: 0
@@ -4753,6 +5156,7 @@ GameObject:
   - component: {fileID: 303171080948348779}
   - component: {fileID: 303171080948348776}
   - component: {fileID: 303171080948348777}
+  - component: {fileID: 2180129269721920775}
   m_Layer: 5
   m_Name: AngkorWatButton
   m_TagString: Untagged
@@ -4777,9 +5181,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 174.54544, y: -65}
+  m_AnchoredPosition: {x: 124.54541, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171080948348779
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4872,6 +5276,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2180129269721920775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171080948348783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171080974247260
 GameObject:
   m_ObjectHideFlags: 0
@@ -4884,6 +5300,7 @@ GameObject:
   - component: {fileID: 303171080974247256}
   - component: {fileID: 303171080974247257}
   - component: {fileID: 303171080974247262}
+  - component: {fileID: 2036174621896554481}
   m_Layer: 5
   m_Name: ApadanaButton
   m_TagString: Untagged
@@ -4908,9 +5325,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 53.333252, y: -65}
+  m_AnchoredPosition: {x: 3.333252, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171080974247256
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5003,6 +5420,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2036174621896554481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171080974247260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171081031676528
 GameObject:
   m_ObjectHideFlags: 0
@@ -5015,6 +5444,7 @@ GameObject:
   - component: {fileID: 303171081031676524}
   - component: {fileID: 303171081031676525}
   - component: {fileID: 303171081031676530}
+  - component: {fileID: 8975382467053671434}
   m_Layer: 5
   m_Name: SydneyOperaHouseButton
   m_TagString: Untagged
@@ -5039,9 +5469,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 800, y: -65}
+  m_AnchoredPosition: {x: 750, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171081031676524
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5134,6 +5564,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8975382467053671434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171081031676528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171081087160413
 GameObject:
   m_ObjectHideFlags: 0
@@ -5146,6 +5588,7 @@ GameObject:
   - component: {fileID: 303171081087160409}
   - component: {fileID: 303171081087160414}
   - component: {fileID: 303171081087160415}
+  - component: {fileID: 3192187152221797073}
   m_Layer: 5
   m_Name: MeenakshiTempleButton
   m_TagString: Untagged
@@ -5170,9 +5613,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 756.36365, y: -65}
+  m_AnchoredPosition: {x: 706.36365, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171081087160409
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5265,6 +5708,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3192187152221797073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171081087160413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171081165542669
 GameObject:
   m_ObjectHideFlags: 0
@@ -5277,6 +5732,7 @@ GameObject:
   - component: {fileID: 303171081165542665}
   - component: {fileID: 303171081165542670}
   - component: {fileID: 303171081165542671}
+  - component: {fileID: 7788155748752741551}
   m_Layer: 5
   m_Name: ColossusOfRhodesButton
   m_TagString: Untagged
@@ -5301,9 +5757,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 266.66666, y: -65}
+  m_AnchoredPosition: {x: 216.66666, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171081165542665
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5396,6 +5852,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7788155748752741551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171081165542669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171081222211625
 GameObject:
   m_ObjectHideFlags: 0
@@ -5520,6 +5988,7 @@ GameObject:
   - component: {fileID: 303171081228936579}
   - component: {fileID: 303171081228936576}
   - component: {fileID: 303171081228936577}
+  - component: {fileID: 1864902113765032532}
   m_Layer: 5
   m_Name: ColosseumButton
   m_TagString: Untagged
@@ -5544,9 +6013,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 160, y: -65}
+  m_AnchoredPosition: {x: 110, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171081228936579
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5639,6 +6108,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1864902113765032532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171081228936583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171081252911256
 GameObject:
   m_ObjectHideFlags: 0
@@ -5651,6 +6132,7 @@ GameObject:
   - component: {fileID: 303171081252911252}
   - component: {fileID: 303171081252911253}
   - component: {fileID: 303171081252911258}
+  - component: {fileID: 5401368427259445674}
   m_Layer: 5
   m_Name: LibraryOfAlexandriaButton
   m_TagString: Untagged
@@ -5675,9 +6157,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 480, y: -65}
+  m_AnchoredPosition: {x: 430, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171081252911252
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5770,6 +6252,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5401368427259445674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171081252911256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171081262995876
 GameObject:
   m_ObjectHideFlags: 0
@@ -5782,6 +6276,7 @@ GameObject:
   - component: {fileID: 303171081262995872}
   - component: {fileID: 303171081262995873}
   - component: {fileID: 303171081262995878}
+  - component: {fileID: 4925548849119101628}
   m_Layer: 5
   m_Name: SaintSophiaButton
   m_TagString: Untagged
@@ -5806,9 +6301,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 989.09094, y: -65}
+  m_AnchoredPosition: {x: 939.09094, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &303171081262995872
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5901,6 +6396,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &4925548849119101628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303171081262995876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303171081297427916
 GameObject:
   m_ObjectHideFlags: 0
@@ -6125,6 +6632,7 @@ GameObject:
   - component: {fileID: 7942534466168042722}
   - component: {fileID: 7942534466168042721}
   - component: {fileID: 7942534466168042720}
+  - component: {fileID: 7814777848213706651}
   m_Layer: 5
   m_Name: BolshoiTheaterButton
   m_TagString: Untagged
@@ -6149,9 +6657,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 560, y: -55}
+  m_AnchoredPosition: {x: 510, y: -5}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &7942534466168042722
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6244,6 +6752,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7814777848213706651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7942534466168042726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7942534466193588008
 GameObject:
   m_ObjectHideFlags: 0
@@ -7036,6 +7556,7 @@ GameObject:
   - component: {fileID: 7942534466557541093}
   - component: {fileID: 7942534466557541092}
   - component: {fileID: 7942534466557541099}
+  - component: {fileID: 2570127870002549775}
   m_Layer: 5
   m_Name: OxfordUnivButton
   m_TagString: Untagged
@@ -7060,9 +7581,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 880, y: -55}
+  m_AnchoredPosition: {x: 830, y: -5}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &7942534466557541093
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7155,6 +7676,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2570127870002549775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7942534466557541097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7942534466568764346
 GameObject:
   m_ObjectHideFlags: 0
@@ -7765,6 +8298,7 @@ GameObject:
   - component: {fileID: 7942534466750477670}
   - component: {fileID: 7942534466750477669}
   - component: {fileID: 7942534466750477668}
+  - component: {fileID: 2880977606939425617}
   m_Layer: 5
   m_Name: OrszaghazButton
   m_TagString: Untagged
@@ -7789,9 +8323,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 400, y: -55}
+  m_AnchoredPosition: {x: 350, y: -5}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &7942534466750477670
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7884,6 +8418,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2880977606939425617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7942534466750477674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7942534466838246362
 GameObject:
   m_ObjectHideFlags: 0
@@ -9690,6 +10236,7 @@ GameObject:
   - component: {fileID: 7942534467571187473}
   - component: {fileID: 7942534467571187472}
   - component: {fileID: 7942534467571187479}
+  - component: {fileID: 2185755639006771454}
   m_Layer: 5
   m_Name: StatueOfLibertyButton
   m_TagString: Untagged
@@ -9714,9 +10261,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1040, y: -55}
+  m_AnchoredPosition: {x: 990, y: -5}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &7942534467571187473
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9809,6 +10356,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2185755639006771454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7942534467571187477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7942534467595921207
 GameObject:
   m_ObjectHideFlags: 0
@@ -9821,6 +10380,7 @@ GameObject:
   - component: {fileID: 7942534467595921203}
   - component: {fileID: 7942534467595921202}
   - component: {fileID: 7942534467595921201}
+  - component: {fileID: 1483538978810365735}
   m_Layer: 5
   m_Name: HermitageButton
   m_TagString: Untagged
@@ -9845,9 +10405,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 720, y: -55}
+  m_AnchoredPosition: {x: 670, y: -5}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &7942534467595921203
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9940,6 +10500,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1483538978810365735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7942534467595921207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7942534467617701830
 GameObject:
   m_ObjectHideFlags: 0
@@ -10108,6 +10680,7 @@ GameObject:
   - component: {fileID: 7942534467695180392}
   - component: {fileID: 7942534467695180399}
   - component: {fileID: 7942534467695180398}
+  - component: {fileID: 7451619363758785854}
   m_Layer: 5
   m_Name: PotalaPalaceButton
   m_TagString: Untagged
@@ -10132,9 +10705,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 560, y: -65}
+  m_AnchoredPosition: {x: 510, y: -15}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &7942534467695180392
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10227,6 +10800,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7451619363758785854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7942534467695180396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7942534467725520720
 GameObject:
   m_ObjectHideFlags: 0
@@ -10993,6 +11578,7 @@ GameObject:
   - component: {fileID: 7942534468118726645}
   - component: {fileID: 7942534468118726644}
   - component: {fileID: 7942534468118726651}
+  - component: {fileID: 1095977296351480611}
   m_Layer: 5
   m_Name: RuhrValley
   m_TagString: Untagged
@@ -11017,9 +11603,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 80, y: -55}
+  m_AnchoredPosition: {x: 30, y: -5}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &7942534468118726645
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11112,6 +11698,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1095977296351480611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7942534468118726649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7942534468124803763
 GameObject:
   m_ObjectHideFlags: 0
@@ -11956,6 +12554,7 @@ GameObject:
   - component: {fileID: 7942534468299226532}
   - component: {fileID: 7942534468299226539}
   - component: {fileID: 7942534468299226538}
+  - component: {fileID: 8777732028526237952}
   m_Layer: 5
   m_Name: BigBenButton
   m_TagString: Untagged
@@ -11980,9 +12579,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 240, y: -55}
+  m_AnchoredPosition: {x: 190, y: -5}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &7942534468299226532
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12075,3 +12674,15 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8777732028526237952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7942534468299226536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b2c381febf5894faa26a306d0cb1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

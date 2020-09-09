@@ -169,9 +169,6 @@ namespace TilePuzzle
         [SerializeField, Space, Header("Tile Cost")]
         private int cost = 0;
 
-        // HexagonInfo, DecorationInfo가 초기화 되었는지 확인
-        private bool isInit = false;
-
         #region 범위 불가사의 on off
         // 다음 불가사의의 효과를 받았는가
         // 킬와 키시와니
@@ -215,8 +212,6 @@ namespace TilePuzzle
                     myTileFeature = TileFeature.Forest;
                 }
             }
-
-            isInit = true;
         }
 
         // Info 초기화
@@ -244,8 +239,6 @@ namespace TilePuzzle
                     myTileFeature = TileFeature.Forest;
                 }
             }
-
-            isInit = true;
         }
 
         // 내 타일이 pivotBuilding의 보너스에 해당하는지 검사하고 해당 점수 return

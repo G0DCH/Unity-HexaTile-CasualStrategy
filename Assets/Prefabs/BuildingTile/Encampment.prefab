@@ -31,7 +31,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2162553833827135307}
+  - {fileID: 3998152166836545502}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -42,7 +42,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2166506911160267371}
-  m_Mesh: {fileID: 4300000, guid: afea607c0ddd7564e84d074e1879e2b5, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 1fcc1f73108fef449a622d99f23f1abc, type: 3}
 --- !u!23 &2180031201517379949
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -95,7 +95,7 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: afea607c0ddd7564e84d074e1879e2b5, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 1fcc1f73108fef449a622d99f23f1abc, type: 3}
 --- !u!114 &2604843141776146039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,7 +118,7 @@ MonoBehaviour:
   bonus: 0
   ownerCity: {fileID: 0}
   cost: 3
---- !u!1 &2168119179442854359
+--- !u!1 &3994852304524909884
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -126,23 +126,23 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2162553833827135307}
-  - component: {fileID: 2190486545982353211}
-  - component: {fileID: 2180276918614478473}
+  - component: {fileID: 3998152166836545502}
+  - component: {fileID: 3964655247900297278}
+  - component: {fileID: 3972683608516616622}
   m_Layer: 0
-  m_Name: EvilCastle
+  m_Name: Candy2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2162553833827135307
+--- !u!4 &3998152166836545502
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2168119179442854359}
+  m_GameObject: {fileID: 3994852304524909884}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -150,21 +150,21 @@ Transform:
   m_Father: {fileID: 2169920454884910117}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &2190486545982353211
+--- !u!33 &3964655247900297278
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2168119179442854359}
-  m_Mesh: {fileID: 4300002, guid: babdee3501cc4c544857998486e731f4, type: 3}
---- !u!23 &2180276918614478473
+  m_GameObject: {fileID: 3994852304524909884}
+  m_Mesh: {fileID: 4300002, guid: c4d5949fad8f91146994bff78a215afd, type: 3}
+--- !u!23 &3972683608516616622
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2168119179442854359}
+  m_GameObject: {fileID: 3994852304524909884}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
