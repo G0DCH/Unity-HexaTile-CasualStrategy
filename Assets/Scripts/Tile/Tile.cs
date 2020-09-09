@@ -8,7 +8,7 @@ namespace TilePuzzle
 {
     public class Tile : MonoBehaviour
     {
-        public HexagonInfo MyHexagonInfo
+        public TerrainInfo MyHexagonInfo
         {
             get
             {
@@ -20,7 +20,7 @@ namespace TilePuzzle
             }
         }
         [SerializeField]
-        private HexagonInfo myHexagonInfo = new HexagonInfo();
+        private TerrainInfo myHexagonInfo = new TerrainInfo();
 
         public DecorationInfo MyDecorationInfo
         {
@@ -192,7 +192,7 @@ namespace TilePuzzle
         }
 
         // Info 초기화
-        public void InitInfo(HexagonInfo hexagonInfo, DecorationInfo decorationInfo)
+        public void InitInfo(TerrainInfo hexagonInfo, DecorationInfo decorationInfo)
         {
             myHexagonInfo = hexagonInfo;
             myDecorationInfo = decorationInfo;
@@ -220,7 +220,7 @@ namespace TilePuzzle
         }
 
         // Info 초기화
-        public void InitInfo(HexagonInfo hexagonInfo, DecorationInfo decorationInfo, int range)
+        public void InitInfo(TerrainInfo hexagonInfo, DecorationInfo decorationInfo, int range)
         {
             myHexagonInfo = hexagonInfo;
             myDecorationInfo = decorationInfo;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TilePuzzle.Procedural
 {
-    public struct HexagonInfo
+    public struct TerrainInfo
     {
         public HexagonPos hexPos;
         public bool isWater;

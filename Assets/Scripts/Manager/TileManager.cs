@@ -67,7 +67,7 @@ namespace TilePuzzle
             {
                 Tile tile = hexagonObject.gameObject.AddComponent<Tile>();
 
-                HexagonInfo hexagonInfo = GameManager.Instance.World.GetHexagonInfoAt(hexagonObject.hexPos);
+                TerrainInfo hexagonInfo = GameManager.Instance.World.GetHexagonInfoAt(hexagonObject.hexPos);
                 DecorationInfo decorationInfo = GameManager.Instance.World.GetDecorationInfoAt(hexagonObject.hexPos).GetValueOrDefault();
 
                 tile.InitInfo(hexagonInfo, decorationInfo);
@@ -78,10 +78,10 @@ namespace TilePuzzle
         // 범위 내 타일 return
         public List<Tile> GetRangeTiles(Tile myTile, int range)
         {
-            IEnumerable<HexagonInfo> neighborHexagons = GameManager.Instance.World.GetHexagonInfosInRange(myTile.MyHexagonInfo.hexPos, 1, range);
+            IEnumerable<TerrainInfo> neighborHexagons = GameManager.Instance.World.GetHexagonInfosInRange(myTile.MyHexagonInfo.hexPos, 1, range);
             List<Tile> neighborTiles = new List<Tile>();
 
-            foreach (HexagonInfo neighbor in neighborHexagons)
+            foreach (TerrainInfo neighbor in neighborHexagons)
             {
                 neighborTiles.Add(TileMap[neighbor.hexPos]);
             }
@@ -173,7 +173,7 @@ namespace TilePuzzle
 
                             // 기존 타일 컴포넌트 제거
                             GameObject clickedObject = clickedTile.gameObject;
-                            HexagonInfo hexagon = clickedTile.MyHexagonInfo;
+                            TerrainInfo hexagon = clickedTile.MyHexagonInfo;
                             DecorationInfo decorationInfo = clickedTile.MyDecorationInfo;
                             int range = clickedTile.Range;
                             CityTile city = clickedTile.OwnerCity;
