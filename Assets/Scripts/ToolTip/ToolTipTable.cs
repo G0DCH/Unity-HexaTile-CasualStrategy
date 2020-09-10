@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TilePuzzle
 {
-    [CreateAssetMenu(menuName = "Tile Puzzle/ToolTipTable")]
+    [CreateAssetMenu(menuName = "Tile Puzzle/ToolTipTable/ToolTipTable")]
     public class ToolTipTable: ScriptableObject
     {
         public List<ToolTip> ToolTips { get { return toolTips; } }

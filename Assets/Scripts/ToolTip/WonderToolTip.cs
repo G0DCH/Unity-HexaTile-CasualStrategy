@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections;
+﻿using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace TilePuzzle
@@ -8,7 +7,7 @@ namespace TilePuzzle
     public class WonderToolTip: ToolTip
     {
         public string WonderName { get { return wonderName; } }
-        [SerializeField]
+        [PropertyOrder(-1), SerializeField]
         private string wonderName = string.Empty;
     }
 }

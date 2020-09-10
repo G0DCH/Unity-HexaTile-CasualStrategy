@@ -8,7 +8,7 @@ namespace TilePuzzle
     {
         public TileBuilding BuildingType { get { return buildingType; } }
         [SerializeField]
-        private TileBuilding buildingType = TileBuilding.Empty;
+        private TileBuilding buildingType = TileBuilding.Wonder;
         
         /// <summary>
         /// 각 인덱스에 해당하는 툴팁이
