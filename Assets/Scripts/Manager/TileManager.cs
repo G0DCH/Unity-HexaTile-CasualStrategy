@@ -66,13 +66,13 @@ namespace TilePuzzle
 
         public void InitTileMap()
         {
-            HexagonObject[] hexagonObjects = FindObjectsOfType<HexagonObject>();
+            HexagonTileObject[] hexagonObjects = FindObjectsOfType<HexagonTileObject>();
 
-            foreach (HexagonObject hexagonObject in hexagonObjects)
+            foreach (HexagonTileObject hexagonObject in hexagonObjects)
             {
                 Tile tile = hexagonObject.gameObject.AddComponent<Tile>();
 
-                TerrainInfo hexagonInfo = GameManager.Instance.World.GetHexagonInfoAt(hexagonObject.hexPos);
+                TileInfo hexagonInfo = GameManager.Instance.World.GetHexagonInfoAt(hexagonObject.hexPos);
                 DecorationInfo decorationInfo = GameManager.Instance.World.GetDecorationInfoAt(hexagonObject.hexPos).GetValueOrDefault();
 
                 tile.InitInfo(hexagonInfo, decorationInfo);
@@ -83,10 +83,10 @@ namespace TilePuzzle
         // 범위 내 타일 return
         public List<Tile> GetRangeTiles(Tile myTile, int range)
         {
-            IEnumerable<TerrainInfo> neighborHexagons = GameManager.Instance.World.GetHexagonInfosInRange(myTile.MyHexagonInfo.hexPos, 1, range);
+            IEnumerable<TileInfo> neighborHexagons = GameManager.Instance.World.GetHexagonInfosInRange(myTile.MyHexagonInfo.hexPos, 1, range);
             List<Tile> neighborTiles = new List<Tile>();
 
-            foreach (TerrainInfo neighbor in neighborHexagons)
+            foreach (TileInfo neighbor in neighborHexagons)
             {
                 neighborTiles.Add(TileMap[neighbor.hexPos]);
             }
@@ -185,7 +185,7 @@ namespace TilePuzzle
 
                             // 기존 타일 컴포넌트 제거
                             GameObject clickedObject = clickedTile.gameObject;
-                            TerrainInfo hexagon = clickedTile.MyHexagonInfo;
+                            TileInfo hexagon = clickedTile.MyHexagonInfo;
                             DecorationInfo decorationInfo = clickedTile.MyDecorationInfo;
                             int range = clickedTile.Range;
                             CityTile city = clickedTile.OwnerCity;

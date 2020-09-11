@@ -45,7 +45,7 @@ namespace TilePuzzle.Procedural
 
 
         [Title("Rendering Settings", Bold = true, TitleAlignment = TitleAlignments.Centered)]
-        [Required] public HexagonObject hexagonObjectPrefab;
+        [Required] public HexagonTileObject hexagonObjectPrefab;
 
         [Title("Land")]
         [Required]
@@ -83,7 +83,7 @@ namespace TilePuzzle.Procedural
 
         private bool settingUpdated;
         private TerrainGenerateSettings generateSettings;
-        private HexagonObject[] spawnedHexagonObjects;
+        private HexagonTileObject[] spawnedHexagonObjects;
         private Vector2Int previousHexagonMapSize;
 
         public enum PreviewMode
@@ -173,12 +173,12 @@ namespace TilePuzzle.Procedural
             if (previousHexagonMapSize != terrainData.terrainGraph.size)
             {
                 CleanUpHexagons();
-                spawnedHexagonObjects = new HexagonObject[width * height];
+                spawnedHexagonObjects = new HexagonTileObject[width * height];
                 previousHexagonMapSize = terrainData.terrainGraph.size;
             }
 
-            Mesh flatHexagonMesh = HexagonMeshGenerator.BuildMesh(HexagonObject.Size);
-            Mesh cliffHexagonMesh = HexagonMeshGenerator.BuildMesh(HexagonObject.Size, cliffDepth);
+            Mesh flatHexagonMesh = HexagonMeshGenerator.BuildMesh(HexagonTileObject.TileSize);
+            Mesh cliffHexagonMesh = HexagonMeshGenerator.BuildMesh(HexagonTileObject.TileSize, cliffDepth);
             var riverMeshCache = new Dictionary<HexagonMeshGenerator.VertexDirection, Mesh>();
 
             for (int y = 0; y < height; y++)
@@ -190,12 +190,12 @@ namespace TilePuzzle.Procedural
                     {
                         spawnedHexagonObjects[x + y * width] = CreateNewHexagon(hexagonObjectPrefab, HexagonPos.FromArrayXY(x, y));
                     }
-                    HexagonObject currentHexagonObject = spawnedHexagonObjects[x + y * width];
+                    HexagonTileObject currentHexagonObject = spawnedHexagonObjects[x + y * width];
 
                     if (center.isWater)
                     {
-                        currentHexagonObject.SetMesh(flatHexagonMesh);
-                        currentHexagonObject.SetMaterial(center.isSea ? seaMaterial : lakeMaterial);
+                        currentHexagonObject.TileMesh = flatHexagonMesh;
+                        currentHexagonObject.TileMaterial = center.isSea ? seaMaterial : lakeMaterial;
                     }
                     else
                     {
@@ -215,7 +215,7 @@ namespace TilePuzzle.Procedural
                         {
                             if (riverMeshCache.TryGetValue(riverDirection, out mesh) == false)
                             {
-                                mesh = HexagonMeshGenerator.BuildMesh(HexagonObject.Size, cliffDepth, riverSize, riverDirection);
+                                mesh = HexagonMeshGenerator.BuildMesh(HexagonTileObject.TileSize, cliffDepth, riverSize, riverDirection);
                                 riverMeshCache.Add(riverDirection, mesh);
                             }
                         }
@@ -229,8 +229,8 @@ namespace TilePuzzle.Procedural
                         {
                             mesh = flatHexagonMesh;
                         }
-                        currentHexagonObject.SetMesh(mesh);
-                        currentHexagonObject.SetMaterial(landMaterial);
+                        currentHexagonObject.TileMesh = mesh;
+                        currentHexagonObject.TileMaterial = landMaterial;
                     }
 
                     // height
@@ -350,13 +350,13 @@ namespace TilePuzzle.Procedural
             return decoration;
         }
 
-        private HexagonObject CreateNewHexagon(HexagonObject hexagonObjectPrefab, HexagonPos hexPos)
+        private HexagonTileObject CreateNewHexagon(HexagonTileObject hexagonObjectPrefab, HexagonPos hexPos)
         {
-            HexagonObject newHexagon = Instantiate(hexagonObjectPrefab, transform);
+            HexagonTileObject newHexagon = Instantiate(hexagonObjectPrefab, transform);
             newHexagon.name = $"Hexagon {hexPos}";
             newHexagon.transform.position = hexPos.ToWorldPos();
 
-            newHexagon.hexPos = hexPos;
+            //newHexagon.hexPos = hexPos;
 
             return newHexagon;
         }
