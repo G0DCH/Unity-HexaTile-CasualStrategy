@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TilePuzzle.Procedural
 {
-    public interface IReuseable
+    public interface IReusable
     {
         /// <summary>
         /// 오브젝트 풀에서 꺼내 재사용할때 실행

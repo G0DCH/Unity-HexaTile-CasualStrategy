@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace TilePuzzle.Procedural
 {
-    public class ObjectPool<T> where T : MonoBehaviour, IReuseable
+    public class ObjectPool<T> where T : MonoBehaviour, IReusable
     {
         public readonly int maxCapacity;
 
