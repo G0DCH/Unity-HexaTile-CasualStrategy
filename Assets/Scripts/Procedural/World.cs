@@ -15,7 +15,7 @@ namespace TilePuzzle.Procedural
         [SerializeField, Required] private TerrainRenderer terrainRenderer;
         [SerializeField, Required] private DecorationRenderer decorationRenderer;
 
-        private TerrainInfo[] hexagonInfos;
+        private TileInfo[] hexagonInfos;
         private DecorationInfo?[] decorationInfos;
 
         public Vector2Int WorldSize { get; protected set; }
@@ -35,11 +35,11 @@ namespace TilePuzzle.Procedural
         {
             WorldSize = worldSize;
 
-            hexagonInfos = new TerrainInfo[WorldSize.x * WorldSize.y];
+            hexagonInfos = new TileInfo[WorldSize.x * WorldSize.y];
             for (int i = 0; i < hexagonInfos.Length; i++)
             {
                 Center center = terrainData.terrainGraph.centers[i];
-                hexagonInfos[i] = new TerrainInfo
+                hexagonInfos[i] = new TileInfo
                 {
                     hexPos = center.hexPos,
                     isWater = center.isWater,
@@ -66,9 +66,9 @@ namespace TilePuzzle.Procedural
         }
 
         /// <summary>
-        /// 특정 위치에 있는 <see cref="TerrainInfo"/> 반환
+        /// 특정 위치에 있는 <see cref="TileInfo"/> 반환
         /// </summary>
-        public TerrainInfo GetHexagonInfoAt(HexagonPos hexPos)
+        public TileInfo GetHexagonInfoAt(HexagonPos hexPos)
         {
             Vector2Int arrayXY = hexPos.ToArrayXY();
             int index = arrayXY.x + arrayXY.y * WorldSize.x;
@@ -81,12 +81,12 @@ namespace TilePuzzle.Procedural
         }
 
         /// <summary>
-        /// 범위 내에 있는 모든 <see cref="TerrainInfo"/>들을 반환
+        /// 범위 내에 있는 모든 <see cref="TileInfo"/>들을 반환
         /// </summary>
         /// <param name="hexPos">중심 위치</param>
         /// <param name="distanceFrom">중심으로 부터 최소 거리</param>
         /// <param name="distanceTo">중심으로 부터 최대 거리</param>
-        public IEnumerable<TerrainInfo> GetHexagonInfosInRange(HexagonPos hexPos, int distanceFrom, int distanceTo)
+        public IEnumerable<TileInfo> GetHexagonInfosInRange(HexagonPos hexPos, int distanceFrom, int distanceTo)
         {
             foreach (int index in GetRangeIndexes(hexPos, distanceFrom, distanceTo))
             {

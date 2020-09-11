@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace TilePuzzle.Procedural
 {
-    public struct TerrainInfo
+
+    [Serializable]
+    public struct TileInfo
     {
         public HexagonPos hexPos;
         public bool isWater;
