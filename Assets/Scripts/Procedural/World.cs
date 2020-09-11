@@ -10,6 +10,7 @@ using UnityEngine;
 
 namespace TilePuzzle.Procedural
 {
+    [Obsolete("더 이상 사용되지 않음, HexagonTerrain을 사용", true)]
     public class World : MonoBehaviour
     {
         [SerializeField, Required] private TerrainRenderer terrainRenderer;

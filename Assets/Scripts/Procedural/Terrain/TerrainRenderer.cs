@@ -1,4 +1,5 @@
 ﻿using Sirenix.OdinInspector;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine.Profiling;
 
 namespace TilePuzzle.Procedural
 {
+    [Obsolete("더 이상 사용되지 않음, HexagonTerrain을 사용", true)]
     public class TerrainRenderer : MonoBehaviour
     {
         [Required]
