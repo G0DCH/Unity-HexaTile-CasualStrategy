@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace TilePuzzle.Procedural
 {
-    public abstract class HexagonTerrain : MonoBehaviour
+    public class HexagonTerrain : MonoBehaviour
     {
         public RenderOption renderOption;
 
@@ -21,7 +21,6 @@ namespace TilePuzzle.Procedural
         public HexagonTileObject tilePrefab;
         public int tilePoolCapacity;
         public Transform tileHolder;
-
         private ObjectPool<HexagonTileObject> tileObjectPool;
 
         public Vector2Int TerrainSize { get; private set; }
@@ -91,6 +90,17 @@ namespace TilePuzzle.Procedural
             fogOfWarMap = null;
         }
 
+        public HexagonTileObject GetHexagonTile(HexagonPos hexPos)
+        {
+            int index = hexPos.ToArrayIndex(TerrainSize.x);
+            if (index < 0 || index >= tileObjects.Length)
+            {
+                throw new IndexOutOfRangeException(nameof(hexPos));
+            }
+            return tileObjects[index];
+        }
+
+        [Obsolete("Use GetHexagonTile instead")]
         public TileInfo GetTerrainInfo(HexagonPos hexPos)
         {
             int index = hexPos.ToArrayIndex(TerrainSize.x);
@@ -101,6 +111,7 @@ namespace TilePuzzle.Procedural
             return tileObjects[index].TileInfo;
         }
 
+        [Obsolete("Use GetHexagonTile instead")]
         public DecorationInfo? GetDecorationInfo(HexagonPos hexPos)
         {
             int index = hexPos.ToArrayIndex(TerrainSize.x);
@@ -120,10 +131,24 @@ namespace TilePuzzle.Procedural
         }
 
         /// <summary>
+        /// 범위 내에 있는 모든 <see cref="HexagonTileObject"/>들을 반환
+        /// </summary>
+        /// <param name="centerHexPos">중심 위치</param>
+        /// <param name="range">탐색의 시작 ~ 끝 범위</param>
+        public IEnumerable<HexagonTileObject> GetHexagonTiles(HexagonPos centerHexPos, RangeInt range)
+        {
+            foreach (int index in CalculateIndexesInRange(centerHexPos, range))
+            {
+                yield return tileObjects[index];
+            }
+        }
+
+        /// <summary>
         /// 범위 내에 있는 모든 <see cref="TileInfo"/>들을 반환
         /// </summary>
         /// <param name="centerHexPos">중심 위치</param>
         /// <param name="range">탐색의 시작 ~ 끝 범위</param>
+        [Obsolete("Use GetHexagonTiles instead")]
         public IEnumerable<TileInfo> GetTerrainInfos(HexagonPos centerHexPos, RangeInt range)
         {
             foreach (int index in CalculateIndexesInRange(centerHexPos, range))
@@ -137,6 +162,7 @@ namespace TilePuzzle.Procedural
         /// </summary>
         /// <param name="centerHexPos">중심 위치</param>
         /// <param name="range">탐색의 시작 ~ 끝 범위</param>
+        [Obsolete("Use GetHexagonTiles instead")]
         public IEnumerable<DecorationInfo?> GetDecorationInfos(HexagonPos centerHexPos, RangeInt range)
         {
             foreach (int index in CalculateIndexesInRange(centerHexPos, range))
