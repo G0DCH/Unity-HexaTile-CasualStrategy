@@ -64,7 +64,7 @@ namespace TilePuzzle.Procedural
 
             this.decorationObject = decorationObject;
             this.decorationObject.transform.parent = transform;
-            this.decorationObject.transform.position = Vector3.zero;
+            this.decorationObject.transform.localPosition = Vector3.zero;
             DecorationInfo = decorationInfo;
         }
     }
