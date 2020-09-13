@@ -53,6 +53,8 @@ namespace TilePuzzle
         [Space, SerializeField]
         private GameObject TileContainer = null;
 
+        private const string tileContainerName = "TileContainer";
+
         private void Start()
         {
 #if UNITY_EDITOR || UNITY_STANDALONE
@@ -79,7 +81,10 @@ namespace TilePuzzle
                     HexagonTileObject hexagonTileObject = hexagonTerrain.GetHexagonTile(HexagonPos.FromArrayXY(x, y));
                     Tile tile = Instantiate(TileContainer, hexagonTileObject.transform).GetComponent<Tile>();
                     tile.transform.localPosition = Vector3.zero;
+                    tile.name = tileContainerName;
                     tile.InitInfo(hexagonTileObject.TileInfo, hexagonTileObject.DecorationInfo.GetValueOrDefault());
+
+                    TileMap.Add(hexagonTileObject.TileInfo.hexPos, tile);
                 }
             }
         }
@@ -87,7 +92,7 @@ namespace TilePuzzle
         // 범위 내 타일 return
         public List<Tile> GetRangeTiles(Tile myTile, int range)
         {
-            IEnumerable<HexagonTileObject> neighborHexagons = GameManager.Instance.MyHexagonTerrain.GetHexagonTiles(myTile.MyHexagonInfo.hexPos, new RangeInt(1, range));
+            IEnumerable<HexagonTileObject> neighborHexagons = GameManager.Instance.MyHexagonTerrain.GetHexagonTiles(myTile.MyHexagonInfo.hexPos, new RangeInt(1, range - 1));
             List<Tile> neighborTiles = new List<Tile>();
 
             foreach (HexagonTileObject neighbor in neighborHexagons)
@@ -116,7 +121,7 @@ namespace TilePuzzle
 
                     if (Physics.Raycast(ray.origin, ray.direction, out hit))
                     {
-                        Tile overTile = hit.transform.GetComponent<Tile>();
+                        Tile overTile = hit.transform.Find(tileContainerName).GetComponent<Tile>();
 
                         if (!CanPutTile(overTile))
                         {
@@ -177,7 +182,7 @@ namespace TilePuzzle
 
                         if (Physics.Raycast(ray.origin, ray.direction, out hit))
                         {
-                            Tile clickedTile = hit.transform.GetComponent<Tile>();
+                            Tile clickedTile = hit.transform.Find(tileContainerName).GetComponent<Tile>();
 
                             if (!CanPutTile(clickedTile))
                             {
