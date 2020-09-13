@@ -55,11 +55,7 @@ namespace TilePuzzle.Procedural
             TileMesh = null;
             TileMaterial = null;
 
-            if (decorationObject != null)
-            {
-                Destroy(decorationObject);
-                DecorationInfo = null;
-            }
+            DestroyDecoration();
         }
 
         public void OnReuse()
@@ -79,6 +75,15 @@ namespace TilePuzzle.Procedural
             this.decorationObject.transform.parent = transform;
             this.decorationObject.transform.localPosition = Vector3.zero;
             DecorationInfo = decorationInfo;
+        }
+
+        public void DestroyDecoration()
+        {
+            if (decorationObject != null)
+            {
+                Destroy(decorationObject);
+                DecorationInfo = null;
+            }
         }
     }
 }

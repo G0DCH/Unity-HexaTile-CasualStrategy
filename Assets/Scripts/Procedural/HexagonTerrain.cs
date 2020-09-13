@@ -49,7 +49,7 @@ namespace TilePuzzle.Procedural
                 UpdateFogOfWars();
             }
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKey(KeyCode.Space))
             {
                 var randomTile = tileObjects[UnityEngine.Random.Range(0, tileObjects.Length)];
                 SetTileVisibility(randomTile.TileInfo.hexPos, false);
@@ -197,6 +197,16 @@ namespace TilePuzzle.Procedural
             }
             tileObjects[index].IsVisible = isVisible;
             isFogOfWarChanged = true;
+        }
+
+        public void DestroyDecoration(HexagonPos hexPos)
+        {
+            int index = hexPos.ToArrayIndex(TerrainSize.x);
+            if (index < 0 || index >= tileObjects.Length)
+            {
+                throw new IndexOutOfRangeException(nameof(hexPos));
+            }
+            tileObjects[index].DestroyDecoration();
         }
 
         /// <summary>

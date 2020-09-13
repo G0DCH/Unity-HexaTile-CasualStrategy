@@ -44,3 +44,4 @@ Material:
     - Color_7E1935EC: {r: 0.24418165, g: 0.244126, b: 0.24528301, a: 0}
     - Vector2_BCB628E3: {r: 32, g: 32, b: 0, a: 0}
     - _ColorMapSize: {r: 64, g: 64, b: 0, a: 0}
+    - _MapSize: {r: 64, g: 64, b: 0, a: 0}
