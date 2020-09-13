@@ -12,14 +12,16 @@ namespace TilePuzzle.Procedural
 {
     public class HexagonTerrain : MonoBehaviour
     {
-        public RenderOption renderOption;
+        public RenderOption renderOption = RenderOption.Default;
 
         private HexagonTileObject[] tileObjects;
         private float[] fogOfWarMap;
 
         [Title("Object pooling settings")]
+        [Required]
         public HexagonTileObject tilePrefab;
-        public int tilePoolCapacity;
+        [Min(100)]
+        public int tilePoolCapacity = 500;
         public Transform tileHolder;
         private ObjectPool<HexagonTileObject> tileObjectPool;
 
@@ -233,9 +235,9 @@ namespace TilePuzzle.Procedural
             Mesh cliffTileMesh = HexagonMeshGenerator.BuildMesh(HexagonTileObject.TileSize, renderOption.cliffDepth);
             var riverTileMeshCache = new Dictionary<HexagonMeshGenerator.VertexDirection, Mesh>();
 
-            for (int y = 0; y <= TerrainSize.y; y++)
+            for (int y = 0; y < TerrainSize.y; y++)
             {
-                for (int x = 0; x <= TerrainSize.x; x++)
+                for (int x = 0; x < TerrainSize.x; x++)
                 {
                     int tileIndex = x + y * TerrainSize.x;
                     Center tileCenter = terrainData.terrainGraph.centers[tileIndex];
@@ -342,14 +344,18 @@ namespace TilePuzzle.Procedural
 
         private void UpdateTileColors()
         {
-            Color[] tileColors = new Color[tileObjects.Length];
-            for (int i = 0; i < tileObjects.Length; i++)
-            {
-                tileColors[i] = tileObjects[i].TileInfo.biome.color;
-            }
-
             int textureWidth = (int)Mathf.Pow(2, Mathf.CeilToInt(Mathf.Log(TerrainSize.x, 2)));
             int textureHeight = (int)Mathf.Pow(2, Mathf.CeilToInt(Mathf.Log(TerrainSize.y, 2)));
+
+            Color[] tileColors = new Color[textureWidth * textureHeight];
+            for (int y = 0; y < TerrainSize.y; y++)
+            {
+                for (int x = 0; x < TerrainSize.x; x++)
+                {
+                    tileColors[x + y * textureWidth] = tileObjects[x + y * TerrainSize.x].TileInfo.biome.color;
+                }
+            }
+
             Texture2D terrainColorTexture = new Texture2D(textureWidth, textureHeight)
             {
                 filterMode = FilterMode.Point
@@ -360,6 +366,7 @@ namespace TilePuzzle.Procedural
             renderOption.landMaterial.SetTexture("_ColorMap", terrainColorTexture);
         }
 
+        [Serializable]
         public struct RenderOption
         {
             [Title("Land")]
@@ -380,7 +387,7 @@ namespace TilePuzzle.Procedural
             [PropertyRange(0.05f, 1f)]
             public float riverSize;
 
-            public RenderOption Default => new RenderOption
+            public static RenderOption Default => new RenderOption
             {
                 cliffDepth = 1.5f,
                 enableBrightNoise = true,
