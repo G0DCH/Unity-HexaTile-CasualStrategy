@@ -15,7 +15,7 @@ namespace TilePuzzle.Procedural
         public RenderOption renderOption = RenderOption.Default;
 
         private HexagonTileObject[] tileObjects;
-        private float[] fogOfWarMap;
+        private bool isFogOfWarChanged = false;
 
         [Title("Object pooling settings")]
         [Required]
@@ -44,7 +44,16 @@ namespace TilePuzzle.Procedural
 
         protected virtual void Update()
         {
+            if (isFogOfWarChanged)
+            {
+                UpdateFogOfWars();
+            }
 
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                var randomTile = tileObjects[UnityEngine.Random.Range(0, tileObjects.Length)];
+                SetTileVisibility(randomTile.TileInfo.hexPos, false);
+            }
         }
         #endregion
 
@@ -72,6 +81,7 @@ namespace TilePuzzle.Procedural
             TerrainSize = terrainData.TerrainSize;
             tileObjects = SpawnTerrainTiles(terrainData, decorationData);
             UpdateTileColors();
+            UpdateFogOfWars();
         }
 
         /// <summary>
@@ -88,8 +98,6 @@ namespace TilePuzzle.Procedural
                 }
             }
             tileObjects = null;
-
-            fogOfWarMap = null;
         }
 
         public HexagonTileObject GetHexagonTile(HexagonPos hexPos)
@@ -180,14 +188,15 @@ namespace TilePuzzle.Procedural
             }
         }
 
-        public void SetFog(HexagonPos hexPos, bool value)
+        public void SetTileVisibility(HexagonPos hexPos, bool isVisible)
         {
             int index = hexPos.ToArrayIndex(TerrainSize.x);
-            if (index < 0 || index >= fogOfWarMap.Length)
+            if (index < 0 || index >= tileObjects.Length)
             {
                 throw new IndexOutOfRangeException(nameof(hexPos));
             }
-            fogOfWarMap[index] = value ? 1f : 0f;
+            tileObjects[index].IsVisible = isVisible;
+            isFogOfWarChanged = true;
         }
 
         /// <summary>
@@ -317,6 +326,9 @@ namespace TilePuzzle.Procedural
                     newPos.y = newTileObject.TileInfo.isWater ? -renderOption.waterDepth : 0;
                     newTileObject.transform.position = newPos;
 
+                    // 타일의 전장의 안개 설정
+                    newTileObject.IsVisible = true;
+
                     // 타일에 데코레이션이 있으면 데코레이션 생성
                     if (decorationData.decorationInfos[tileIndex].HasValue)
                     {
@@ -352,7 +364,9 @@ namespace TilePuzzle.Procedural
             {
                 for (int x = 0; x < TerrainSize.x; x++)
                 {
-                    tileColors[x + y * textureWidth] = tileObjects[x + y * TerrainSize.x].TileInfo.biome.color;
+                    int textureIndex = x + y * textureWidth;
+                    int tileIndex = x + y * TerrainSize.x;
+                    tileColors[textureIndex] = tileObjects[tileIndex].TileInfo.biome.color;
                 }
             }
 
@@ -363,7 +377,35 @@ namespace TilePuzzle.Procedural
             terrainColorTexture.SetPixels(tileColors);
             terrainColorTexture.Apply();
 
+            renderOption.landMaterial.SetVector("_MapSize", new Vector2(textureWidth, textureHeight));
             renderOption.landMaterial.SetTexture("_ColorMap", terrainColorTexture);
+        }
+
+        private void UpdateFogOfWars()
+        {
+            int textureWidth = (int)Mathf.Pow(2, Mathf.CeilToInt(Mathf.Log(TerrainSize.x, 2)));
+            int textureHeight = (int)Mathf.Pow(2, Mathf.CeilToInt(Mathf.Log(TerrainSize.y, 2)));
+
+            Color[] fogMask = new Color[textureWidth * textureHeight];
+            for (int y = 0; y < TerrainSize.y; y++)
+            {
+                for (int x = 0; x < TerrainSize.x; x++)
+                {
+                    int textureIndex = x + y * textureWidth;
+                    int tileIndex = x + y * TerrainSize.x;
+                    fogMask[textureIndex] = new Color(tileObjects[tileIndex].IsVisible ? 1f : 0f, 0f, 0f, 0f);
+                }
+            }
+
+            Texture2D forMaskTexture = new Texture2D(textureWidth, textureHeight)
+            {
+                filterMode = FilterMode.Point
+            };
+            forMaskTexture.SetPixels(fogMask);
+            forMaskTexture.Apply();
+
+            renderOption.landMaterial.SetVector("_MapSize", new Vector2(textureWidth, textureHeight));
+            renderOption.landMaterial.SetTexture("_FogMask", forMaskTexture);
         }
 
         [Serializable]

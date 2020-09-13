@@ -4,13 +4,13 @@
             "typeInfo": {
                 "fullName": "UnityEditor.ShaderGraph.Internal.Vector2ShaderProperty"
             },
-            "JSONnodeData": "{\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"cc1cd5f9-bf54-4474-99cf-e8c5c76c7bf8\"\n    },\n    \"m_Name\": \"Map Size\",\n    \"m_DefaultReferenceName\": \"Vector2_BCB628E3\",\n    \"m_OverrideReferenceName\": \"_ColorMapSize\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Precision\": 0,\n    \"m_GPUInstanced\": false,\n    \"m_Hidden\": false,\n    \"m_Value\": {\n        \"x\": 32.0,\n        \"y\": 32.0,\n        \"z\": 0.0,\n        \"w\": 0.0\n    }\n}"
+            "JSONnodeData": "{\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"cc1cd5f9-bf54-4474-99cf-e8c5c76c7bf8\"\n    },\n    \"m_Name\": \"Map Size\",\n    \"m_DefaultReferenceName\": \"Vector2_BCB628E3\",\n    \"m_OverrideReferenceName\": \"_MapSize\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Precision\": 0,\n    \"m_GPUInstanced\": false,\n    \"m_Hidden\": false,\n    \"m_Value\": {\n        \"x\": 32.0,\n        \"y\": 32.0,\n        \"z\": 0.0,\n        \"w\": 0.0\n    }\n}"
         },
         {
             "typeInfo": {
                 "fullName": "UnityEditor.ShaderGraph.Internal.Texture2DShaderProperty"
             },
-            "JSONnodeData": "{\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"627a5844-7d8d-4c69-b5c7-88fa14ca7a19\"\n    },\n    \"m_Name\": \"Color Map\",\n    \"m_DefaultReferenceName\": \"Texture2D_95B0F8B\",\n    \"m_OverrideReferenceName\": \"_ColorMap\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Precision\": 0,\n    \"m_GPUInstanced\": false,\n    \"m_Hidden\": false,\n    \"m_Value\": {\n        \"m_SerializedTexture\": \"{\\\"texture\\\":{\\\"fileID\\\":2800000,\\\"guid\\\":\\\"a47b720887f7c0c4e8708f6f20dcfe1c\\\",\\\"type\\\":3}}\",\n        \"m_Guid\": \"\"\n    },\n    \"m_Modifiable\": true,\n    \"m_DefaultType\": 0\n}"
+            "JSONnodeData": "{\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"627a5844-7d8d-4c69-b5c7-88fa14ca7a19\"\n    },\n    \"m_Name\": \"Color Texture\",\n    \"m_DefaultReferenceName\": \"Texture2D_95B0F8B\",\n    \"m_OverrideReferenceName\": \"_ColorMap\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Precision\": 0,\n    \"m_GPUInstanced\": false,\n    \"m_Hidden\": false,\n    \"m_Value\": {\n        \"m_SerializedTexture\": \"{\\\"texture\\\":{\\\"fileID\\\":2800000,\\\"guid\\\":\\\"a47b720887f7c0c4e8708f6f20dcfe1c\\\",\\\"type\\\":3}}\",\n        \"m_Guid\": \"\"\n    },\n    \"m_Modifiable\": true,\n    \"m_DefaultType\": 0\n}"
         },
         {
             "typeInfo": {
@@ -85,7 +85,7 @@
             "typeInfo": {
                 "fullName": "UnityEditor.ShaderGraph.PropertyNode"
             },
-            "JSONnodeData": "{\n    \"m_GuidSerialized\": \"ce4632a9-6141-4f6d-9646-9300ed1fb6f1\",\n    \"m_GroupGuidSerialized\": \"00000000-0000-0000-0000-000000000000\",\n    \"m_Name\": \"Property\",\n    \"m_NodeVersion\": 0,\n    \"m_DrawState\": {\n        \"m_Expanded\": true,\n        \"m_Position\": {\n            \"serializedVersion\": \"2\",\n            \"x\": 49.00008773803711,\n            \"y\": -23.999980926513673,\n            \"width\": 142.0,\n            \"height\": 34.0\n        }\n    },\n    \"m_SerializableSlots\": [\n        {\n            \"typeInfo\": {\n                \"fullName\": \"UnityEditor.ShaderGraph.Texture2DMaterialSlot\"\n            },\n            \"JSONnodeData\": \"{\\n    \\\"m_Id\\\": 0,\\n    \\\"m_DisplayName\\\": \\\"Color Map\\\",\\n    \\\"m_SlotType\\\": 1,\\n    \\\"m_Priority\\\": 2147483647,\\n    \\\"m_Hidden\\\": false,\\n    \\\"m_ShaderOutputName\\\": \\\"Out\\\",\\n    \\\"m_StageCapability\\\": 3\\n}\"\n        }\n    ],\n    \"m_Precision\": 0,\n    \"m_PreviewExpanded\": true,\n    \"m_CustomColors\": {\n        \"m_SerializableColors\": []\n    },\n    \"m_PropertyGuidSerialized\": \"627a5844-7d8d-4c69-b5c7-88fa14ca7a19\"\n}"
+            "JSONnodeData": "{\n    \"m_GuidSerialized\": \"ce4632a9-6141-4f6d-9646-9300ed1fb6f1\",\n    \"m_GroupGuidSerialized\": \"00000000-0000-0000-0000-000000000000\",\n    \"m_Name\": \"Property\",\n    \"m_NodeVersion\": 0,\n    \"m_DrawState\": {\n        \"m_Expanded\": true,\n        \"m_Position\": {\n            \"serializedVersion\": \"2\",\n            \"x\": 49.00008773803711,\n            \"y\": -23.999980926513673,\n            \"width\": 142.0,\n            \"height\": 34.0\n        }\n    },\n    \"m_SerializableSlots\": [\n        {\n            \"typeInfo\": {\n                \"fullName\": \"UnityEditor.ShaderGraph.Texture2DMaterialSlot\"\n            },\n            \"JSONnodeData\": \"{\\n    \\\"m_Id\\\": 0,\\n    \\\"m_DisplayName\\\": \\\"Color Texture\\\",\\n    \\\"m_SlotType\\\": 1,\\n    \\\"m_Priority\\\": 2147483647,\\n    \\\"m_Hidden\\\": false,\\n    \\\"m_ShaderOutputName\\\": \\\"Out\\\",\\n    \\\"m_StageCapability\\\": 3\\n}\"\n        }\n    ],\n    \"m_Precision\": 0,\n    \"m_PreviewExpanded\": true,\n    \"m_CustomColors\": {\n        \"m_SerializableColors\": []\n    },\n    \"m_PropertyGuidSerialized\": \"627a5844-7d8d-4c69-b5c7-88fa14ca7a19\"\n}"
         },
         {
             "typeInfo": {
@@ -460,13 +460,13 @@
             "typeInfo": {
                 "fullName": "UnityEditor.Graphing.Edge"
             },
-            "JSONnodeData": "{\n    \"m_OutputSlot\": {\n        \"m_SlotId\": 4,\n        \"m_NodeGUIDSerialized\": \"222c871f-f928-4f67-ae49-9b5d2b499b97\"\n    },\n    \"m_InputSlot\": {\n        \"m_SlotId\": 2,\n        \"m_NodeGUIDSerialized\": \"58aa931e-dd74-4574-989e-0c0a33b1773d\"\n    }\n}"
+            "JSONnodeData": "{\n    \"m_OutputSlot\": {\n        \"m_SlotId\": 4,\n        \"m_NodeGUIDSerialized\": \"222c871f-f928-4f67-ae49-9b5d2b499b97\"\n    },\n    \"m_InputSlot\": {\n        \"m_SlotId\": 0,\n        \"m_NodeGUIDSerialized\": \"9b9d6d66-a336-4f21-a0ea-53ec7d65b31c\"\n    }\n}"
         },
         {
             "typeInfo": {
                 "fullName": "UnityEditor.Graphing.Edge"
             },
-            "JSONnodeData": "{\n    \"m_OutputSlot\": {\n        \"m_SlotId\": 4,\n        \"m_NodeGUIDSerialized\": \"222c871f-f928-4f67-ae49-9b5d2b499b97\"\n    },\n    \"m_InputSlot\": {\n        \"m_SlotId\": 0,\n        \"m_NodeGUIDSerialized\": \"9b9d6d66-a336-4f21-a0ea-53ec7d65b31c\"\n    }\n}"
+            "JSONnodeData": "{\n    \"m_OutputSlot\": {\n        \"m_SlotId\": 4,\n        \"m_NodeGUIDSerialized\": \"222c871f-f928-4f67-ae49-9b5d2b499b97\"\n    },\n    \"m_InputSlot\": {\n        \"m_SlotId\": 2,\n        \"m_NodeGUIDSerialized\": \"58aa931e-dd74-4574-989e-0c0a33b1773d\"\n    }\n}"
         }
     ],
     "m_PreviewData": {

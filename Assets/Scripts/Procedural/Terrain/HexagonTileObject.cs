@@ -17,9 +17,22 @@ namespace TilePuzzle.Procedural
         [SerializeField, Required] private MeshFilter meshFilter;
         [SerializeField, Required] private MeshRenderer meshRenderer;
         private GameObject decorationObject;
+        private bool isVisible;
 
         public TileInfo TileInfo { get; set; }
         public DecorationInfo? DecorationInfo { get; private set; }
+        public bool IsVisible
+        {
+            get { return isVisible; }
+            set
+            {
+                isVisible = value;
+                if (decorationObject != null)
+                {
+                    decorationObject.SetActive(value);
+                }
+            }
+        }
 
         public Mesh TileMesh
         {
