@@ -256,7 +256,7 @@ namespace TilePuzzle.Procedural
                         isWater = tileCenter.isWater,
                         isSea = tileCenter.isSea,
                         isCoast = tileCenter.isCoast,
-                        hasRiver = tileCenter.NeighborCorners.Any(x => x.river > 0),
+                        hasRiver = tileCenter.NeighborCorners.Any(corner => corner.river > 0),
                         biome = terrainData.biomeTable.biomeDictionary[tileCenter.biomeId]
                     };
 
@@ -296,7 +296,7 @@ namespace TilePuzzle.Procedural
                             }
                         }
                         // 주변 타일과 고도차이가 있는 경우 (주변 타일이 물)
-                        else if (tileCenter.NeighborCenters.Values.Any(x => x.isWater))
+                        else if (tileCenter.NeighborCenters.Values.Any(corner => corner.isWater))
                         {
                             selectedMesh = cliffTileMesh;
                         }
