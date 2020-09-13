@@ -620,6 +620,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7942534466728891484}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &693377702 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 693377702, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
+    type: 3}
+  m_PrefabInstance: {fileID: 3259717439083867648}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af60770348355f84fbdd28b477115fb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &724384723 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 303171080460134862, guid: 2831e6c7b5b7f23419d724d1100b0f71,
@@ -1567,30 +1579,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d694614fd6061eb41b0b745139cebe6a, type: 3}
---- !u!114 &1530461991 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5105540466832325575, guid: d694614fd6061eb41b0b745139cebe6a,
-    type: 3}
-  m_PrefabInstance: {fileID: 1530461990}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cc47c93d2f395044a4dcf5b260cec42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1530461992 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1757706041753348977, guid: d694614fd6061eb41b0b745139cebe6a,
-    type: 3}
-  m_PrefabInstance: {fileID: 1530461990}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f5e3d0fff2c2e04dad2c94a13bf8a83, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1592355318 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7942534468299226538, guid: 2831e6c7b5b7f23419d724d1100b0f71,
@@ -1751,6 +1739,8 @@ MonoBehaviour:
   SelectedTile: {fileID: 0}
   SelectTileCost: 0
   CityNum: 0
+  TileContainer: {fileID: 5248716448891796504, guid: 7cb4f714dd33afb458a377e9c9343b10,
+    type: 3}
 --- !u!4 &1796399865
 Transform:
   m_ObjectHideFlags: 0
@@ -2882,6 +2872,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 693377702, guid: 215cf9d9f0cb19f47b256a58a7d781f4, type: 3}
+      propertyPath: tileHolder
+      value: 
+      objectReference: {fileID: 426020906}
+    - target: {fileID: 693377702, guid: 215cf9d9f0cb19f47b256a58a7d781f4, type: 3}
+      propertyPath: renderOption.landMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 1b2b06b2d7b92e74fa734f8af7a1a293, type: 2}
+    - target: {fileID: 693377702, guid: 215cf9d9f0cb19f47b256a58a7d781f4, type: 3}
+      propertyPath: renderOption.seaMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: c07cee2026c562244a9d0f1000b65fae, type: 2}
+    - target: {fileID: 693377702, guid: 215cf9d9f0cb19f47b256a58a7d781f4, type: 3}
+      propertyPath: renderOption.lakeMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: c07cee2026c562244a9d0f1000b65fae, type: 2}
     - target: {fileID: 3259717438936863095, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
         type: 3}
       propertyPath: m_Name
@@ -3207,6 +3213,11 @@ PrefabInstance:
       propertyPath: toolTip
       value: 
       objectReference: {fileID: 1186973940}
+    - target: {fileID: 3259717438936863097, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
+        type: 3}
+      propertyPath: MyHexagonTerrain
+      value: 
+      objectReference: {fileID: 693377702}
     - target: {fileID: 3259717438936863098, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3262,16 +3273,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3259717439083867650, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: terrainRenderer
-      value: 
-      objectReference: {fileID: 1530461992}
-    - target: {fileID: 3259717439083867650, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
-        type: 3}
-      propertyPath: decorationRenderer
-      value: 
-      objectReference: {fileID: 1530461991}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 215cf9d9f0cb19f47b256a58a7d781f4, type: 3}
 --- !u!114 &3259717439083867650 stripped

@@ -47,8 +47,11 @@ namespace TilePuzzle
         private Dictionary<HexagonPos, Tile> TileMap = new Dictionary<HexagonPos, Tile>();
 
         // 도시 타일 갯수
-        [SerializeField, ReadOnly]
+        [Space, SerializeField, ReadOnly]
         private int CityNum = 0;
+
+        [Space, SerializeField]
+        private GameObject TileContainer = null;
 
         private void Start()
         {
@@ -66,29 +69,30 @@ namespace TilePuzzle
 
         public void InitTileMap()
         {
-            HexagonTileObject[] hexagonObjects = FindObjectsOfType<HexagonTileObject>();
+            Vector2Int terrainSize = GameManager.Instance.terrainGenerateSettings.terrainSize;
+            HexagonTerrain hexagonTerrain = GameManager.Instance.MyHexagonTerrain;
 
-            foreach (HexagonTileObject hexagonObject in hexagonObjects)
+            for (int x = 0; x < terrainSize.x; x++)
             {
-                Tile tile = hexagonObject.gameObject.AddComponent<Tile>();
-
-                TileInfo hexagonInfo = GameManager.Instance.World.GetHexagonInfoAt(hexagonObject.hexPos);
-                DecorationInfo decorationInfo = GameManager.Instance.World.GetDecorationInfoAt(hexagonObject.hexPos).GetValueOrDefault();
-
-                tile.InitInfo(hexagonInfo, decorationInfo);
-                TileMap.Add(hexagonObject.hexPos, tile);
+                for (int y = 0; y<terrainSize.y; y++)
+                {
+                    HexagonTileObject hexagonTileObject = hexagonTerrain.GetHexagonTile(HexagonPos.FromArrayXY(x, y));
+                    Tile tile = Instantiate(TileContainer, hexagonTileObject.transform).GetComponent<Tile>();
+                    tile.transform.localPosition = Vector3.zero;
+                    tile.InitInfo(hexagonTileObject.TileInfo, hexagonTileObject.DecorationInfo.GetValueOrDefault());
+                }
             }
         }
 
         // 범위 내 타일 return
         public List<Tile> GetRangeTiles(Tile myTile, int range)
         {
-            IEnumerable<TileInfo> neighborHexagons = GameManager.Instance.World.GetHexagonInfosInRange(myTile.MyHexagonInfo.hexPos, 1, range);
+            IEnumerable<HexagonTileObject> neighborHexagons = GameManager.Instance.MyHexagonTerrain.GetHexagonTiles(myTile.MyHexagonInfo.hexPos, new RangeInt(1, range));
             List<Tile> neighborTiles = new List<Tile>();
 
-            foreach (TileInfo neighbor in neighborHexagons)
+            foreach (HexagonTileObject neighbor in neighborHexagons)
             {
-                neighborTiles.Add(TileMap[neighbor.hexPos]);
+                neighborTiles.Add(TileMap[neighbor.TileInfo.hexPos]);
             }
 
             return neighborTiles;

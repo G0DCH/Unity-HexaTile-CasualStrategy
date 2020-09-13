@@ -18,10 +18,7 @@ namespace TilePuzzle
         [SerializeField]
         private int buildPoint = 6;
 
-        public World World;
-
-        [SerializeField]
-        private Vector2Int WorldSize;
+        public HexagonTerrain MyHexagonTerrain;
 
         [Required]
         public TerrainGenerateSettings terrainGenerateSettings;
@@ -29,13 +26,13 @@ namespace TilePuzzle
 
         private void Awake()
         {
-            if (World == null)
+            if (MyHexagonTerrain == null)
             {
-                World = FindObjectOfType(typeof(Procedural.World)) as Procedural.World;
+                MyHexagonTerrain = FindObjectOfType(typeof(HexagonTerrain)) as HexagonTerrain;
 
-                if (World == null)
+                if (MyHexagonTerrain == null)
                 {
-                    Debug.LogError("World 스크립트이 씬에 없음.");
+                    Debug.LogError("HexagonTerrain 스크립트가 씬에 없음.");
                 }
             }
         }
@@ -59,7 +56,7 @@ namespace TilePuzzle
             Procedural.TerrainData terrainData = TerrainGenerator.GenerateTerrainData(seed, terrainGenerateSettings);
             DecorationData decorationData = DecorationGenerator.GenerateDecorationData(seed, terrainData, decorationSpawners);
 
-            World.InitializeWorld(WorldSize, terrainData, decorationData);
+            MyHexagonTerrain.BuildTerrain(terrainData, decorationData);
 
             TileManager.Instance.InitTileMap();
         }

@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 3259717438936863098}
   - component: {fileID: 3259717438936863097}
   - component: {fileID: 3259717438936863096}
-  - component: {fileID: 3259717439083867650}
   - component: {fileID: 7758246500625590769}
+  - component: {fileID: 693377702}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -48,8 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: 0
   buildPoint: 50
-  World: {fileID: 3259717439083867650}
-  WorldSize: {x: 60, y: 60}
+  MyHexagonTerrain: {fileID: 0}
   terrainGenerateSettings: {fileID: 11400000, guid: 3bae007107bb357429a5549ffd89a720,
     type: 2}
   decorationSpawners:
@@ -142,20 +141,6 @@ MonoBehaviour:
   GameOverPanel: {fileID: 0}
   pointText: {fileID: 0}
   toolTip: {fileID: 0}
---- !u!114 &3259717439083867650
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3259717438936863095}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8013e0e0878900f4686b9b0411e2472c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  terrainRenderer: {fileID: 0}
-  decorationRenderer: {fileID: 0}
 --- !u!114 &7758246500625590769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,3 +155,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WorldAge: 0
   AgeLimitList: 1e0000003c0000005a0000007800000096000000b4000000d2000000f0000000
+--- !u!114 &693377702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3259717438936863095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af60770348355f84fbdd28b477115fb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderOption:
+    landMaterial: {fileID: 0}
+    cliffDepth: 1.5
+    enableBrightNoise: 1
+    seaMaterial: {fileID: 0}
+    lakeMaterial: {fileID: 0}
+    waterDepth: 0.5
+    riverSize: 0.2
+  tilePrefab: {fileID: 6816093888512266209, guid: 58fbc8c2c2f1b3748a012b01f48d954a,
+    type: 3}
+  tilePoolCapacity: 100
+  tileHolder: {fileID: 0}
