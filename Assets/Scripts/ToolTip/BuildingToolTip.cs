@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TilePuzzle
 {
-    [SerializeField]
+    [System.Serializable]
     public class BuildingToolTip
     {
         /// <summary>
@@ -18,8 +18,8 @@ namespace TilePuzzle
         [SerializeField, TextArea]
         private string toolTipText;
 
-        public BonusPerAge MyBonusPerAge { get { return myBonusPerAge; } }
+        public List<InfoPerAge> InfoPerAges { get { return infoPerAges; } }
         [SerializeField]
-        private BonusPerAge myBonusPerAge = new BonusPerAge();
+        private List<InfoPerAge> infoPerAges = new List<InfoPerAge>();
     }
 }

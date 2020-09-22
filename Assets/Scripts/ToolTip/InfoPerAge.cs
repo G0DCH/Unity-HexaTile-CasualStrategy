@@ -23,14 +23,14 @@ namespace TilePuzzle
     }
 
     /// <summary>
-    /// 주변 지형 당 보너스
+    /// 주변 숲, 열대우림 당 보너스
     /// </summary>
     [System.Serializable]
     public class BonusPerFeature
     {
         public TileFeature MyFeature { get { return myFeature; } }
         [SerializeField]
-        private TileFeature myFeature = TileFeature.Empty;
+        private TileFeature myFeature = TileFeature.RainForest;
 
         public float Bonus { get { return bonus; } }
         [SerializeField]
@@ -38,14 +38,36 @@ namespace TilePuzzle
     }
 
     /// <summary>
-    /// 한 시대 당 보너스
+    /// 주변 타일 타입 당 보너스
     /// </summary>
     [System.Serializable]
-    public class BonusPerAge
+    public class BonusPerType
+    {
+        public TileType MyType { get { return myType; } }
+        [SerializeField]
+        private TileType myType = TileType.Mountain;
+
+        public float Bonus { get { return bonus; } }
+        [SerializeField]
+        private float bonus = 0;
+    }
+
+    /// <summary>
+    /// 한 시대 당 건물 정보
+    /// </summary>
+    [System.Serializable]
+    public class InfoPerAge
     {
         public Age MyAge { get { return myAge; } }
         [SerializeField]
         private Age myAge = Age.Ancient;
+
+        /// <summary>
+        /// 이 시대의 건물 비용
+        /// </summary>
+        public int Cost { get { return cost; } }
+        [SerializeField]
+        private int cost = 3;
 
         /// <summary>
         /// 건물 건설 시 지급되는 기본 보너스
@@ -62,10 +84,17 @@ namespace TilePuzzle
         private List<BonusPerBuilding> bonusPerBuildings = new List<BonusPerBuilding>();
 
         /// <summary>
-        /// 주변 지형 당 보너스
+        /// 주변 숲, 열대우림 당 보너스
         /// </summary>
         public List<BonusPerFeature> BonusPerFeatures { get { return bonusPerFeatures; } }
         [SerializeField]
         private List<BonusPerFeature> bonusPerFeatures = new List<BonusPerFeature>();
+
+        /// <summary>
+        /// 주변 타일 타입 당 보너스
+        /// </summary>
+        public List<BonusPerType> BonusPerTypes { get { return bonusPerTypes; } }
+        [SerializeField]
+        private List<BonusPerType> bonusPerTypes = new List<BonusPerType>();
     }
 }
