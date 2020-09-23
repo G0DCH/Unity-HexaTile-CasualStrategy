@@ -5,7 +5,7 @@ using UnityEngine;
 namespace TilePuzzle
 {
     [System.Serializable]
-    public class BuildingToolTip
+    public class BuildingData
     {
         /// <summary>
         /// 이 툴팁의 건물

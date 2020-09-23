@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c5dded0b0914c1444b2b22ab702b1a13, type: 3}
-  m_Name: BuildingToolTipTable
+  m_Name: BuildingDataTable
   m_EditorClassIdentifier: 
-  buildingToolTips:
+  buildingDatas:
   - myBuilding: 6
     toolTipText: "\uD604\uC7AC \uC124\uCE58 \uBE44\uC6A9 : {0}\n\uB2E4\uB978 \uB3C4\uC2EC\uBD80
       \uD0C0\uC77C\uC758 \uBC94\uC704 \uB0B4\uC5D0\uB294 \uAC74\uC124 \uBD88\uAC00.\n\uC774
