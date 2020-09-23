@@ -42,5 +42,13 @@ namespace TilePuzzle
         public int Bonus { get { return bonus; } }
         [SerializeField]
         private int bonus = 2;
+
+        public WonderData(Age age, string wonderName, int cost, int bonus)
+        {
+            myAge = age;
+            this.wonderName = wonderName;
+            this.cost = cost;
+            this.bonus = bonus;
+        }
     }
 }

@@ -5,6 +5,7 @@ namespace TilePuzzle
     // 불가사의 타일
     public abstract class WonderTile : Tile
     {
+        public int WonderBonus { get { return wonderBonus; } }
         [SerializeField, Header("Bonus Point")]
         protected int wonderBonus = 0;
         [SerializeField, Header("Age Of Wonder")]
