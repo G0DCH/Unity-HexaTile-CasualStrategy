@@ -10,42 +10,48 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb0dbae6561edbf4480d6796c7f84024, type: 3}
-  m_Name: AncientTable
+  m_Name: IndustrialTable
   m_EditorClassIdentifier: 
   wonderDatas:
-  - myAge: 0
-    wonderName: ArtemisTemple
+  - myAge: 4
+    wonderName: BigBen
     koreanName: 
     toolTipText: 
-    cost: 10
-    bonus: 2
-  - myAge: 0
-    wonderName: GreatBath
+    cost: 50
+    bonus: 3
+  - myAge: 4
+    wonderName: BolshoiTheater
     koreanName: 
     toolTipText: 
-    cost: 10
-    bonus: 2
-  - myAge: 0
-    wonderName: HangingGarden
+    cost: 50
+    bonus: 4
+  - myAge: 4
+    wonderName: Hermitage
     koreanName: 
     toolTipText: 
-    cost: 10
-    bonus: 2
-  - myAge: 0
-    wonderName: Oracle
+    cost: 50
+    bonus: 4
+  - myAge: 4
+    wonderName: Orszaghaz
     koreanName: 
     toolTipText: 
-    cost: 10
+    cost: 50
+    bonus: 4
+  - myAge: 4
+    wonderName: OxfordUniv
+    koreanName: 
+    toolTipText: 
+    cost: 50
     bonus: 1
-  - myAge: 0
-    wonderName: Pyramid
+  - myAge: 4
+    wonderName: RuhrValley
     koreanName: 
     toolTipText: 
-    cost: 10
-    bonus: 1
-  - myAge: 0
-    wonderName: StoneHenge
+    cost: 50
+    bonus: 4
+  - myAge: 4
+    wonderName: StatueOfLiberty
     koreanName: 
     toolTipText: 
-    cost: 10
-    bonus: 1
+    cost: 50
+    bonus: 6

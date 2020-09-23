@@ -10,42 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb0dbae6561edbf4480d6796c7f84024, type: 3}
-  m_Name: AncientTable
+  m_Name: AtomicTable
   m_EditorClassIdentifier: 
   wonderDatas:
-  - myAge: 0
-    wonderName: ArtemisTemple
+  - myAge: 6
+    wonderName: AmundsenScott
     koreanName: 
     toolTipText: 
-    cost: 10
+    cost: 70
     bonus: 2
-  - myAge: 0
-    wonderName: GreatBath
+  - myAge: 6
+    wonderName: EstadioDoMarakana
     koreanName: 
     toolTipText: 
-    cost: 10
-    bonus: 2
-  - myAge: 0
-    wonderName: HangingGarden
+    cost: 70
+    bonus: 3
+  - myAge: 6
+    wonderName: SydneyOperaHouse
     koreanName: 
     toolTipText: 
-    cost: 10
-    bonus: 2
-  - myAge: 0
-    wonderName: Oracle
-    koreanName: 
-    toolTipText: 
-    cost: 10
-    bonus: 1
-  - myAge: 0
-    wonderName: Pyramid
-    koreanName: 
-    toolTipText: 
-    cost: 10
-    bonus: 1
-  - myAge: 0
-    wonderName: StoneHenge
-    koreanName: 
-    toolTipText: 
-    cost: 10
-    bonus: 1
+    cost: 70
+    bonus: 6
