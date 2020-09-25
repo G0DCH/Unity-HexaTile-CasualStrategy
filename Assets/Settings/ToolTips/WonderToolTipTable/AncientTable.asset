@@ -50,7 +50,7 @@ MonoBehaviour:
     koreanName: "\uD53C\uB77C\uBBF8\uB4DC"
     toolTipText: "\uD604\uC7AC \uBE44\uC6A9 : {0}\n\uC124\uCE58 \uC81C\uD55C : \uC0AC\uB9C9\uC778
       \uAC15 \uD0C0\uC77C\n\uD6A8\uACFC : \uC0AC\uB9C9 \uD0C0\uC77C\uC5D0 \uC9D3\uB294
-      \uAC74\uBB3C \uBE44\uC6A9 {1}"
+      \uAC74\uBB3C \uBE44\uC6A9 -{1}"
     cost: 10
     bonus: 1
   - myAge: 0
@@ -58,6 +58,6 @@ MonoBehaviour:
     koreanName: "\uC2A4\uD1A4\uD5E8\uC9C0"
     toolTipText: "\uD604\uC7AC \uBE44\uC6A9 : {0}\n\uAC74\uC124 \uC81C\uD55C : \uC131\uC9C0
       \uC606 \uD0C0\uC77C\n\uD6A8\uACFC : \uCD08\uC6D0, \uD3C9\uC6D0\uC5D0 \uC9D3\uB294
-      \uC131\uC9C0 \uBE44\uC6A9 {1}"
+      \uC131\uC9C0 \uBE44\uC6A9 -{1}"
     cost: 10
     bonus: 1
