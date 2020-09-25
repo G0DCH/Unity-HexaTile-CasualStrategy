@@ -15,37 +15,49 @@ MonoBehaviour:
   wonderDatas:
   - myAge: 0
     wonderName: ArtemisTemple
-    koreanName: 
-    toolTipText: 
+    koreanName: "\uC544\uB974\uD14C\uBBF8\uC2A4 \uC2E0\uC804"
+    toolTipText: "\uD604\uC7AC \uBE44\uC6A9 : {0}\n\uC124\uCE58 \uC81C\uD55C : \uD3C9\uC6D0\uC774\uB098
+      \uCD08\uC6D0\uC5D0 \uC124\uCE58 \uAC00\uB2A5\n\uD6A8\uACFC : \uCD08\uC6D0\uC774\uB098
+      \uD3C9\uC6D0\uC5D0 \uC131\uC9C0\uB97C \uC9C0\uC73C\uBA74 \uC810\uC218 +{1}"
     cost: 10
     bonus: 2
   - myAge: 0
     wonderName: GreatBath
-    koreanName: 
-    toolTipText: 
+    koreanName: "\uB300\uC695\uC7A5"
+    toolTipText: "\uD604\uC7AC \uBE44\uC6A9 : {0}\n\uC124\uCE58 \uC81C\uD55C : \uAC15
+      \uD0C0\uC77C\uC5D0 \uC124\uCE58 \uAC00\uB2A5\n\uD6A8\uACFC : \uAC15 \uD0C0\uC77C\uC5D0
+      \uC131\uC9C0\uB97C \uC9C0\uC73C\uBA74 \uC810\uC218 +{1}"
     cost: 10
     bonus: 2
   - myAge: 0
     wonderName: HangingGarden
-    koreanName: 
-    toolTipText: 
+    koreanName: "\uACF5\uC911\uC815\uC6D0"
+    toolTipText: "\uD604\uC7AC \uBE44\uC6A9 : {0}\n\uC124\uCE58 \uC81C\uD55C : \uAC15
+      \uD0C0\uC77C\uC5D0 \uC124\uCE58 \uAC00\uB2A5.\n\uD6A8\uACFC : \uAC15 \uD0C0\uC77C\uC5D0
+      \uB3C4\uC2DC \uD0C0\uC77C\uC744 \uC124\uCE58\uD558\uBA74 \uC810\uC218 +{1}"
     cost: 10
     bonus: 2
   - myAge: 0
     wonderName: Oracle
-    koreanName: 
-    toolTipText: 
+    koreanName: "\uC624\uB77C\uD074"
+    toolTipText: "\uD604\uC7AC \uBE44\uC6A9 : {0}\n\uC124\uCE58 \uC81C\uD55C : \uC81C\uD55C
+      \uC5C6\uC74C.\n\uD6A8\uACFC : \uBAA8\uB4E0 \uAC74\uBB3C\uC758 \uC810\uC218
+      +{1}"
     cost: 10
     bonus: 1
   - myAge: 0
     wonderName: Pyramid
-    koreanName: 
-    toolTipText: 
+    koreanName: "\uD53C\uB77C\uBBF8\uB4DC"
+    toolTipText: "\uD604\uC7AC \uBE44\uC6A9 : {0}\n\uC124\uCE58 \uC81C\uD55C : \uC0AC\uB9C9\uC778
+      \uAC15 \uD0C0\uC77C\uC5D0 \uC124\uCE58 \uAC00\uB2A5.\n\uD6A8\uACFC : \uC0AC\uB9C9
+      \uD0C0\uC77C\uC5D0 \uC9D3\uB294 \uAC74\uBB3C \uBE44\uC6A9 {1}"
     cost: 10
     bonus: 1
   - myAge: 0
     wonderName: StoneHenge
-    koreanName: 
-    toolTipText: 
+    koreanName: "\uC2A4\uD1A4\uD5E8\uC9C0"
+    toolTipText: "\uD604\uC7AC \uBE44\uC6A9 : {0}\n\uC124\uCE58 \uC81C\uD55C : \uC131\uC9C0
+      \uC606\uC5D0 \uC124\uCE58 \uAC00\uB2A5.\n\uD6A8\uACFC : \uCD08\uC6D0, \uD3C9\uC6D0\uC5D0
+      \uC9D3\uB294 \uC131\uC9C0 \uBE44\uC6A9 {1}"
     cost: 10
     bonus: 1
