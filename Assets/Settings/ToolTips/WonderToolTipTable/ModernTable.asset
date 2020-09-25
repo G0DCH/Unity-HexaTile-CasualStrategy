@@ -15,19 +15,25 @@ MonoBehaviour:
   wonderDatas:
   - myAge: 5
     wonderName: BroadWay
-    koreanName: 
-    toolTipText: 
+    koreanName: "\uBE0C\uB85C\uB4DC\uC6E8\uC774"
+    toolTipText: "\uD604\uC7AC \uBE44\uC6A9 : {0}\n\uAC74\uC124 \uC81C\uD55C : \uADF9\uC7A5\uAC00
+      \uC606 \uD0C0\uC77C\n\uD6A8\uACFC : \uADF9\uC7A5\uAC00 \uC810\uC218 +{1}\n\uADF9\uC7A5\uAC00
+      \uBC94\uC704 +1"
     cost: 60
     bonus: 5
   - myAge: 5
     wonderName: CristoRedentor
-    koreanName: 
-    toolTipText: 
+    koreanName: "\uB9AC\uC624\uC758 \uC608\uC218\uC0C1"
+    toolTipText: "\uD604\uC7AC \uBE44\uC6A9 : {0}\n\uAC74\uC124 \uC81C\uD55C : \uC81C\uD55C
+      \uC5C6\uC74C\n\uD6A8\uACFC : \uC131\uC9C0, \uADF9\uC7A5\uAC00 \uAC74\uBB3C
+      \uBC94\uC704 +{1}"
     cost: 60
     bonus: 1
   - myAge: 5
     wonderName: EiffelTower
-    koreanName: 
-    toolTipText: 
+    koreanName: "\uC5D0\uD3A0\uD0D1"
+    toolTipText: "\uD604\uC7AC \uBE44\uC6A9 : {0}\n\uAC74\uC124 \uC81C\uD55C : \uB3C4\uC2DC
+      \uC606 \uD0C0\uC77C\n\uD6A8\uACFC : \uAC74\uBB3C\uC744 \uB3C4\uC2DC \uC606
+      \uD0C0\uC77C\uC5D0 \uC9C0\uC73C\uBA74 \uC810\uC218 +{1}"
     cost: 60
     bonus: 6
