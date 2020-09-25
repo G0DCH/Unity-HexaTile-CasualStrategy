@@ -15,43 +15,58 @@ MonoBehaviour:
   wonderDatas:
   - myAge: 3
     wonderName: CasaDeContratacion
-    koreanName: 
-    toolTipText: 
+    koreanName: "\uCE74\uC0AC \uB370 \uCF58\uD2B8\uB77C\uD0C0\uC2DC\uC628"
+    toolTipText: "\uD604\uC7AC \uBE44\uC6A9 : {0}\n\uAC74\uC124 \uC81C\uD55C : \uC815\uBD80
+      \uCCAD\uC0AC \uC606 \uD0C0\uC77C\n\uD6A8\uACFC : \uC815\uBD80 \uCCAD\uC0AC
+      \uC810\uC218 +{1}"
     cost: 40
     bonus: 3
   - myAge: 3
     wonderName: ForbiddenCity
-    koreanName: 
-    toolTipText: 
+    koreanName: "\uC790\uAE08\uC131"
+    toolTipText: "\uD604\uC7AC \uBE44\uC6A9 : {0}\n\uAC74\uC124 \uC81C\uD55C : \uB3C4\uC2DC
+      \uC606 \uD0C0\uC77C\n\uD6A8\uACFC : \uB3C4\uC2DC \uC810\uC218 +{1}"
     cost: 40
     bonus: 3
   - myAge: 3
     wonderName: GreatZimbabwe
-    koreanName: 
-    toolTipText: 
+    koreanName: "\uADF8\uB808\uC774\uD2B8 \uC9D0\uBC14\uBE0C\uC6E8"
+    toolTipText: "\uD604\uC7AC \uBE44\uC6A9 : {0}\n\uAC74\uC124 \uC81C\uD55C : \uC0C1\uC5C5
+      \uC911\uC2EC\uC9C0 \uC606 \uD0C0\uC77C\n\uD6A8\uACFC : \uC0C1\uC5C5 \uC911\uC2EC\uC9C0
+      \uC810\uC218 +{1}"
     cost: 40
     bonus: 2
   - myAge: 3
     wonderName: PotalaPalace
-    koreanName: 
-    toolTipText: 
+    koreanName: "\uD3EC\uD0C8\uB77C \uAD81"
+    toolTipText: "\uD604\uC7AC \uBE44\uC6A9 : {0}\n\uAC74\uC124 \uC81C\uD55C : \uC0B0
+      \uC606 \uD0C0\uC77C\n\uD6A8\uACFC : \uAC74\uBB3C \uBC94\uC704 \uB0B4 \uC0B0\uC774
+      \uC788\uC73C\uBA74 \uC810\uC218 +{1}"
     cost: 40
     bonus: 3
   - myAge: 3
     wonderName: SaintBasils
-    koreanName: 
-    toolTipText: 
+    koreanName: "\uC131 \uBC14\uC2E4\uB9AC \uB300\uC131\uB2F9"
+    toolTipText: "\uD604\uC7AC \uBE44\uC6A9 : {0}\n\uAC74\uC124 \uC81C\uD55C : \uB3C4\uC2DC
+      \uC606 \uD0C0\uC77C\n\uD6A8\uACFC : \uD230\uB4DC\uB77C\uC5D0 \uAC74\uBB3C \uAC74\uC124
+      \uC2DC \uC810\uC218 +{1}\n\uD230\uB4DC\uB77C\uC5D0 \uAC74\uBB3C \uAC74\uC124
+      \uC2DC \uBC94\uC704 +1"
     cost: 40
     bonus: 2
   - myAge: 3
     wonderName: TajMahal
-    koreanName: 
-    toolTipText: 
+    koreanName: "\uD0C0\uC9C0\uB9C8\uD560"
+    toolTipText: "\uD604\uC7AC \uBE44\uC6A9 : {0}\n\uAC74\uC124 \uC81C\uD55C : \uAC15
+      \uD0C0\uC77C\n\uD6A8\uACFC : \uAC74\uC124\uD55C \uAC74\uBB3C\uC758 \uC810\uC218\uAC00
+      6 \uC774\uC0C1\uC774\uBA74 \uC810\uC218 +{1}"
     cost: 40
     bonus: 3
   - myAge: 3
     wonderName: VenetianArsenal
-    koreanName: 
-    toolTipText: 
+    koreanName: "\uBCA0\uB124\uCE58\uC544 \uAD70\uC218\uCC3D\uACE0"
+    toolTipText: "\uD604\uC7AC \uBE44\uC6A9 : {0}\n\uAC74\uC124 \uC81C\uD55C : \uC0B0\uC5C5\uAD6C\uC5ED
+      \uC606 \uBB3C \uD0C0\uC77C\n\uD6A8\uACFC : \uBB3C \uD0C0\uC77C \uC606\uC5D0
+      \uC0B0\uC5C5\uAD6C\uC5ED, \uC8FC\uB454\uC9C0, \uD56D\uB9CC\uC744 \uC9C0\uC73C\uBA74
+      \uC810\uC218 +{1}"
     cost: 40
     bonus: 4
