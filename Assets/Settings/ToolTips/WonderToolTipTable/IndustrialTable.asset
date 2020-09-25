@@ -15,43 +15,54 @@ MonoBehaviour:
   wonderDatas:
   - myAge: 4
     wonderName: BigBen
-    koreanName: 
-    toolTipText: 
+    koreanName: "\uBE45 \uBCA4"
+    toolTipText: "\uD604\uC7AC \uBE44\uC6A9 : {0}\n\uAC74\uC124 \uC81C\uD55C : \uC0C1\uC5C5
+      \uC911\uC2EC\uC9C0 \uC606 \uAC15 \uD0C0\uC77C\n\uD6A8\uACFC : \uC0C1\uC5C5
+      \uC911\uC2EC\uC9C0 \uC810\uC218 +{1}"
     cost: 50
     bonus: 3
   - myAge: 4
     wonderName: BolshoiTheater
-    koreanName: 
-    toolTipText: 
+    koreanName: "\uBCFC\uC1FC\uC774 \uADF9\uC7A5"
+    toolTipText: "\uD604\uC7AC \uBE44\uC6A9 : {0}\n\uAC74\uC124 \uC81C\uD55C : \uADF9\uC7A5\uAC00
+      \uC606 \uD0C0\uC77C\n\uD6A8\uACFC : \uADF9\uC7A5\uAC00 \uC810\uC218 +{1}"
     cost: 50
     bonus: 4
   - myAge: 4
     wonderName: Hermitage
-    koreanName: 
-    toolTipText: 
+    koreanName: "\uC608\uB974\uBBF8\uD0C0\uC2DC \uBBF8\uC220\uAD00"
+    toolTipText: "\uD604\uC7AC \uBE44\uC6A9 : {0}\n\uAC74\uC124 \uC81C\uD55C : \uAC15
+      \uD0C0\uC77C\n\uD6A8\uACFC : \uADF9\uC7A5\uAC00 \uC810\uC218 +{1}"
     cost: 50
     bonus: 4
   - myAge: 4
     wonderName: Orszaghaz
-    koreanName: 
-    toolTipText: 
+    koreanName: "\uD5DD\uAC00\uB9AC \uAD6D\uD68C\uC758\uC0AC\uB2F9"
+    toolTipText: "\uD604\uC7AC \uBE44\uC6A9 : {0}\n\uAC74\uC124 \uC81C\uD55C : \uAC15
+      \uD0C0\uC77C\n\uD6A8\uACFC : \uB3C4\uC2DC \uC810\uC218 +{1}"
     cost: 50
     bonus: 4
   - myAge: 4
     wonderName: OxfordUniv
-    koreanName: 
-    toolTipText: 
+    koreanName: "\uC625\uC2A4\uD37C\uB4DC \uB300\uD559\uAD50"
+    toolTipText: "\uD604\uC7AC \uBE44\uC6A9 : {0}\n\uAC74\uC124 \uC81C\uD55C : \uCEA0\uD37C\uC2A4
+      \uC606 \uCD08\uC6D0 \uB610\uB294 \uD3C9\uC6D0 \uD0C0\uC77C\n\uD6A8\uACFC :
+      \uCEA0\uD37C\uC2A4 \uBC94\uC704 +{1}"
     cost: 50
     bonus: 1
   - myAge: 4
     wonderName: RuhrValley
-    koreanName: 
-    toolTipText: 
+    koreanName: "\uB8E8\uB974 \uBCA8\uB9AC"
+    toolTipText: "\uD604\uC7AC \uBE44\uC6A9 : {0}\n\uAC74\uC124 \uC81C\uD55C : \uC0B0\uC5C5
+      \uAD6C\uC5ED \uC606 \uAC15 \uD0C0\uC77C\n\uD6A8\uACFC : \uAC15 \uD0C0\uC77C\uC5D0
+      \uC0B0\uC5C5 \uAD6C\uC5ED \uAC74\uC124 \uC2DC \uC810\uC218 +{1}"
     cost: 50
     bonus: 4
   - myAge: 4
     wonderName: StatueOfLiberty
-    koreanName: 
-    toolTipText: 
+    koreanName: "\uC790\uC720\uC758 \uC5EC\uC2E0\uC0C1"
+    toolTipText: "\uD604\uC7AC \uBE44\uC6A9 : {0}\n\uAC74\uC124 \uC81C\uD55C : \uD56D\uB9CC
+      \uC606 \uBB3C \uD0C0\uC77C\n\uD6A8\uACFC : \uBB3C \uD0C0\uC77C \uC606\uC5D0
+      \uB3C4\uC2DC \uAC74\uC124 \uC2DC \uC810\uC218 +{1}"
     cost: 50
     bonus: 6
