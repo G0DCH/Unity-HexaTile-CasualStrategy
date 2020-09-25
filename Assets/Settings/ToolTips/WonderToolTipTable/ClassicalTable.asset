@@ -12,4 +12,92 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb0dbae6561edbf4480d6796c7f84024, type: 3}
   m_Name: ClassicalTable
   m_EditorClassIdentifier: 
-  wonderDatas: []
+  wonderDatas:
+  - myAge: 1
+    wonderName: Apadana
+    koreanName: "\uC544\uD30C\uB2E4\uB098"
+    toolTipText: "\uD604\uC7AC \uBE44\uC6A9 : {0}\n\uAC74\uC124 \uC81C\uD55C : \uB3C4\uC2DC
+      \uC606 \uD0C0\uC77C\n\uD6A8\uACFC : \uBD88\uAC00\uC0AC\uC758 \uAC74\uC124 \uC2DC
+      \uC810\uC218 +{1}"
+    cost: 20
+    bonus: 2
+  - myAge: 1
+    wonderName: Colosseum
+    koreanName: "\uCF5C\uB85C\uC138\uC6C0"
+    toolTipText: "\uD604\uC7AC \uBE44\uC6A9 : {0}\n\uAC74\uC124 \uC81C\uD55C : \uC720\uD765\uB2E8\uC9C0
+      \uC606 \uD0C0\uC77C\n\uD6A8\uACFC : \uC720\uD765\uB2E8\uC9C0\uC758 \uBC94\uC704
+      \uB0B4 \uB3C4\uC2DC \uBCF4\uB108\uC2A4 +{1}"
+    cost: 20
+    bonus: 1
+  - myAge: 1
+    wonderName: ColossusOfRhodes
+    koreanName: "\uAC70\uC2E0\uC0C1"
+    toolTipText: "\uD604\uC7AC \uBE44\uC6A9 : {0}\n\uAC74\uC124 \uC81C\uD55C : \uD56D\uB9CC
+      \uC606 \uC721\uC9C0\uC640 \uC778\uC811\uD55C \uBB3C \uD0C0\uC77C\n\uD6A8\uACFC
+      : \uC0C1\uC5C5 \uC911\uC2EC\uC9C0 \uC810\uC218 +{1}"
+    cost: 20
+    bonus: 1
+  - myAge: 1
+    wonderName: GebelBarcal
+    koreanName: "\uAC8C\uBCA8 \uBC14\uB974\uCE7C"
+    toolTipText: "\uD604\uC7AC \uBE44\uC6A9 : {0}\n\uAC74\uC124 \uC81C\uD55C : \uC0AC\uB9C9
+      \uD0C0\uC77C\n\uD6A8\uACFC : \uC0AC\uB9C9 \uD0C0\uC77C\uC5D0 \uC9D3\uB294 \uC131\uC9C0
+      \uC810\uC218 +{1}"
+    cost: 20
+    bonus: 2
+  - myAge: 1
+    wonderName: LibraryOfAlexandria
+    koreanName: "\uC54C\uB809\uC0B0\uB4DC\uB9AC\uC544 \uB3C4\uC11C\uAD00"
+    toolTipText: "\uD604\uC7AC \uBE44\uC6A9 : {0}\n\uAC74\uC124 \uC81C\uD55C : \uCEA0\uD37C\uC2A4
+      \uC606 \uD0C0\uC77C\n\uD6A8\uACFC : \uCEA0\uD37C\uC2A4 \uC810\uC218 +{1}"
+    cost: 20
+    bonus: 1
+  - myAge: 1
+    wonderName: LightHouseOfAlexandria
+    koreanName: "\uC54C\uB809\uC0B0\uB4DC\uB9AC\uC544\uC758 \uB4F1\uB300"
+    toolTipText: "\uD604\uC7AC \uBE44\uC6A9 : {0}\n\uAC74\uC124 \uC81C\uD55C : \uD56D\uB9CC
+      \uC606 \uC721\uC9C0\uC640 \uC778\uC811\uD55C \uBB3C \uD0C0\uC77C\n\uD6A8\uACFC
+      : \uD56D\uB9CC \uC810\uC218 +{1}"
+    cost: 20
+    bonus: 2
+  - myAge: 1
+    wonderName: MachuPicchu
+    koreanName: "\uB9C8\uCD94\uD53D\uCD94"
+    toolTipText: "\uD604\uC7AC \uBE44\uC6A9 : {0}\n\uAC74\uC124 \uC81C\uD55C : \uC0B0
+      \uD0C0\uC77C\n\uD6A8\uACFC : \uC0B0 \uD0C0\uC77C\uC774 \uC778\uC811\uD55C \uBAA8\uB4E0\n\uC0C1\uC5C5
+      \uC911\uC2EC\uC9C0, \uADF9\uC7A5\uAC00, \uC0B0\uC5C5\uAD6C\uC5ED\uC5D0 \uC810\uC218
+      +{1}"
+    cost: 20
+    bonus: 1
+  - myAge: 1
+    wonderName: MahabodhiTemple
+    koreanName: "\uB9C8\uD558\uBCF4\uB514 \uC0AC\uC6D0"
+    toolTipText: "\uD604\uC7AC \uBE44\uC6A9 : {0}\n\uAC74\uC124 \uC81C\uD55C : \uC131\uC9C0
+      \uC606 \uC232 \uD0C0\uC77C\n\uD6A8\uACFC : \uC131\uC9C0 \uAC74\uC124 \uC2DC
+      \uC232 \uD0C0\uC77C 2\uAC1C\uB2F9 \uC810\uC218 +{1}"
+    cost: 20
+    bonus: 1
+  - myAge: 1
+    wonderName: Mausoleum
+    koreanName: "\uD560\uB9AC\uCE74\uB974\uB098\uC18C\uC2A4 \uB9C8\uC6B0\uC194\uB85C\uC2A4
+      \uC601\uBB18"
+    toolTipText: "\uD604\uC7AC \uBE44\uC6A9 : {0}\n\uAC74\uC124 \uC81C\uD55C : \uD56D\uB9CC
+      \uC606 \uC721\uC9C0 \uD0C0\uC77C\n\uD6A8\uACFC : \uBB3C \uD0C0\uC77C \uC606\uC5D0
+      \uAC74\uBB3C \uAC74\uC124 \uC2DC \uC810\uC218 +{1}"
+    cost: 20
+    bonus: 1
+  - myAge: 1
+    wonderName: Petra
+    koreanName: "\uD398\uD2B8\uB77C"
+    toolTipText: "\uD604\uC7AC \uBE44\uC6A9 : {0}\n\uAC74\uC124 \uC81C\uD55C : \uC0AC\uB9C9
+      \uD0C0\uC77C\n\uD6A8\uACFC : \uC0AC\uB9C9 \uD0C0\uC77C\uC5D0 \uC9D3\uB294 \uAC74\uBB3C
+      \uC810\uC218 +{1}"
+    cost: 20
+    bonus: 1
+  - myAge: 1
+    wonderName: TerracottaWarriors
+    koreanName: "\uBCD1\uB9C8\uC6A9"
+    toolTipText: "\uD604\uC7AC \uBE44\uC6A9 : {0}\n\uAC74\uC124 \uC81C\uD55C : \uC8FC\uB454\uC9C0
+      \uC606 \uD0C0\uC77C\n\uD6A8\uACFC : \uC8FC\uB454\uC9C0 \uC810\uC218 +{1}"
+    cost: 20
+    bonus: 2
