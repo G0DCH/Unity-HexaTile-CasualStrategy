@@ -55,7 +55,7 @@ namespace TilePuzzle
         // 툴팁.
         // 타일 속성, 건물 설명 등을 표기함.
         [SerializeField]
-        private GameObject toolTip;
+        private Text toolTip;
 
         private void Start()
         {
@@ -224,7 +224,12 @@ namespace TilePuzzle
             {
                 toolTip.transform.position = pos;
             }
-            toolTip.SetActive(isShow);
+            toolTip.transform.parent.gameObject.SetActive(isShow);
+        }
+
+        public void SetToolTipText(string toolTip)
+        {
+            this.toolTip.text = toolTip;
         }
     }
 }
