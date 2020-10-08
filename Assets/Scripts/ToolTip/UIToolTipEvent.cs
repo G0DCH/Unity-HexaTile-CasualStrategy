@@ -29,8 +29,11 @@ namespace TilePuzzle
         {
             string tooltip = DataTableManager.Instance.GetBuildingToolTip(AgeManager.Instance.WorldAge, TileBuilding);
 
-            UIManager.Instance.SetToolTipText(tooltip);
-            UIManager.Instance.ShowToolTip(true, transform.position);
+            if (tooltip != string.Empty)
+            {
+                UIManager.Instance.SetToolTipText(tooltip);
+                UIManager.Instance.ShowToolTip(true, transform.position);
+            }
         }
 
         // 마우스 포인터가 UI 바깥으로 나가면 호출

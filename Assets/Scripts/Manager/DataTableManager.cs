@@ -7,9 +7,9 @@ namespace TilePuzzle
     public class DataTableManager : Utility.Singleton<DataTableManager>
     {
         [SerializeField]
-        private BuildingDataTable buildingDataTable = new BuildingDataTable();
+        private BuildingDataTable buildingDataTable;
         [SerializeField]
-        private List<WonderDataTable> wonderDataTables = new List<WonderDataTable>();
+        private List<WonderDataTable> wonderDataTables;
 
         /// <summary>
         /// 시대와 빌딩을 입력하면
@@ -53,6 +53,31 @@ namespace TilePuzzle
             {
                 if (buildingData.MyBuilding == building)
                 {
+                    if (building == TileBuilding.City ||
+                        building == TileBuilding.GovernmentPlaza ||
+                        building == TileBuilding.Aqueduct)
+                    {
+                        string toolTip = string.Empty;
+                        if (building == TileBuilding.City)
+                        {
+                            toolTip = string.Format(buildingData.ToolTipText, TileManager.Instance.CityNum);
+                        }
+                        else if (building == TileBuilding.GovernmentPlaza)
+                        {
+                            toolTip = string.Format(buildingData.ToolTipText, 3);
+                        }
+                        else
+                        {
+                            if (AgeManager.Instance.WorldAge < Age.Classical)
+                            {
+                                return string.Empty;
+                            }
+                            toolTip = string.Format(buildingData.ToolTipText, 1);
+                        }
+
+                        return toolTip;
+                    }
+
                     foreach (var info in buildingData.InfoPerAges)
                     {
                         if (info.MyAge == age)
@@ -121,7 +146,7 @@ namespace TilePuzzle
 
                             }
 
-                            toolTip = string.Format(buildingData.ToolTipText, toolTipArgs);
+                            toolTip = string.Format(buildingData.ToolTipText, toolTipArgs.ToArray());
 
                             return toolTip;
                         }
@@ -129,7 +154,7 @@ namespace TilePuzzle
                 }
             }
 
-            Debug.LogError(string.Format("빌딩이나 시대가 존재하지 않음. Building : {0}, Age : {1}", building, age));
+            Debug.LogError(string.Format("해당 시대에 건물 정보가 정의되어있지 않음. Building : {0}, Age : {1}", building, age));
 
             return string.Empty;
         }

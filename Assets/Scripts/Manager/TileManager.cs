@@ -47,8 +47,9 @@ namespace TilePuzzle
         private Dictionary<HexagonPos, Tile> TileMap = new Dictionary<HexagonPos, Tile>();
 
         // 도시 타일 갯수
+        public int CityNum { get { return cityNum; } private set { cityNum = value; } }
         [Space, SerializeField, ReadOnly]
-        private int CityNum = 0;
+        private int cityNum = 0;
 
         [Space, SerializeField]
         private GameObject TileContainer = null;
