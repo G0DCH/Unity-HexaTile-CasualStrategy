@@ -11,6 +11,8 @@ namespace TilePuzzle
         [SerializeField, Header("Age Of Wonder")]
         public Age WonderAge = Age.Ancient;
 
+        private bool isInitBonus = false;
+
         // WonderFunction을 TileManager의 delegate에 추가함.
         public abstract void AddToDelegate();
 
@@ -18,5 +20,17 @@ namespace TilePuzzle
         public abstract bool WonderLimit(Tile currentTile);
         // 불가사의 효과
         public abstract void WonderFunction(Tile currentTile, TileBuilding tileBuilding);
+
+        /// <summary>
+        /// TileManager에서 WonderBonus 초기화 할 때 사용
+        /// </summary>
+        /// <param name="bonus"></param>
+        public void InitWonderBonus(int bonus)
+        {
+            if (!isInitBonus)
+            {
+                wonderBonus = bonus;
+            }
+        }
     }
 }

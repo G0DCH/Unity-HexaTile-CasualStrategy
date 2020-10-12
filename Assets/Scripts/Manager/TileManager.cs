@@ -231,6 +231,7 @@ namespace TilePuzzle
                                 clickedTile.InitInfo(hexagon, decorationInfo, range);
                                 clickedTile.SetRangeCitys(rangeCitys);
                                 clickedTile.SetCityTile(city);
+                                ((WonderTile)clickedTile).InitWonderBonus(((WonderTile)SelectedTile).WonderBonus);
                             }
 
                             TileMap.Add(hexagon.hexPos, clickedTile);

@@ -84,8 +84,8 @@ namespace TilePuzzle
                     Debug.LogError("클릭한 UI에 버튼 컴포넌트가 없음.");
                 }
             }
-
-
+            
+            TileManager.Instance.SelectTileCost = TileManager.Instance.SelectedTile.Cost;
             TileManager.Instance.SelectedTile.MakeGrid(TileManager.Instance.GridPrefab);
             TileManager.Instance.SelectedTile.TurnGrid(false);
         }
