@@ -39,10 +39,15 @@ namespace TilePuzzle
             }
 
             // 미래 시대 이전이라면 다음 시대로 나아감
-            if (WorldAge < Age.Future)
+            if (WorldAge < Age.Atomic)
             {
                 WorldAge++;
                 AgeLimit += AgeLimitList[(int)WorldAge];
+            }
+            else if(WorldAge == Age.Future)
+            {
+                WorldAge++;
+                UIManager.Instance.ActiveWin();
             }
             else
             {

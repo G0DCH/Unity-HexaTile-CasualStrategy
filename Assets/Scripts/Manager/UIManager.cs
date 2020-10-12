@@ -203,6 +203,12 @@ namespace TilePuzzle
             GameOverText.text = string.Format("GameOver!!\nScore : {0}", GameManager.Instance.Score);
         }
 
+        public void ActiveWin()
+        {
+            GameOverPanel.SetActive(true);
+            GameOverText.text = string.Format("You Win!!!\nScore : {0}", GameManager.Instance.Score);
+        }
+
         // 이미 설치한 불가사의의 버튼을 비 활성화 시킴
         public void DisableWonderButton()
         {
