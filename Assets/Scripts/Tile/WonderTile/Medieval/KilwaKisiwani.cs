@@ -5,7 +5,7 @@
     {
         public override void AddToDelegate()
         {
-            TileManager.Instance.MyWonderRange += WonderFunction;
+            TileManager.Instance.CalculateRange += WonderFunction;
         }
 
         // 물 타일 옆에 건물을 지으면 건물 범위 +1

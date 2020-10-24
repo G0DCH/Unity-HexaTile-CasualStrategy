@@ -5,7 +5,7 @@
     {
         public override void AddToDelegate()
         {
-            TileManager.Instance.MyWonderRange += WonderFunction;
+            TileManager.Instance.CalculateRange += WonderFunction;
         }
 
         // 캠퍼스 범위 증가

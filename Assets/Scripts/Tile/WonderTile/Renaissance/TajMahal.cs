@@ -5,7 +5,7 @@
     {
         public override void AddToDelegate()
         {
-            TileManager.Instance.MyWonderBonus += WonderFunction;
+            TileManager.Instance.CalculateBonusByWonder += WonderFunction;
         }
 
         // 건물 보너스가 6 이상이면 점수 +WonderBonus

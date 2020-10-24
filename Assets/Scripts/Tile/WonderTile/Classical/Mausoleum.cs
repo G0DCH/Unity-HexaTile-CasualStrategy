@@ -9,7 +9,7 @@ namespace TilePuzzle
     {
         public override void AddToDelegate()
         {
-            TileManager.Instance.MyWonderBonus += WonderFunction;
+            TileManager.Instance.CalculateBonusByWonder += WonderFunction;
         }
 
         // 물 타일 옆에 건물을 지으면 +WonderBonus

@@ -5,7 +5,7 @@
     {
         public override void AddToDelegate()
         {
-            TileManager.Instance.MyWonderBonus += WonderFunction;
+            TileManager.Instance.CalculateBonusByWonder += WonderFunction;
         }
 
         // 성지 건설 시 숲 타일 2개당 +WonderBonus

@@ -5,7 +5,7 @@
     {
         public override void AddToDelegate()
         {
-            TileManager.Instance.MyWonderCost += WonderFunction;
+            TileManager.Instance.CalculateCost += WonderFunction;
         }
 
         // 성지 건설 비용 -WonderBonus

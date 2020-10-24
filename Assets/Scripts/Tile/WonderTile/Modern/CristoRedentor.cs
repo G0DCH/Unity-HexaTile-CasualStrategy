@@ -5,7 +5,7 @@
     {
         public override void AddToDelegate()
         {
-            TileManager.Instance.MyWonderRange += WonderFunction;
+            TileManager.Instance.CalculateRange += WonderFunction;
         }
 
         // 성지, 극장가 건물 범위 증가

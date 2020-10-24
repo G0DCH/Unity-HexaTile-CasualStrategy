@@ -5,7 +5,7 @@
     {
         public override void AddToDelegate()
         {
-            TileManager.Instance.MyWonderBonus += WonderFunction;
+            TileManager.Instance.CalculateBonusByWonder += WonderFunction;
         }
 
         // 열대 우림 타일이 범위 내 모든 상업 중심지, 극장가, 산업 구역에 점수 +wonderBonus

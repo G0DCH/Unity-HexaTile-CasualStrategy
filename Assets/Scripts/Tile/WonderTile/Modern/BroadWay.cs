@@ -5,8 +5,8 @@
     {
         public override void AddToDelegate()
         {
-            TileManager.Instance.MyWonderBonus += WonderFunction;
-            TileManager.Instance.MyWonderRange += RangeUp;
+            TileManager.Instance.CalculateBonusByWonder += WonderFunction;
+            TileManager.Instance.CalculateRange += RangeUp;
         }
 
         // 극장가 건설 점수 +WonderBonus
