@@ -29,7 +29,7 @@ namespace TilePuzzle
                 grids.Add(grid);
             }
 
-            TurnGrids(true);
+            TurnCityGrids(true);
         }
 
         // 범위 내 타일의 소유 도시를 나로 설정
@@ -80,7 +80,7 @@ namespace TilePuzzle
         }
 
         // 범위 표기용 격자 on off
-        public void TurnGrids(bool isOn)
+        private void TurnCityGrids(bool isOn)
         {
             foreach(GameObject grid in grids)
             {
