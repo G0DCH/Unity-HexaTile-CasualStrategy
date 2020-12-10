@@ -91,7 +91,7 @@ namespace TilePuzzle.Procedural
                         {
                             if (riverMeshCache.TryGetValue(riverDirection, out mesh) == false)
                             {
-                                mesh = HexagonMeshGenerator.BuildMesh(HexagonTileObject.TileSize, cliffDepth, riverSize, riverDirection);
+                                mesh = HexagonMeshGenerator.BuildMesh(HexagonTileObject.TileSize, cliffDepth, riverSize, null);
                                 riverMeshCache.Add(riverDirection, mesh);
                             }
                         }

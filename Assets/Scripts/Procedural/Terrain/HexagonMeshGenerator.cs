@@ -25,7 +25,7 @@ namespace TilePuzzle.Procedural
         /// <returns>헥사곤 평면 메시</returns>
         public static Mesh BuildMesh(float hexagonSize)
         {
-            return BuildMesh(hexagonSize, 0, false, 0, 0);
+            return BuildMesh(hexagonSize, 0, false, 0, null);
         }
 
         /// <param name="hexagonSize">헥사곤의 중심으로부터 모서리까지의 길이</param>
@@ -33,20 +33,20 @@ namespace TilePuzzle.Procedural
         /// <returns>옆면이 있는 헥사곤 메시</returns>
         public static Mesh BuildMesh(float hexagonSize, float cliffDepth)
         {
-            return BuildMesh(hexagonSize, cliffDepth, true, 0, 0);
+            return BuildMesh(hexagonSize, cliffDepth, true, 0, null);
         }
 
         /// <param name="hexagonSize">헥사곤의 중심으로부터 모서리까지의 길이</param>
         /// <param name="cliffDepth">절벽 깊이 (헥사곤 옆면 높이)</param>
         /// <param name="riverSize">강의 폭</param>
-        /// <param name="riverDirection">강이 지나가는 꼭짓점 방향들</param>
+        /// <param name="rivers">강이 지나가는 꼭짓점 방향들</param>
         /// <returns>강과 옆면이 포함된 헥사곤 메시</returns>
-        public static Mesh BuildMesh(float hexagonSize, float cliffDepth, float riverSize, VertexDirection riverDirection)
+        public static Mesh BuildMesh(float hexagonSize, float cliffDepth, float riverSize, VertexDirection[] rivers)
         {
-            return BuildMesh(hexagonSize, cliffDepth, true, riverSize, riverDirection);
+            return BuildMesh(hexagonSize, cliffDepth, true, riverSize, rivers);
         }
 
-        private static Mesh BuildMesh(float hexagonSize, float cliffDepth, bool drawCliff, float riverSize, VertexDirection rivers)
+        private static Mesh BuildMesh(float hexagonSize, float cliffDepth, bool drawCliff, float riverSize, VertexDirection[] rivers)
         {
             Mesh mesh = new Mesh();
             List<Vector3> vertices = new List<Vector3>();
@@ -63,21 +63,25 @@ namespace TilePuzzle.Procedural
             vertices.Add(Vector3.zero);
             for (int i = 0; i < riverTable.Length; i++)
             {
+                int leftIndex = Modulo(i - 1, riverTable.Length);
+                int rightIndex = Modulo(i + 1, riverTable.Length);
                 VertexDirection currentRiver = riverTable[i];
-                VertexDirection leftRiver = riverTable[Modulo(i - 1, riverTable.Length)];
-                VertexDirection rightRiver = riverTable[Modulo(i + 1, riverTable.Length)];
+                VertexDirection leftRiver = riverTable[leftIndex];
+                VertexDirection rightRiver = riverTable[rightIndex];
 
                 // 강이 있는 방향의 vertex인 경우
-                if (rivers.HasFlag(currentRiver))
+                if (rivers != null && rivers[i] > 0)
                 {
                     // 양쪽으로 강이 연결됨
-                    if (rivers.HasFlag(leftRiver | rightRiver))
+                    if (rivers[leftIndex].HasFlag(currentRiver) && rivers[i].HasFlag(rightRiver) ||
+                        rivers[rightIndex].HasFlag(currentRiver) && rivers[i].HasFlag(leftRiver) ||
+                        rivers[leftIndex].HasFlag(currentRiver) && rivers[rightIndex].HasFlag(currentRiver))
                     {
                         Vector3 vertex = Quaternion.AngleAxis(60 * i, Vector3.up) * Vector3.forward * (distanceToVertex - distanceToRiver);
                         vertices.Add(vertex);
                     }
                     // 왼쪽으로만 강이 연결됨
-                    else if (rivers.HasFlag(leftRiver))
+                    else if (rivers[leftIndex].HasFlag(currentRiver) || rivers[i].HasFlag(leftRiver))
                     {
                         Vector3 centerVertex = Quaternion.AngleAxis(60 * i, Vector3.up) * Vector3.forward * distanceToVertex;
                         Vector3 rightVertex = Quaternion.AngleAxis(60 * (i + 1), Vector3.up) * Vector3.forward * distanceToVertex;
@@ -86,7 +90,7 @@ namespace TilePuzzle.Procedural
                         vertices.Add(vertex);
                     }
                     // 오른쪽으로만 강이 연결됨
-                    else if (rivers.HasFlag(rightRiver))
+                    else if (rivers[rightIndex].HasFlag(currentRiver) || rivers[i].HasFlag(rightRiver))
                     {
                         Vector3 centerVertex = Quaternion.AngleAxis(60 * i, Vector3.up) * Vector3.forward * distanceToVertex;
                         Vector3 leftVertex = Quaternion.AngleAxis(60 * (i - 1), Vector3.up) * Vector3.forward * distanceToVertex;
@@ -125,7 +129,7 @@ namespace TilePuzzle.Procedural
             }
 
             // 절벽 생성 또는 강이 있으면 헥사곤 옆면 메시 생성
-            if (drawCliff || rivers != 0)
+            if (drawCliff || rivers != null)
             {
                 // 헥사곤 옆면 vertex, triangle 계산
                 int topVertexCount = vertices.Count - 1;

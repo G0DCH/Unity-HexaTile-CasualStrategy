@@ -25,6 +25,10 @@ namespace TilePuzzle.Procedural
         public Transform tileHolder;
         private ObjectPool<HexagonTileObject> tileObjectPool;
 
+        [Title("Debug settings")]
+        public bool drawRiver = false;
+        private Corner[] corners;
+
         public Vector2Int TerrainSize { get; private set; }
 
         #region Unity 메시지
@@ -55,6 +59,21 @@ namespace TilePuzzle.Procedural
                 SetTileVisibility(randomTile.TileInfo.hexPos, false);
             }
         }
+
+        protected virtual void OnDrawGizmos()
+        {
+            if (drawRiver)
+            {
+                for (int i = 0; i < corners.Length; i++)
+                {
+                    if (corners[i].river > 0 && corners[i].downslope.river > 0)
+                    {
+                        Gizmos.color = Color.yellow;
+                        Gizmos.DrawLine(corners[i].cornerPos, corners[i].downslope.cornerPos);
+                    }
+                }
+            }
+        }
         #endregion
 
         /// <summary>
@@ -82,6 +101,9 @@ namespace TilePuzzle.Procedural
             tileObjects = SpawnTerrainTiles(terrainData, decorationData);
             UpdateTileColors();
             UpdateFogOfWars();
+
+            // Debug
+            corners = terrainData.terrainGraph.corners;
         }
 
         /// <summary>
@@ -296,23 +318,37 @@ namespace TilePuzzle.Procedural
                         if (newTileObject.TileInfo.hasRiver)
                         {
                             // 강이 흐르는 방향을 계산
-                            HexagonMeshGenerator.VertexDirection riverDirection = 0;
+                            var rivers = new HexagonMeshGenerator.VertexDirection[6];
                             for (int neighborIndex = 0; neighborIndex < tileCenter.NeighborCorners.Length; neighborIndex++)
                             {
                                 Corner neighborCorner = tileCenter.NeighborCorners[neighborIndex];
                                 if (neighborCorner.river > 0)
                                 {
-                                    riverDirection |= (HexagonMeshGenerator.VertexDirection)(0x1 << neighborIndex);
+                                    rivers[neighborIndex] |= (HexagonMeshGenerator.VertexDirection)(1 << neighborIndex);
+
+                                    if (neighborCorner.downslope.river > 0)
+                                    {
+                                        int rightNeighborIndex = Modulo(neighborIndex + 1, tileCenter.NeighborCorners.Length);
+                                        int leftNeighborIndex = Modulo(neighborIndex - 1, tileCenter.NeighborCorners.Length);
+                                        if (neighborCorner.downslope == tileCenter.NeighborCorners[rightNeighborIndex])
+                                        {
+                                            rivers[neighborIndex] |= (HexagonMeshGenerator.VertexDirection)(1 << rightNeighborIndex);
+                                        }
+                                        else if (neighborCorner.downslope == tileCenter.NeighborCorners[leftNeighborIndex])
+                                        {
+                                            rivers[neighborIndex] |= (HexagonMeshGenerator.VertexDirection)(1 << leftNeighborIndex);
+                                        }
+                                    }
                                 }
                             }
 
                             // 캐시된 메시가 없으면 새로 생성
-                            if (riverTileMeshCache.TryGetValue(riverDirection, out selectedMesh) == false)
-                            {
-                                selectedMesh = HexagonMeshGenerator.BuildMesh(HexagonTileObject.TileSize, renderOption.cliffDepth,
-                                    renderOption.riverSize, riverDirection);
-                                riverTileMeshCache.Add(riverDirection, selectedMesh);
-                            }
+                            selectedMesh = HexagonMeshGenerator.BuildMesh(HexagonTileObject.TileSize, renderOption.cliffDepth,
+                                    renderOption.riverSize, rivers.ToArray());
+                            //if (riverTileMeshCache.TryGetValue(riverDirection, out selectedMesh) == false)
+                            //{
+                            //    riverTileMeshCache.Add(riverDirection, selectedMesh);
+                            //}
                         }
                         // 주변 타일과 고도차이가 있는 경우 (주변 타일이 물)
                         else if (tileCenter.NeighborCenters.Values.Any(corner => corner.isWater))
@@ -416,6 +452,12 @@ namespace TilePuzzle.Procedural
 
             renderOption.landMaterial.SetVector("_MapSize", new Vector2(textureWidth, textureHeight));
             renderOption.landMaterial.SetTexture("_FogMask", forMaskTexture);
+        }
+
+        private static int Modulo(int x, int m)
+        {
+            int remainder = x % m;
+            return remainder < 0 ? remainder + m : remainder;
         }
 
         [Serializable]

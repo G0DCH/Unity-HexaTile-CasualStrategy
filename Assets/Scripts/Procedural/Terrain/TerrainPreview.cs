@@ -199,25 +199,40 @@ namespace TilePuzzle.Procedural
                     }
                     else
                     {
-                        HexagonMeshGenerator.VertexDirection riverDirection = 0;
+                        var rivers = new HexagonMeshGenerator.VertexDirection[6];
                         for (int neighborIndex = 0; neighborIndex < center.NeighborCorners.Length; neighborIndex++)
                         {
                             Corner neighborCorner = center.NeighborCorners[neighborIndex];
                             if (neighborCorner.river > 0)
                             {
-                                riverDirection |= (HexagonMeshGenerator.VertexDirection)(1 << neighborIndex);
+                                rivers[neighborIndex] |= (HexagonMeshGenerator.VertexDirection)(1 << neighborIndex);
+
+                                if (neighborCorner.downslope.river > 0)
+                                {
+                                    int rightNeighborIndex = Modulo(neighborIndex + 1, center.NeighborCorners.Length);
+                                    int leftNeighborIndex = Modulo(neighborIndex - 1, center.NeighborCorners.Length);
+                                    if (neighborCorner.downslope == center.NeighborCorners[rightNeighborIndex])
+                                    {
+                                        rivers[neighborIndex] |= (HexagonMeshGenerator.VertexDirection)(1 << rightNeighborIndex);
+                                    }
+                                    else if (neighborCorner.downslope == center.NeighborCorners[leftNeighborIndex])
+                                    {
+                                        rivers[neighborIndex] |= (HexagonMeshGenerator.VertexDirection)(1 << leftNeighborIndex);
+                                    }
+                                }
                             }
                         }
 
                         Mesh mesh;
                         // 강이 있을때
-                        if (center.isWater == false && riverDirection > 0)
+                        if (center.isWater == false && rivers.Any(riverDirection => riverDirection > 0))
                         {
-                            if (riverMeshCache.TryGetValue(riverDirection, out mesh) == false)
-                            {
-                                mesh = HexagonMeshGenerator.BuildMesh(HexagonTileObject.TileSize, cliffDepth, riverSize, riverDirection);
-                                riverMeshCache.Add(riverDirection, mesh);
-                            }
+                            mesh = HexagonMeshGenerator.BuildMesh(HexagonTileObject.TileSize, cliffDepth, riverSize, rivers.ToArray());
+                            //if (riverMeshCache.TryGetValue(rivers, out mesh) == false)
+                            //{
+                            //    mesh = HexagonMeshGenerator.BuildMesh(HexagonTileObject.TileSize, cliffDepth, riverSize, rivers.ToArray());
+                            //    riverMeshCache.Add(rivers, mesh);
+                            //}
                         }
                         // 절벽일때 (주변에 물)
                         else if (center.isWater == false && center.NeighborCenters.Values.Any(neighborrCenter => neighborrCenter.isWater))
@@ -359,6 +374,11 @@ namespace TilePuzzle.Procedural
             //newHexagon.hexPos = hexPos;
 
             return newHexagon;
+        }
+        private static int Modulo(int x, int m)
+        {
+            int remainder = x % m;
+            return remainder < 0 ? remainder + m : remainder;
         }
     }
 }
