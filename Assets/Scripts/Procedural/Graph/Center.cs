@@ -29,6 +29,8 @@ namespace TilePuzzle.Procedural
         private readonly Dictionary<HexagonPos, Center> neighborCenters;
         private readonly Corner[] neighborCorners;
 
+        public bool IsLake => isWater && isSea == false;
+
         public float Temperature => 1 - elevation;
         public IReadOnlyDictionary<HexagonPos, Center> NeighborCenters => neighborCenters;
         public Corner[] NeighborCorners => neighborCorners;

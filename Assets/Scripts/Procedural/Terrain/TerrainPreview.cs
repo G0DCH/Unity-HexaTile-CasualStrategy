@@ -168,92 +168,92 @@ namespace TilePuzzle.Procedural
 
         private void SpawnHexagons(TerrainData terrainData)
         {
-            int width = terrainData.terrainGraph.size.x;
-            int height = terrainData.terrainGraph.size.y;
-            if (previousHexagonMapSize != terrainData.terrainGraph.size)
-            {
-                CleanUpHexagons();
-                spawnedHexagonObjects = new HexagonTileObject[width * height];
-                previousHexagonMapSize = terrainData.terrainGraph.size;
-            }
+            //int width = terrainData.terrainGraph.size.x;
+            //int height = terrainData.terrainGraph.size.y;
+            //if (previousHexagonMapSize != terrainData.terrainGraph.size)
+            //{
+            //    CleanUpHexagons();
+            //    spawnedHexagonObjects = new HexagonTileObject[width * height];
+            //    previousHexagonMapSize = terrainData.terrainGraph.size;
+            //}
 
-            Mesh flatHexagonMesh = HexagonMeshGenerator.BuildMesh(HexagonTileObject.TileSize);
-            Mesh cliffHexagonMesh = HexagonMeshGenerator.BuildMesh(HexagonTileObject.TileSize, cliffDepth);
-            var riverMeshCache = new Dictionary<HexagonMeshGenerator.VertexDirection, Mesh>();
+            //Mesh flatHexagonMesh = HexagonMeshGenerator.BuildMesh(HexagonTileObject.TileSize);
+            //Mesh cliffHexagonMesh = HexagonMeshGenerator.BuildMesh(HexagonTileObject.TileSize, cliffDepth);
+            //var riverMeshCache = new Dictionary<HexagonMeshGenerator.VertexDirection, Mesh>();
 
-            for (int y = 0; y < height; y++)
-            {
-                for (int x = 0; x < width; x++)
-                {
-                    Center center = terrainData.terrainGraph.centers[x + y * width];
-                    if (spawnedHexagonObjects[x + y * width] == null)
-                    {
-                        spawnedHexagonObjects[x + y * width] = CreateNewHexagon(hexagonObjectPrefab, HexagonPos.FromArrayXY(x, y));
-                    }
-                    HexagonTileObject currentHexagonObject = spawnedHexagonObjects[x + y * width];
+            //for (int y = 0; y < height; y++)
+            //{
+            //    for (int x = 0; x < width; x++)
+            //    {
+            //        Center center = terrainData.terrainGraph.centers[x + y * width];
+            //        if (spawnedHexagonObjects[x + y * width] == null)
+            //        {
+            //            spawnedHexagonObjects[x + y * width] = CreateNewHexagon(hexagonObjectPrefab, HexagonPos.FromArrayXY(x, y));
+            //        }
+            //        HexagonTileObject currentHexagonObject = spawnedHexagonObjects[x + y * width];
 
-                    if (center.isWater)
-                    {
-                        currentHexagonObject.TileMesh = flatHexagonMesh;
-                        currentHexagonObject.TileMaterial = center.isSea ? seaMaterial : lakeMaterial;
-                    }
-                    else
-                    {
-                        var rivers = new HexagonMeshGenerator.VertexDirection[6];
-                        for (int neighborIndex = 0; neighborIndex < center.NeighborCorners.Length; neighborIndex++)
-                        {
-                            Corner neighborCorner = center.NeighborCorners[neighborIndex];
-                            if (neighborCorner.river > 0)
-                            {
-                                rivers[neighborIndex] |= (HexagonMeshGenerator.VertexDirection)(1 << neighborIndex);
+            //        if (center.isWater)
+            //        {
+            //            currentHexagonObject.TileMesh = flatHexagonMesh;
+            //            currentHexagonObject.TileMaterial = center.isSea ? seaMaterial : lakeMaterial;
+            //        }
+            //        else
+            //        {
+            //            var rivers = new HexagonMeshGenerator.VertexDirection[6];
+            //            for (int neighborIndex = 0; neighborIndex < center.NeighborCorners.Length; neighborIndex++)
+            //            {
+            //                Corner neighborCorner = center.NeighborCorners[neighborIndex];
+            //                if (neighborCorner.river > 0)
+            //                {
+            //                    rivers[neighborIndex] |= (HexagonMeshGenerator.VertexDirection)(1 << neighborIndex);
 
-                                if (neighborCorner.downslope.river > 0)
-                                {
-                                    int rightNeighborIndex = Modulo(neighborIndex + 1, center.NeighborCorners.Length);
-                                    int leftNeighborIndex = Modulo(neighborIndex - 1, center.NeighborCorners.Length);
-                                    if (neighborCorner.downslope == center.NeighborCorners[rightNeighborIndex])
-                                    {
-                                        rivers[neighborIndex] |= (HexagonMeshGenerator.VertexDirection)(1 << rightNeighborIndex);
-                                    }
-                                    else if (neighborCorner.downslope == center.NeighborCorners[leftNeighborIndex])
-                                    {
-                                        rivers[neighborIndex] |= (HexagonMeshGenerator.VertexDirection)(1 << leftNeighborIndex);
-                                    }
-                                }
-                            }
-                        }
+            //                    if (neighborCorner.downslope.river > 0)
+            //                    {
+            //                        int rightNeighborIndex = Modulo(neighborIndex + 1, center.NeighborCorners.Length);
+            //                        int leftNeighborIndex = Modulo(neighborIndex - 1, center.NeighborCorners.Length);
+            //                        if (neighborCorner.downslope == center.NeighborCorners[rightNeighborIndex])
+            //                        {
+            //                            rivers[neighborIndex] |= (HexagonMeshGenerator.VertexDirection)(1 << rightNeighborIndex);
+            //                        }
+            //                        else if (neighborCorner.downslope == center.NeighborCorners[leftNeighborIndex])
+            //                        {
+            //                            rivers[neighborIndex] |= (HexagonMeshGenerator.VertexDirection)(1 << leftNeighborIndex);
+            //                        }
+            //                    }
+            //                }
+            //            }
 
-                        Mesh mesh;
-                        // 강이 있을때
-                        if (center.isWater == false && rivers.Any(riverDirection => riverDirection > 0))
-                        {
-                            mesh = HexagonMeshGenerator.BuildMesh(HexagonTileObject.TileSize, cliffDepth, riverSize, rivers.ToArray());
-                            //if (riverMeshCache.TryGetValue(rivers, out mesh) == false)
-                            //{
-                            //    mesh = HexagonMeshGenerator.BuildMesh(HexagonTileObject.TileSize, cliffDepth, riverSize, rivers.ToArray());
-                            //    riverMeshCache.Add(rivers, mesh);
-                            //}
-                        }
-                        // 절벽일때 (주변에 물)
-                        else if (center.isWater == false && center.NeighborCenters.Values.Any(neighborrCenter => neighborrCenter.isWater))
-                        {
-                            mesh = cliffHexagonMesh;
-                        }
-                        // 평지일때
-                        else
-                        {
-                            mesh = flatHexagonMesh;
-                        }
-                        currentHexagonObject.TileMesh = mesh;
-                        currentHexagonObject.TileMaterial = landMaterial;
-                    }
+            //            Mesh mesh;
+            //            // 강이 있을때
+            //            if (center.isWater == false && rivers.Any(riverDirection => riverDirection > 0))
+            //            {
+            //                mesh = HexagonMeshGenerator.BuildMesh(HexagonTileObject.TileSize, cliffDepth, riverSize, rivers.ToArray());
+            //                //if (riverMeshCache.TryGetValue(rivers, out mesh) == false)
+            //                //{
+            //                //    mesh = HexagonMeshGenerator.BuildMesh(HexagonTileObject.TileSize, cliffDepth, riverSize, rivers.ToArray());
+            //                //    riverMeshCache.Add(rivers, mesh);
+            //                //}
+            //            }
+            //            // 절벽일때 (주변에 물)
+            //            else if (center.isWater == false && center.NeighborCenters.Values.Any(neighborrCenter => neighborrCenter.isWater))
+            //            {
+            //                mesh = cliffHexagonMesh;
+            //            }
+            //            // 평지일때
+            //            else
+            //            {
+            //                mesh = flatHexagonMesh;
+            //            }
+            //            currentHexagonObject.TileMesh = mesh;
+            //            currentHexagonObject.TileMaterial = landMaterial;
+            //        }
 
-                    // height
-                    Vector3 newPos = currentHexagonObject.transform.position;
-                    newPos.y = center.isWater ? -waterDepth : 0;
-                    currentHexagonObject.transform.position = newPos;
-                }
-            }
+            //        // height
+            //        Vector3 newPos = currentHexagonObject.transform.position;
+            //        newPos.y = center.isWater ? -waterDepth : 0;
+            //        currentHexagonObject.transform.position = newPos;
+            //    }
+            //}
         }
 
         private void UpdateHexagonColors(TerrainData terrainData)

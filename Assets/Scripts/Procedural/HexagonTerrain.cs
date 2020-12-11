@@ -301,18 +301,18 @@ namespace TilePuzzle.Procedural
                     };
 
                     // 타일의 종류에 따라 다른 메시와 메티리얼을 선택
-                    Mesh selectedMesh;
-                    Material selectedMaterial;
 
                     // 물 타일의 경우
                     if (newTileObject.TileInfo.isWater)
                     {
-                        selectedMesh = flatTileMesh;
-                        selectedMaterial = newTileObject.TileInfo.isSea ? renderOption.seaMaterial : renderOption.lakeMaterial;
+                        newTileObject.water.Mesh = flatTileMesh;
+                        newTileObject.water.Material = renderOption.waterMaterial;
                     }
                     // 육지 타일의 경우
                     else
                     {
+                        Mesh selectedLandMesh;
+
                         // 주변에 강이 있을 경우
                         if (newTileObject.TileInfo.hasRiver)
                         {
@@ -342,29 +342,30 @@ namespace TilePuzzle.Procedural
                             }
 
                             // 캐시된 메시가 없으면 새로 생성
-                            selectedMesh = HexagonMeshGenerator.BuildMesh(HexagonTileObject.TileSize, renderOption.cliffDepth,
+                            selectedLandMesh = HexagonMeshGenerator.BuildMesh(HexagonTileObject.TileSize, renderOption.cliffDepth,
                                     renderOption.riverSize, rivers.ToArray());
                             //if (riverTileMeshCache.TryGetValue(riverDirection, out selectedMesh) == false)
                             //{
                             //    riverTileMeshCache.Add(riverDirection, selectedMesh);
                             //}
+
+                            newTileObject.water.Mesh = cliffTileMesh;
+                            newTileObject.water.Material = renderOption.waterMaterial;
                         }
                         // 주변 타일과 고도차이가 있는 경우 (주변 타일이 물)
-                        else if (tileCenter.NeighborCenters.Values.Any(corner => corner.isWater))
-                        {
-                            selectedMesh = cliffTileMesh;
-                        }
+                        //else if (tileCenter.NeighborCenters.Values.Any(corner => corner.isWater))
+                        //{
+                        //    selectedLandMesh = cliffTileMesh;
+                        //}
                         // 일반적인 육지 타일의 경우
                         else
                         {
-                            selectedMesh = cliffTileMesh;
-                        }
+                            selectedLandMesh = cliffTileMesh;
+                        } 
 
-                        selectedMaterial = renderOption.landMaterial;
+                        newTileObject.land.Mesh = selectedLandMesh;
+                        newTileObject.land.Material = renderOption.landMaterial;
                     }
-
-                    newTileObject.TileMesh = selectedMesh;
-                    newTileObject.TileMaterial = selectedMaterial;
 
                     // 타일의 전장의 안개 설정
                     newTileObject.IsVisible = true;
@@ -450,22 +451,46 @@ namespace TilePuzzle.Procedural
 
         private void UpdateTileHeights(TerrainData terrainData)
         {
+            int textureWidth = (int)Mathf.Pow(2, Mathf.CeilToInt(Mathf.Log(TerrainSize.x, 2)));
+            int textureHeight = (int)Mathf.Pow(2, Mathf.CeilToInt(Mathf.Log(TerrainSize.y, 2)));
             float stepSize = 1f / renderOption.numberOfStep;
+            Color[] heightMapColors = new Color[textureWidth * textureHeight];
+
             for (int i = 0; i < terrainData.terrainGraph.centers.Length; i++)
             {
-                Vector3 newPos = tileObjects[i].transform.position;
-                if (tileObjects[i].TileInfo.isWater)
-                {
-                    newPos.y = -renderOption.waterDepth;
-                }
-                else
-                {
-                    float height = Mathf.Floor(terrainData.terrainGraph.centers[i].elevation / stepSize);
-                    height = Mathf.InverseLerp(0, renderOption.numberOfStep - 1, height);
-                    newPos.y = Mathf.Lerp(renderOption.heightRange.x, renderOption.heightRange.y, height);
-                }
-                tileObjects[i].transform.position = newPos;
+                float level = Mathf.FloorToInt(terrainData.terrainGraph.centers[i].elevation / stepSize);
+                float normalizedLevel = Mathf.InverseLerp(0, renderOption.numberOfStep - 1, level);
+                float height = Mathf.Lerp(renderOption.heightRange.x, renderOption.heightRange.y, normalizedLevel);
+
+                tileObjects[i].land.transform.localPosition = new Vector3(0, height, 0);
             }
+
+            for (int y = 0; y < terrainData.TerrainSize.y; y++)
+            {
+                for (int x = 0; x < terrainData.TerrainSize.x; x++)
+                {
+                    int tileIndex = x + y * TerrainSize.x;
+                    int textureIndex = x + y * textureWidth;
+
+                    float level = Mathf.FloorToInt(terrainData.terrainGraph.centers[tileIndex].elevation / stepSize);
+                    float normalizedLevel = Mathf.InverseLerp(0, renderOption.numberOfStep - 1, level);
+                    float quantinzedHeight = Mathf.Lerp(renderOption.heightRange.x, renderOption.heightRange.y, normalizedLevel);
+
+                    tileObjects[tileIndex].land.transform.localPosition = new Vector3(0, quantinzedHeight, 0);
+
+                    heightMapColors[textureIndex] = Color.Lerp(Color.black, Color.white, quantinzedHeight);
+                }
+            }
+
+            Texture2D heightMapTexture = new Texture2D(textureWidth, textureHeight)
+            {
+                filterMode = FilterMode.Point
+            };
+            heightMapTexture.SetPixels(heightMapColors);
+            heightMapTexture.Apply();
+
+            renderOption.waterMaterial.SetVector("_MapSize", new Vector2(textureWidth, textureHeight));
+            renderOption.waterMaterial.SetTexture("_HeightMap", heightMapTexture);
         }
 
         private static int Modulo(int x, int m)
@@ -485,11 +510,7 @@ namespace TilePuzzle.Procedural
 
             [Title("Water")]
             [Required]
-            public Material seaMaterial;
-            [Required]
-            public Material lakeMaterial;
-            [PropertyRange(0, nameof(cliffDepth))]
-            public float waterDepth;
+            public Material waterMaterial;
 
             [Title("River")]
             [PropertyRange(0.05f, 1f)]
@@ -506,8 +527,6 @@ namespace TilePuzzle.Procedural
             {
                 cliffDepth = 1.5f,
                 enableBrightNoise = true,
-
-                waterDepth = 0.5f,
 
                 riverSize = 0.2f,
 

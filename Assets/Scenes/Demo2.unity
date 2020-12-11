@@ -2866,6 +2866,10 @@ PrefabInstance:
       propertyPath: renderOption.heightRange.y
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 693377702, guid: 215cf9d9f0cb19f47b256a58a7d781f4, type: 3}
+      propertyPath: renderOption.waterMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: c07cee2026c562244a9d0f1000b65fae, type: 2}
     - target: {fileID: 3259717438936863095, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
         type: 3}
       propertyPath: m_Name

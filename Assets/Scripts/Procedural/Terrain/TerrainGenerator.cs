@@ -247,6 +247,46 @@ namespace TilePuzzle.Procedural
             {
                 center.elevation = center.NeighborCorners.Sum(x => x.elevation) / center.NeighborCorners.Count();
             }
+
+            var lakeSets = new List<HashSet<Center>>();
+            foreach (Center center in terrainGraph.centers)
+            {
+                if (center.IsLake)
+                {
+                    if (lakeSets.Any(x => x.Contains(center)))
+                    {
+                        continue;
+                    }
+
+                    var newLakeSet = new HashSet<Center>();
+                    var floodFillQueue = new Queue<Center>();
+                    newLakeSet.Add(center);
+                    floodFillQueue.Enqueue(center);
+                    while (floodFillQueue.Count > 0)
+                    {
+                        Center currentCenter = floodFillQueue.Dequeue();
+                        foreach (Center neighborCenter in currentCenter.NeighborCenters.Values)
+                        {
+                            if (neighborCenter.IsLake && newLakeSet.Contains(neighborCenter) == false)
+                            {
+                                newLakeSet.Add(neighborCenter);
+                                floodFillQueue.Enqueue(neighborCenter);
+                            }
+                        }
+                    }
+
+                    lakeSets.Add(newLakeSet);
+                }
+            }
+
+            foreach (HashSet<Center> lakeSet in lakeSets)
+            {
+                float minElevation = lakeSet.Min(x => x.elevation);
+                foreach (Center center in lakeSet)
+                {
+                    center.elevation = minElevation;
+                }
+            }
         }
 
         private static void CalculateDownSlope(HexagonGraph terrainGraph)

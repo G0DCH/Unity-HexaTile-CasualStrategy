@@ -14,8 +14,9 @@ namespace TilePuzzle.Procedural
     {
         public const float TileSize = 1;
 
-        [SerializeField, Required] private MeshFilter meshFilter;
-        [SerializeField, Required] private MeshRenderer meshRenderer;
+        public TileModel land;
+        public TileModel water;
+
         private GameObject decorationObject;
         private bool isVisible;
 
@@ -34,26 +35,11 @@ namespace TilePuzzle.Procedural
             }
         }
 
-        public Mesh TileMesh
-        {
-            set
-            {
-                meshFilter.sharedMesh = value;
-            }
-        }
-        public Material TileMaterial
-        {
-            set
-            {
-                meshRenderer.sharedMaterial = value;
-            }
-        }
-
         #region IReusable 인터페이스
         public void OnPooling()
         {
-            TileMesh = null;
-            TileMaterial = null;
+            land.Clear();
+            water.Clear();
 
             DestroyDecoration();
         }
@@ -72,7 +58,7 @@ namespace TilePuzzle.Procedural
             }
 
             this.decorationObject = decorationObject;
-            this.decorationObject.transform.parent = transform;
+            this.decorationObject.transform.parent = land.transform;
             this.decorationObject.transform.localPosition = Vector3.zero;
             DecorationInfo = decorationInfo;
         }
@@ -83,6 +69,36 @@ namespace TilePuzzle.Procedural
             {
                 Destroy(decorationObject);
                 DecorationInfo = null;
+            }
+        }
+
+        [Serializable]
+        public struct TileModel
+        {
+            [Required] public Transform transform;
+            [SerializeField, Required] private MeshFilter meshFilter;
+            [SerializeField, Required] private MeshRenderer meshRenderer;
+
+            public Mesh Mesh
+            {
+                set
+                {
+                    meshFilter.sharedMesh = value;
+                }
+            }
+
+            public Material Material
+            {
+                set
+                {
+                    meshRenderer.sharedMaterial = value;
+                }
+            }
+
+            public void Clear()
+            {
+                meshFilter.sharedMesh = null;
+                meshRenderer.sharedMaterial = null;
             }
         }
     }
