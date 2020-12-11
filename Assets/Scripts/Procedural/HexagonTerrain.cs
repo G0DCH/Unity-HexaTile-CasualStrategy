@@ -4,8 +4,6 @@ using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace TilePuzzle.Procedural
@@ -101,6 +99,7 @@ namespace TilePuzzle.Procedural
             tileObjects = SpawnTerrainTiles(terrainData, decorationData);
             UpdateTileColors();
             UpdateFogOfWars();
+            UpdateTileHeights(terrainData);
 
             // Debug
             corners = terrainData.terrainGraph.corners;
@@ -358,7 +357,7 @@ namespace TilePuzzle.Procedural
                         // 일반적인 육지 타일의 경우
                         else
                         {
-                            selectedMesh = flatTileMesh;
+                            selectedMesh = cliffTileMesh;
                         }
 
                         selectedMaterial = renderOption.landMaterial;
@@ -366,11 +365,6 @@ namespace TilePuzzle.Procedural
 
                     newTileObject.TileMesh = selectedMesh;
                     newTileObject.TileMaterial = selectedMaterial;
-
-                    // 타일의 높이를 설정
-                    Vector3 newPos = newTileObject.transform.position;
-                    newPos.y = newTileObject.TileInfo.isWater ? -renderOption.waterDepth : 0;
-                    newTileObject.transform.position = newPos;
 
                     // 타일의 전장의 안개 설정
                     newTileObject.IsVisible = true;
@@ -454,6 +448,26 @@ namespace TilePuzzle.Procedural
             renderOption.landMaterial.SetTexture("_FogMask", forMaskTexture);
         }
 
+        private void UpdateTileHeights(TerrainData terrainData)
+        {
+            float stepSize = 1f / renderOption.numberOfStep;
+            for (int i = 0; i < terrainData.terrainGraph.centers.Length; i++)
+            {
+                Vector3 newPos = tileObjects[i].transform.position;
+                if (tileObjects[i].TileInfo.isWater)
+                {
+                    newPos.y = -renderOption.waterDepth;
+                }
+                else
+                {
+                    float height = Mathf.Floor(terrainData.terrainGraph.centers[i].elevation / stepSize);
+                    height = Mathf.InverseLerp(0, renderOption.numberOfStep - 1, height);
+                    newPos.y = Mathf.Lerp(renderOption.heightRange.x, renderOption.heightRange.y, height);
+                }
+                tileObjects[i].transform.position = newPos;
+            }
+        }
+
         private static int Modulo(int x, int m)
         {
             int remainder = x % m;
@@ -481,6 +495,13 @@ namespace TilePuzzle.Procedural
             [PropertyRange(0.05f, 1f)]
             public float riverSize;
 
+            [Title("Height")]
+            public bool enableHeight;
+            [Range(0, 20)]
+            public int numberOfStep;
+            [MinMaxSlider(0, 2, true)]
+            public Vector2 heightRange;
+
             public static RenderOption Default => new RenderOption
             {
                 cliffDepth = 1.5f,
@@ -489,6 +510,10 @@ namespace TilePuzzle.Procedural
                 waterDepth = 0.5f,
 
                 riverSize = 0.2f,
+
+                enableHeight = true,
+                numberOfStep = 4,
+                heightRange = new Vector2(0, 1),
             };
         }
     }
