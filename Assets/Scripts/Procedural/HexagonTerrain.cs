@@ -100,6 +100,7 @@ namespace TilePuzzle.Procedural
             UpdateTileColors();
             UpdateFogOfWars();
             UpdateTileHeights(terrainData);
+            UpdateWaterMap(terrainData);
 
             // Debug
             corners = terrainData.terrainGraph.corners;
@@ -456,18 +457,9 @@ namespace TilePuzzle.Procedural
             float stepSize = 1f / renderOption.numberOfStep;
             Color[] heightMapColors = new Color[textureWidth * textureHeight];
 
-            for (int i = 0; i < terrainData.terrainGraph.centers.Length; i++)
+            for (int y = 0; y < TerrainSize.y; y++)
             {
-                float level = Mathf.FloorToInt(terrainData.terrainGraph.centers[i].elevation / stepSize);
-                float normalizedLevel = Mathf.InverseLerp(0, renderOption.numberOfStep - 1, level);
-                float height = Mathf.Lerp(renderOption.heightRange.x, renderOption.heightRange.y, normalizedLevel);
-
-                tileObjects[i].land.transform.localPosition = new Vector3(0, height, 0);
-            }
-
-            for (int y = 0; y < terrainData.TerrainSize.y; y++)
-            {
-                for (int x = 0; x < terrainData.TerrainSize.x; x++)
+                for (int x = 0; x < TerrainSize.x; x++)
                 {
                     int tileIndex = x + y * TerrainSize.x;
                     int textureIndex = x + y * textureWidth;
@@ -491,6 +483,65 @@ namespace TilePuzzle.Procedural
 
             renderOption.waterMaterial.SetVector("_MapSize", new Vector2(textureWidth, textureHeight));
             renderOption.waterMaterial.SetTexture("_HeightMap", heightMapTexture);
+        }
+
+        private void UpdateWaterMap(TerrainData terrainData)
+        {
+            int textureWidth = (int)Mathf.Pow(2, Mathf.CeilToInt(Mathf.Log(TerrainSize.x, 2)));
+            int textureHeight = (int)Mathf.Pow(2, Mathf.CeilToInt(Mathf.Log(TerrainSize.y, 2)));
+            Color[] waterMapColors = new Color[textureWidth * textureHeight];
+
+            var floodFillQueue = new Queue<Center>();
+            foreach (Center center in terrainData.terrainGraph.centers)
+            {
+                if (center.isWater == false && center.NeighborCenters.Values.Any(x => x.isWater))
+                {
+                    floodFillQueue.Enqueue(center);
+                }
+            }
+
+            var distanceMap = new int[TerrainSize.x * TerrainSize.y];
+            while (floodFillQueue.Count > 0)
+            {
+                Center currentCenter = floodFillQueue.Dequeue();
+                int currentIndex = currentCenter.hexPos.ToArrayIndex(TerrainSize.x);
+
+                foreach (Center neighborCenter in currentCenter.NeighborCenters.Values.Where(x => x.isWater))
+                {
+                    int neighborIndex = neighborCenter.hexPos.ToArrayIndex(TerrainSize.x);
+                    if (distanceMap[neighborIndex] == 0)
+                    {
+                        distanceMap[neighborIndex] = distanceMap[currentIndex] + 1;
+                        floodFillQueue.Enqueue(neighborCenter);
+                    }
+                }
+            }
+
+            for (int y = 0; y < TerrainSize.y; y++)
+            {
+                for (int x = 0; x < TerrainSize.x; x++)
+                {
+                    int tileIndex = x + y * TerrainSize.x;
+                    int textureIndex = x + y * textureWidth;
+
+                    TileInfo tileInfo = tileObjects[tileIndex].TileInfo;
+                    waterMapColors[textureIndex] = new Color(
+                        tileInfo.isWater == false && tileInfo.hasRiver ? 1f : 0f,
+                        tileInfo.IsLake ? 1f : 0f,
+                        tileInfo.isSea ? 1f : 0f,
+                        distanceMap[tileIndex] / 20f);
+                }
+            }
+
+            Texture2D waterMapTexture = new Texture2D(textureWidth, textureHeight)
+            {
+                filterMode = FilterMode.Point
+            };
+            waterMapTexture.SetPixels(waterMapColors);
+            waterMapTexture.Apply();
+
+            renderOption.waterMaterial.SetVector("_MapSize", new Vector2(textureWidth, textureHeight));
+            renderOption.waterMaterial.SetTexture("_WaterMap", waterMapTexture);
         }
 
         private static int Modulo(int x, int m)

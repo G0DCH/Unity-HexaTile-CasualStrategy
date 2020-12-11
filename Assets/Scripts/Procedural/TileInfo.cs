@@ -16,5 +16,7 @@ namespace TilePuzzle.Procedural
         public bool isCoast;
         public bool hasRiver;
         public Biome biome;
+
+        public bool IsLake => isWater && isSea == false;
     }
 }
