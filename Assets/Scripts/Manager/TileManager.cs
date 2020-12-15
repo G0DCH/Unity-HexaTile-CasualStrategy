@@ -136,17 +136,14 @@ namespace TilePuzzle
 
                 UpdateGrid(overTile, canPutTile);                
                 prevOverTile = overTile;
-
-                if (overTile == null)
+                if (SelectedTile == null || overTile == null)
                 {
-                    yield return null;
+                    yield return new WaitForSeconds(0.02f);
+                    continue;
                 }
 
                 SelectedTile.transform.position = overTile.hexagonTileObject.land.transform.position + Vector3.up * 0.1f;
-                if (tilePlacementDrawer.IsTilePlaceable != canPutTile)
-                {
-                    tilePlacementDrawer.IsTilePlaceable = canPutTile;
-                }
+                tilePlacementDrawer.IsTilePlaceable = canPutTile;
 
                 if (!canPutTile)
                 {
