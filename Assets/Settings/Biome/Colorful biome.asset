@@ -14,53 +14,66 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   biomeName: "\uCD08\uC6D0"
   biomeColor: {r: 0.52764964, g: 0.8679245, b: 0.3234247, a: 1}
+  biomeTags: []
   subBiomes:
   - biomeName: "\uC124\uC6D0"
     moistureRange: {x: 3, y: 5}
     temperatureRange: {x: 0, y: 1}
-    color: {r: 1, g: 1, b: 1, a: 1}
+    color: {r: 0.8254717, g: 0.96661377, b: 1, a: 1}
+    tags: []
   - biomeName: "\uD230\uB4DC\uB77C"
     moistureRange: {x: 1, y: 3}
     temperatureRange: {x: 0, y: 1}
-    color: {r: 0.70211816, g: 0.9245283, b: 0.8921777, a: 1}
+    color: {r: 0.500623, g: 0.8490566, b: 0.70889014, a: 1}
+    tags: []
   - biomeName: "\uCD08\uD1A0"
     moistureRange: {x: 0, y: 1}
-    temperatureRange: {x: 0, y: 1}
+    temperatureRange: {x: 0, y: 2}
     color: {r: 0.6037736, g: 0.6037736, b: 0.6037736, a: 1}
+    tags: []
   - biomeName: "\uD0C0\uC774\uAC00"
     moistureRange: {x: 3, y: 5}
     temperatureRange: {x: 1, y: 2}
     color: {r: 0.3337487, g: 0.5660378, b: 0.44789073, a: 1}
+    tags: []
   - biomeName: "\uAD00\uBAA9\uC9C0\uB300"
     moistureRange: {x: 1, y: 3}
     temperatureRange: {x: 1, y: 3}
-    color: {r: 0.34158066, g: 0.7169812, b: 0.53501594, a: 1}
+    color: {r: 0.3411765, g: 0.7176471, b: 0.4155611, a: 1}
+    tags: []
   - biomeName: "\uC628\uB300\uC0AC\uB9C9"
     moistureRange: {x: 0, y: 1}
-    temperatureRange: {x: 1, y: 3}
-    color: {r: 0.9056604, g: 0.75066113, b: 0.2007832, a: 1}
+    temperatureRange: {x: 2, y: 3}
+    color: {r: 1, g: 0.70739913, b: 0.25, a: 1}
+    tags: []
   - biomeName: "\uC628\uB300\uC6B0\uB9BC"
     moistureRange: {x: 4, y: 5}
     temperatureRange: {x: 2, y: 4}
     color: {r: 0.5263733, g: 0.764151, b: 0.1477839, a: 1}
+    tags: []
   - biomeName: "\uC628\uB300\uB099\uC5FD\uC218\uB9BC"
     moistureRange: {x: 3, y: 4}
     temperatureRange: {x: 2, y: 4}
     color: {r: 0.72087485, g: 0.8679245, b: 0.31523672, a: 1}
+    tags: []
   - biomeName: "\uC5F4\uB300\uC6B0\uB9BC"
     moistureRange: {x: 4, y: 5}
     temperatureRange: {x: 4, y: 5}
     color: {r: 0.29521582, g: 0.6132076, b: 0.21115166, a: 1}
+    tags: []
   - biomeName: "\uC5F4\uB300\uACC4\uC808\uB9BC"
     moistureRange: {x: 2, y: 4}
     temperatureRange: {x: 4, y: 5}
     color: {r: 0.31771204, g: 0.745283, b: 0.25663045, a: 1}
+    tags: []
   - biomeName: "\uC5F4\uB300\uC0AC\uB9C9"
     moistureRange: {x: 0, y: 1}
     temperatureRange: {x: 3, y: 5}
-    color: {r: 0.9716981, g: 0.9111962, b: 0.5179334, a: 1}
+    color: {r: 1, g: 0.8753804, b: 0.4481132, a: 1}
+    tags: []
   mainBiome:
     biomeName: "\uCD08\uC6D0"
     moistureRange: {x: 0, y: 1}
     temperatureRange: {x: 0, y: 1}
     color: {r: 0.52764964, g: 0.8679245, b: 0.3234247, a: 1}
+    tags: []
