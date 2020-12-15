@@ -86,7 +86,6 @@ namespace TilePuzzle
             }
             
             TileManager.Instance.SelectTileCost = TileManager.Instance.SelectedTile.Cost;
-            TileManager.Instance.SelectedTile.MakeGrid(TileManager.Instance.GridPrefab);
             TileManager.Instance.SelectedTile.TurnGrid(false);
         }
 

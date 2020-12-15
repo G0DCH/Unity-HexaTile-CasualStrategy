@@ -126,17 +126,17 @@ namespace TilePuzzle
         public GameObject RangeGrid { get; private set; }
 
         // 이 타일을 소유하고 있는 도시
-        public CityTile OwnerCity 
+        public CityTile OwnerCity
         {
-            get { return ownerCity; } 
-            private set 
+            get { return ownerCity; }
+            private set
             {
                 if (!RangeCitys.Contains(value))
                 {
                     RangeCitys.Add(value);
                 }
 
-                ownerCity = value; 
+                ownerCity = value;
             }
         }
         [SerializeField, ReadOnly, Header("Owner Of This Tile")]
@@ -175,7 +175,7 @@ namespace TilePuzzle
         public void InitInfo(HexagonTileObject tileObject)
         {
             hexagonTileObject = tileObject;
-            
+
             // 일단 1개만 들어있다고 가정
             foreach (var tag in MyHexagonInfo.biome.tags)
             {
@@ -313,16 +313,19 @@ namespace TilePuzzle
         }
 
         // 격자 생성
-        public void MakeGrid(GameObject grid)
+        // 생성 성공시 true return
+        public bool MakeGrid(GameObject grid)
         {
             // 아직 설치되지 않은 타일이라면 그리드 생성 금지
-            if(hexagonTileObject == null)
+            if (hexagonTileObject == null)
             {
-                return;
+                return false;
             }
 
             RangeGrid = Instantiate(grid, transform);
             RangeGrid.transform.position = hexagonTileObject.land.transform.position + Vector3.down * DownOffset;
+
+            return true;
         }
 
         // 격자 on off
@@ -330,7 +333,10 @@ namespace TilePuzzle
         {
             if (RangeGrid == null)
             {
-                MakeGrid(TileManager.Instance.GridPrefab);
+                if (!MakeGrid(TileManager.Instance.GridPrefab))
+                {
+                    return;
+                }
             }
 
             if (isOn)
@@ -374,7 +380,7 @@ namespace TilePuzzle
         // 없다면 false return
         public bool TryChangeOwner(List<CityTile> checkedCitys)
         {
-            foreach(var cityTile in RangeCitys)
+            foreach (var cityTile in RangeCitys)
             {
                 if (checkedCitys.Contains(cityTile))
                 {
