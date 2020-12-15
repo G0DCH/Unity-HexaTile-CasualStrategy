@@ -197,10 +197,10 @@ namespace TilePuzzle
                     tilePlacementDrawer.PlacementObject = null;
                     TileBuilding tileBuilding = SelectedTile.MyTileBuilding;
 
-                    ChangeTile(clickedTile);
+                    clickedTile = ChangeTile(clickedTile);
 
                     // 타일 타입을 건설한 건물로 변경
-                    clickedTile.MyTileBuilding = tileBuilding;
+                    //clickedTile.MyTileBuilding = tileBuilding;
 
                     // 건물 보너스 갱신
                     if (clickedTile is BuildingTile)
@@ -284,7 +284,7 @@ namespace TilePuzzle
         }
 
         // targetTile을 SelectedTile로 교체
-        private void ChangeTile(Tile targetTile)
+        private Tile ChangeTile(Tile targetTile)
         {
             // 기존 타일 컴포넌트 제거
             GameObject clickedObject = targetTile.gameObject;
@@ -295,45 +295,50 @@ namespace TilePuzzle
             TileMap.Remove(hexagonTileObject.TileInfo.hexPos);
             Destroy(targetTile);
 
+            Tile newTile = null;
+
             // 빌딩 또는 도시 컴포넌트로 교체
             if (SelectedTile is BuildingTile)
             {
                 // 격자 표기, 타일 소유권 이전
                 if (SelectedTile is CityTile)
                 {
-                    targetTile = clickedObject.AddComponent<CityTile>();
-                    targetTile.InitInfo(hexagonTileObject, range);
-                    ((CityTile)targetTile).SetRangeGrids();
-                    ((CityTile)targetTile).SetOwnerInRange();
+                    newTile = clickedObject.AddComponent<CityTile>();
+                    newTile.InitInfo(hexagonTileObject, range);
+                    ((CityTile)newTile).SetRangeGrids();
+                    ((CityTile)newTile).SetOwnerInRange();
                     // 도시 개수 증가
                     CityNum++;
                 }
                 else
                 {
-                    targetTile = clickedObject.AddComponent<BuildingTile>();
-                    targetTile.InitInfo(hexagonTileObject, range);
-                    targetTile.SetRangeCitys(rangeCitys);
-                    targetTile.SetCityTile(city);
+                    newTile = clickedObject.AddComponent<BuildingTile>();
+                    newTile.InitInfo(hexagonTileObject, range);
+                    newTile.SetRangeCitys(rangeCitys);
+                    newTile.SetCityTile(city);
                 }
             }
             // 원더 컴포넌트로 교체
             else if (SelectedTile is WonderTile)
             {
-                targetTile = (Tile)clickedObject.AddComponent(SelectedTile.GetType());
-                targetTile.InitInfo(hexagonTileObject, range);
-                targetTile.SetRangeCitys(rangeCitys);
-                targetTile.SetCityTile(city);
-                ((WonderTile)targetTile).InitWonderBonus(((WonderTile)SelectedTile).WonderBonus);
+                newTile = (Tile)clickedObject.AddComponent(SelectedTile.GetType());
+                newTile.InitInfo(hexagonTileObject, range);
+                newTile.SetRangeCitys(rangeCitys);
+                newTile.SetCityTile(city);
+                ((WonderTile)newTile).InitWonderBonus(((WonderTile)SelectedTile).WonderBonus);
             }
 
-            TileMap.Add(hexagonTileObject.TileInfo.hexPos, targetTile);
+            TileMap.Add(hexagonTileObject.TileInfo.hexPos, newTile);
+            newTile.MyTileBuilding = SelectedTile.MyTileBuilding;
 
             // 이웃 타일들의 범위 내 타일과 이웃 타일을
             // 교체한 타일 컴포넌트로 바꿈.
-            foreach (Tile rangeTile in targetTile.RangeTiles)
+            foreach (Tile rangeTile in newTile.RangeTiles)
             {
                 rangeTile.UpdateNeighborRange();
             }
+
+            return newTile;
         }
 
         // currentTile의 위치에 Selected 타일을 배치할 수 있는가
