@@ -38,4 +38,4 @@ MonoBehaviour:
     - "\uCD08\uC6D0"
   spawnDistance: 2
   spawnRate: 0.4
-  useRandomRotation: 0
+  useRandomRotation: 1
