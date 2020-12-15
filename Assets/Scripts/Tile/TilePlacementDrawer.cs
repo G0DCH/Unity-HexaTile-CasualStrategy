@@ -28,7 +28,7 @@ namespace TilePuzzle
         {
             set
             {
-                if (isTilePlaceable == null && placementObject != null)
+                if (isTilePlaceable != value && placementObject != null)
                 {
                     // Change renderer infos
                     foreach (Renderer renderer in placementObject.GetComponentsInChildren<Renderer>())
