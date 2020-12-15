@@ -315,6 +315,12 @@ namespace TilePuzzle
         // 격자 생성
         public void MakeGrid(GameObject grid)
         {
+            // 아직 설치되지 않은 타일이라면 그리드 생성 금지
+            if(hexagonTileObject == null)
+            {
+                return;
+            }
+
             RangeGrid = Instantiate(grid, transform);
             RangeGrid.transform.position = hexagonTileObject.land.transform.position + Vector3.down * DownOffset;
         }
