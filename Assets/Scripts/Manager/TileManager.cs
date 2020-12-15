@@ -10,11 +10,21 @@ namespace TilePuzzle
     {
         // 범위 표기 프리팹
         public GameObject GridPrefab;
+        public TilePlacementDrawer tilePlacementDrawer;
 
         [Space]
         [Header("Selected Tile")]
         [ReadOnly]
-        public Tile SelectedTile;
+        private Tile selectedTile;
+        public Tile SelectedTile
+        {
+            get { return selectedTile; }
+            set
+            {
+                tilePlacementDrawer.PlacementObject = value != null ? value.gameObject : null;
+                selectedTile = value;
+            }
+        }
 
         [Space, Header("SelectTileCost")]
         public int SelectTileCost = 0;
@@ -83,7 +93,7 @@ namespace TilePuzzle
                     Tile tile = Instantiate(TileContainer, hexagonTileObject.transform).GetComponent<Tile>();
                     tile.transform.localPosition = Vector3.zero;
                     tile.name = tileContainerName;
-                    tile.InitInfo(hexagonTileObject.TileInfo, hexagonTileObject.DecorationInfo.GetValueOrDefault());
+                    tile.InitInfo(hexagonTileObject);
 
                     TileMap.Add(hexagonTileObject.TileInfo.hexPos, tile);
                 }
@@ -132,13 +142,17 @@ namespace TilePuzzle
                     yield return null;
                 }
 
+                SelectedTile.transform.position = overTile.hexagonTileObject.land.transform.position + Vector3.up * 0.1f;
+                if (tilePlacementDrawer.IsTilePlaceable != canPutTile)
+                {
+                    tilePlacementDrawer.IsTilePlaceable = canPutTile;
+                }
+
                 if (!canPutTile)
                 {
                     yield return new WaitForSeconds(0.02f);
                     continue;
                 }
-
-                SelectedTile.transform.position = overTile.transform.position + Vector3.up * 0.1f;
 
                 CalculateTileCost(overTile);
 
@@ -183,6 +197,7 @@ namespace TilePuzzle
                         continue;
                     }
 
+                    tilePlacementDrawer.PlacementObject = null;
                     TileBuilding tileBuilding = SelectedTile.MyTileBuilding;
 
                     ChangeTile(clickedTile);
@@ -212,7 +227,7 @@ namespace TilePuzzle
 
                     Transform building = SelectedTile.transform.GetChild(0);
                     building.SetParent(clickedTile.transform, true);
-                    building.localPosition = Vector3.zero;
+                    building.localPosition = clickedTile.hexagonTileObject.land.transform.localPosition;
 
                     Destroy(SelectedTile.gameObject);
                     SelectedTile = null;
@@ -276,12 +291,11 @@ namespace TilePuzzle
         {
             // 기존 타일 컴포넌트 제거
             GameObject clickedObject = targetTile.gameObject;
-            TileInfo hexagon = targetTile.MyHexagonInfo;
-            DecorationInfo decorationInfo = targetTile.MyDecorationInfo;
+            HexagonTileObject hexagonTileObject = targetTile.hexagonTileObject;
             int range = targetTile.Range;
             CityTile city = targetTile.OwnerCity;
             List<CityTile> rangeCitys = targetTile.RangeCitys;
-            TileMap.Remove(hexagon.hexPos);
+            TileMap.Remove(hexagonTileObject.TileInfo.hexPos);
             Destroy(targetTile);
 
             // 빌딩 또는 도시 컴포넌트로 교체
@@ -291,7 +305,7 @@ namespace TilePuzzle
                 if (SelectedTile is CityTile)
                 {
                     targetTile = clickedObject.AddComponent<CityTile>();
-                    targetTile.InitInfo(hexagon, decorationInfo, range);
+                    targetTile.InitInfo(hexagonTileObject, range);
                     ((CityTile)targetTile).SetRangeGrids();
                     ((CityTile)targetTile).SetOwnerInRange();
                     // 도시 개수 증가
@@ -300,7 +314,7 @@ namespace TilePuzzle
                 else
                 {
                     targetTile = clickedObject.AddComponent<BuildingTile>();
-                    targetTile.InitInfo(hexagon, decorationInfo, range);
+                    targetTile.InitInfo(hexagonTileObject, range);
                     targetTile.SetRangeCitys(rangeCitys);
                     targetTile.SetCityTile(city);
                 }
@@ -309,13 +323,13 @@ namespace TilePuzzle
             else if (SelectedTile is WonderTile)
             {
                 targetTile = (Tile)clickedObject.AddComponent(SelectedTile.GetType());
-                targetTile.InitInfo(hexagon, decorationInfo, range);
+                targetTile.InitInfo(hexagonTileObject, range);
                 targetTile.SetRangeCitys(rangeCitys);
                 targetTile.SetCityTile(city);
                 ((WonderTile)targetTile).InitWonderBonus(((WonderTile)SelectedTile).WonderBonus);
             }
 
-            TileMap.Add(hexagon.hexPos, targetTile);
+            TileMap.Add(hexagonTileObject.TileInfo.hexPos, targetTile);
 
             // 이웃 타일들의 범위 내 타일과 이웃 타일을
             // 교체한 타일 컴포넌트로 바꿈.

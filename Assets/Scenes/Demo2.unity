@@ -1596,6 +1596,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1796399865}
   - component: {fileID: 1796399864}
+  - component: {fileID: 1796399866}
   m_Layer: 0
   m_Name: TileManager
   m_TagString: Untagged
@@ -1617,7 +1618,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GridPrefab: {fileID: 610993075651065042, guid: 82c5869b1d4759d48bfde08462d926ea,
     type: 3}
-  SelectedTile: {fileID: 0}
+  tilePlacementDrawer: {fileID: 1796399866}
   SelectTileCost: 0
   cityNum: 0
   TileContainer: {fileID: 5248716448891796504, guid: 7cb4f714dd33afb458a377e9c9343b10,
@@ -1636,6 +1637,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1796399866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1796399863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 396ffd1aa092b254bb8a87c6ab81f206, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  placeableMaterial: {fileID: 2100000, guid: 61589191d122e3e4e9b58129d5daeda8, type: 2}
+  notPlaceableMaterial: {fileID: 2100000, guid: 31d13229cdacf9f4bb8414e6583d4426,
+    type: 2}
+  castShadow: 1
 --- !u!1 &1814894734 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 303171079369607827, guid: 2831e6c7b5b7f23419d724d1100b0f71,
@@ -2081,7 +2098,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 261ed30e15edd7c47bbeda5f258f9ffc, type: 2}
+      objectReference: {fileID: 2100000, guid: 61589191d122e3e4e9b58129d5daeda8, type: 2}
+    - target: {fileID: -5057592563875707180, guid: db01d9d841007d541bc3515ff4da5427,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -1575370918209759321, guid: db01d9d841007d541bc3515ff4da5427,
         type: 3}
       propertyPath: m_IsActive
@@ -2095,7 +2117,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: db01d9d841007d541bc3515ff4da5427,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2195698031463493370, guid: db01d9d841007d541bc3515ff4da5427,
         type: 3}
