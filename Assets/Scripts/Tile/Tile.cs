@@ -8,33 +8,13 @@ namespace TilePuzzle
 {
     public class Tile : MonoBehaviour
     {
-        public TileInfo MyHexagonInfo
-        {
-            get
-            {
-                return myHexagonInfo;
-            }
-            set
-            {
-                myHexagonInfo = value;
-            }
-        }
-        [SerializeField]
-        private TileInfo myHexagonInfo = new TileInfo();
+        public HexagonTileObject hexagonTileObject;
 
-        public DecorationInfo MyDecorationInfo
-        {
-            get
-            {
-                return myDecorationInfo;
-            }
-            set
-            {
-                myDecorationInfo = value;
-            }
-        }
-        [SerializeField]
-        private DecorationInfo myDecorationInfo = new DecorationInfo();
+        [ShowInInspector]
+        public TileInfo MyHexagonInfo => hexagonTileObject.TileInfo;
+
+        [ShowInInspector]
+        public DecorationInfo MyDecorationInfo => hexagonTileObject.DecorationInfo.GetValueOrDefault();
 
         // 이 타일의 타입
         public TileType MyTileType
@@ -189,10 +169,9 @@ namespace TilePuzzle
         }
 
         // Info 초기화
-        public void InitInfo(TileInfo hexagonInfo, DecorationInfo decorationInfo)
+        public void InitInfo(HexagonTileObject tileObject)
         {
-            myHexagonInfo = hexagonInfo;
-            myDecorationInfo = decorationInfo;
+            hexagonTileObject = tileObject;
             
             // 일단 1개만 들어있다고 가정
             foreach (var tag in MyHexagonInfo.biome.tags)
@@ -215,10 +194,9 @@ namespace TilePuzzle
         }
 
         // Info 초기화
-        public void InitInfo(TileInfo hexagonInfo, DecorationInfo decorationInfo, int range)
+        public void InitInfo(HexagonTileObject tileObject, int range)
         {
-            myHexagonInfo = hexagonInfo;
-            myDecorationInfo = decorationInfo;
+            hexagonTileObject = tileObject;
             baseRange = range;
             Range = range;
 
