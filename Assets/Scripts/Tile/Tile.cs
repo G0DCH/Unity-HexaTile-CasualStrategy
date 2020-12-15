@@ -149,6 +149,9 @@ namespace TilePuzzle
         [SerializeField, Space, Header("Tile Cost")]
         private int cost = 0;
 
+        // 모델 밑으로 조금 내림
+        public float DownOffset = 0.2f;
+
         #region 범위 불가사의 on off
         // 다음 불가사의의 효과를 받았는가
         // 킬와 키시와니
@@ -313,7 +316,7 @@ namespace TilePuzzle
         public void MakeGrid(GameObject grid)
         {
             RangeGrid = Instantiate(grid, transform);
-            RangeGrid.transform.localPosition = Vector3.zero;
+            RangeGrid.transform.position = hexagonTileObject.land.transform.position + Vector3.down * DownOffset;
         }
 
         // 격자 on off

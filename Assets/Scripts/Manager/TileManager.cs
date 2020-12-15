@@ -224,7 +224,7 @@ namespace TilePuzzle
 
                     Transform building = SelectedTile.transform.GetChild(0);
                     building.SetParent(clickedTile.transform, true);
-                    building.localPosition = clickedTile.hexagonTileObject.land.transform.localPosition;
+                    building.position = clickedTile.hexagonTileObject.land.transform.position + Vector3.down * clickedTile.DownOffset;
 
                     Destroy(SelectedTile.gameObject);
                     SelectedTile = null;
