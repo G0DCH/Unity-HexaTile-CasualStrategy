@@ -15,7 +15,7 @@ namespace TilePuzzle
         [Required] public Material notPlaceableMaterial;
         public bool castShadow = false;
 
-        private bool isTilePlaceable;
+        private bool? isTilePlaceable;
         private GameObject placementObject;
         private Dictionary<Renderer, RendererInfo> originRendererInfoMap;
 
@@ -26,10 +26,9 @@ namespace TilePuzzle
 
         public bool IsTilePlaceable
         {
-            get { return isTilePlaceable; }
             set
             {
-                if (placementObject != null)
+                if (isTilePlaceable == null && placementObject != null)
                 {
                     // Change renderer infos
                     foreach (Renderer renderer in placementObject.GetComponentsInChildren<Renderer>())
@@ -45,7 +44,6 @@ namespace TilePuzzle
 
         public GameObject PlacementObject
         {
-            get { return placementObject; }
             set
             {
                 if (placementObject != null)
@@ -70,12 +68,10 @@ namespace TilePuzzle
                     {
                         originRendererInfoMap.Add(renderer, new RendererInfo(renderer.sharedMaterials, renderer.shadowCastingMode));
                     }
-
-                    // Update renderer info
-                    IsTilePlaceable = isTilePlaceable;
                 }
 
                 placementObject = value;
+                isTilePlaceable = null;
             }
         }
 
