@@ -129,9 +129,11 @@ namespace TilePuzzle
                 if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(pointerID))
                 {
                     yield return new WaitForSeconds(0.02f);
+                    continue;
                 }
 
                 Tile overTile = GetTileAtMousePos();
+                CalculateTileCost(overTile);
                 bool canPutTile = CanPutTile(overTile);
 
                 UpdateGrid(overTile, canPutTile);                
@@ -150,8 +152,6 @@ namespace TilePuzzle
                     yield return new WaitForSeconds(0.02f);
                     continue;
                 }
-
-                CalculateTileCost(overTile);
 
                 // 범위 계산, 범위 내 타일 갱신
                 CalculateRange?.Invoke(overTile, SelectedTile.MyTileBuilding);
@@ -179,6 +179,7 @@ namespace TilePuzzle
                     if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(pointerID))
                     {
                         yield return null;
+                        continue;
                     }
 
                     Tile clickedTile = GetTileAtMousePos();
