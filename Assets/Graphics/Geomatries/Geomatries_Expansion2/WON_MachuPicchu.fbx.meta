@@ -3,7 +3,27 @@ guid: a926d61f40e3dd24f8319accc317eda8
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_MachuPicchu_FarmA
+    second: {fileID: 2100000, guid: 8d458cc676cfda3479234bdca094276d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_MachuPicchu_FarmB
+    second: {fileID: 2100000, guid: 2c9801af6e8eb0d418666e5daa533d29, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_MachuPicchu_Wall
+    second: {fileID: 2100000, guid: 9b84786f670f78141a5319e815076f7e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Machu_Picchu
+    second: {fileID: 2100000, guid: 2c1b8846f07cb53478cf82ec9a497f81, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
