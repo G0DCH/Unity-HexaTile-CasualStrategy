@@ -123,7 +123,24 @@ namespace TilePuzzle
         private int bonus = 0;
 
         // 범위 표시용 격자
-        public GameObject RangeGrid { get; private set; }
+        public GameObject RangeGrid
+        { 
+            get
+            {
+                if (rangeGrid == null)
+                {
+                    MakeGrid(TileManager.Instance.GridPrefab);
+                }
+
+                return rangeGrid;
+            } 
+            private set
+            {
+                rangeGrid = value;
+            }
+        }
+
+        private GameObject rangeGrid;
 
         // 이 타일을 소유하고 있는 도시
         public CityTile OwnerCity
