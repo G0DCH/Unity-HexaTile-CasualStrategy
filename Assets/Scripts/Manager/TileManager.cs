@@ -198,32 +198,34 @@ namespace TilePuzzle
                     tilePlacementDrawer.PlacementObject = null;
                     TileBuilding tileBuilding = SelectedTile.MyTileBuilding;
 
-                    clickedTile = ChangeTile(clickedTile);
+                    // 클릭한 타일의 컴포넌트를
+                    // 설치하려는 타일로 교체
+                    Tile changedTile = ChangeTile(clickedTile);
 
                     // 건물 보너스 갱신
-                    if (clickedTile is BuildingTile)
+                    if (changedTile is BuildingTile)
                     {
-                        ((BuildingTile)clickedTile).RefreshBonus();
+                        ((BuildingTile)changedTile).RefreshBonus();
                     }
                     // 불가사의로 인한 보너스 추가, 보너스 출력
-                    CalculateBonusByWonder?.Invoke(clickedTile, tileBuilding);
+                    CalculateBonusByWonder?.Invoke(changedTile, tileBuilding);
                     // 시대별 업그레이드 보너스 추가
-                    MyBuildingBonus?.Invoke(clickedTile, tileBuilding);
+                    MyBuildingBonus?.Invoke(changedTile, tileBuilding);
 
-                    if (clickedTile is WonderTile)
+                    if (changedTile is WonderTile)
                     {
                         // 딜리케이트 추가
-                        ((WonderTile)clickedTile).AddToDelegate();
+                        ((WonderTile)changedTile).AddToDelegate();
                         // 설치한 불가사의 버튼 비활성화
                         UIManager.Instance.DisableWonderButton();
                     }
 
-                    GameManager.Instance.AddPoint(clickedTile.Bonus);
+                    GameManager.Instance.AddPoint(changedTile.Bonus);
 
                     // 건물 모델을 타일 위에 올림
                     Transform building = SelectedTile.transform.GetChild(0);
-                    building.SetParent(clickedTile.transform, true);
-                    building.position = clickedTile.hexagonTileObject.land.transform.position + Vector3.down * clickedTile.DownOffset;
+                    building.SetParent(changedTile.transform, true);
+                    building.position = changedTile.hexagonTileObject.land.transform.position + Vector3.down * changedTile.DownOffset;
 
                     Destroy(SelectedTile.gameObject);
                     SelectedTile = null;
