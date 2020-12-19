@@ -3,7 +3,12 @@ guid: 9bf32a7f3eb5d22409170d74badd24bd
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Golden_Gate.002
+    second: {fileID: 2100000, guid: eadc1f1e60a525b4bb2f1ae45081258a, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

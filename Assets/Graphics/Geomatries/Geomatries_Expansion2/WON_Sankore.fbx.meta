@@ -3,7 +3,12 @@ guid: d11b3df4980cf1b4fba4e69236d2fcee
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Sankore
+    second: {fileID: 2100000, guid: b64ca2474268526438912999208dbeae, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

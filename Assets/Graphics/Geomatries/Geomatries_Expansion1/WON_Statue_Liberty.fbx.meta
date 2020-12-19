@@ -3,7 +3,12 @@ guid: 52aba7acb73cdf342b8e97e6967ecdd9
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Statue_Liberty
+    second: {fileID: 2100000, guid: 444a736256e338d42905cd59d79273b6, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

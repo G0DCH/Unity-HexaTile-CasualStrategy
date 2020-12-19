@@ -3,11 +3,16 @@ guid: 5dc7bcd54f4f412428abc9f0632ee975
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Estadio_Do_Maracana
+    second: {fileID: 2100000, guid: 1bc84945875ad0f45ad91c507e718a98, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
-    materialSearch: 1
+    materialSearch: 2
     materialLocation: 1
   animations:
     legacyGenerateAnimations: 4

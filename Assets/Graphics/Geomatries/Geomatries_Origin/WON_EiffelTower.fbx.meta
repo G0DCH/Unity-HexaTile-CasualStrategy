@@ -3,7 +3,12 @@ guid: 1fcfad75f6b32644dac8165ea136bf7f
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Eiffel_Tower_Emissive
+    second: {fileID: 2100000, guid: 57489bab0a699e744aaf24d67c676460, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
