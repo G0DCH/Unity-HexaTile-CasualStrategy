@@ -3,11 +3,16 @@ guid: 2ce3d92ae3e2fc04d8e9302a7f597dce
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Hermitage
+    second: {fileID: 2100000, guid: 1bbcd794bd78c234c9e3a1f44de9120b, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
-    materialSearch: 1
+    materialSearch: 2
     materialLocation: 1
   animations:
     legacyGenerateAnimations: 4

@@ -3,11 +3,21 @@ guid: 3c41e70c842e81a49a7f4edfe9623bcd
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Patchy_Grass_Rock
+    second: {fileID: 2100000, guid: 5391a1a00d016e341a2e65b609b57f0c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Mont_St_Michel
+    second: {fileID: 2100000, guid: 5507ebda13434e140a57d89db3e7f6b1, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
-    materialSearch: 1
+    materialSearch: 2
     materialLocation: 1
   animations:
     legacyGenerateAnimations: 4

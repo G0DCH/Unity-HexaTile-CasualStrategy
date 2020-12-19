@@ -3,7 +3,72 @@ guid: eb1f01679c841a9409f6790d2bc9ec48
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Terrain_Tile_Won_Huey.002
+    second: {fileID: 2100000, guid: e7a6a9d2623bd75439a4e1ae710ff4aa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tree_Jungle_Base
+    second: {fileID: 2100000, guid: ee33ac13906ff3b46941e9fca8999f45, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tree_Jungle_Base.001
+    second: {fileID: 2100000, guid: ee33ac13906ff3b46941e9fca8999f45, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tree_Jungle_Base.002
+    second: {fileID: 2100000, guid: ee33ac13906ff3b46941e9fca8999f45, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tree_Jungle_Base.003
+    second: {fileID: 2100000, guid: ee33ac13906ff3b46941e9fca8999f45, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tree_Jungle_Base.004
+    second: {fileID: 2100000, guid: ee33ac13906ff3b46941e9fca8999f45, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tree_Jungle_Base.005
+    second: {fileID: 2100000, guid: ee33ac13906ff3b46941e9fca8999f45, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tree_Jungle_Base.006
+    second: {fileID: 2100000, guid: ee33ac13906ff3b46941e9fca8999f45, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tree_Jungle_Base.007
+    second: {fileID: 2100000, guid: ee33ac13906ff3b46941e9fca8999f45, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tree_Jungle_Base.008
+    second: {fileID: 2100000, guid: ee33ac13906ff3b46941e9fca8999f45, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tree_Jungle_Base.009
+    second: {fileID: 2100000, guid: ee33ac13906ff3b46941e9fca8999f45, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tree_Jungle_Base.010
+    second: {fileID: 2100000, guid: ee33ac13906ff3b46941e9fca8999f45, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Tenochtitlan
+    second: {fileID: 2100000, guid: 15a4c2f5f4fe0bf4aafbf766f210dd5b, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

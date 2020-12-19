@@ -3,11 +3,26 @@ guid: 1ce0a126a2aa44644b09816c566a425a
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Bld.030
+    second: {fileID: 2100000, guid: 585e20e2aa9896e43859469f46eb9e8a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Bld.031
+    second: {fileID: 2100000, guid: 585e20e2aa9896e43859469f46eb9e8a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Venetian_Arsenal
+    second: {fileID: 2100000, guid: afb6c479a3cd0634397dde85be3b5d01, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
-    materialSearch: 1
+    materialSearch: 2
     materialLocation: 1
   animations:
     legacyGenerateAnimations: 4

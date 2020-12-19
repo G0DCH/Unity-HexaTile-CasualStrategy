@@ -3,7 +3,17 @@ guid: 8ffa7c92a4de2de419233b757d54961f
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_GreatLibrary_Emissive
+    second: {fileID: 2100000, guid: 332b57177ef70254899ec46b5865d7b7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WaterMaterial_NonTiling
+    second: {fileID: 2100000, guid: aabe7422a3b065f4e9c99cb018219bef, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

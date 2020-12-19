@@ -3,7 +3,17 @@ guid: fdb740d0c00cf9145a4b01157305680a
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DIS_CTY_IU_Foundation_Rhur
+    second: {fileID: 2100000, guid: 01f007ba16103bf42a6bfaa5e1006514, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Oxford_University
+    second: {fileID: 2100000, guid: 320189e9cd31854448e00b462c3e1121, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

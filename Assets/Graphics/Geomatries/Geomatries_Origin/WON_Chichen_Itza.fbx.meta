@@ -3,7 +3,12 @@ guid: 9aab5af4a6d348d438e51bd402761186
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 01 - Default [Chichen_Itza].001
+    second: {fileID: 2100000, guid: aea670bbabb846d44a4f0a6e2118b1bd, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

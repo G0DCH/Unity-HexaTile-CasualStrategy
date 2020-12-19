@@ -3,11 +3,31 @@ guid: ff29a8812c1930b4fb053adf546d57d2
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #0
+    second: {fileID: 2100000, guid: 585e20e2aa9896e43859469f46eb9e8a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Big_Ben
+    second: {fileID: 2100000, guid: 5624f5ea6e077b0439bd83832fbbf34f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Big_Ben.001
+    second: {fileID: 2100000, guid: 5624f5ea6e077b0439bd83832fbbf34f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Big_Ben.002
+    second: {fileID: 2100000, guid: 5624f5ea6e077b0439bd83832fbbf34f, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
-    materialSearch: 1
+    materialSearch: 2
     materialLocation: 1
   animations:
     legacyGenerateAnimations: 4

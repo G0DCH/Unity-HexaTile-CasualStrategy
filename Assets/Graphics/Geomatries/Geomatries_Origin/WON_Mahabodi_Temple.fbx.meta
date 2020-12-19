@@ -3,11 +3,96 @@ guid: 6b9a4ab8f93fffb4f94306b248aa2601
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Bld.026
+    second: {fileID: 2100000, guid: 585e20e2aa9896e43859469f46eb9e8a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Bld.027
+    second: {fileID: 2100000, guid: 585e20e2aa9896e43859469f46eb9e8a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Bld.028
+    second: {fileID: 2100000, guid: 585e20e2aa9896e43859469f46eb9e8a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Bld.029
+    second: {fileID: 2100000, guid: 585e20e2aa9896e43859469f46eb9e8a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Bld_Flowered_White.008
+    second: {fileID: 2100000, guid: 76fb9446a85a81949814100f35fb8c52, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Bld_Flowered_White.009
+    second: {fileID: 2100000, guid: 76fb9446a85a81949814100f35fb8c52, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Bld_Flowered_White.010
+    second: {fileID: 2100000, guid: 76fb9446a85a81949814100f35fb8c52, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Bld_Flowered_White.011
+    second: {fileID: 2100000, guid: 76fb9446a85a81949814100f35fb8c52, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Bld_Flowered_White.012
+    second: {fileID: 2100000, guid: 76fb9446a85a81949814100f35fb8c52, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Bld_Flowered_White.013
+    second: {fileID: 2100000, guid: 76fb9446a85a81949814100f35fb8c52, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Bld_Flowered_White.014
+    second: {fileID: 2100000, guid: 76fb9446a85a81949814100f35fb8c52, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Bld_Flowered_White.015
+    second: {fileID: 2100000, guid: 76fb9446a85a81949814100f35fb8c52, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Mahabodi_Temple
+    second: {fileID: 2100000, guid: 4465dd65329b70d45b0e5448887384bd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Mahabodi_Temple.001
+    second: {fileID: 2100000, guid: 4465dd65329b70d45b0e5448887384bd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Mahabodi_Temple.002
+    second: {fileID: 2100000, guid: 4465dd65329b70d45b0e5448887384bd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Mahabodi_Temple.003
+    second: {fileID: 2100000, guid: 4465dd65329b70d45b0e5448887384bd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Zimbabwe_Tree
+    second: {fileID: 2100000, guid: fcbf20aedbfe0b942a786c5e8fa30325, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
-    materialSearch: 1
+    materialSearch: 2
     materialLocation: 1
   animations:
     legacyGenerateAnimations: 4

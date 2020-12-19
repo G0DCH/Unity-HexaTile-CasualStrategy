@@ -3,7 +3,27 @@ guid: 7034d1ea722378745b12431df1d7f53a
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Hanging_Gardens_Plants_Emissive
+    second: {fileID: 2100000, guid: 02483d347f5cc694eb9d8aaebcaefd11, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Hanging_Gardens_Plants_Emissive.001
+    second: {fileID: 2100000, guid: 02483d347f5cc694eb9d8aaebcaefd11, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Hanging_Gardens_Plants_Emissive.002
+    second: {fileID: 2100000, guid: 02483d347f5cc694eb9d8aaebcaefd11, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Hanging_Gardens_building_Emissive
+    second: {fileID: 2100000, guid: 3386f7d42b84d164dbc10923f4e501ba, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

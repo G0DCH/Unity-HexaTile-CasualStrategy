@@ -3,11 +3,16 @@ guid: 802fd01ca6fe2a14d995175043377597
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Bolshoi_Theatre
+    second: {fileID: 2100000, guid: 8829ef56bfcda6c4188714ab7550b9b7, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
-    materialSearch: 1
+    materialSearch: 2
     materialLocation: 1
   animations:
     legacyGenerateAnimations: 4

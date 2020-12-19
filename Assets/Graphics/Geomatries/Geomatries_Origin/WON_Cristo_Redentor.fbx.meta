@@ -3,7 +3,47 @@ guid: 758c24c4cd69d8d4cbedddadbd7eec44
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cliff_Tile
+    second: {fileID: 2100000, guid: 73f1fd4a020fa4c4dbfd100094a1110c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cliff_Tile.001
+    second: {fileID: 2100000, guid: 73f1fd4a020fa4c4dbfd100094a1110c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cliff_Tile.002
+    second: {fileID: 2100000, guid: 73f1fd4a020fa4c4dbfd100094a1110c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cliff_Tile.003
+    second: {fileID: 2100000, guid: 73f1fd4a020fa4c4dbfd100094a1110c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cliff_Tile.004
+    second: {fileID: 2100000, guid: 73f1fd4a020fa4c4dbfd100094a1110c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cliff_Tile.005
+    second: {fileID: 2100000, guid: 73f1fd4a020fa4c4dbfd100094a1110c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cliff_Tile.006
+    second: {fileID: 2100000, guid: 73f1fd4a020fa4c4dbfd100094a1110c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Cristo_Redentor
+    second: {fileID: 2100000, guid: ae0f9b3f8cb18834baaf32de30b8c4eb, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

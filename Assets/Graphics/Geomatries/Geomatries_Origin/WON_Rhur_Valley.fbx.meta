@@ -3,11 +3,21 @@ guid: 296f25499c86864478d5763fdc36bb53
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DIS_CTY_IU_Foundation_Rhur.001
+    second: {fileID: 2100000, guid: 01f007ba16103bf42a6bfaa5e1006514, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Rhur_Valley
+    second: {fileID: 2100000, guid: 70887c4e6702ed14598b9f05a20ca574, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
-    materialSearch: 1
+    materialSearch: 2
     materialLocation: 1
   animations:
     legacyGenerateAnimations: 4

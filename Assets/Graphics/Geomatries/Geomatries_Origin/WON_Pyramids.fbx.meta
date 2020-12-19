@@ -3,11 +3,16 @@ guid: b0c92b0614589b64591dba1ee331b9ae
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Pyramids
+    second: {fileID: 2100000, guid: b4079248e90c75548be75c2e7108d7bb, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
-    materialSearch: 1
+    materialSearch: 2
     materialLocation: 1
   animations:
     legacyGenerateAnimations: 4

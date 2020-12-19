@@ -3,7 +3,17 @@ guid: e3185831f8151e44bbc719425ea7be35
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Foliage.001
+    second: {fileID: 2100000, guid: 585e20e2aa9896e43859469f46eb9e8a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Sydney_Opera_House.001
+    second: {fileID: 2100000, guid: 25bea41007085f548b5d554618e7a9c0, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

@@ -3,7 +3,22 @@ guid: fe483ed263a22944da8235f7e49e8b71
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 13 - Default
+    second: {fileID: 2100000, guid: 73f1fd4a020fa4c4dbfd100094a1110c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #138
+    second: {fileID: 2100000, guid: 585e20e2aa9896e43859469f46eb9e8a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Potala_Palace
+    second: {fileID: 2100000, guid: 63002f21af3efc64aadb7f2084aa553d, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

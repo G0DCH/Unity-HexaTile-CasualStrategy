@@ -3,7 +3,32 @@ guid: d1ebc9b5660d2084f9928ebd9364a1b7
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Billboards_Signs
+    second: {fileID: 2100000, guid: 100b3880e9b6d604d857e37377da636d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Billboards_Signs.001
+    second: {fileID: 2100000, guid: 100b3880e9b6d604d857e37377da636d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Broadway_DIS_CTY_IU_Bld
+    second: {fileID: 2100000, guid: c2e6821197f646e419d8bd5d06eb6062, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Broadway_DIS_CTY_IU_Foundation
+    second: {fileID: 2100000, guid: 01f007ba16103bf42a6bfaa5e1006514, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Broadway_DIS_CTY_MG_Base
+    second: {fileID: 2100000, guid: 0596cadd6df93dd4eb6ba09fae3e11a4, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

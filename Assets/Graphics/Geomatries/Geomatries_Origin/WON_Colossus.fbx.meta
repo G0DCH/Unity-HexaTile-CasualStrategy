@@ -3,7 +3,12 @@ guid: 0e6d5d9c32ae7294bb38f2260fb60773
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Colossus
+    second: {fileID: 2100000, guid: 9dc19a01ebff5d14693bdac760246831, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

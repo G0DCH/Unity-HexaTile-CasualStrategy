@@ -3,7 +3,22 @@ guid: 1c49ca351aea121458f0c915a00786d2
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Oracle_Building_Emissive
+    second: {fileID: 2100000, guid: f63ecae7dc86810409b55b4ca99a2a02, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Oracle_Building_NoAO_Emissive
+    second: {fileID: 2100000, guid: f63ecae7dc86810409b55b4ca99a2a02, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Oracle_Building_NoAO_Emissive.001
+    second: {fileID: 2100000, guid: f63ecae7dc86810409b55b4ca99a2a02, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

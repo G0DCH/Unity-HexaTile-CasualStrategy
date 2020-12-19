@@ -3,7 +3,22 @@ guid: 7aa681f4f3244b54abf575f826bacf13
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Great_Zimbabwe.002
+    second: {fileID: 2100000, guid: dba45691e7f39c3458253d310ba78ce7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Great_Zimbabwe.003
+    second: {fileID: 2100000, guid: dba45691e7f39c3458253d310ba78ce7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cocoa material.001
+    second: {fileID: 2100000, guid: fcbf20aedbfe0b942a786c5e8fa30325, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

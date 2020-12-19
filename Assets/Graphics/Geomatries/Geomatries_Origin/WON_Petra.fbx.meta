@@ -3,7 +3,17 @@ guid: 68949e378cc42684c99b9c6d17b309de
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Petra
+    second: {fileID: 2100000, guid: a871ad886115db749a4b243dcff2079f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Petra.001
+    second: {fileID: 2100000, guid: a871ad886115db749a4b243dcff2079f, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

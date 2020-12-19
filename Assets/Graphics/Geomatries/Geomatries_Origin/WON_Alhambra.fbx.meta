@@ -3,7 +3,57 @@ guid: cce5ce894712dcf4b83e426ecbfc39cd
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Bld.003
+    second: {fileID: 2100000, guid: 585e20e2aa9896e43859469f46eb9e8a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Bld.004
+    second: {fileID: 2100000, guid: 585e20e2aa9896e43859469f46eb9e8a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Bld.005
+    second: {fileID: 2100000, guid: 585e20e2aa9896e43859469f46eb9e8a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Terrain_Tile_Won_Huey.001
+    second: {fileID: 2100000, guid: e7a6a9d2623bd75439a4e1ae710ff4aa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Alhambra_building.003
+    second: {fileID: 2100000, guid: e49a107d55740de43bc67e735a503364, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Alhambra_building.004
+    second: {fileID: 2100000, guid: e49a107d55740de43bc67e735a503364, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Alhambra_building.005
+    second: {fileID: 2100000, guid: e49a107d55740de43bc67e735a503364, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WaterMaterial_Tiling.015
+    second: {fileID: 2100000, guid: 91a9ee0af5f8f6f4e8c98653559a8bfa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WaterMaterial_Tiling.016
+    second: {fileID: 2100000, guid: 91a9ee0af5f8f6f4e8c98653559a8bfa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WaterMaterial_Tiling.017
+    second: {fileID: 2100000, guid: 91a9ee0af5f8f6f4e8c98653559a8bfa, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

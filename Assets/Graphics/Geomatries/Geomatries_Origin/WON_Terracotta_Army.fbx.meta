@@ -3,11 +3,16 @@ guid: d01d84c95ecc55244b672ed3a8671717
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Won_Terracotta_Army
+    second: {fileID: 2100000, guid: a7b4d873bf3475a44bb7da5c465200ee, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
-    materialSearch: 1
+    materialSearch: 2
     materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
