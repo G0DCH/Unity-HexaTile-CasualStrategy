@@ -42,7 +42,7 @@ namespace TilePuzzle
         public void OnPointerEnter(PointerEventData eventData)
         {
             string tooltip;
-            if (tileBuilding == TileBuilding.Wonder)
+            if (TileBuilding == TileBuilding.Wonder)
             {
                 tooltip = DataTableManager.Instance.GetWonderToolTip(AgeManager.Instance.WorldAge, wonderName);
             }

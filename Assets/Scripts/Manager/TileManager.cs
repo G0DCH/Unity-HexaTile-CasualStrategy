@@ -236,6 +236,8 @@ namespace TilePuzzle
                         building.position = changedTile.hexagonTileObject.land.transform.position + Vector3.down * changedTile.DownOffset;
                     }
 
+                    // 기존 데코레이션 삭제
+                    changedTile.hexagonTileObject.DestroyDecoration();
 
                     Destroy(SelectedTile.gameObject);
                     SelectedTile = null;
@@ -395,9 +397,29 @@ namespace TilePuzzle
                 // 불가사의 타일이 아니라면 건물 검사
                 else
                 {
-                    // 소유 도시에 이미 해당 건물이 설치 되었는지 검사
-                    if (currentTile.OwnerCity.HasThatTile(SelectedTile.MyTileBuilding, true))
+                    bool hasThatTile = true;
+
+                    // 범위 내 도시에 이미 해당 건물이 설치 되었는지 검사
+                    foreach (var rangeCity in currentTile.RangeCitys)
                     {
+                        if (!rangeCity.HasThatTile(selectedTile.MyTileBuilding, true))
+                        {
+                            hasThatTile = false;
+                            if (!rangeCity == currentTile.OwnerCity)
+                            {
+                                // 바꾸는데 실패한다면 타일 건물이 설치된 것
+                                if (!currentTile.TryChangeOwner(rangeCity))
+                                {
+                                    hasThatTile = true;
+                                }
+                            }
+
+                            break;
+                        }
+                    }
+                    
+                    if (hasThatTile)
+                    {                        
                         return false;
                     }
 

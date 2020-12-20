@@ -404,11 +404,32 @@ namespace TilePuzzle
                     continue;
                 }
 
-                if (!cityTile.HasThatTile(MyTileBuilding, false))
+                if (!cityTile.HasThatTile(MyTileBuilding, false) || 
+                    MyTileBuilding == TileBuilding.Empty)
                 {
                     SetCityTile(cityTile);
                     return true;
                 }
+            }
+
+            return false;
+        }
+
+        // 범위 내 도시 타일에 인자로 받은 도시 타일이 있다면
+        // 그 타일로 교체
+        // 외부에서 직접 접근할 수 있으므로
+        // 빈 타일만 교체 가능
+        public bool TryChangeOwner(CityTile changeCity)
+        {
+            if (MyTileBuilding != TileBuilding.Empty)
+            {
+                return false;
+            }
+
+            if (RangeCitys.Contains(changeCity))
+            {
+                SetCityTile(changeCity);
+                return true;
             }
 
             return false;
