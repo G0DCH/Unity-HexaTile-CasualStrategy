@@ -187,6 +187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e1517e52e753d74bade6354b348a8d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hexagonTileObject: {fileID: 0}
   myTileType: 3
   myTileBuilding: 10
   myTileFeature: 2
@@ -197,5 +198,6 @@ MonoBehaviour:
   bonus: 0
   ownerCity: {fileID: 0}
   cost: 20
+  DownOffset: 0.2
   wonderBonus: 2
   WonderAge: 1
