@@ -32,7 +32,7 @@ namespace TilePuzzle
                 return;
             }
 
-            CalculateBonus(MyTileBuilding);
+            Bonus = CalculateBonus(MyTileBuilding);
         }
     }
 }
