@@ -158,5 +158,36 @@ namespace TilePuzzle
 
             return string.Empty;
         }
+
+        public string GetWonderToolTip(Age age, string wonderName)
+        {
+            if (wonderName == string.Empty)
+            {
+                Debug.LogError("빈 불가사의 이름이 들어왔음");
+                return string.Empty;
+            }
+
+            foreach(var wonderDataTable in wonderDataTables)
+            {
+                if(wonderDataTable.TableAge <= age)
+                {
+                    foreach (var wonderData in wonderDataTable.WonderDatas)
+                    {                        
+                        if (wonderData.WonderName == wonderName)
+                        {
+                            int costMultiflier = Mathf.Clamp(age - wonderData.MyAge + 1, 1, int.MaxValue);
+
+                            string toolTip = string.Format(wonderData.ToolTipText, wonderData.Cost * costMultiflier, wonderData.Bonus);
+
+                            return toolTip;
+                        }
+                    }
+                }
+            }
+
+            Debug.LogError(string.Format("해당 시대에 불가사의 정보가 정의되어있지 않음. Wonder : {0}, Age : {1}", wonderName, age));
+
+            return string.Empty;
+        }
     }
 }

@@ -17,17 +17,39 @@ namespace TilePuzzle
                 {
                     string buildingName = gameObject.name.Replace("Button", "");
 
-                    tileBuilding = (TileBuilding)System.Enum.Parse(typeof(TileBuilding), buildingName);
+                    // 건물 이라면
+                    if(System.Enum.TryParse(buildingName, out TileBuilding result))
+                    {
+                        tileBuilding = result;
+                        isEmpty = false;
+                    }
+                    // 불가사의 라면
+                    else
+                    {
+                        tileBuilding = TileBuilding.Wonder;
+                        wonderName = buildingName;
+                        isEmpty = false;
+                    }
                 }
 
                 return tileBuilding;
             }
         }
 
+        private string wonderName = string.Empty;
+
         // 마우스 포인터가 UI 위로 올라오면 호출
         public void OnPointerEnter(PointerEventData eventData)
         {
-            string tooltip = DataTableManager.Instance.GetBuildingToolTip(AgeManager.Instance.WorldAge, TileBuilding);
+            string tooltip;
+            if (tileBuilding == TileBuilding.Wonder)
+            {
+                tooltip = DataTableManager.Instance.GetWonderToolTip(AgeManager.Instance.WorldAge, wonderName);
+            }
+            else
+            {
+                tooltip = DataTableManager.Instance.GetBuildingToolTip(AgeManager.Instance.WorldAge, TileBuilding);
+            }
 
             if (tooltip != string.Empty)
             {

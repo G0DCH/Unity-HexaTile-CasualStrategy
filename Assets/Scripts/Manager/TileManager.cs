@@ -225,7 +225,17 @@ namespace TilePuzzle
                     // 건물 모델을 타일 위에 올림
                     Transform building = SelectedTile.transform.GetChild(0);
                     building.SetParent(changedTile.transform, true);
-                    building.position = changedTile.hexagonTileObject.land.transform.position + Vector3.down * changedTile.DownOffset;
+
+                    // 건물 모델 위치 조정
+                    if (changedTile is WonderTile)
+                    {
+                        building.localPosition = Vector3.up * changedTile.DownOffset;
+                    }
+                    else
+                    {
+                        building.localPosition = Vector3.down * changedTile.DownOffset;
+                    }
+                    
 
                     Destroy(SelectedTile.gameObject);
                     SelectedTile = null;

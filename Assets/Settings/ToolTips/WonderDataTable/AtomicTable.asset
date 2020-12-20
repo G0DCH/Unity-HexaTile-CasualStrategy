@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb0dbae6561edbf4480d6796c7f84024, type: 3}
   m_Name: AtomicTable
   m_EditorClassIdentifier: 
+  tableAge: 6
   wonderDatas:
   - myAge: 6
     wonderName: AmundsenScott
