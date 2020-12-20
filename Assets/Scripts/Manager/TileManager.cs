@@ -156,6 +156,10 @@ namespace TilePuzzle
                 // 범위 계산, 범위 내 타일 갱신
                 CalculateRange?.Invoke(overTile, SelectedTile.MyTileBuilding);
 
+                // 선택한 타일이 설치 되었을 때의 점수 계산
+                int expectedBonus = overTile.CalculateBonus(selectedTile.MyTileBuilding);
+                UIManager.Instance.ShowExpectBonus(expectedBonus, overTile.transform.position);
+
                 // TODO : 없어도 되는지 검사
                 //overTile.UpdateRangeTiles();
 
@@ -194,6 +198,7 @@ namespace TilePuzzle
                         yield return new WaitForSeconds(0.02f);
                         continue;
                     }
+                    UIManager.Instance.TurnExpectBonus(false);
 
                     tilePlacementDrawer.PlacementObject = null;
                     TileBuilding tileBuilding = SelectedTile.MyTileBuilding;

@@ -44,10 +44,13 @@ namespace TilePuzzle
 
         [Space, SerializeField]
         private GameObject GameOverPanel;
+        [SerializeField]
         private Text GameOverText;
         // 점수
         [Space, SerializeField]
         private Text pointText;
+        [SerializeField]
+        private Text expectBonusText;
 
         // 선택한 불가사의 버튼
         private Button SelectedWonderButton = null;
@@ -235,6 +238,22 @@ namespace TilePuzzle
         public void SetToolTipText(string toolTip)
         {
             this.toolTip.text = toolTip;
+        }
+
+        public void ShowExpectBonus(int expectBonus, Vector3 tilePosition)
+        {
+            expectBonusText.transform.position = Camera.main.WorldToScreenPoint(tilePosition);
+            expectBonusText.text = string.Format("+{0}", expectBonus);
+            TurnExpectBonus(true);
+        }
+
+        public void TurnExpectBonus(bool isActive)
+        {
+            expectBonusText.gameObject.SetActive(isActive);
+            if (!isActive)
+            {
+                expectBonusText.text = string.Empty;
+            }
         }
     }
 }

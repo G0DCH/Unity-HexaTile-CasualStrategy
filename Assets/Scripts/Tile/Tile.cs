@@ -124,7 +124,7 @@ namespace TilePuzzle
 
         // 범위 표시용 격자
         public GameObject RangeGrid
-        { 
+        {
             get
             {
                 if (rangeGrid == null)
@@ -133,7 +133,7 @@ namespace TilePuzzle
                 }
 
                 return rangeGrid;
-            } 
+            }
             private set
             {
                 rangeGrid = value;
@@ -327,6 +327,43 @@ namespace TilePuzzle
             }
 
             return bonusPoint;
+        }
+
+        // tileBuilding이 설치 되었을 때의
+        // 예상 보너스 return
+        public int CalculateBonus(TileBuilding tileBuilding)
+        {
+            // 특수지구 개수. 2개당 +1
+            int buildingCount = 0;
+            // 특수지구 별 보너스 점수
+            float specificBonus = 0;
+
+            // 특수지구 개수를 세고, 내 타일 빌딩의 보너스 추가
+            for (int i = 0; i < RangeTiles.Count; i++)
+            {
+                if (RangeTiles[i] is BuildingTile)
+                {
+                    buildingCount += 1;
+                }
+
+                specificBonus += RangeTiles[i].CountSpecificBonus(tileBuilding);
+            }
+
+            // 주둔지는 기본 10점, 범위 안의 도시타일 1개마다 -1점
+            if (tileBuilding == TileBuilding.Encampment)
+            {
+                int encampmentBonus = 10;
+                return  encampmentBonus + (int)specificBonus;
+            }
+            // 유흥단지는 범위 안의 도시 타일 1개마다 +2점
+            else if (tileBuilding == TileBuilding.EntertainmentComplex)
+            {
+                return (int)specificBonus;
+            }
+            else
+            {
+                return buildingCount / 2 + (int)specificBonus;
+            }
         }
 
         // 격자 생성
