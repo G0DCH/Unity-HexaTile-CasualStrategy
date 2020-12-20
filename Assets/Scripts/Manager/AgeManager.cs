@@ -44,7 +44,7 @@ namespace TilePuzzle
                 WorldAge++;
                 AgeLimit += AgeLimitList[(int)WorldAge];
             }
-            else if(WorldAge == Age.Future)
+            else if(WorldAge == Age.Atomic)
             {
                 WorldAge++;
                 UIManager.Instance.ActiveWin();
