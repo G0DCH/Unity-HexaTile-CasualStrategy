@@ -3,11 +3,16 @@ guid: 0f6dd48421ba83a409f427dcb1b7bf5c
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Won_Saint_Basil
+    second: {fileID: 2100000, guid: 30df33a1001de6741aca1b71d29ffbff, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
-    materialSearch: 1
+    materialSearch: 2
     materialLocation: 1
   animations:
     legacyGenerateAnimations: 4

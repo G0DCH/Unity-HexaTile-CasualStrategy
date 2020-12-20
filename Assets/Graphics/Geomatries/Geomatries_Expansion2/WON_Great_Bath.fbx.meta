@@ -3,7 +3,22 @@ guid: aa7cc640eb8544a41a81c757643a97af
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Great_Bath.005
+    second: {fileID: 2100000, guid: 145d6dcb892c6024b8ab439869a2d3be, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WaterMaterial_Tiling.010
+    second: {fileID: 2100000, guid: 91a9ee0af5f8f6f4e8c98653559a8bfa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WaterMaterial_Tiling.011
+    second: {fileID: 2100000, guid: 91a9ee0af5f8f6f4e8c98653559a8bfa, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

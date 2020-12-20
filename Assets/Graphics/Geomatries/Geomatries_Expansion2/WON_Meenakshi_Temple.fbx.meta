@@ -3,7 +3,12 @@ guid: 51e26adab014c1d45aeb6719d736f35e
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Meenakshi_Temple_BakeNoAO
+    second: {fileID: 2100000, guid: 0ffa24dbea6ceef42985575099060b9e, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

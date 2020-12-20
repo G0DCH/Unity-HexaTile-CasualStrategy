@@ -3,11 +3,31 @@ guid: 3421ff738b6e58f4da675665979c8a41
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tree_Jungle_Base.011
+    second: {fileID: 2100000, guid: ee33ac13906ff3b46941e9fca8999f45, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tree_Jungle_Base.012
+    second: {fileID: 2100000, guid: ee33ac13906ff3b46941e9fca8999f45, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Casa_De_Contratacion
+    second: {fileID: 2100000, guid: 7f2d63d30f6fe604aa832f28195d0ab9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WaterMaterial_Tiling.018
+    second: {fileID: 2100000, guid: 91a9ee0af5f8f6f4e8c98653559a8bfa, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
-    materialSearch: 1
+    materialSearch: 2
     materialLocation: 1
   animations:
     legacyGenerateAnimations: 4

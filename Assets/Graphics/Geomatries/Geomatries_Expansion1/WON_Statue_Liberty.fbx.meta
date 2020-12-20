@@ -7,6 +7,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: TER_Cliffs_Rock.005
+    second: {fileID: 2100000, guid: 73f1fd4a020fa4c4dbfd100094a1110c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: WON_Statue_Liberty
     second: {fileID: 2100000, guid: 444a736256e338d42905cd59d79273b6, type: 2}
   materials:

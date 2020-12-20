@@ -3,7 +3,62 @@ guid: 4e029087ffa83cc43a2f62eda759516e
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: RES_Citrus
+    second: {fileID: 2100000, guid: f31ef96d93c910644a3c293769af8304, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: RES_Citrus.001
+    second: {fileID: 2100000, guid: f31ef96d93c910644a3c293769af8304, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: RES_Citrus.002
+    second: {fileID: 2100000, guid: f31ef96d93c910644a3c293769af8304, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: RES_Citrus.003
+    second: {fileID: 2100000, guid: f31ef96d93c910644a3c293769af8304, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Kilwa_Kisiwani
+    second: {fileID: 2100000, guid: 5b8e0410d12742b47b1cb7e3c36a7112, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Kilwa_Kisiwani.001
+    second: {fileID: 2100000, guid: 5b8e0410d12742b47b1cb7e3c36a7112, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Kilwa_Kisiwani.002
+    second: {fileID: 2100000, guid: 5b8e0410d12742b47b1cb7e3c36a7112, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Kilwa_Kisiwani.003
+    second: {fileID: 2100000, guid: 5b8e0410d12742b47b1cb7e3c36a7112, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Kilwa_Kisiwani.004
+    second: {fileID: 2100000, guid: 5b8e0410d12742b47b1cb7e3c36a7112, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Kilwa_Kisiwani.005
+    second: {fileID: 2100000, guid: 5b8e0410d12742b47b1cb7e3c36a7112, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WaterMaterial_Tiling.019
+    second: {fileID: 2100000, guid: 91a9ee0af5f8f6f4e8c98653559a8bfa, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

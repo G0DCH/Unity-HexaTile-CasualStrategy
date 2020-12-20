@@ -3,7 +3,12 @@ guid: 27a837432c9c82346963f084a5b42aaa
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Panama_Canal.001
+    second: {fileID: 2100000, guid: 49733834b616687458b732768739c102, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

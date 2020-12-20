@@ -3,7 +3,17 @@ guid: c1d6d383934f77e4fbdb5609e59239a8
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Orszaghaz
+    second: {fileID: 2100000, guid: 482cd2e98268a4e4bad8baca4a299060, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Orszaghaz_Alpha
+    second: {fileID: 2100000, guid: 482cd2e98268a4e4bad8baca4a299060, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

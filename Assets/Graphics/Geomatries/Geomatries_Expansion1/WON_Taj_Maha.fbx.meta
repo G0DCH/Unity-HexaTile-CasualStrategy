@@ -3,11 +3,21 @@ guid: 0e6fa7f82e7148347a78123e0b278873
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_TajMahal
+    second: {fileID: 2100000, guid: c8546e471b8f77e48a18712d50df1a48, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_TajMahal_Decal
+    second: {fileID: 2100000, guid: c8546e471b8f77e48a18712d50df1a48, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
-    materialSearch: 1
+    materialSearch: 2
     materialLocation: 1
   animations:
     legacyGenerateAnimations: 4

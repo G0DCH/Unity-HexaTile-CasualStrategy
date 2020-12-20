@@ -3,7 +3,102 @@ guid: 3cfa0d9969d7da0488989e0f3c3eb17f
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Bld_Flowered_Color
+    second: {fileID: 2100000, guid: 529e0d3039b887f47a042385c94eb464, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Bld_Flowered_Color.001
+    second: {fileID: 2100000, guid: 529e0d3039b887f47a042385c94eb464, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Bld_Flowered_Color.002
+    second: {fileID: 2100000, guid: 529e0d3039b887f47a042385c94eb464, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Bld_Flowered_Color.003
+    second: {fileID: 2100000, guid: 529e0d3039b887f47a042385c94eb464, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Bld_Flowered_Color.004
+    second: {fileID: 2100000, guid: 529e0d3039b887f47a042385c94eb464, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Bld_Flowered_Color.005
+    second: {fileID: 2100000, guid: 529e0d3039b887f47a042385c94eb464, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Bld_Flowered_Color.006
+    second: {fileID: 2100000, guid: 529e0d3039b887f47a042385c94eb464, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Bld_Flowered_Color.007
+    second: {fileID: 2100000, guid: 529e0d3039b887f47a042385c94eb464, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Bld_Flowered_Color.008
+    second: {fileID: 2100000, guid: 529e0d3039b887f47a042385c94eb464, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Bld_Flowered_Color.009
+    second: {fileID: 2100000, guid: 529e0d3039b887f47a042385c94eb464, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Bld_Flowered_Color.010
+    second: {fileID: 2100000, guid: 529e0d3039b887f47a042385c94eb464, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Bld_Flowered_Color.011
+    second: {fileID: 2100000, guid: 529e0d3039b887f47a042385c94eb464, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Bld_Flowered_Color.012
+    second: {fileID: 2100000, guid: 529e0d3039b887f47a042385c94eb464, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Bld_Flowered_Color.013
+    second: {fileID: 2100000, guid: 529e0d3039b887f47a042385c94eb464, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Bld_Flowered_Color.014
+    second: {fileID: 2100000, guid: 529e0d3039b887f47a042385c94eb464, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Bld_Flowered_Color.015
+    second: {fileID: 2100000, guid: 529e0d3039b887f47a042385c94eb464, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Bld_Flowered_Color.016
+    second: {fileID: 2100000, guid: 529e0d3039b887f47a042385c94eb464, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Foliage_Bld_Flowered_Color.017
+    second: {fileID: 2100000, guid: 529e0d3039b887f47a042385c94eb464, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Kotoku
+    second: {fileID: 2100000, guid: cbe6b7fe980df794796b295a78c78313, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

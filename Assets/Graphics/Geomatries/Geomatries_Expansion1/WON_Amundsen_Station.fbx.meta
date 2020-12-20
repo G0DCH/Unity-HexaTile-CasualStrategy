@@ -3,11 +3,16 @@ guid: f45b3fda9b28b294bb641be8329abb63
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WON_Amundsen_Station
+    second: {fileID: 2100000, guid: f4f96c01a7fe58d4dbede908c390ccf0, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
-    materialSearch: 1
+    materialSearch: 2
     materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
