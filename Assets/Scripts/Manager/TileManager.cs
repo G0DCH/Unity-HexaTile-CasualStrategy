@@ -410,7 +410,7 @@ namespace TilePuzzle
                         if (!rangeCity.HasThatTile(selectedTile.MyTileBuilding, true))
                         {
                             hasThatTile = false;
-                            if (!rangeCity == currentTile.OwnerCity)
+                            if (rangeCity != currentTile.OwnerCity)
                             {
                                 // 바꾸는데 실패한다면 타일 건물이 설치된 것
                                 if (!currentTile.TryChangeOwner(rangeCity))

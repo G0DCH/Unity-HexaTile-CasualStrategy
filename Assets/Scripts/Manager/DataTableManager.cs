@@ -35,7 +35,7 @@ namespace TilePuzzle
                 }
             }
 
-            Debug.LogError(string.Format("빌딩이나 시대가 존재하지 않음. Building : {0}, Age : {1}", building, age));
+            //Debug.LogError(string.Format("빌딩이나 시대가 존재하지 않음. Building : {0}, Age : {1}", building, age));
 
             return null;
         }

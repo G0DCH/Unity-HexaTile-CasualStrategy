@@ -216,27 +216,10 @@ namespace TilePuzzle
         // Info 초기화
         public void InitInfo(HexagonTileObject tileObject, int range)
         {
-            hexagonTileObject = tileObject;
             baseRange = range;
             Range = range;
 
-            // 일단 1개만 들어있다고 가정
-            foreach (var tag in MyHexagonInfo.biome.tags)
-            {
-                myTileTerrain = (TileTerrain)System.Enum.Parse(typeof(TileTerrain), tag);
-            }
-
-            if (MyDecorationInfo.type == DecorationInfo.Type.Forest)
-            {
-                if (MyTileTerrain == TileTerrain.RainForest)
-                {
-                    myTileFeature = TileFeature.RainForest;
-                }
-                else
-                {
-                    myTileFeature = TileFeature.Forest;
-                }
-            }
+            InitInfo(tileObject);
         }
 
         // 내 타일이 pivotBuilding의 보너스에 해당하는지 검사하고 해당 점수 return
@@ -244,90 +227,140 @@ namespace TilePuzzle
         {
             float bonusPoint = 0;
 
-            if (MyTileBuilding == TileBuilding.GovernmentPlaza)
+            var tileData = DataTableManager.Instance.GetBuildingData(AgeManager.Instance.WorldAge, pivotBuilding);
+
+            if (tileData == null)
             {
-                bonusPoint = 1;
+                return 0;
             }
-            // 캠퍼스
-            else if (pivotBuilding == TileBuilding.Campus)
+
+            if (MyTileBuilding != TileBuilding.Empty)
             {
-                if (MyTileType == TileType.Mountain)
+                // 보너스 건물에 속하는지 검사하고 보너스 계산.
+                foreach (var bonusPerBuilding in tileData.BonusPerBuildings)
                 {
-                    bonusPoint = 1;
-                }
-                else if (MyTileFeature == TileFeature.RainForest)
-                {
-                    bonusPoint = 0.5f;
-                }
-            }
-            // 산업구역
-            else if (pivotBuilding == TileBuilding.IndustrialZone)
-            {
-                if (MyTileBuilding == TileBuilding.Aqueduct ||
-                    MyTileBuilding == TileBuilding.Carnal)
-                {
-                    bonusPoint = 2;
-                }
-            }
-            // 성지
-            else if (pivotBuilding == TileBuilding.HolySite)
-            {
-                if (MyTileType == TileType.Mountain)
-                {
-                    bonusPoint = 1;
-                }
-                else if (MyTileFeature == TileFeature.Forest)
-                {
-                    bonusPoint = 0.5f;
-                }
-            }
-            // 주둔지
-            else if (pivotBuilding == TileBuilding.Encampment)
-            {
-                if (MyTileBuilding == TileBuilding.City)
-                {
-                    bonusPoint = -1;
-                }
-            }
-            // 항만
-            else if (pivotBuilding == TileBuilding.Harbor)
-            {
-                if (MyTileBuilding == TileBuilding.City)
-                {
-                    bonusPoint = 2;
-                }
-            }
-            // 상업 중심지
-            else if (pivotBuilding == TileBuilding.CommercialHub)
-            {
-                if (MyTileBuilding == TileBuilding.Harbor)
-                {
-                    bonusPoint += 2;
-                }
-                if (MyTileType == TileType.River)
-                {
-                    bonusPoint += 1;
-                }
-            }
-            // 유흥단지
-            else if (pivotBuilding == TileBuilding.EntertainmentComplex)
-            {
-                if (MyTileBuilding == TileBuilding.City)
-                {
-                    bonusPoint = 2;
-                }
-            }
-            // 극장가
-            else if (pivotBuilding == TileBuilding.TheaterSquare)
-            {
-                if (MyTileBuilding == TileBuilding.Wonder)
-                {
-                    bonusPoint = 2;
+                    // 모든 건물 보너스 이거나
+                    // 혹은 이 타일의 건물이 보너스에 해당하면
+                    // 보너스 획득
+                    if (bonusPerBuilding.MyBuilding == TileBuilding.Empty ||
+                        bonusPerBuilding.MyBuilding == MyTileBuilding)
+                    {
+                        bonusPoint += bonusPerBuilding.Bonus;
+                    }
                 }
             }
 
+            if (MyTileFeature != TileFeature.Empty)
+            {
+                // 이 타일의 나무(정글)이 보너스에 속하는지 검사하고 보너스 계산
+                foreach (var bonusPerFeature in tileData.BonusPerFeatures)
+                {
+                    if (bonusPerFeature.MyFeature == MyTileFeature)
+                    {
+                        bonusPoint += bonusPerFeature.Bonus;
+                    }
+                }
+            }
+
+            if (MyTileType != TileType.Empty)
+            {
+                // 이 타일의 지형 타입이 보너스에 속하는지 검사하고 보너스 계산
+                foreach (var bonusPerType in tileData.BonusPerTypes)
+                {
+                    if (bonusPerType.MyType == MyTileType)
+                    {
+                        bonusPoint += bonusPerType.Bonus;
+                    }
+                }
+            }
+
+
+            //if (MyTileBuilding == TileBuilding.GovernmentPlaza)
+            //{
+            //    bonusPoint = 1;
+            //}
+            //// 캠퍼스
+            //else if (pivotBuilding == TileBuilding.Campus)
+            //{
+            //    if (MyTileType == TileType.Mountain)
+            //    {
+            //        bonusPoint = 1;
+            //    }
+            //    else if (MyTileFeature == TileFeature.RainForest)
+            //    {
+            //        bonusPoint = 0.5f;
+            //    }
+            //}
+            //// 산업구역
+            //else if (pivotBuilding == TileBuilding.IndustrialZone)
+            //{
+            //    if (MyTileBuilding == TileBuilding.Aqueduct ||
+            //        MyTileBuilding == TileBuilding.Carnal)
+            //    {
+            //        bonusPoint = 2;
+            //    }
+            //}
+            //// 성지
+            //else if (pivotBuilding == TileBuilding.HolySite)
+            //{
+            //    if (MyTileType == TileType.Mountain)
+            //    {
+            //        bonusPoint = 1;
+            //    }
+            //    else if (MyTileFeature == TileFeature.Forest)
+            //    {
+            //        bonusPoint = 0.5f;
+            //    }
+            //}
+            //// 주둔지
+            //else if (pivotBuilding == TileBuilding.Encampment)
+            //{
+            //    if (MyTileBuilding == TileBuilding.City)
+            //    {
+            //        bonusPoint = -1;
+            //    }
+            //}
+            //// 항만
+            //else if (pivotBuilding == TileBuilding.Harbor)
+            //{
+            //    if (MyTileBuilding == TileBuilding.City)
+            //    {
+            //        bonusPoint = 2;
+            //    }
+            //}
+            //// 상업 중심지
+            //else if (pivotBuilding == TileBuilding.CommercialHub)
+            //{
+            //    if (MyTileBuilding == TileBuilding.Harbor)
+            //    {
+            //        bonusPoint += 2;
+            //    }
+            //    if (MyTileType == TileType.River)
+            //    {
+            //        bonusPoint += 1;
+            //    }
+            //}
+            //// 유흥단지
+            //else if (pivotBuilding == TileBuilding.EntertainmentComplex)
+            //{
+            //    if (MyTileBuilding == TileBuilding.City)
+            //    {
+            //        bonusPoint = 2;
+            //    }
+            //}
+            //// 극장가
+            //else if (pivotBuilding == TileBuilding.TheaterSquare)
+            //{
+            //    if (MyTileBuilding == TileBuilding.Wonder)
+            //    {
+            //        bonusPoint = 2;
+            //    }
+            //}
+
             return bonusPoint;
         }
+
+
 
         // tileBuilding이 설치 되었을 때의
         // 예상 보너스 return
@@ -337,6 +370,15 @@ namespace TilePuzzle
             int buildingCount = 0;
             // 특수지구 별 보너스 점수
             float specificBonus = 0;
+
+            var buildingData = DataTableManager.Instance.GetBuildingData(AgeManager.Instance.WorldAge, tileBuilding);
+
+            if (buildingData == null)
+            {
+                return 0;
+            }
+
+            int baseBonus = buildingData.BaseBonus;
 
             // 특수지구 개수를 세고, 내 타일 빌딩의 보너스 추가
             for (int i = 0; i < RangeTiles.Count; i++)
@@ -352,17 +394,16 @@ namespace TilePuzzle
             // 주둔지는 기본 10점, 범위 안의 도시타일 1개마다 -1점
             if (tileBuilding == TileBuilding.Encampment)
             {
-                int encampmentBonus = 10;
-                return  encampmentBonus + (int)specificBonus;
+                return  baseBonus + (int)specificBonus;
             }
             // 유흥단지는 범위 안의 도시 타일 1개마다 +2점
             else if (tileBuilding == TileBuilding.EntertainmentComplex)
             {
-                return (int)specificBonus;
+                return baseBonus + (int)specificBonus;
             }
             else
             {
-                return buildingCount / 2 + (int)specificBonus;
+                return baseBonus + buildingCount / 2 + (int)specificBonus;
             }
         }
 
