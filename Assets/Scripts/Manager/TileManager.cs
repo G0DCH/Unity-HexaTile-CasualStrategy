@@ -46,13 +46,13 @@ namespace TilePuzzle
         public delegate void WonderRange(Tile currentTile, TileBuilding tileBuilding);
         public WonderRange CalculateRange = null;
 
-        // 건물 보너스 delegate
-        public delegate void BuildingBonus(Tile currentTile, TileBuilding tileBuilding);
-        public BuildingBonus MyBuildingBonus = null;
+        //// 건물 보너스 delegate
+        //public delegate void BuildingBonus(Tile currentTile, TileBuilding tileBuilding);
+        //public BuildingBonus MyBuildingBonus = null;
 
-        // 시대별 건물/불가사의 비용
-        public delegate void AgeCost();
-        public AgeCost MyAgeCost = null;
+        //// 시대별 건물/불가사의 비용
+        //public delegate void AgeCost();
+        //public AgeCost MyAgeCost = null;
 
         private Dictionary<HexagonPos, Tile> TileMap = new Dictionary<HexagonPos, Tile>();
 
@@ -75,7 +75,7 @@ namespace TilePuzzle
 #if UNITY_IOS || UNITY_ANDROID
             pointerID = 0;
 #endif
-            MyAgeCost += AgeWonderCost;
+            //MyAgeCost += AgeWonderCost;
             StartCoroutine(MouseOverAction());
             StartCoroutine(TileClickAction());
         }
@@ -215,7 +215,7 @@ namespace TilePuzzle
                     // 불가사의로 인한 보너스 추가, 보너스 출력
                     CalculateBonusByWonder?.Invoke(changedTile, tileBuilding);
                     // 시대별 업그레이드 보너스 추가
-                    MyBuildingBonus?.Invoke(changedTile, tileBuilding);
+                    //MyBuildingBonus?.Invoke(changedTile, tileBuilding);
 
                     if (changedTile is WonderTile)
                     {
@@ -297,7 +297,7 @@ namespace TilePuzzle
             {
                 SelectTileCost = SelectedTile.Cost;
             }
-            MyAgeCost?.Invoke();
+            //MyAgeCost?.Invoke();
             CalculateCost?.Invoke(currentTile, SelectedTile.MyTileBuilding);
         }
 
@@ -491,318 +491,318 @@ namespace TilePuzzle
             return true;
         }
 
-        #region 시대 별 건물 보너스
-        // 시대 별 빌딩 보너스 업그레이드
-        public void BuildingUpgrade()
-        {
-            switch (AgeManager.Instance.WorldAge)
-            {
-                case Age.Classical:
-                    MyBuildingBonus += ClassicalBonus;
-                    MyAgeCost += ClassicalCost;
-                    break;
-                case Age.Medieval:
-                    MyBuildingBonus += MedievalBonus;
-                    MyAgeCost += MedievalCost;
-                    break;
-                case Age.Renaissance:
-                    MyBuildingBonus += RenaissanceBonus;
-                    MyAgeCost += RenaissanceCost;
-                    break;
-                case Age.Industrial:
-                    MyBuildingBonus += IndustrialBonus;
-                    MyAgeCost += IndustrialCost;
-                    break;
-                case Age.Modern:
-                    MyBuildingBonus += ModernBonus;
-                    MyAgeCost += ModernCost;
-                    break;
-                case Age.Atomic:
-                    MyBuildingBonus += AtomicBonus;
-                    MyAgeCost += AtomicCost;
-                    break;
-                default:
-                    break;
-            }
-        }
+        //#region 시대 별 건물 보너스
+        //// 시대 별 빌딩 보너스 업그레이드
+        //public void BuildingUpgrade()
+        //{
+        //    switch (AgeManager.Instance.WorldAge)
+        //    {
+        //        case Age.Classical:
+        //            MyBuildingBonus += ClassicalBonus;
+        //            MyAgeCost += ClassicalCost;
+        //            break;
+        //        case Age.Medieval:
+        //            MyBuildingBonus += MedievalBonus;
+        //            MyAgeCost += MedievalCost;
+        //            break;
+        //        case Age.Renaissance:
+        //            MyBuildingBonus += RenaissanceBonus;
+        //            MyAgeCost += RenaissanceCost;
+        //            break;
+        //        case Age.Industrial:
+        //            MyBuildingBonus += IndustrialBonus;
+        //            MyAgeCost += IndustrialCost;
+        //            break;
+        //        case Age.Modern:
+        //            MyBuildingBonus += ModernBonus;
+        //            MyAgeCost += ModernCost;
+        //            break;
+        //        case Age.Atomic:
+        //            MyBuildingBonus += AtomicBonus;
+        //            MyAgeCost += AtomicCost;
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //}
 
-        // 고전 시대 건물 업그레이드 보너스
-        private void ClassicalBonus(Tile currentTile, TileBuilding tileBuilding)
-        {
-            switch (tileBuilding)
-            {
-                case TileBuilding.Campus:
-                    currentTile.ChangeBonus(2);
-                    break;
-                case TileBuilding.HolySite:
-                    currentTile.ChangeBonus(2);
-                    break;
-                case TileBuilding.Encampment:
-                    currentTile.ChangeBonus(2);
-                    break;
-                default:
-                    break;
-            }
-        }
+        //// 고전 시대 건물 업그레이드 보너스
+        //private void ClassicalBonus(Tile currentTile, TileBuilding tileBuilding)
+        //{
+        //    switch (tileBuilding)
+        //    {
+        //        case TileBuilding.Campus:
+        //            currentTile.ChangeBonus(2);
+        //            break;
+        //        case TileBuilding.HolySite:
+        //            currentTile.ChangeBonus(2);
+        //            break;
+        //        case TileBuilding.Encampment:
+        //            currentTile.ChangeBonus(2);
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //}
 
-        // 중세 시대 건물 업그레이드 보너스
-        private void MedievalBonus(Tile currentTile, TileBuilding tileBuilding)
-        {
-            switch (tileBuilding)
-            {
-                case TileBuilding.HolySite:
-                    currentTile.ChangeBonus(4);
-                    break;
-                case TileBuilding.TheaterSquare:
-                    currentTile.ChangeBonus(2);
-                    break;
-                case TileBuilding.Harbor:
-                    currentTile.ChangeBonus(5);
-                    break;
-                case TileBuilding.CommercialHub:
-                    currentTile.ChangeBonus(3);
-                    break;
-                case TileBuilding.EntertainmentComplex:
-                    currentTile.ChangeBonus(2);
-                    break;
-                default:
-                    break;
-            }
-        }
+        //// 중세 시대 건물 업그레이드 보너스
+        //private void MedievalBonus(Tile currentTile, TileBuilding tileBuilding)
+        //{
+        //    switch (tileBuilding)
+        //    {
+        //        case TileBuilding.HolySite:
+        //            currentTile.ChangeBonus(4);
+        //            break;
+        //        case TileBuilding.TheaterSquare:
+        //            currentTile.ChangeBonus(2);
+        //            break;
+        //        case TileBuilding.Harbor:
+        //            currentTile.ChangeBonus(5);
+        //            break;
+        //        case TileBuilding.CommercialHub:
+        //            currentTile.ChangeBonus(3);
+        //            break;
+        //        case TileBuilding.EntertainmentComplex:
+        //            currentTile.ChangeBonus(2);
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //}
 
-        // 르네상스 시대 건물 업그레이드 보너스
-        private void RenaissanceBonus(Tile currentTile, TileBuilding tileBuilding)
-        {
-            switch (tileBuilding)
-            {
-                case TileBuilding.Campus:
-                    currentTile.ChangeBonus(4);
-                    break;
-                case TileBuilding.IndustrialZone:
-                    currentTile.ChangeBonus(2);
-                    break;
-                case TileBuilding.Encampment:
-                    currentTile.ChangeBonus(5);
-                    break;
-                default:
-                    break;
-            }
-        }
+        //// 르네상스 시대 건물 업그레이드 보너스
+        //private void RenaissanceBonus(Tile currentTile, TileBuilding tileBuilding)
+        //{
+        //    switch (tileBuilding)
+        //    {
+        //        case TileBuilding.Campus:
+        //            currentTile.ChangeBonus(4);
+        //            break;
+        //        case TileBuilding.IndustrialZone:
+        //            currentTile.ChangeBonus(2);
+        //            break;
+        //        case TileBuilding.Encampment:
+        //            currentTile.ChangeBonus(5);
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //}
 
-        // 산업 시대 건물 업그레이드 보너스
-        private void IndustrialBonus(Tile currentTile, TileBuilding tileBuilding)
-        {
-            switch (tileBuilding)
-            {
-                case TileBuilding.TheaterSquare:
-                    currentTile.ChangeBonus(2);
-                    break;
-                case TileBuilding.Harbor:
-                    currentTile.ChangeBonus(10);
-                    break;
-                case TileBuilding.CommercialHub:
-                    currentTile.ChangeBonus(5);
-                    break;
-                default:
-                    break;
-            }
-        }
+        //// 산업 시대 건물 업그레이드 보너스
+        //private void IndustrialBonus(Tile currentTile, TileBuilding tileBuilding)
+        //{
+        //    switch (tileBuilding)
+        //    {
+        //        case TileBuilding.TheaterSquare:
+        //            currentTile.ChangeBonus(2);
+        //            break;
+        //        case TileBuilding.Harbor:
+        //            currentTile.ChangeBonus(10);
+        //            break;
+        //        case TileBuilding.CommercialHub:
+        //            currentTile.ChangeBonus(5);
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //}
 
-        // 현대 시대 건물 업그레이드 보너스
-        private void ModernBonus(Tile currentTile, TileBuilding tileBuilding)
-        {
-            switch (tileBuilding)
-            {
-                case TileBuilding.IndustrialZone:
-                    currentTile.ChangeBonus(6);
-                    break;
-                case TileBuilding.Encampment:
-                    currentTile.ChangeBonus(6);
-                    break;
-                case TileBuilding.CommercialHub:
-                    currentTile.ChangeBonus(10);
-                    break;
-                case TileBuilding.EntertainmentComplex:
-                    currentTile.ChangeBonus(4);
-                    break;
-                default:
-                    break;
-            }
-        }
+        //// 현대 시대 건물 업그레이드 보너스
+        //private void ModernBonus(Tile currentTile, TileBuilding tileBuilding)
+        //{
+        //    switch (tileBuilding)
+        //    {
+        //        case TileBuilding.IndustrialZone:
+        //            currentTile.ChangeBonus(6);
+        //            break;
+        //        case TileBuilding.Encampment:
+        //            currentTile.ChangeBonus(6);
+        //            break;
+        //        case TileBuilding.CommercialHub:
+        //            currentTile.ChangeBonus(10);
+        //            break;
+        //        case TileBuilding.EntertainmentComplex:
+        //            currentTile.ChangeBonus(4);
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //}
 
-        // 원자력 시대 건물 업그레이드 보너스
-        private void AtomicBonus(Tile currentTile, TileBuilding tileBuilding)
-        {
-            switch (tileBuilding)
-            {
-                case TileBuilding.Campus:
-                    currentTile.ChangeBonus(8);
-                    break;
-                case TileBuilding.IndustrialZone:
-                    currentTile.ChangeBonus(9);
-                    break;
-                case TileBuilding.TheaterSquare:
-                    currentTile.ChangeBonus(6);
-                    break;
-                case TileBuilding.Harbor:
-                    currentTile.ChangeBonus(15);
-                    break;
-                case TileBuilding.EntertainmentComplex:
-                    currentTile.ChangeBonus(6);
-                    break;
-                default:
-                    break;
-            }
-        }
-        #endregion
+        //// 원자력 시대 건물 업그레이드 보너스
+        //private void AtomicBonus(Tile currentTile, TileBuilding tileBuilding)
+        //{
+        //    switch (tileBuilding)
+        //    {
+        //        case TileBuilding.Campus:
+        //            currentTile.ChangeBonus(8);
+        //            break;
+        //        case TileBuilding.IndustrialZone:
+        //            currentTile.ChangeBonus(9);
+        //            break;
+        //        case TileBuilding.TheaterSquare:
+        //            currentTile.ChangeBonus(6);
+        //            break;
+        //        case TileBuilding.Harbor:
+        //            currentTile.ChangeBonus(15);
+        //            break;
+        //        case TileBuilding.EntertainmentComplex:
+        //            currentTile.ChangeBonus(6);
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //}
+        //#endregion
 
-        #region 시대 별 건물/불가사의 비용 증가
-        // 고전 시대 건물 비용 증가
-        public void ClassicalCost()
-        {
-            switch (SelectedTile.MyTileBuilding)
-            {
-                case TileBuilding.Campus:
-                    SelectTileCost += 1;
-                    break;
-                case TileBuilding.HolySite:
-                    SelectTileCost += 1;
-                    break;
-                case TileBuilding.Encampment:
-                    SelectTileCost += 1;
-                    break;
-                default:
-                    break;
-            }
-        }
+        //#region 시대 별 건물/불가사의 비용 증가
+        //// 고전 시대 건물 비용 증가
+        //public void ClassicalCost()
+        //{
+        //    switch (SelectedTile.MyTileBuilding)
+        //    {
+        //        case TileBuilding.Campus:
+        //            SelectTileCost += 1;
+        //            break;
+        //        case TileBuilding.HolySite:
+        //            SelectTileCost += 1;
+        //            break;
+        //        case TileBuilding.Encampment:
+        //            SelectTileCost += 1;
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //}
 
-        // 중세 시대 건물 비용 증가
-        public void MedievalCost()
-        {
-            switch (SelectedTile.MyTileBuilding)
-            {
-                case TileBuilding.HolySite:
-                    SelectTileCost += 2;
-                    break;
-                case TileBuilding.TheaterSquare:
-                    SelectTileCost += 1;
-                    break;
-                case TileBuilding.Harbor:
-                    SelectTileCost += 2;
-                    break;
-                case TileBuilding.CommercialHub:
-                    SelectTileCost += 1;
-                    break;
-                case TileBuilding.EntertainmentComplex:
-                    SelectTileCost += 1;
-                    break;
-                default:
-                    break;
-            }
-        }
+        //// 중세 시대 건물 비용 증가
+        //public void MedievalCost()
+        //{
+        //    switch (SelectedTile.MyTileBuilding)
+        //    {
+        //        case TileBuilding.HolySite:
+        //            SelectTileCost += 2;
+        //            break;
+        //        case TileBuilding.TheaterSquare:
+        //            SelectTileCost += 1;
+        //            break;
+        //        case TileBuilding.Harbor:
+        //            SelectTileCost += 2;
+        //            break;
+        //        case TileBuilding.CommercialHub:
+        //            SelectTileCost += 1;
+        //            break;
+        //        case TileBuilding.EntertainmentComplex:
+        //            SelectTileCost += 1;
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //}
 
-        // 르네상스 시대 건물 비용 증가
-        public void RenaissanceCost()
-        {
-            switch (SelectedTile.MyTileBuilding)
-            {
-                case TileBuilding.Campus:
-                    SelectTileCost += 2;
-                    break;
-                case TileBuilding.IndustrialZone:
-                    SelectTileCost += 1;
-                    break;
-                case TileBuilding.Encampment:
-                    SelectTileCost += 2;
-                    break;
-                default:
-                    break;
-            }
-        }
+        //// 르네상스 시대 건물 비용 증가
+        //public void RenaissanceCost()
+        //{
+        //    switch (SelectedTile.MyTileBuilding)
+        //    {
+        //        case TileBuilding.Campus:
+        //            SelectTileCost += 2;
+        //            break;
+        //        case TileBuilding.IndustrialZone:
+        //            SelectTileCost += 1;
+        //            break;
+        //        case TileBuilding.Encampment:
+        //            SelectTileCost += 2;
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //}
 
-        // 산업 시대 건물 비용 증가
-        public void IndustrialCost()
-        {
-            switch (SelectedTile.MyTileBuilding)
-            {
-                case TileBuilding.TheaterSquare:
-                    SelectTileCost += 2;
-                    break;
-                case TileBuilding.Harbor:
-                    SelectTileCost += 3;
-                    break;
-                case TileBuilding.CommercialHub:
-                    SelectTileCost += 3;
-                    break;
-                default:
-                    break;
-            }
-        }
+        //// 산업 시대 건물 비용 증가
+        //public void IndustrialCost()
+        //{
+        //    switch (SelectedTile.MyTileBuilding)
+        //    {
+        //        case TileBuilding.TheaterSquare:
+        //            SelectTileCost += 2;
+        //            break;
+        //        case TileBuilding.Harbor:
+        //            SelectTileCost += 3;
+        //            break;
+        //        case TileBuilding.CommercialHub:
+        //            SelectTileCost += 3;
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //}
 
-        // 현대 시대 건물 비용 증가
-        public void ModernCost()
-        {
-            switch (SelectedTile.MyTileBuilding)
-            {
-                case TileBuilding.IndustrialZone:
-                    SelectTileCost += 2;
-                    break;
-                case TileBuilding.CommercialHub:
-                    SelectTileCost += 4;
-                    break;
-                case TileBuilding.Encampment:
-                    SelectTileCost += 3;
-                    break;
-                case TileBuilding.EntertainmentComplex:
-                    SelectTileCost += 2;
-                    break;
-                default:
-                    break;
-            }
-        }
+        //// 현대 시대 건물 비용 증가
+        //public void ModernCost()
+        //{
+        //    switch (SelectedTile.MyTileBuilding)
+        //    {
+        //        case TileBuilding.IndustrialZone:
+        //            SelectTileCost += 2;
+        //            break;
+        //        case TileBuilding.CommercialHub:
+        //            SelectTileCost += 4;
+        //            break;
+        //        case TileBuilding.Encampment:
+        //            SelectTileCost += 3;
+        //            break;
+        //        case TileBuilding.EntertainmentComplex:
+        //            SelectTileCost += 2;
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //}
 
-        // 원자력 시대 건물 비용 증가
-        public void AtomicCost()
-        {
-            switch (SelectedTile.MyTileBuilding)
-            {
-                case TileBuilding.Campus:
-                    SelectTileCost += 4;
-                    break;
-                case TileBuilding.IndustrialZone:
-                    SelectTileCost += 4;
-                    break;
-                case TileBuilding.TheaterSquare:
-                    SelectTileCost += 3;
-                    break;
-                case TileBuilding.Harbor:
-                    SelectTileCost += 7;
-                    break;
-                case TileBuilding.EntertainmentComplex:
-                    SelectTileCost += 3;
-                    break;
-                default:
-                    break;
-            }
-        }
+        //// 원자력 시대 건물 비용 증가
+        //public void AtomicCost()
+        //{
+        //    switch (SelectedTile.MyTileBuilding)
+        //    {
+        //        case TileBuilding.Campus:
+        //            SelectTileCost += 4;
+        //            break;
+        //        case TileBuilding.IndustrialZone:
+        //            SelectTileCost += 4;
+        //            break;
+        //        case TileBuilding.TheaterSquare:
+        //            SelectTileCost += 3;
+        //            break;
+        //        case TileBuilding.Harbor:
+        //            SelectTileCost += 7;
+        //            break;
+        //        case TileBuilding.EntertainmentComplex:
+        //            SelectTileCost += 3;
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //}
 
-        // 시대 별 불가사의 비용 증가
-        public void AgeWonderCost()
-        {
-            if (SelectedTile.MyTileBuilding != TileBuilding.Wonder)
-            {
-                return;
-            }
+        //// 시대 별 불가사의 비용 증가
+        //public void AgeWonderCost()
+        //{
+        //    if (SelectedTile.MyTileBuilding != TileBuilding.Wonder)
+        //    {
+        //        return;
+        //    }
 
-            // 시대 차이
-            int AgeDiff = AgeManager.Instance.WorldAge - ((WonderTile)SelectedTile).WonderAge;
+        //    // 시대 차이
+        //    int AgeDiff = AgeManager.Instance.WorldAge - ((WonderTile)SelectedTile).WonderAge;
 
-            // AgeDiff + 1 배 만큼 불가사의 비용이 증가함.
-            for (int i = 0; i < AgeDiff; i++)
-            {
-                SelectTileCost += SelectedTile.Cost;
-            }
-        }
-        #endregion
+        //    // AgeDiff + 1 배 만큼 불가사의 비용이 증가함.
+        //    for (int i = 0; i < AgeDiff; i++)
+        //    {
+        //        SelectTileCost += SelectedTile.Cost;
+        //    }
+        //}
+        //#endregion
     }
 }

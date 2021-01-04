@@ -3,7 +3,10 @@ guid: 63e32c99b46de3f41a9a3964351abc80
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - MyHexagonTerrain: {instanceID: 0}
+  - terrainGenerateSettings: {fileID: 11400000, guid: fcbf19e99f3e7254391891676b80a62b,
+      type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

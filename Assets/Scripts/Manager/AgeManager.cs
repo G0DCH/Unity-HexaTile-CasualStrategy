@@ -59,7 +59,7 @@ namespace TilePuzzle
             UIManager.Instance.ActiveBuildingButtons();
 
             // 기존 건물 효과 업그레이드를 진행함.
-            TileManager.Instance.BuildingUpgrade();
+            //TileManager.Instance.BuildingUpgrade();
 
             // TODO : 
             //        섬의 새 구역을 해금함.
