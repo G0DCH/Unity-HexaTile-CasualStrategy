@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using TilePuzzle.Entities;
 
 namespace TilePuzzle
 {
@@ -8,6 +9,10 @@ namespace TilePuzzle
         // 도시 범위 표기용 격자
         private List<GameObject> grids = new List<GameObject>();
         private static List<CityTile> checkedCitys = new List<CityTile>();
+
+        public Entity Entity { get; private set; } = null;
+
+        public List<Tile> ownBuildings = new List<Tile>();
 
         private void Start()
         {
@@ -57,15 +62,15 @@ namespace TilePuzzle
                 return true;
             }
 
-            foreach(var rangeTile in RangeTiles)
+            foreach(var ownBuilding in ownBuildings)
             {
-                if (rangeTile.MyTileBuilding == tileBuilding &&
-                    rangeTile.OwnerCity == this)
+                if (ownBuilding.MyTileBuilding == tileBuilding &&
+                    ownBuilding.OwnerCity == this)
                 {
                     checkedCitys.Add(this);
                     // 소유 도시를 변경 해보고
                     // 변경 했다면 false return
-                    if (rangeTile.TryChangeOwner(checkedCitys))
+                    if (ownBuilding.TryChangeOwner(checkedCitys))
                     {
                         return false;
                     }

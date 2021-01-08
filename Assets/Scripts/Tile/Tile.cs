@@ -274,93 +274,8 @@ namespace TilePuzzle
                 }
             }
 
-
-            //if (MyTileBuilding == TileBuilding.GovernmentPlaza)
-            //{
-            //    bonusPoint = 1;
-            //}
-            //// 캠퍼스
-            //else if (pivotBuilding == TileBuilding.Campus)
-            //{
-            //    if (MyTileType == TileType.Mountain)
-            //    {
-            //        bonusPoint = 1;
-            //    }
-            //    else if (MyTileFeature == TileFeature.RainForest)
-            //    {
-            //        bonusPoint = 0.5f;
-            //    }
-            //}
-            //// 산업구역
-            //else if (pivotBuilding == TileBuilding.IndustrialZone)
-            //{
-            //    if (MyTileBuilding == TileBuilding.Aqueduct ||
-            //        MyTileBuilding == TileBuilding.Carnal)
-            //    {
-            //        bonusPoint = 2;
-            //    }
-            //}
-            //// 성지
-            //else if (pivotBuilding == TileBuilding.HolySite)
-            //{
-            //    if (MyTileType == TileType.Mountain)
-            //    {
-            //        bonusPoint = 1;
-            //    }
-            //    else if (MyTileFeature == TileFeature.Forest)
-            //    {
-            //        bonusPoint = 0.5f;
-            //    }
-            //}
-            //// 주둔지
-            //else if (pivotBuilding == TileBuilding.Encampment)
-            //{
-            //    if (MyTileBuilding == TileBuilding.City)
-            //    {
-            //        bonusPoint = -1;
-            //    }
-            //}
-            //// 항만
-            //else if (pivotBuilding == TileBuilding.Harbor)
-            //{
-            //    if (MyTileBuilding == TileBuilding.City)
-            //    {
-            //        bonusPoint = 2;
-            //    }
-            //}
-            //// 상업 중심지
-            //else if (pivotBuilding == TileBuilding.CommercialHub)
-            //{
-            //    if (MyTileBuilding == TileBuilding.Harbor)
-            //    {
-            //        bonusPoint += 2;
-            //    }
-            //    if (MyTileType == TileType.River)
-            //    {
-            //        bonusPoint += 1;
-            //    }
-            //}
-            //// 유흥단지
-            //else if (pivotBuilding == TileBuilding.EntertainmentComplex)
-            //{
-            //    if (MyTileBuilding == TileBuilding.City)
-            //    {
-            //        bonusPoint = 2;
-            //    }
-            //}
-            //// 극장가
-            //else if (pivotBuilding == TileBuilding.TheaterSquare)
-            //{
-            //    if (MyTileBuilding == TileBuilding.Wonder)
-            //    {
-            //        bonusPoint = 2;
-            //    }
-            //}
-
             return bonusPoint;
         }
-
-
 
         // tileBuilding이 설치 되었을 때의
         // 예상 보너스 return
@@ -461,6 +376,15 @@ namespace TilePuzzle
                 return;
             }
 
+            bool isBuilding = MyTileBuilding != TileBuilding.Empty &&
+                MyTileBuilding != TileBuilding.Wonder &&
+                MyTileBuilding != TileBuilding.City;
+
+            if (isBuilding)
+            {
+                cityTile.ownBuildings.Add(this);
+            }
+
             OwnerCity = cityTile;
         }
 
@@ -482,8 +406,7 @@ namespace TilePuzzle
                     continue;
                 }
 
-                if (!cityTile.HasThatTile(MyTileBuilding, false) || 
-                    MyTileBuilding == TileBuilding.Empty)
+                if (!cityTile.HasThatTile(MyTileBuilding, false))
                 {
                     SetCityTile(cityTile);
                     return true;

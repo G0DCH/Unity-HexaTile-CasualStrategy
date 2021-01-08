@@ -316,6 +316,7 @@ namespace TilePuzzle
             // Tile 컴포넌트를 SelectTile의 컴포넌트로 교체
             Tile newTile = (Tile)clickedObject.AddComponent(SelectedTile.GetType());
             newTile.InitInfo(hexagonTileObject, range);
+            newTile.MyTileBuilding = SelectedTile.MyTileBuilding;
 
             // 타일 속성에 맞는 초기화 진행
             if (SelectedTile is CityTile)
@@ -337,7 +338,6 @@ namespace TilePuzzle
             }
 
             TileMap.Add(hexagonTileObject.TileInfo.hexPos, newTile);
-            newTile.MyTileBuilding = SelectedTile.MyTileBuilding;
 
             // 이웃 타일들의 범위 내 타일과 이웃 타일을
             // 교체한 타일 컴포넌트로 바꿈.

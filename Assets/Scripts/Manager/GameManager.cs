@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TilePuzzle.Procedural;
+using TilePuzzle.Entities;
 
 namespace TilePuzzle
 {
@@ -17,6 +18,8 @@ namespace TilePuzzle
         public int BuildPoint { get { return buildPoint; } private set { buildPoint = value; } }
         [SerializeField]
         private int buildPoint = 6;
+
+        public Entity TurnEntity { get; private set; } = null;
 
         public HexagonTerrain MyHexagonTerrain;
 
