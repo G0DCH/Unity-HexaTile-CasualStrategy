@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace TilePuzzle.AI
+namespace TilePuzzle.Entities.AI
 {
     // 1. 도시 타일을 설치하는 경우
     // 1-1. 설치할 수 있는 건물이 없다면 반드시 도시 타일을 설치한다.
@@ -14,7 +14,7 @@ namespace TilePuzzle.AI
     // 2-2. 일정 점수 이상 획득할 수 없다면 도시 또는 불가사의 타일을 설치한다.
     // 3. 불가사의 타일을 설치하는 경우
     // 3-1. 조건이 되는 위치 아무 곳에나 설치한다.
-    public class EnemyAI: MonoBehaviour
+    public class EnemyAI: Entity
     {
 
     }
