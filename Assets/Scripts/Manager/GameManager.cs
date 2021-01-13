@@ -19,7 +19,20 @@ namespace TilePuzzle
         [SerializeField]
         private int buildPoint = 6;
 
-        public Entity TurnEntity { get; private set; } = null;
+        public Entity TurnEntity
+        {
+            get
+            {
+                return turnEntity;
+            }
+            set
+            {
+                turnEntity.IsMyTurn = false;
+                turnEntity = value;
+                turnEntity.IsMyTurn = true;
+            }
+        }
+        private Entity turnEntity = null;
 
         public HexagonTerrain MyHexagonTerrain;
 

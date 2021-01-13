@@ -14,8 +14,36 @@ namespace TilePuzzle.Entities.AI
     // 2-2. 일정 점수 이상 획득할 수 없다면 도시 또는 불가사의 타일을 설치한다.
     // 3. 불가사의 타일을 설치하는 경우
     // 3-1. 조건이 되는 위치 아무 곳에나 설치한다.
-    public class EnemyAI: Entity
+    public class EnemyAI : Entity
     {
+        public State MyState
+        {
+            get { return myState; }
+            set
+            {
+                myState.Exit(this);
+                myState = value;
+                myState.Enter(this);
+            }
+        }
+        private State myState = new Idle();
+        public ActionState MyActionState { get { return myActionState; } set { myActionState = value; } }
+        [SerializeField]
+        private ActionState myActionState = ActionState.Idle;
 
+        // 위에 기술한 행동 중 하나를 수행한다.
+        public void Action()
+        {
+            if (!IsMyTurn)
+            {
+                Debug.LogError("내 턴이 아님");
+                return;
+            }
+        }
+
+        private void ChangeState()
+        {
+
+        }
     }
 }

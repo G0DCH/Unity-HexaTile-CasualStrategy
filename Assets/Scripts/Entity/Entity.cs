@@ -9,5 +9,7 @@ namespace TilePuzzle.Entities
     public abstract class Entity : MonoBehaviour
     {
         public List<CityTile> ownCitys = new List<CityTile>();
+        public bool IsMyTurn { get; set; } = false;
+        public string NickName { get; set; } = "Default";
     }
 }
