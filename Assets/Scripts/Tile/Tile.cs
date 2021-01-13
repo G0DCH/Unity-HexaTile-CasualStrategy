@@ -204,7 +204,7 @@ namespace TilePuzzle
             {
                 if (MyTileTerrain == TileTerrain.RainForest)
                 {
-                    myTileFeature = TileFeature.RainForest;
+                    myTileFeature = TileFeature.Jungle;
                 }
                 else
                 {

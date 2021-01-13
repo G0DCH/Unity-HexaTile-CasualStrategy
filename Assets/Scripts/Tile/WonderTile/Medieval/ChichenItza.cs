@@ -19,7 +19,7 @@
 
                 foreach (Tile rangeTile in currentTile.RangeTiles)
                 {
-                    if (rangeTile.MyTileFeature == TileFeature.RainForest)
+                    if (rangeTile.MyTileFeature == TileFeature.Jungle)
                     {
                         bonusCount++;
                     }
@@ -38,7 +38,7 @@
                 return false;
             }
 
-            if (currentTile.MyTileFeature == TileFeature.RainForest)
+            if (currentTile.MyTileFeature == TileFeature.Jungle)
             {
                 return true;
             }

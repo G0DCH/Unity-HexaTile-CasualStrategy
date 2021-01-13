@@ -30,7 +30,7 @@ namespace TilePuzzle
     {
         public TileFeature MyFeature { get { return myFeature; } }
         [SerializeField]
-        private TileFeature myFeature = TileFeature.RainForest;
+        private TileFeature myFeature = TileFeature.Jungle;
 
         public float Bonus { get { return bonus; } }
         [SerializeField]
