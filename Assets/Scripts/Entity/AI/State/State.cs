@@ -27,7 +27,7 @@ namespace TilePuzzle.Entities.AI
                 Debug.Log(string.Format("{0}가 null 입니다.", nameof(enemy)));
                 isRightEnemy = false;
             }
-            else if (GameManager.Instance.TurnEntity == enemy)
+            else if (!enemy.IsMyTurn)
             {
                 Debug.Log(string.Format("{0}의 턴이 아닙니다.", enemy.NickName));
                 isRightEnemy = false;
