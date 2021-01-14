@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace TilePuzzle.Entities.AI
+﻿namespace TilePuzzle.Entities.AI
 {
     public class Idle : State
     {

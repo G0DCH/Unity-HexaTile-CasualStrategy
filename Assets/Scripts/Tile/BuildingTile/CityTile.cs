@@ -14,6 +14,34 @@ namespace TilePuzzle
 
         public List<Tile> ownBuildings = new List<Tile>();
 
+        public static List<int> BuildingCountLimits
+        {
+            get
+            {
+                if (buildingCountLimits == null)
+                {
+                    int[] countLimits = { 4, 9, 10 };
+                    buildingCountLimits = new List<int>(countLimits);
+                }
+                return buildingCountLimits;
+            }
+        }
+        private static List<int> buildingCountLimits = null;
+
+        /// <summary>
+        /// 현재 이 도시에 설치할 수 있는 건물을 모두 설치했는가
+        /// </summary>
+        public bool IsAllBuild
+        {
+            get
+            {
+                int index = Mathf.Clamp((int)AgeManager.Instance.WorldAge, 0, 2);
+                int countLimit = BuildingCountLimits[index];
+
+                return !(ownBuildings.Count == countLimit);
+            }
+        }
+
         private void Start()
         {
             SetCityTile(this);

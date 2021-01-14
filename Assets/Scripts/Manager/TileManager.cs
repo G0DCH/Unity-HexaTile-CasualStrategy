@@ -46,14 +46,6 @@ namespace TilePuzzle
         public delegate void WonderRange(Tile currentTile, TileBuilding tileBuilding);
         public WonderRange CalculateRange = null;
 
-        //// 건물 보너스 delegate
-        //public delegate void BuildingBonus(Tile currentTile, TileBuilding tileBuilding);
-        //public BuildingBonus MyBuildingBonus = null;
-
-        //// 시대별 건물/불가사의 비용
-        //public delegate void AgeCost();
-        //public AgeCost MyAgeCost = null;
-
         private Dictionary<HexagonPos, Tile> TileMap = new Dictionary<HexagonPos, Tile>();
 
         // 도시 타일 갯수
@@ -75,7 +67,6 @@ namespace TilePuzzle
 #if UNITY_IOS || UNITY_ANDROID
             pointerID = 0;
 #endif
-            //MyAgeCost += AgeWonderCost;
             StartCoroutine(MouseOverAction());
             StartCoroutine(TileClickAction());
         }
@@ -297,7 +288,7 @@ namespace TilePuzzle
             {
                 SelectTileCost = SelectedTile.Cost;
             }
-            //MyAgeCost?.Invoke();
+
             CalculateCost?.Invoke(currentTile, SelectedTile.MyTileBuilding);
         }
 
