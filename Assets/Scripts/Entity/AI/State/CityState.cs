@@ -24,7 +24,25 @@
                 return;
             }
 
-            
+            // 도시가 없다면 무작위 위치에 설치
+            if (enemy.ownCitys.Count == 0)
+            {
+                Tile randomTile;
+
+                while(true)
+                {
+                    randomTile = TileManager.Instance.GetRandomEmptyTile();
+
+                    if (randomTile.OwnerCity == null)
+                    {
+                        break;
+                    }
+                }
+
+                TileManager.Instance.PutBuildingAtTile(TileBuilding.City, randomTile);
+            }
+
+            enemy.MyState = Idle.Instance;
         }
 
         public override void Exit(EnemyAI enemy)

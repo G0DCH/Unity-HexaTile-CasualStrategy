@@ -66,8 +66,10 @@ namespace TilePuzzle.Entities.AI
                     break;
                 // TODO : 다른 State 스크립트 작성해서 구현하기.
                 case ActionState.Building:
+                    enemy.MyState = BuildingState.Instance;
                     break;
                 case ActionState.Wonder:
+                    enemy.MyState = WonderState.Instance;
                     break;
                 case ActionState.Trade:
                     break;

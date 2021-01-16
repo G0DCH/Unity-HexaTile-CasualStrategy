@@ -105,6 +105,35 @@ namespace TilePuzzle
             return neighborTiles;
         }
 
+        // 무작위 빈 타일을 return 함.
+        public Tile GetRandomEmptyTile()
+        {
+            bool getRandomSuccess = false;
+            Vector2Int terrainSize = GameManager.Instance.terrainGenerateSettings.terrainSize;
+            Tile randomTile = null;
+
+            while(!getRandomSuccess)
+            {
+                int x = Random.Range(0, terrainSize.x);
+                int y = Random.Range(0, terrainSize.y);
+
+                randomTile = TileMap[HexagonPos.FromArrayXY(x, y)];
+
+                if (randomTile.MyTileBuilding == TileBuilding.Empty)
+                {
+                    getRandomSuccess = true;
+                }
+            }
+
+            return randomTile;
+        }
+
+        // targetTile에 tileBuilding을 설치
+        public void PutBuildingAtTile(TileBuilding tileBuilding, Tile targetTile)
+        {
+            // TODO : 구현
+        }
+
         // 마우스가 타일 맵 위에 올라갔을 때의 행동들
         // 격자 갱신, 범위 계산, 비용 계산을 함.
         private IEnumerator MouseOverAction()
@@ -413,9 +442,9 @@ namespace TilePuzzle
                             break;
                         }
                     }
-                    
+
                     if (hasThatTile)
-                    {                        
+                    {
                         return false;
                     }
 
@@ -453,13 +482,13 @@ namespace TilePuzzle
                                 isRiver = true;
                             }
 
-                            for (int i = 0; i < currentTile.NeighborTiles.Count; i++)
+                            foreach (var neighborTile in currentTile.NeighborTiles)
                             {
-                                if (currentTile.NeighborTiles[i].MyTileBuilding == TileBuilding.City)
+                                if (neighborTile.MyTileBuilding == TileBuilding.City)
                                 {
                                     nearCity = true;
                                 }
-                                else if (currentTile.NeighborTiles[i].MyTileType == TileType.Mountain)
+                                else if (neighborTile.MyTileType == TileType.Mountain)
                                 {
                                     nearMountain = true;
                                 }
