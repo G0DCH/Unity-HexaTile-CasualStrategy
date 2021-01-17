@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections;
 using UnityEngine;
 
 namespace TilePuzzle
@@ -16,7 +15,7 @@ namespace TilePuzzle
 
         public string ToolTipText { get { return toolTipText; } }
         [SerializeField, TextArea]
-        private string toolTipText;
+        private string toolTipText = string.Empty;
 
         public List<InfoPerAge> InfoPerAges { get { return infoPerAges; } }
         [SerializeField]

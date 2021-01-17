@@ -74,8 +74,7 @@ namespace TilePuzzle
                 SelectedWonderButton = null;
             }
 
-            TileManager.Instance.SelectedTile = Instantiate(tilePrefab, Vector3.up * 20f, Quaternion.identity).GetComponent<Tile>();
-            TileManager.Instance.SelectedTile.GetComponent<MeshCollider>().enabled = false;
+            TileManager.Instance.InstantiateTile(tilePrefab);
 
             if (TileManager.Instance.SelectedTile.MyTileBuilding == TileBuilding.Wonder)
             {
@@ -87,9 +86,6 @@ namespace TilePuzzle
                     Debug.LogError("클릭한 UI에 버튼 컴포넌트가 없음.");
                 }
             }
-            
-            TileManager.Instance.SelectTileCost = TileManager.Instance.SelectedTile.Cost;
-            TileManager.Instance.SelectedTile.TurnGrid(false);
         }
 
         // 건물, 불가사의 패널 전환

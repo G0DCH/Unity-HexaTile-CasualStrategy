@@ -44,7 +44,7 @@ namespace TilePuzzle
             string tooltip;
             if (TileBuilding == TileBuilding.Wonder)
             {
-                tooltip = DataTableManager.Instance.GetWonderToolTip(AgeManager.Instance.WorldAge, wonderName);
+                tooltip = DataTableManager.Instance.GetWonderToolTip(wonderName);
             }
             else
             {
