@@ -1,4 +1,7 @@
-﻿namespace TilePuzzle.Entities.AI
+﻿using UnityEngine;
+using System.Collections.Generic;
+
+namespace TilePuzzle.Entities.AI
 {
     public class CityState : State
     {
@@ -27,22 +30,35 @@
             // 도시가 없다면 무작위 위치에 설치
             if (enemy.ownCitys.Count == 0)
             {
-                Tile randomTile;
+                PutCityTile();
+            }
+            // 도시가 있다면 내 도시와 가까운 무작위 위치에 설치
+            else
+            {
+                // 무시할 타일들
+                HashSet<Tile> ignoreTiles = new HashSet<Tile>();
+                // 무시하지 않을 타일들
+                HashSet<Tile> tiles = new HashSet<Tile>();
 
-                while(true)
+                // 타일 셋 초기화
+                foreach (var ownCity in enemy.ownCitys)
                 {
-                    randomTile = TileManager.Instance.GetRandomEmptyTile();
-
-                    if (randomTile.OwnerCity == null)
-                    {
-                        break;
-                    }
+                    ignoreTiles.UnionWith(ownCity.RangeTiles);
+                    tiles.UnionWith(TileManager.Instance.GetRangeTiles(ownCity, ownCity.Range + 1));
                 }
 
-                TileManager.Instance.PutBuildingAtTile(TileBuilding.City, randomTile);
+                // 무시할 타일 제거
+                tiles.ExceptWith(ignoreTiles);
+
+                var tileList = new List<Tile>(tiles);
+
+                PutCityTile(tileList);
             }
 
+            // 대기 상태로 변경
             enemy.MyState = Idle.Instance;
+
+            // TODO : 다음 Entity에게 턴을 넘겨줘야 함.
         }
 
         public override void Exit(EnemyAI enemy)
@@ -53,6 +69,40 @@
             }
 
             StateMessage(false, enemy.NickName, nameof(CityState));
+        }
+
+        // 무작위 위치에 도시 타일을 설치함.
+        // 만약 tiles가 null이 아닌 경우
+        // tiles 내의 타일 중 하나에 설치함.
+        private void PutCityTile(List<Tile> tiles = null)
+        {
+            Tile randomTile;
+
+            while (true)
+            {
+                while (true)
+                {
+                    if (tiles == null)
+                    {
+                        randomTile = TileManager.Instance.GetRandomEmptyTile();
+                    }
+                    else
+                    {
+                        randomTile = TileManager.Instance.GetRandomEmptyTile(tiles);
+                    }
+
+                    if (randomTile.OwnerCity == null)
+                    {
+                        break;
+                    }
+                }
+
+                // 설치 성공 시 루프 탈출
+                if (TileManager.Instance.PutBuildingAtTile(TileBuilding.City, randomTile))
+                {
+                    break;
+                }
+            }
         }
     }
 }

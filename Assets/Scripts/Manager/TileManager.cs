@@ -118,12 +118,33 @@ namespace TilePuzzle
             Vector2Int terrainSize = GameManager.Instance.terrainGenerateSettings.terrainSize;
             Tile randomTile = null;
 
-            while(!getRandomSuccess)
+            while (!getRandomSuccess)
             {
                 int x = Random.Range(0, terrainSize.x);
                 int y = Random.Range(0, terrainSize.y);
 
                 randomTile = TileMap[HexagonPos.FromArrayXY(x, y)];
+
+                if (randomTile.MyTileBuilding == TileBuilding.Empty)
+                {
+                    getRandomSuccess = true;
+                }
+            }
+
+            return randomTile;
+        }
+
+        // tiles 내의 무작위 빈 타일을 return 함.
+        public Tile GetRandomEmptyTile(List<Tile> tiles)
+        {
+            bool getRandomSuccess = false;
+            Tile randomTile = null;
+
+            while (!getRandomSuccess)
+            {
+                int randomIndex = Random.Range(0, tiles.Count);
+
+                randomTile = tiles[randomIndex];
 
                 if (randomTile.MyTileBuilding == TileBuilding.Empty)
                 {
@@ -402,10 +423,10 @@ namespace TilePuzzle
         // buildingPrefabMap 초기화
         private void InitPrefabMap()
         {
-            foreach(var building in BuildingPrefabs)
+            foreach (var building in BuildingPrefabs)
             {
                 BuildingPrefabMap.Add(building.MyTileBuilding, building);
-            }    
+            }
         }
 
         // targetTile을 SelectedTile로 교체
