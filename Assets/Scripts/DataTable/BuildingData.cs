@@ -20,5 +20,9 @@ namespace TilePuzzle
         public List<InfoPerAge> InfoPerAges { get { return infoPerAges; } }
         [SerializeField]
         private List<InfoPerAge> infoPerAges = new List<InfoPerAge>();
+
+        public GameObject MyPrefab { get { return myPrefab; } }
+        [SerializeField]
+        private GameObject myPrefab = null;
     }
 }

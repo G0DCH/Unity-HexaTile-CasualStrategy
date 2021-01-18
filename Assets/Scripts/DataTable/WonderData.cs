@@ -43,6 +43,10 @@ namespace TilePuzzle
         [SerializeField]
         private int bonus = 2;
 
+        public GameObject MyPrefab { get { return myPrefab; } }
+        [SerializeField]
+        private GameObject myPrefab = null;
+
         public WonderData(Age age, string wonderName, int cost, int bonus)
         {
             myAge = age;

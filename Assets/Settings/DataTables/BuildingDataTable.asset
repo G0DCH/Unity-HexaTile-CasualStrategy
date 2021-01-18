@@ -19,6 +19,8 @@ MonoBehaviour:
       \uD0C0\uC77C\uC758 \uBC94\uC704 \uB0B4\uC5D0\uB9CC \uB2E4\uB978 \uAC74\uBB3C
       \uAC74\uC124 \uAC00\uB2A5."
     infoPerAges: []
+    myPrefab: {fileID: 2989713340644630987, guid: 56ddfc1189a987045b7ed92e18305dea,
+      type: 3}
   - myBuilding: 0
     toolTipText: "\uC124\uCE58 \uBE44\uC6A9 : {0}\n\uAE30\uBCF8 \uBCF4\uB108\uC2A4
       : {1}\n\uC8FC\uBCC0\uC758 {2} \uD0C0\uC77C {3}\uAC1C\uB2F9 \uBCF4\uB108\uC2A4
@@ -125,6 +127,8 @@ MonoBehaviour:
       bonusPerTypes:
       - myType: 2
         bonus: 1
+    myPrefab: {fileID: 5196777204005610679, guid: f48380e2e25159d40b4c225d25aafee1,
+      type: 3}
   - myBuilding: 3
     toolTipText: "\uC124\uCE58 \uBE44\uC6A9 : {0}\n\uAE30\uBCF8 \uBCF4\uB108\uC2A4
       : {1}\n\uC8FC\uBCC0\uC758 {2} \uD0C0\uC77C {3}\uAC1C\uB2F9 \uBCF4\uB108\uC2A4
@@ -231,11 +235,15 @@ MonoBehaviour:
       bonusPerTypes:
       - myType: 2
         bonus: 1
+    myPrefab: {fileID: 2111624229847873225, guid: 826127f3bbf02a24b841478e37659ba7,
+      type: 3}
   - myBuilding: 2
     toolTipText: "\uD604\uC7AC \uC124\uCE58 \uBE44\uC6A9 : {0}\n\uB2E4\uB978 \uAC74\uBB3C\uC758
       \uBC94\uC704 \uC548\uC5D0 \uC774 \uAC74\uBB3C\uC774 \uC18D\uD558\uBA74\n\uD574\uB2F9
       \uAC74\uBB3C\uC5D0 \uBCF4\uB108\uC2A4 +1"
     infoPerAges: []
+    myPrefab: {fileID: 6001036680669030934, guid: 6fad1d0c2a9ac1d4a8dd61e8708596d6,
+      type: 3}
   - myBuilding: 9
     toolTipText: "\uC124\uCE58 \uBE44\uC6A9 : {0}\n\uAE30\uBCF8 \uBCF4\uB108\uC2A4
       : {1}\n\uC8FC\uBCC0\uC758 {2} \uD0C0\uC77C {3}\uAC1C\uB2F9 \uBCF4\uB108\uC2A4
@@ -297,6 +305,8 @@ MonoBehaviour:
         bonus: -1
       bonusPerFeatures: []
       bonusPerTypes: []
+    myPrefab: {fileID: 2166506911160267371, guid: a2948184a5f1cd24e932434881714466,
+      type: 3}
   - myBuilding: 7
     toolTipText: "\uBB3C \uD0C0\uC77C\uC5D0\uB9CC \uC124\uCE58 \uAC00\uB2A5.\n\uC124\uCE58
       \uBE44\uC6A9 : {0}\n\uAE30\uBCF8 \uBCF4\uB108\uC2A4 : {1}\n\uC8FC\uBCC0\uC758
@@ -376,12 +386,16 @@ MonoBehaviour:
         bonus: 2
       bonusPerFeatures: []
       bonusPerTypes: []
+    myPrefab: {fileID: 3982285288393197662, guid: a03b27bc25fe43e4d9491169fbe1a133,
+      type: 3}
   - myBuilding: 5
     toolTipText: "\uB3C4\uC2EC\uBD80 \uC606 \uAC15 \uD0C0\uC77C\n\uB610\uB294 \uB3C4\uC2EC\uBD80\uC640
       \uC0B0 \uD0C0\uC77C \uC606\uC5D0\uB9CC \uAC74\uC124 \uAC00\uB2A5.\n\uC774 \uD0C0\uC77C\uC774
       \uC0B0\uC5C5\uB2E8\uC9C0 \uBC94\uC704 \uB0B4\uC5D0 \uB4E4\uC5B4\uAC00\uBA74
       \uBCF4\uB108\uC2A4 +2\n\uC124\uCE58 \uBE44\uC6A9 : 1"
     infoPerAges: []
+    myPrefab: {fileID: 4651325682830532056, guid: b5eb6eeb67ad4a2448288a15cb01670e,
+      type: 3}
   - myBuilding: 4
     toolTipText: "\uC124\uCE58 \uBE44\uC6A9 : {0}\n\uAE30\uBCF8 \uBCF4\uB108\uC2A4
       : {1}\n\uC8FC\uBCC0\uC758 {2} \uD0C0\uC77C {3}\uAC1C\uB2F9 \uBCF4\uB108\uC2A4
@@ -474,6 +488,8 @@ MonoBehaviour:
         bonus: 2
       bonusPerFeatures: []
       bonusPerTypes: []
+    myPrefab: {fileID: 2820110280018489829, guid: ee9399c130b2f2f4694bf8b5c5f715c8,
+      type: 3}
   - myBuilding: 8
     toolTipText: "\uC124\uCE58 \uBE44\uC6A9 : {0}\n\uAE30\uBCF8 \uBCF4\uB108\uC2A4
       : {1}\n\uC8FC\uBCC0\uC758 {2} \uD0C0\uC77C {3}\uAC1C\uB2F9 \uBCF4\uB108\uC2A4
@@ -566,6 +582,8 @@ MonoBehaviour:
       bonusPerTypes:
       - myType: 1
         bonus: 1
+    myPrefab: {fileID: 4899300527048601364, guid: ce3fac1e59256a947851109882604091,
+      type: 3}
   - myBuilding: 11
     toolTipText: "\uC124\uCE58 \uBE44\uC6A9 : {0}\n\uAE30\uBCF8 \uBCF4\uB108\uC2A4
       : {1}\n\uC8FC\uBCC0\uC758 {2} \uD0C0\uC77C {3}\uAC1C\uB2F9 \uBCF4\uB108\uC2A4
@@ -619,6 +637,8 @@ MonoBehaviour:
         bonus: 2
       bonusPerFeatures: []
       bonusPerTypes: []
+    myPrefab: {fileID: 812226523525150236, guid: e6453f072b12120419e6af0d2ccf6650,
+      type: 3}
   - myBuilding: 1
     toolTipText: "\uC124\uCE58 \uBE44\uC6A9 : {0}\n\uAE30\uBCF8 \uBCF4\uB108\uC2A4
       : {1}\n\uC8FC\uBCC0\uC758 {2} \uD0C0\uC77C {3}\uAC1C\uB2F9 \uBCF4\uB108\uC2A4
@@ -686,3 +706,5 @@ MonoBehaviour:
         bonus: 2
       bonusPerFeatures: []
       bonusPerTypes: []
+    myPrefab: {fileID: 5180527518963204097, guid: a74ff82b459bbf642951ef3c9fa05849,
+      type: 3}
