@@ -22,6 +22,8 @@ MonoBehaviour:
       \uC810\uC218 +{1}"
     cost: 20
     bonus: 2
+    myPrefab: {fileID: 7537299950543170948, guid: e2e8a65a50c3faa4985cf5aaecb3f876,
+      type: 3}
   - myAge: 1
     wonderName: Colosseum
     koreanName: "\uCF5C\uB85C\uC138\uC6C0"
@@ -30,6 +32,8 @@ MonoBehaviour:
       \uB0B4 \uB3C4\uC2DC \uBCF4\uB108\uC2A4 +{1}"
     cost: 20
     bonus: 1
+    myPrefab: {fileID: 7985477476723103201, guid: 1d7ab051857d4d74b96620a977c025e6,
+      type: 3}
   - myAge: 1
     wonderName: ColossusOfRhodes
     koreanName: "\uAC70\uC2E0\uC0C1"
@@ -38,6 +42,8 @@ MonoBehaviour:
       : \uC0C1\uC5C5 \uC911\uC2EC\uC9C0 \uC810\uC218 +{1}"
     cost: 20
     bonus: 1
+    myPrefab: {fileID: 3108807708699513477, guid: 55cd39e9a24f96a43af6fa2b7043ac59,
+      type: 3}
   - myAge: 1
     wonderName: GebelBarcal
     koreanName: "\uAC8C\uBCA8 \uBC14\uB974\uCE7C"
@@ -46,6 +52,8 @@ MonoBehaviour:
       \uC810\uC218 +{1}"
     cost: 20
     bonus: 2
+    myPrefab: {fileID: 201697325988317261, guid: 69c19e2d82c98984d8c93fbba8e18288,
+      type: 3}
   - myAge: 1
     wonderName: LibraryOfAlexandria
     koreanName: "\uC54C\uB809\uC0B0\uB4DC\uB9AC\uC544 \uB3C4\uC11C\uAD00"
@@ -53,6 +61,8 @@ MonoBehaviour:
       \uC606 \uD0C0\uC77C\n\uD6A8\uACFC : \uCEA0\uD37C\uC2A4 \uC810\uC218 +{1}"
     cost: 20
     bonus: 1
+    myPrefab: {fileID: 7578092187594715510, guid: bd863bc0968b56e45b3eeb57216251a0,
+      type: 3}
   - myAge: 1
     wonderName: LightHouseOfAlexandria
     koreanName: "\uC54C\uB809\uC0B0\uB4DC\uB9AC\uC544\uC758 \uB4F1\uB300"
@@ -61,6 +71,8 @@ MonoBehaviour:
       : \uD56D\uB9CC \uC810\uC218 +{1}"
     cost: 20
     bonus: 2
+    myPrefab: {fileID: 4524723172304865480, guid: d6c3b2287d4308147a00ada6c01599a5,
+      type: 3}
   - myAge: 1
     wonderName: MachuPicchu
     koreanName: "\uB9C8\uCD94\uD53D\uCD94"
@@ -70,6 +82,8 @@ MonoBehaviour:
       \uC810\uC218 +{1}"
     cost: 20
     bonus: 1
+    myPrefab: {fileID: 7662864490880928879, guid: dbdc82629a30ab444bed4afe9f0322c8,
+      type: 3}
   - myAge: 1
     wonderName: MahabodhiTemple
     koreanName: "\uB9C8\uD558\uBCF4\uB514 \uC0AC\uC6D0"
@@ -78,6 +92,8 @@ MonoBehaviour:
       \uC232 \uD0C0\uC77C 2\uAC1C\uB2F9 \uC810\uC218 +{1}"
     cost: 20
     bonus: 1
+    myPrefab: {fileID: 5624638093953584268, guid: 82a3ae7031bd1aa49a0dd03eaf7e57aa,
+      type: 3}
   - myAge: 1
     wonderName: Mausoleum
     koreanName: "\uD560\uB9AC\uCE74\uB974\uB098\uC18C\uC2A4 \uB9C8\uC6B0\uC194\uB85C\uC2A4
@@ -87,6 +103,8 @@ MonoBehaviour:
       \uAC74\uBB3C \uAC74\uC124 \uC2DC \uC810\uC218 +{1}"
     cost: 20
     bonus: 1
+    myPrefab: {fileID: 5988251171401147607, guid: 6160ddb404fa6d245b135bc5d0e0c0cb,
+      type: 3}
   - myAge: 1
     wonderName: Petra
     koreanName: "\uD398\uD2B8\uB77C"
@@ -95,6 +113,8 @@ MonoBehaviour:
       \uC810\uC218 +{1}"
     cost: 20
     bonus: 1
+    myPrefab: {fileID: 7757442020509551414, guid: ce6162410e7e96d49ac072567d4ff97a,
+      type: 3}
   - myAge: 1
     wonderName: TerracottaWarriors
     koreanName: "\uBCD1\uB9C8\uC6A9"
@@ -102,3 +122,5 @@ MonoBehaviour:
       \uC606 \uD0C0\uC77C\n\uD6A8\uACFC : \uC8FC\uB454\uC9C0 \uC810\uC218 +{1}"
     cost: 20
     bonus: 2
+    myPrefab: {fileID: 2383559384438554781, guid: fcc6d4d9e9050ef49932b23233b10376,
+      type: 3}

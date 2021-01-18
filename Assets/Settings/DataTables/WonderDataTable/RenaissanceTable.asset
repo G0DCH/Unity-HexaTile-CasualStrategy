@@ -22,6 +22,8 @@ MonoBehaviour:
       \uC810\uC218 +{1}"
     cost: 40
     bonus: 3
+    myPrefab: {fileID: 7278092789980988304, guid: efe078b7f80402b4396d35c7d268079b,
+      type: 3}
   - myAge: 3
     wonderName: ForbiddenCity
     koreanName: "\uC790\uAE08\uC131"
@@ -29,6 +31,8 @@ MonoBehaviour:
       \uC606 \uD0C0\uC77C\n\uD6A8\uACFC : \uB3C4\uC2DC \uC810\uC218 +{1}"
     cost: 40
     bonus: 3
+    myPrefab: {fileID: 5306427294043016315, guid: 131ebf41c4f97974fa60b1a3e44ab543,
+      type: 3}
   - myAge: 3
     wonderName: GreatZimbabwe
     koreanName: "\uADF8\uB808\uC774\uD2B8 \uC9D0\uBC14\uBE0C\uC6E8"
@@ -37,6 +41,8 @@ MonoBehaviour:
       \uC810\uC218 +{1}"
     cost: 40
     bonus: 2
+    myPrefab: {fileID: 7332035204656953441, guid: 266b9015935cebe4897206d7fbc4cc09,
+      type: 3}
   - myAge: 3
     wonderName: PotalaPalace
     koreanName: "\uD3EC\uD0C8\uB77C \uAD81"
@@ -45,6 +51,8 @@ MonoBehaviour:
       \uC788\uC73C\uBA74 \uC810\uC218 +{1}"
     cost: 40
     bonus: 3
+    myPrefab: {fileID: 7189028876584456318, guid: 7a49cc3cd541b354f905146749a443e1,
+      type: 3}
   - myAge: 3
     wonderName: SaintBasils
     koreanName: "\uC131 \uBC14\uC2E4\uB9AC \uB300\uC131\uB2F9"
@@ -54,6 +62,8 @@ MonoBehaviour:
       \uC2DC \uBC94\uC704 +1"
     cost: 40
     bonus: 2
+    myPrefab: {fileID: 8558973377988168125, guid: 9a7acc77cbd92da4aa5c0497341193b9,
+      type: 3}
   - myAge: 3
     wonderName: TajMahal
     koreanName: "\uD0C0\uC9C0\uB9C8\uD560"
@@ -62,6 +72,8 @@ MonoBehaviour:
       6 \uC774\uC0C1\uC774\uBA74 \uC810\uC218 +{1}"
     cost: 40
     bonus: 3
+    myPrefab: {fileID: 8733767245266895398, guid: 56ee848e5458ff64881f56401b1cd187,
+      type: 3}
   - myAge: 3
     wonderName: VenetianArsenal
     koreanName: "\uBCA0\uB124\uCE58\uC544 \uAD70\uC218\uCC3D\uACE0"
@@ -71,3 +83,5 @@ MonoBehaviour:
       \uC810\uC218 +{1}"
     cost: 40
     bonus: 4
+    myPrefab: {fileID: 5222480502178394019, guid: 83134255a041a3e4d90ce37e40e6ad2b,
+      type: 3}

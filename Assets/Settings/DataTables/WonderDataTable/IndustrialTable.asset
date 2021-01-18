@@ -22,6 +22,8 @@ MonoBehaviour:
       \uC911\uC2EC\uC9C0 \uC810\uC218 +{1}"
     cost: 50
     bonus: 3
+    myPrefab: {fileID: 1360501060994223823, guid: 5c6b22ac362c26547bbda5322cdfe16e,
+      type: 3}
   - myAge: 4
     wonderName: BolshoiTheater
     koreanName: "\uBCFC\uC1FC\uC774 \uADF9\uC7A5"
@@ -29,6 +31,8 @@ MonoBehaviour:
       \uC606 \uD0C0\uC77C\n\uD6A8\uACFC : \uADF9\uC7A5\uAC00 \uC810\uC218 +{1}"
     cost: 50
     bonus: 4
+    myPrefab: {fileID: 5985994817880112897, guid: 2e041ff64924e63489568b58d084d9e6,
+      type: 3}
   - myAge: 4
     wonderName: Hermitage
     koreanName: "\uC608\uB974\uBBF8\uD0C0\uC2DC \uBBF8\uC220\uAD00"
@@ -36,6 +40,8 @@ MonoBehaviour:
       \uD0C0\uC77C\n\uD6A8\uACFC : \uADF9\uC7A5\uAC00 \uC810\uC218 +{1}"
     cost: 50
     bonus: 4
+    myPrefab: {fileID: 4246670911231466717, guid: a3c5094c812a6a94d9b1df71e1566bc7,
+      type: 3}
   - myAge: 4
     wonderName: Orszaghaz
     koreanName: "\uD5DD\uAC00\uB9AC \uAD6D\uD68C\uC758\uC0AC\uB2F9"
@@ -43,6 +49,8 @@ MonoBehaviour:
       \uD0C0\uC77C\n\uD6A8\uACFC : \uB3C4\uC2DC \uC810\uC218 +{1}"
     cost: 50
     bonus: 4
+    myPrefab: {fileID: 2360326176058369769, guid: d740e35a5908aa54cacfa49d5cbbf1ea,
+      type: 3}
   - myAge: 4
     wonderName: OxfordUniv
     koreanName: "\uC625\uC2A4\uD37C\uB4DC \uB300\uD559\uAD50"
@@ -51,6 +59,8 @@ MonoBehaviour:
       \uCEA0\uD37C\uC2A4 \uBC94\uC704 +{1}"
     cost: 50
     bonus: 1
+    myPrefab: {fileID: 5342679936071002689, guid: 5427bfe76e2242a4a808b886a659213a,
+      type: 3}
   - myAge: 4
     wonderName: RuhrValley
     koreanName: "\uB8E8\uB974 \uBCA8\uB9AC"
@@ -59,6 +69,8 @@ MonoBehaviour:
       \uC0B0\uC5C5 \uAD6C\uC5ED \uAC74\uC124 \uC2DC \uC810\uC218 +{1}"
     cost: 50
     bonus: 4
+    myPrefab: {fileID: 6149046971239854175, guid: f31d6626cdf28b24096b2bc1d8eecb2b,
+      type: 3}
   - myAge: 4
     wonderName: StatueOfLiberty
     koreanName: "\uC790\uC720\uC758 \uC5EC\uC2E0\uC0C1"
@@ -67,3 +79,5 @@ MonoBehaviour:
       \uB3C4\uC2DC \uAC74\uC124 \uC2DC \uC810\uC218 +{1}"
     cost: 50
     bonus: 6
+    myPrefab: {fileID: 4718456354544946744, guid: a9a2df2cd900e12448e4a0ac7a2ca3ba,
+      type: 3}

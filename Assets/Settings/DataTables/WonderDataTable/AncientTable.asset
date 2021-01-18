@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb0dbae6561edbf4480d6796c7f84024, type: 3}
   m_Name: AncientTable
   m_EditorClassIdentifier: 
+  tableAge: 0
   wonderDatas:
   - myAge: 0
     wonderName: ArtemisTemple
@@ -21,6 +22,8 @@ MonoBehaviour:
       \uD3C9\uC6D0\uC5D0 \uC131\uC9C0\uB97C \uC9C0\uC73C\uBA74 \uC810\uC218 +{1}"
     cost: 10
     bonus: 2
+    myPrefab: {fileID: 1528394236994736293, guid: 6205db404997b374da638082a053dce8,
+      type: 3}
   - myAge: 0
     wonderName: GreatBath
     koreanName: "\uB300\uC695\uC7A5"
@@ -29,6 +32,8 @@ MonoBehaviour:
       \uC810\uC218 +{1}"
     cost: 10
     bonus: 2
+    myPrefab: {fileID: 7347774718162838639, guid: 2f952edff9ba9294faf5dda21b5d2cb3,
+      type: 3}
   - myAge: 0
     wonderName: HangingGarden
     koreanName: "\uACF5\uC911\uC815\uC6D0"
@@ -37,6 +42,8 @@ MonoBehaviour:
       \uC124\uCE58\uD558\uBA74 \uC810\uC218 +{1}"
     cost: 10
     bonus: 2
+    myPrefab: {fileID: 2786717631550201887, guid: 0ff4d4ab21a0210459cf94dd674b1be2,
+      type: 3}
   - myAge: 0
     wonderName: Oracle
     koreanName: "\uC624\uB77C\uD074"
@@ -45,6 +52,8 @@ MonoBehaviour:
       +{1}"
     cost: 10
     bonus: 1
+    myPrefab: {fileID: 6353817404826269607, guid: 62937f892701ff849893b60cac0abd35,
+      type: 3}
   - myAge: 0
     wonderName: Pyramid
     koreanName: "\uD53C\uB77C\uBBF8\uB4DC"
@@ -53,6 +62,8 @@ MonoBehaviour:
       \uAC74\uBB3C \uBE44\uC6A9 -{1}"
     cost: 10
     bonus: 1
+    myPrefab: {fileID: 7550454410107579827, guid: b9632058a7e957c499b75c803c86d7ef,
+      type: 3}
   - myAge: 0
     wonderName: StoneHenge
     koreanName: "\uC2A4\uD1A4\uD5E8\uC9C0"
@@ -61,3 +72,5 @@ MonoBehaviour:
       \uC131\uC9C0 \uBE44\uC6A9 -{1}"
     cost: 10
     bonus: 1
+    myPrefab: {fileID: 4802001365547186897, guid: 693d95fdde3fcd643b044b675f7abcc3,
+      type: 3}

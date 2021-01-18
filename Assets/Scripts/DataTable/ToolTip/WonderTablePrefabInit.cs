@@ -28,6 +28,8 @@ namespace TilePuzzle
                         }
                     }
                 }
+
+                UnityEditor.EditorUtility.SetDirty(wonderDataTable);
             }
         }
     }

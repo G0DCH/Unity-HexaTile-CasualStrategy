@@ -21,6 +21,8 @@ MonoBehaviour:
       \uC606 \uD0C0\uC77C\n\uD6A8\uACFC : \uC8FC\uB454\uC9C0 \uC810\uC218 +{1}"
     cost: 30
     bonus: 10
+    myPrefab: {fileID: 1996418229259475859, guid: 6ae50171bf53afd42b782bdb443e58b9,
+      type: 3}
   - myAge: 2
     wonderName: AngkorWat
     koreanName: "\uC559\uCF54\uB974 \uC640\uD2B8"
@@ -28,6 +30,8 @@ MonoBehaviour:
       \uC606 \uD0C0\uC77C\n\uD6A8\uACFC : \uB3C4\uC2DC \uC810\uC218 +{1}"
     cost: 30
     bonus: 2
+    myPrefab: {fileID: 1986801462033001659, guid: d8d2e799915b20e4782ca9d73dd6c68b,
+      type: 3}
   - myAge: 2
     wonderName: ChichenItza
     koreanName: "\uCE58\uCCB8 \uC774\uD2B8\uC0AC"
@@ -37,6 +41,8 @@ MonoBehaviour:
       \uC6B0\uB9BC \uD0C0\uC77C 1\uAC1C\uB2F9 \uC810\uC218 +{1}"
     cost: 30
     bonus: 1
+    myPrefab: {fileID: 4866575559745188193, guid: eb8b714fc58f9a54681b12d94af025e1,
+      type: 3}
   - myAge: 2
     wonderName: HueyiTeocalli
     koreanName: "\uC6B0\uC5D0\uC774 \uD14C\uC624\uCE7C\uB9AC"
@@ -45,6 +51,8 @@ MonoBehaviour:
       \uBC94\uC704 \uB0B4 \uD638\uC218 \uD0C0\uC77C 1\uAC1C\uB2F9 \uC810\uC218 +{1}"
     cost: 30
     bonus: 3
+    myPrefab: {fileID: 3584238142973533124, guid: 491de6ff2647a0c45a556497999108bc,
+      type: 3}
   - myAge: 2
     wonderName: KilwaKisiwani
     koreanName: "\uD0AC\uC640 \uD0A4\uC2DC\uC640\uB2C8"
@@ -53,6 +61,8 @@ MonoBehaviour:
       \uAC74\uBB3C\uC744 \uC9C0\uC73C\uBA74 \uAC74\uBB3C \uBC94\uC704 +{1}"
     cost: 30
     bonus: 1
+    myPrefab: {fileID: 7280724722226429877, guid: b11bc1f1f67b89b44b7cec2a007309d3,
+      type: 3}
   - myAge: 2
     wonderName: KotokuIn
     koreanName: "\uACE0\uD1A0\uCFE0\uC778"
@@ -61,6 +71,8 @@ MonoBehaviour:
       \uC8FC\uB454\uC9C0 \uD0C0\uC77C\uC774 \uC788\uC73C\uBA74 \uC810\uC218 +{1}"
     cost: 30
     bonus: 4
+    myPrefab: {fileID: 186975577794278555, guid: dee450e8c86a57e4cb80240d3ecf725e,
+      type: 3}
   - myAge: 2
     wonderName: MeenakshiTemple
     koreanName: "\uBBF8\uB099\uC2DC \uC0AC\uC6D0"
@@ -68,6 +80,8 @@ MonoBehaviour:
       \uC606 \uD0C0\uC77C\n\uD6A8\uACFC : \uC131\uC9C0 \uC810\uC218 +{1}"
     cost: 30
     bonus: 2
+    myPrefab: {fileID: 474721532114712195, guid: e22fc29eaded1c3468fec6dc14f76c48,
+      type: 3}
   - myAge: 2
     wonderName: MontSaintMichel
     koreanName: "\uBABD\uC0DD\uBBF8\uC178 \uC218\uB3C4\uC6D0"
@@ -76,6 +90,8 @@ MonoBehaviour:
       \uB0B4 \uC8FC\uB454\uC9C0 \uD0C0\uC77C 1\uAC1C\uB2F9 \uC810\uC218 +{1}"
     cost: 30
     bonus: 2
+    myPrefab: {fileID: 4044365744968336415, guid: 8d53b644dd9e43d4eafdfb5e4ad7be68,
+      type: 3}
   - myAge: 2
     wonderName: SaintSophia
     koreanName: "\uC131 \uC18C\uD53C\uC544 \uB300\uC131\uB2F9"
@@ -84,6 +100,8 @@ MonoBehaviour:
       -{1}"
     cost: 30
     bonus: 1
+    myPrefab: {fileID: 5885421693535833737, guid: 7b340b4deeb87714795f036d1592f32c,
+      type: 3}
   - myAge: 2
     wonderName: SankoreUniv
     koreanName: "\uC0C1\uCF54\uB808 \uB300\uD559"
@@ -92,3 +110,5 @@ MonoBehaviour:
       \uC0C1\uC5C5 \uC911\uC2EC\uC9C0, \uCEA0\uD37C\uC2A4 \uC810\uC218 +{1}"
     cost: 30
     bonus: 3
+    myPrefab: {fileID: 2377026168906728626, guid: 3a98330f9d673404e8fe45c313208d34,
+      type: 3}

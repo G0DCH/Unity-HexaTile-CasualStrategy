@@ -31,6 +31,8 @@ namespace TilePuzzle
                     }
                 }
             }
+
+            UnityEditor.EditorUtility.SetDirty(buildingDataTable);
         }
     }
 }

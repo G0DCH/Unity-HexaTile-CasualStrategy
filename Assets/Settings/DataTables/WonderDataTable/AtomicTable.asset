@@ -22,6 +22,8 @@ MonoBehaviour:
       \uB0B4 \uC124\uC6D0 1 \uD0C0\uC77C\uB2F9 \uC810\uC218 +{1}"
     cost: 70
     bonus: 2
+    myPrefab: {fileID: 5448123720116251927, guid: 6a1e1df5dc7ae0840bd86f7dc27090d8,
+      type: 3}
   - myAge: 6
     wonderName: EstadioDoMarakana
     koreanName: "\uB9C8\uB77C\uCE74\uB0AD \uACBD\uAE30\uC7A5"
@@ -30,6 +32,8 @@ MonoBehaviour:
       \uB0B4 \uB3C4\uC2DC \uD0C0\uC77C 1\uAC1C\uB2F9 \uC810\uC218 +{1}"
     cost: 70
     bonus: 3
+    myPrefab: {fileID: 8864280622223002126, guid: 1bbc3f390a4029147a725d68cc391903,
+      type: 3}
   - myAge: 6
     wonderName: SydneyOperaHouse
     koreanName: "\uC2DC\uB4DC\uB2C8 \uC624\uD398\uB77C \uD558\uC6B0\uC2A4"
@@ -39,3 +43,5 @@ MonoBehaviour:
       \uC810\uC218 +{1}"
     cost: 70
     bonus: 6
+    myPrefab: {fileID: 6795792713618436483, guid: ae4ae1af12cda3f4ab71dd0807184a90,
+      type: 3}

@@ -22,6 +22,8 @@ MonoBehaviour:
       \uBC94\uC704 +1"
     cost: 60
     bonus: 5
+    myPrefab: {fileID: 7278689983207489154, guid: e4243b137ddbe9c44bc261bd17f413f1,
+      type: 3}
   - myAge: 5
     wonderName: CristoRedentor
     koreanName: "\uB9AC\uC624\uC758 \uC608\uC218\uC0C1"
@@ -30,6 +32,8 @@ MonoBehaviour:
       \uBC94\uC704 +{1}"
     cost: 60
     bonus: 1
+    myPrefab: {fileID: 7571394122529868115, guid: 7757df35b5aa3744a95c5cf99220d69b,
+      type: 3}
   - myAge: 5
     wonderName: EiffelTower
     koreanName: "\uC5D0\uD3A0\uD0D1"
@@ -38,3 +42,5 @@ MonoBehaviour:
       \uD0C0\uC77C\uC5D0 \uC9C0\uC73C\uBA74 \uC810\uC218 +{1}"
     cost: 60
     bonus: 6
+    myPrefab: {fileID: 1333759549502521819, guid: 833c58741d11def4a98c6be6c3b9d26f,
+      type: 3}

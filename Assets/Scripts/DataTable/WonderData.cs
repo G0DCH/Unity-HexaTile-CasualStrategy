@@ -43,7 +43,7 @@ namespace TilePuzzle
         [SerializeField]
         private int bonus = 2;
 
-        public GameObject MyPrefab { get { return myPrefab; } }
+        public GameObject MyPrefab { get { return myPrefab; } /*set { myPrefab = value; }*/ }
         [SerializeField]
         private GameObject myPrefab = null;
 
