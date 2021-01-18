@@ -58,8 +58,8 @@ namespace TilePuzzle
             // 다음 시대로 넘어가면 새 건물 해금함.
             UIManager.Instance.ActiveBuildingButtons();
 
-            // 기존 건물 효과 업그레이드를 진행함.
-            //TileManager.Instance.BuildingUpgrade();
+            // 새로 추가된 불가사의 이름 추가
+            DataTableManager.Instance.InitWonderNames();
 
             // TODO : 
             //        섬의 새 구역을 해금함.

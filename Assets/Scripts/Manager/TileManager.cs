@@ -158,9 +158,23 @@ namespace TilePuzzle
         // targetTile에 tileBuilding을 설치
         public bool PutBuildingAtTile(TileBuilding tileBuilding, Tile targetTile)
         {
-            ClearSelectedTile();
+            var buildingPrefab = BuildingPrefabMap[tileBuilding].gameObject;
 
-            InstantiateTile(BuildingPrefabMap[tileBuilding].gameObject);
+            return PutTileAtTarget(buildingPrefab, targetTile);
+        }
+
+        // targetTile에 해당 이름을 가진 불가사의를 설치
+        public bool PutWonderAtTile(string wonderName, Tile targetTile)
+        {
+            var wonderData = DataTableManager.Instance.GetWonderData(wonderName);
+
+            return PutTileAtTarget(wonderData.MyPrefab, targetTile);
+        }
+
+        private bool PutTileAtTarget(GameObject tilePrefab, Tile targetTile)
+        {
+            ClearSelectedTile();
+            InstantiateTile(tilePrefab);
 
             bool canPutTile = CanPutTile(targetTile);
 
@@ -328,6 +342,8 @@ namespace TilePuzzle
                 ((WonderTile)changedTile).AddToDelegate();
                 // 설치한 불가사의 버튼 비활성화
                 UIManager.Instance.DisableWonderButton();
+                // 설치에 성공한 불가사의 이름 제거
+                DataTableManager.Instance.WonderNames.Remove(changedTile.GetType().ToString().Split('.')[1]);
             }
 
             GameManager.Instance.AddPoint(changedTile.Bonus);

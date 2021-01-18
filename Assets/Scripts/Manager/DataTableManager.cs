@@ -1,5 +1,6 @@
 ﻿#pragma warning disable 0649
 
+using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,10 +8,17 @@ namespace TilePuzzle
 {
     public class DataTableManager : Utility.Singleton<DataTableManager>
     {
+        [ShowInInspector]
+        public List<string> WonderNames { get; } = new List<string>();
         [SerializeField]
         private BuildingDataTable buildingDataTable;
         [SerializeField]
         private List<WonderDataTable> wonderDataTables;
+
+        private void Start()
+        {
+            InitWonderNames();
+        }
 
         /// <summary>
         /// 시대와 빌딩을 입력하면
@@ -215,5 +223,27 @@ namespace TilePuzzle
 
             return null;
         }    
+
+        // 현재 시대의 것만 추가
+        public void InitWonderNames()
+        {
+            foreach (var wonderDataTable in wonderDataTables)
+            {
+                if (wonderDataTable.TableAge != AgeManager.Instance.WorldAge)
+                {
+                    continue;
+                }
+
+                foreach (var wonderData in wonderDataTable.WonderDatas)
+                {
+                    if (!WonderNames.Contains(wonderData.WonderName))
+                    {
+                        WonderNames.Add(wonderData.WonderName);
+                    }
+                }
+
+                break;
+            }
+        }
     }
 }
