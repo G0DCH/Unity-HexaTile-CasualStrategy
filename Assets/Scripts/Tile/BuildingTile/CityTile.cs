@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using TilePuzzle.Entities;
+using Sirenix.OdinInspector;
 
 namespace TilePuzzle
 {
@@ -10,6 +11,7 @@ namespace TilePuzzle
         private List<GameObject> grids = new List<GameObject>();
         private static List<CityTile> checkedCitys = new List<CityTile>();
 
+        [ShowInInspector]
         public Entity Entity { get; private set; } = null;
 
         public List<Tile> ownBuildings = new List<Tile>();
@@ -119,6 +121,20 @@ namespace TilePuzzle
             {
                 grid.SetActive(isOn);
             }
+        }
+
+        // Entity 할당
+        public void InitEntity()
+        {
+            if (Entity == null)
+            {
+                Entity = GameManager.Instance.TurnEntity;
+            }
+        }
+
+        public void InitEntity(Entity entity)
+        {
+            Entity = entity;
         }
     }
 }

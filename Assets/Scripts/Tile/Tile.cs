@@ -147,6 +147,14 @@ namespace TilePuzzle
             get { return ownerCity; }
             private set
             {
+                if (ownerCity != null)
+                {
+                    if (!OwnerCity.Entity.ownCitys.Contains(value))
+                    {
+                        return;
+                    }
+                }
+
                 if (!RangeCitys.Contains(value))
                 {
                     RangeCitys.Add(value);

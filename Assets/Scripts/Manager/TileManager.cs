@@ -55,9 +55,8 @@ namespace TilePuzzle
         public Dictionary<TileBuilding, Tile> BuildingPrefabMap { get; } = new Dictionary<TileBuilding, Tile>();
 
         // 도시 타일 갯수
-        public int CityNum { get { return cityNum; } private set { cityNum = value; } }
-        [Space, SerializeField, ReadOnly]
-        private int cityNum = 0;
+        [ShowInInspector]
+        public int CityNum { get { return GameManager.Instance.TurnEntity.ownCitys.Count; } }
 
         [Space, SerializeField]
         private GameObject TileContainer = null;
@@ -101,7 +100,8 @@ namespace TilePuzzle
         // 범위 내 타일 return
         public List<Tile> GetRangeTiles(Tile myTile, int range)
         {
-            IEnumerable<HexagonTileObject> neighborHexagons = GameManager.Instance.MyHexagonTerrain.GetHexagonTiles(myTile.MyHexagonInfo.hexPos, new RangeInt(1, range - 1));
+            IEnumerable<HexagonTileObject> neighborHexagons =
+                GameManager.Instance.MyHexagonTerrain.GetHexagonTiles(myTile.MyHexagonInfo.hexPos, new RangeInt(1, range - 1));
             List<Tile> neighborTiles = new List<Tile>();
 
             foreach (HexagonTileObject neighbor in neighborHexagons)
@@ -374,10 +374,10 @@ namespace TilePuzzle
             // 건물 보너스 갱신
             UpdateBonus(changedTile);
 
-            if (changedTile is WonderTile)
+            if (changedTile is WonderTile wonderTile)
             {
                 // 딜리케이트 추가
-                ((WonderTile)changedTile).AddToDelegate();
+                wonderTile.AddToDelegate();
                 // 설치한 불가사의 버튼 비활성화
                 UIManager.Instance.DisableWonderButton();
                 // 설치에 성공한 불가사의 이름 제거
@@ -507,10 +507,11 @@ namespace TilePuzzle
             {
                 cityTile.SetRangeGrids();
                 cityTile.SetOwnerInRange();
-                // 도시 개수 증가
-                CityNum++;
 
-                GameManager.Instance.TurnEntity.ownCitys.Add(cityTile);
+                var turnEntity = GameManager.Instance.TurnEntity;
+
+                turnEntity.ownCitys.Add(cityTile);
+                cityTile.InitEntity();
             }
             else
             {
@@ -530,7 +531,7 @@ namespace TilePuzzle
             foreach (Tile rangeTile in newTile.RangeTiles)
             {
                 rangeTile.UpdateNeighborRange();
-            }            
+            }
 
             return newTile;
         }

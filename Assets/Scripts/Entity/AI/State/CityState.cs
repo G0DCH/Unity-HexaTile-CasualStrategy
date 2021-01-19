@@ -61,8 +61,6 @@ namespace TilePuzzle.Entities.AI
 
             // 대기 상태로 변경
             enemy.MyState = Idle.Instance;
-
-            // TODO : 다음 Entity에게 턴을 넘겨줘야 함.
         }
 
         public override void Exit(EnemyAI enemy)
