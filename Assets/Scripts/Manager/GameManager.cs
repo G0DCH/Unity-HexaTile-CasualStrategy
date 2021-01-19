@@ -137,12 +137,16 @@ namespace TilePuzzle
         public void UpdatePoint(int point)
         {
             TurnEntity.UpdatePoint(point);
-            UIManager.Instance.RefreshPointText();
-            UIManager.Instance.UpdateAgeText();
 
-            if (BuildPoint < 3)
+            if (IsAITest || TurnEntity is Player)
             {
-                UIManager.Instance.ActiveGameOver();
+                UIManager.Instance.RefreshPointText();
+                UIManager.Instance.UpdateAgeText();
+
+                if (BuildPoint < 3)
+                {
+                    UIManager.Instance.ActiveGameOver();
+                }
             }
         }
     }

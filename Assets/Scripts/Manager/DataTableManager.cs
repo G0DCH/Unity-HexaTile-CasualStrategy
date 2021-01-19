@@ -167,69 +167,72 @@ namespace TilePuzzle
             }
 
             var info = GetBuildingInfo(age, buildingData);
-            List<object> toolTipArgs = new List<object> { info.Cost };
 
-            if (!(building == TileBuilding.City ||
-                building == TileBuilding.GovernmentPlaza ||
-                building == TileBuilding.Aqueduct))
+            if (info != InfoPerAge.EmptyInfo)
             {
-                toolTipArgs.Add(info.BaseBonus);
+                List<object> toolTipArgs = new List<object> { info.Cost };
 
-                foreach (var bonusData in info.BonusPerBuildings)
+                if (!(building == TileBuilding.City ||
+                    building == TileBuilding.GovernmentPlaza ||
+                    building == TileBuilding.Aqueduct))
                 {
-                    if (bonusData.MyBuilding == TileBuilding.Empty)
-                    {
-                        toolTipArgs.Add("모든 건물");
-                    }
-                    else
-                    {
-                        toolTipArgs.Add(bonusData.MyBuilding);
-                    }
+                    toolTipArgs.Add(info.BaseBonus);
 
-                    if (bonusData.Bonus == 0.5)
+                    foreach (var bonusData in info.BonusPerBuildings)
                     {
-                        toolTipArgs.Add(2);
-                        toolTipArgs.Add(1);
+                        if (bonusData.MyBuilding == TileBuilding.Empty)
+                        {
+                            toolTipArgs.Add("모든 건물");
+                        }
+                        else
+                        {
+                            toolTipArgs.Add(bonusData.MyBuilding);
+                        }
+
+                        if (bonusData.Bonus == 0.5)
+                        {
+                            toolTipArgs.Add(2);
+                            toolTipArgs.Add(1);
+                        }
+                        else
+                        {
+                            toolTipArgs.Add(1);
+                            toolTipArgs.Add(bonusData.Bonus);
+                        }
                     }
-                    else
+                    foreach (var bonusData in info.BonusPerFeatures)
                     {
-                        toolTipArgs.Add(1);
-                        toolTipArgs.Add(bonusData.Bonus);
+                        toolTipArgs.Add(bonusData.MyFeature);
+
+                        if (bonusData.Bonus == 0.5)
+                        {
+                            toolTipArgs.Add(2);
+                            toolTipArgs.Add(1);
+                        }
+                        else
+                        {
+                            toolTipArgs.Add(1);
+                            toolTipArgs.Add(bonusData.Bonus);
+                        }
+                    }
+                    foreach (var bonusData in info.BonusPerTypes)
+                    {
+                        toolTipArgs.Add(bonusData.MyType);
+                        if (bonusData.Bonus == 0.5)
+                        {
+                            toolTipArgs.Add(2);
+                            toolTipArgs.Add(1);
+                        }
+                        else
+                        {
+                            toolTipArgs.Add(1);
+                            toolTipArgs.Add(bonusData.Bonus);
+                        }
                     }
                 }
-                foreach (var bonusData in info.BonusPerFeatures)
-                {
-                    toolTipArgs.Add(bonusData.MyFeature);
 
-                    if (bonusData.Bonus == 0.5)
-                    {
-                        toolTipArgs.Add(2);
-                        toolTipArgs.Add(1);
-                    }
-                    else
-                    {
-                        toolTipArgs.Add(1);
-                        toolTipArgs.Add(bonusData.Bonus);
-                    }
-                }
-                foreach (var bonusData in info.BonusPerTypes)
-                {
-                    toolTipArgs.Add(bonusData.MyType);
-                    if (bonusData.Bonus == 0.5)
-                    {
-                        toolTipArgs.Add(2);
-                        toolTipArgs.Add(1);
-                    }
-                    else
-                    {
-                        toolTipArgs.Add(1);
-                        toolTipArgs.Add(bonusData.Bonus);
-                    }
-                }
-
+                toolTip = string.Format(buildingData.ToolTipText, toolTipArgs.ToArray());
             }
-
-            toolTip = string.Format(buildingData.ToolTipText, toolTipArgs.ToArray());
 
             return toolTip;
         }

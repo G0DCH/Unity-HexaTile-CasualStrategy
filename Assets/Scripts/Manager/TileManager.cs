@@ -505,13 +505,12 @@ namespace TilePuzzle
             // 타일 속성에 맞는 초기화 진행
             if (newTile is CityTile cityTile)
             {
-                cityTile.SetRangeGrids();
-                cityTile.SetOwnerInRange();
-
                 var turnEntity = GameManager.Instance.TurnEntity;
-
                 turnEntity.ownCitys.Add(cityTile);
                 cityTile.InitEntity();
+
+                cityTile.SetRangeGrids();
+                cityTile.SetOwnerInRange();
             }
             else
             {
@@ -562,7 +561,15 @@ namespace TilePuzzle
                 Debug.LogError("잘못된 타일이 선택됨.");
                 return false;
             }
-
+            // 현재 턴을 소유한 엔티티의 타일이 아니라면
+            // false return
+            else if (currentTile.OwnerCity != null)
+            {
+                if (currentTile.OwnerCity.Entity != GameManager.Instance.TurnEntity)
+                {
+                    return false;
+                }
+            }
 
             // 소유 도시가 없고, 선택 타일이 도시 타일인지 검사
             if (currentTile.OwnerCity == null)

@@ -166,6 +166,7 @@ namespace TilePuzzle
         [SerializeField, ReadOnly, Header("Owner Of This Tile")]
         private CityTile ownerCity = null;
 
+        //[ShowInInspector]
         public List<CityTile> RangeCitys { get; private set; } = new List<CityTile>();
 
         // 타일 설치 비용
