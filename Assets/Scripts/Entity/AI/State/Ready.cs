@@ -81,14 +81,17 @@ namespace TilePuzzle.Entities.AI
 
         private bool CanBuildBuilding(List<CityTile> ownCitys)
         {
-            bool canBuildBuilding = true;
+            bool canBuildBuilding = false;
+
+            if (ownCitys.Count == 0)
+            {
+                return canBuildBuilding;
+            }
 
             foreach (var ownCity in ownCitys)
             {
-                canBuildBuilding = ownCity.IsAllBuild && canBuildBuilding;
+                canBuildBuilding = ownCity.IsAllBuild || canBuildBuilding;
             }
-
-            canBuildBuilding = canBuildBuilding && ownCitys.Count != 0;
 
             return canBuildBuilding;
         }

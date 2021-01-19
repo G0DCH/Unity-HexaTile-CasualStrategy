@@ -21,6 +21,7 @@
             {
                 return;
             }
+            AgeManager.Instance.NextAge();
 
             enemy.MyState = Ready.Instance;
         }

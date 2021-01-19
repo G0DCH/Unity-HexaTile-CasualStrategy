@@ -10,7 +10,17 @@ namespace TilePuzzle
         /// <summary>
         /// 현재 시대
         /// </summary>
-        public Age WorldAge = Age.Ancient;
+        public Age WorldAge
+        {
+            get
+            {
+                return GameManager.Instance.TurnEntity.WorldAge;
+            }
+            set
+            {
+                GameManager.Instance.TurnEntity.WorldAge = value;
+            }
+        }
 
         [Space, Header("시대 별 다음 시대까지 벌어야 하는 점수")]
         public List<int> AgeLimitList = new List<int>();

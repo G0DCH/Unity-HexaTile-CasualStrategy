@@ -41,7 +41,7 @@ namespace TilePuzzle.Entities.AI
             }
             else
             {
-                enemy.MyState = CityState.Instance;
+                enemy.MyState = Ready.Instance;
             }
             // TODO : 다음 Entity에게 턴을 넘겨줘야 함.
         }
@@ -70,7 +70,7 @@ namespace TilePuzzle.Entities.AI
 
                 if (ignoreWonder.Count >= wonderCount)
                 {
-                    Debug.LogError("설치할 수 있는 불가사의가 없습니다.\n 대신 도시를 설치합니다");
+                    Debug.LogError("설치할 수 있는 불가사의가 없습니다.\n 준비 단계로 돌아갑니다");
                     return false;
                 }
 

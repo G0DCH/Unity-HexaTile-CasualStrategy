@@ -7,22 +7,31 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TilePuzzle.Procedural;
 using TilePuzzle.Entities;
+using TilePuzzle.Entities.AI;
+using System.Collections.Generic;
 
 namespace TilePuzzle
 {
     public class GameManager : Utility.Singleton<GameManager>
     {
-        public int Score { get { return score; } private set { score = value; } }
-        [SerializeField]
-        private int score = 0;
-        public int BuildPoint { get { return buildPoint; } private set { buildPoint = value; } }
-        [SerializeField]
-        private int buildPoint = 6;
+        /// <summary>
+        /// 현재 TurnEntity의 점수
+        /// </summary>
+        public int Score { get { return TurnEntity.Score; }}
+        /// <summary>
+        /// 현재 TurnEntity의 건설점수
+        /// </summary>
+        public int BuildPoint { get { return TurnEntity.BuildPoint ; } }
 
         public Entity TurnEntity
         {
             get
             {
+                if (turnEntity == null)
+                {
+                    InitEntities();
+                }
+
                 turnEntity.IsMyTurn = true;
                 return turnEntity;
             }
@@ -37,6 +46,8 @@ namespace TilePuzzle
         private Entity turnEntity = null;
 
         public HexagonTerrain MyHexagonTerrain;
+
+        public Queue<Entity> Entitys { get; } = new Queue<Entity>();
 
         [Required]
         public TerrainGenerateSettings terrainGenerateSettings;
@@ -53,16 +64,47 @@ namespace TilePuzzle
                     Debug.LogError("HexagonTerrain 스크립트가 씬에 없음.");
                 }
             }
+
+            InitEntities();
         }
 
         private void Start()
         {
-            Score = 0;
-            //BuildPoint = 6;
-
             UIManager.Instance.RefreshPointText();
 
             MakeMap();
+        }
+
+        private void InitEntities()
+        {
+            if (turnEntity == null)
+            {
+                turnEntity = FindObjectOfType(typeof(Player)) as Player;
+            }
+
+            EnemyAI[] entitys = FindObjectsOfType(typeof(EnemyAI)) as EnemyAI[];
+
+            foreach (var ai in entitys)
+            {
+                Entitys.Enqueue(ai);
+            }
+        }
+
+        /// <summary>
+        /// 다음 엔티티에게 턴을 넘겨줌
+        /// </summary>
+        public void NextTurn()
+        {
+            var prevEntity = TurnEntity;
+
+            TurnEntity = Entitys.Dequeue();
+
+            Entitys.Enqueue(prevEntity);
+
+            if (TurnEntity is EnemyAI ai)
+            {
+                ai.Action();
+            }
         }
 
         // 맵 생성
@@ -85,13 +127,9 @@ namespace TilePuzzle
         }
 
         // 점수 갱신
-        public void AddPoint(int point)
+        public void UpdatePoint(int point)
         {
-            // 타일 배치로 인한 포인트 감소
-            BuildPoint -= TileManager.Instance.SelectTileCost;
-
-            Score += point;
-            BuildPoint += point;
+            TurnEntity.UpdatePoint(point);
             UIManager.Instance.RefreshPointText();
             UIManager.Instance.UpdateAgeText();
 

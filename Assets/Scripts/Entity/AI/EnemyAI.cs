@@ -28,6 +28,8 @@ namespace TilePuzzle.Entities.AI
             }
         }
         private State myState = new Idle();
+
+        public State PrevBuild { get; set; } = new Idle();
         public ActionState MyActionState { get { return myActionState; } set { myActionState = value; } }
         [SerializeField]
         private ActionState myActionState = ActionState.Idle;
@@ -42,12 +44,11 @@ namespace TilePuzzle.Entities.AI
                 return;
             }
 
-            MyState.Excute(this);
-        }
-
-        private void ChangeState()
-        {
-
+            do
+            {
+                MyState.Excute(this);
+            }
+            while (MyState != Idle.Instance);
         }
     }
 }

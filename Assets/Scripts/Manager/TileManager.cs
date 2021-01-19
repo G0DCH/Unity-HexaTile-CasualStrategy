@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TilePuzzle.Procedural;
+using TilePuzzle.Entities;
 
 namespace TilePuzzle
 {
@@ -267,6 +268,12 @@ namespace TilePuzzle
                     continue;
                 }
 
+                if (!(GameManager.Instance.TurnEntity is Player))
+                {
+                    yield return new WaitForSeconds(0.02f);
+                    continue;
+                }
+
                 if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(pointerID))
                 {
                     yield return new WaitForSeconds(0.02f);
@@ -321,6 +328,12 @@ namespace TilePuzzle
                         continue;
                     }
 
+                    if (!(GameManager.Instance.TurnEntity is Player))
+                    {
+                        yield return new WaitForSeconds(0.02f);
+                        continue;
+                    }
+
                     if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(pointerID))
                     {
                         yield return null;
@@ -371,21 +384,23 @@ namespace TilePuzzle
                 DataTableManager.Instance.WonderNames.Remove(changedTile.GetType().ToString().Split('.')[1]);
             }
 
-            GameManager.Instance.AddPoint(changedTile.Bonus);
+            GameManager.Instance.UpdatePoint(changedTile.Bonus);
 
             // 건물 모델을 타일 위에 올림
             PutModelOnTile(changedTile);
-
             ClearSelectedTile();
+
+            // 다음 엔티티에게 턴을 넘겨줌
+            GameManager.Instance.NextTurn();
         }
 
         // changedTile의 보너스 갱신
         private void UpdateBonus(Tile changedTile)
         {
             // 건물 보너스 갱신
-            if (changedTile is BuildingTile)
+            if (changedTile is BuildingTile tile)
             {
-                ((BuildingTile)changedTile).RefreshBonus();
+                tile.RefreshBonus();
             }
             // 불가사의로 인한 보너스 추가, 보너스 출력
             CalculateBonusByWonder?.Invoke(changedTile, changedTile.MyTileBuilding);

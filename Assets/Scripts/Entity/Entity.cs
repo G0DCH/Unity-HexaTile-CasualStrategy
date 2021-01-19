@@ -9,7 +9,28 @@ namespace TilePuzzle.Entities
     public abstract class Entity : MonoBehaviour
     {
         public List<CityTile> ownCitys = new List<CityTile>();
-        public bool IsMyTurn { get; set; } = true;
+        public bool IsMyTurn { get; set; } = false;
         public string NickName { get; set; } = "Default";
+
+        public int Score { get { return score; } private set { score = value; } }
+        [SerializeField]
+        private int score = 0;
+        public int BuildPoint { get { return buildPoint; } private set { buildPoint = value; } }
+        [SerializeField]
+        private int buildPoint = 6;
+
+        /// <summary>
+        /// 현재 시대
+        /// </summary>
+        public Age WorldAge { get; set; } = Age.Ancient;
+
+        public void UpdatePoint(int point)
+        {
+            // 타일 배치로 인한 포인트 감소
+            BuildPoint -= TileManager.Instance.SelectTileCost;
+
+            Score += point;
+            BuildPoint += point;
+        }
     }
 }

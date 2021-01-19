@@ -210,6 +210,7 @@ namespace TilePuzzle
         // 이미 설치한 불가사의의 버튼을 비 활성화 시킴
         public void DisableWonderButton()
         {
+            // TODO : AI가 불가사의를 놓아도, 버튼을 비 활성화 하도록 해야함. 
             //SelectedWonderButton.interactable = false;
             SelectedWonderButton = null;
         }
