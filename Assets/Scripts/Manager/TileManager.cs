@@ -139,9 +139,16 @@ namespace TilePuzzle
         {
             bool getRandomSuccess = false;
             Tile randomTile = null;
+            HashSet<Tile> ignoreTiles = new HashSet<Tile>();
 
             while (!getRandomSuccess)
             {
+                if (ignoreTiles.Count >= tiles.Count)
+                {
+                    Debug.LogError("빈 타일이 없습니다.");
+                    break;
+                }
+
                 int randomIndex = Random.Range(0, tiles.Count);
 
                 randomTile = tiles[randomIndex];
@@ -149,6 +156,10 @@ namespace TilePuzzle
                 if (randomTile.MyTileBuilding == TileBuilding.Empty)
                 {
                     getRandomSuccess = true;
+                }
+                else
+                {
+                    ignoreTiles.Add(randomTile);
                 }
             }
 
@@ -174,7 +185,12 @@ namespace TilePuzzle
         private bool PutTileAtTarget(GameObject tilePrefab, Tile targetTile)
         {
             ClearSelectedTile();
-            InstantiateTile(tilePrefab);
+            bool instantiateSuccess = InstantiateTile(tilePrefab);
+
+            if (!instantiateSuccess)
+            {
+                return false;
+            }
 
             bool canPutTile = CanPutTile(targetTile);
 
@@ -188,7 +204,7 @@ namespace TilePuzzle
         }
 
         // 타일 생성 후, SelectedTile에 할당
-        public void InstantiateTile(GameObject tilePrefab)
+        public bool InstantiateTile(GameObject tilePrefab)
         {
             SelectedTile = Instantiate(tilePrefab, Vector3.up * 20f, Quaternion.identity).GetComponent<Tile>();
             SelectedTile.GetComponent<MeshCollider>().enabled = false;
@@ -214,11 +230,20 @@ namespace TilePuzzle
             }
             else
             {
-                SelectTileCost = DataTableManager.Instance.GetBuildingData
-                                (AgeManager.Instance.WorldAge, SelectedTile.MyTileBuilding).Cost;
+                var buildingData = DataTableManager.Instance.GetBuildingData
+                                (AgeManager.Instance.WorldAge, SelectedTile.MyTileBuilding);
+
+                if (buildingData == InfoPerAge.EmptyInfo)
+                {
+                    return false;
+                }
+
+                SelectTileCost = buildingData.Cost;
             }
 
             SelectedTile.TurnGrid(false);
+
+            return true;
         }
 
         public void ClearSelectedTile()
@@ -463,21 +488,23 @@ namespace TilePuzzle
             newTile.MyTileBuilding = SelectedTile.MyTileBuilding;
 
             // 타일 속성에 맞는 초기화 진행
-            if (SelectedTile is CityTile)
+            if (newTile is CityTile cityTile)
             {
-                ((CityTile)newTile).SetRangeGrids();
-                ((CityTile)newTile).SetOwnerInRange();
+                cityTile.SetRangeGrids();
+                cityTile.SetOwnerInRange();
                 // 도시 개수 증가
                 CityNum++;
+
+                GameManager.Instance.TurnEntity.ownCitys.Add(cityTile);
             }
             else
             {
                 newTile.SetRangeCitys(rangeCitys);
                 newTile.SetCityTile(city);
 
-                if (SelectedTile is WonderTile)
+                if (SelectedTile is WonderTile wonderTile)
                 {
-                    ((WonderTile)newTile).InitWonderBonus(((WonderTile)SelectedTile).WonderBonus);
+                    ((WonderTile)newTile).InitWonderBonus(wonderTile.WonderBonus);
                 }
             }
 
@@ -488,7 +515,7 @@ namespace TilePuzzle
             foreach (Tile rangeTile in newTile.RangeTiles)
             {
                 rangeTile.UpdateNeighborRange();
-            }
+            }            
 
             return newTile;
         }

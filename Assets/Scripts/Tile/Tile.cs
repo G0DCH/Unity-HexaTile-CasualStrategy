@@ -1,5 +1,4 @@
 ﻿using Sirenix.OdinInspector;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TilePuzzle.Procedural;
@@ -10,10 +9,10 @@ namespace TilePuzzle
     {
         public HexagonTileObject hexagonTileObject;
 
-        [ShowInInspector]
+        //[ShowInInspector]
         public TileInfo MyHexagonInfo => hexagonTileObject.TileInfo;
 
-        [ShowInInspector]
+        //[ShowInInspector]
         public DecorationInfo MyDecorationInfo => hexagonTileObject.DecorationInfo.GetValueOrDefault();
 
         // 이 타일의 타입

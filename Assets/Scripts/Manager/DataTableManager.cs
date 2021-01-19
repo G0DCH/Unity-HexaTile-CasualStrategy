@@ -15,6 +15,44 @@ namespace TilePuzzle
         [SerializeField]
         private List<WonderDataTable> wonderDataTables;
 
+        /// <summary>
+        /// 현재 시대에 설치 가능한 건물들
+        /// </summary>
+        public HashSet<TileBuilding> TileBuildingsOnAge
+        {
+            get
+            {
+                if (age != AgeManager.Instance.WorldAge)
+                {
+                    age = AgeManager.Instance.WorldAge;
+                    foreach(var buildingData in buildingDataTable.BuildingDatas)
+                    {
+                        if (tileBuildingsOnAge.Contains( buildingData.MyBuilding))
+                        {
+                            continue;
+                        }
+
+                        foreach(var info in buildingData.InfoPerAges)
+                        {
+                            if (info.MyAge > age)
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                tileBuildingsOnAge.Add(buildingData.MyBuilding);
+                            }
+                        }
+                    }
+                }
+
+                return tileBuildingsOnAge;
+            }
+        }
+        private HashSet<TileBuilding> tileBuildingsOnAge = new HashSet<TileBuilding>();
+
+        private Age age = Age.Atomic;
+
         private void Start()
         {
             InitWonderNames();
@@ -46,7 +84,7 @@ namespace TilePuzzle
 
             //Debug.LogError(string.Format("빌딩이나 시대가 존재하지 않음. Building : {0}, Age : {1}", building, age));
 
-            return null;
+            return InfoPerAge.EmptyInfo;
         }
 
         /// <summary>

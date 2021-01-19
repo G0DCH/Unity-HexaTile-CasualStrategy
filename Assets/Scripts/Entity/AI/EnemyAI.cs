@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 namespace TilePuzzle.Entities.AI
 {
@@ -31,6 +32,7 @@ namespace TilePuzzle.Entities.AI
         [SerializeField]
         private ActionState myActionState = ActionState.Idle;
 
+        [Button]
         // 위에 기술한 행동 중 하나를 수행한다.
         public void Action()
         {
@@ -39,6 +41,8 @@ namespace TilePuzzle.Entities.AI
                 Debug.LogError("내 턴이 아님");
                 return;
             }
+
+            MyState.Excute(this);
         }
 
         private void ChangeState()

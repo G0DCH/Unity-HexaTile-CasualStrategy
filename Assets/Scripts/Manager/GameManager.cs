@@ -23,6 +23,7 @@ namespace TilePuzzle
         {
             get
             {
+                turnEntity.IsMyTurn = true;
                 return turnEntity;
             }
             set
@@ -32,6 +33,7 @@ namespace TilePuzzle
                 turnEntity.IsMyTurn = true;
             }
         }
+        [SerializeField]
         private Entity turnEntity = null;
 
         public HexagonTerrain MyHexagonTerrain;

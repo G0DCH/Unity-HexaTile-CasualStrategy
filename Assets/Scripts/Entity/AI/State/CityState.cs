@@ -52,7 +52,11 @@ namespace TilePuzzle.Entities.AI
 
                 var tileList = new List<Tile>(tiles);
 
-                PutCityTile(tileList);
+                if (!PutCityTile(tileList))
+                {
+                    enemy.MyState = Ready.Instance;
+                    return;
+                }
             }
 
             // 대기 상태로 변경
@@ -74,9 +78,11 @@ namespace TilePuzzle.Entities.AI
         // 무작위 위치에 도시 타일을 설치함.
         // 만약 tiles가 null이 아닌 경우
         // tiles 내의 타일 중 하나에 설치함.
-        private void PutCityTile(List<Tile> tiles = null)
+        private bool PutCityTile(List<Tile> tiles = null)
         {
             Tile randomTile;
+
+            HashSet<Tile> ignoreTiles = new HashSet<Tile>();
 
             while (true)
             {
@@ -88,7 +94,14 @@ namespace TilePuzzle.Entities.AI
                     }
                     else
                     {
+                        if (ignoreTiles.Count >= tiles.Count)
+                        {
+                            Debug.LogError("도시 설치 실패. \n Ready 상태로 변경합니다.");
+                            return false;
+                        }
+
                         randomTile = TileManager.Instance.GetRandomEmptyTile(tiles);
+                        ignoreTiles.Add(randomTile);
                     }
 
                     if (randomTile.OwnerCity == null)
@@ -103,6 +116,8 @@ namespace TilePuzzle.Entities.AI
                     break;
                 }
             }
+
+            return true;
         }
     }
 }

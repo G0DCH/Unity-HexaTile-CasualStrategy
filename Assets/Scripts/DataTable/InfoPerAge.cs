@@ -58,6 +58,8 @@ namespace TilePuzzle
     [System.Serializable]
     public class InfoPerAge
     {
+        public static InfoPerAge EmptyInfo { get; } = new InfoPerAge();
+
         public Age MyAge { get { return myAge; } }
         [SerializeField]
         private Age myAge = Age.Ancient;

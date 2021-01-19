@@ -67,7 +67,8 @@ namespace TilePuzzle.Entities.AI
             // 설치하지 않을 건물들
             HashSet<TileBuilding> ignoreBuildings = new HashSet<TileBuilding>
                                 { TileBuilding.City, TileBuilding.Empty, TileBuilding.Carnal, TileBuilding.Wonder };
-
+            // 현재 시대에 설치할 수 있는 건물들
+            HashSet<TileBuilding> tileBuildingsOnAge = DataTableManager.Instance.TileBuildingsOnAge;
             TileBuilding randomBuilding;
 
             while (true)
@@ -85,11 +86,18 @@ namespace TilePuzzle.Entities.AI
                 {
                     randomBuilding = (TileBuilding)Random.Range(0, enumCount);
 
+                    // 현재 시대에 설치할 수 없는 건물이라면 무시할 건물에 추가.
+                    if (!tileBuildingsOnAge.Contains(randomBuilding))
+                    {
+                        ignoreBuildings.Add(randomBuilding);
+                        continue;
+                    }
+
                     if (!ignoreBuildings.Contains(randomBuilding))
                     {
                         break;
                     }
-                }
+                }                
 
                 while (true)
                 {
