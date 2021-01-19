@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 namespace TilePuzzle.Entities.AI
 {
@@ -30,7 +31,7 @@ namespace TilePuzzle.Entities.AI
             // 도시가 없다면 무작위 위치에 설치
             if (enemy.ownCitys.Count == 0)
             {
-                PutCityTile();
+                enemy.StartCoroutine(PutCityTile(enemy));
             }
             // 도시가 있다면 내 도시와 가까운 무작위 위치에 설치
             else
@@ -52,15 +53,8 @@ namespace TilePuzzle.Entities.AI
 
                 var tileList = new List<Tile>(tiles);
 
-                if (!PutCityTile(tileList))
-                {
-                    enemy.MyState = Ready.Instance;
-                    return;
-                }
+                enemy.StartCoroutine(PutCityTile(enemy, tileList));
             }
-
-            // 대기 상태로 변경
-            enemy.MyState = Idle.Instance;
         }
 
         public override void Exit(EnemyAI enemy)
@@ -76,7 +70,7 @@ namespace TilePuzzle.Entities.AI
         // 무작위 위치에 도시 타일을 설치함.
         // 만약 tiles가 null이 아닌 경우
         // tiles 내의 타일 중 하나에 설치함.
-        private bool PutCityTile(List<Tile> tiles = null)
+        private IEnumerator PutCityTile(EnemyAI enemy, List<Tile> tiles = null)
         {
             Tile randomTile;
 
@@ -95,7 +89,9 @@ namespace TilePuzzle.Entities.AI
                         if (ignoreTiles.Count >= tiles.Count)
                         {
                             Debug.LogError("도시 설치 실패. \n Ready 상태로 변경합니다.");
-                            return false;
+                            enemy.MyState = Ready.Instance;
+                            enemy.IsExcuteState = false;
+                            yield break;
                         }
 
                         randomTile = TileManager.Instance.GetRandomEmptyTile(tiles);
@@ -113,9 +109,13 @@ namespace TilePuzzle.Entities.AI
                 {
                     break;
                 }
+
+                yield return null;
             }
 
-            return true;
+            enemy.MyState = Idle.Instance;
+            enemy.IsExcuteState = false;
+            yield break;
         }
     }
 }

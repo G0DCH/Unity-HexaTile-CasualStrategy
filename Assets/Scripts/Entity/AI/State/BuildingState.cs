@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace TilePuzzle.Entities.AI
@@ -35,18 +36,18 @@ namespace TilePuzzle.Entities.AI
 
             List<Tile> tileList = new List<Tile>(tiles);
 
-            // 실패시 도시 상태로 전환해서
-            // 도시 설치
-            if (PutRandomBuildingTile(tileList))
-            {
-                enemy.MyState = Idle.Instance;
-            }
-            else
-            {
-                enemy.MyState = CityState.Instance;
-            }
+            enemy.StartCoroutine(PutRandomBuildingTile(enemy, tileList));
 
-            // TODO : 다음 Entity에게 턴을 넘겨줘야 함.
+            //// 실패시 도시 상태로 전환해서
+            //// 도시 설치
+            //if (PutRandomBuildingTile(enemy, tileList))
+            //{
+            //    enemy.MyState = Idle.Instance;
+            //}
+            //else
+            //{
+            //    enemy.MyState = CityState.Instance;
+            //}
         }
 
         public override void Exit(EnemyAI enemy)
@@ -60,7 +61,7 @@ namespace TilePuzzle.Entities.AI
         }
 
         // 무작위 건물을 무작위 타일에 설치
-        private bool PutRandomBuildingTile(List<Tile> tiles)
+        private IEnumerator PutRandomBuildingTile(EnemyAI enemy, List<Tile> tiles)
         {
             int enumCount = System.Enum.GetValues(typeof(TileBuilding)).Length;
 
@@ -78,7 +79,10 @@ namespace TilePuzzle.Entities.AI
                 if (ignoreBuildings.Count >= enumCount)
                 {
                     Debug.LogError("설치할 수 있는 건물이 없습니다.\n 대신 도시를 설치합니다");
-                    return false;
+
+                    enemy.MyState = CityState.Instance;
+                    enemy.IsExcuteState = false;
+                    yield break;
                 }
 
                 // 무작위 빌딩 뽑기
@@ -97,7 +101,7 @@ namespace TilePuzzle.Entities.AI
                     {
                         break;
                     }
-                }                
+                }
 
                 while (true)
                 {
@@ -107,7 +111,9 @@ namespace TilePuzzle.Entities.AI
                     // 설치 성공 시 함수 종료
                     if (TileManager.Instance.PutBuildingAtTile(randomBuilding, randomTile))
                     {
-                        return true;
+                        enemy.MyState = Idle.Instance;
+                        enemy.IsExcuteState = false;
+                        yield break;
                     }
                     // 실패시 설치하지 않을 건물에 무작위 건물 추가하고
                     // 다시 루프를 돔.
@@ -116,7 +122,10 @@ namespace TilePuzzle.Entities.AI
                         ignoreBuildings.Add(randomBuilding);
                         break;
                     }
+                    yield return null;
                 }
+
+                yield return null;
             }
         }
     }

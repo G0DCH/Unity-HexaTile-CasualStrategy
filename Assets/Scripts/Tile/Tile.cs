@@ -234,7 +234,7 @@ namespace TilePuzzle
         {
             float bonusPoint = 0;
 
-            var tileData = DataTableManager.Instance.GetBuildingData(AgeManager.Instance.WorldAge, pivotBuilding);
+            var tileData = DataTableManager.Instance.GetBuildingInfo(AgeManager.Instance.WorldAge, pivotBuilding);
 
             if (tileData == null)
             {
@@ -293,7 +293,7 @@ namespace TilePuzzle
             // 특수지구 별 보너스 점수
             float specificBonus = 0;
 
-            var buildingData = DataTableManager.Instance.GetBuildingData(AgeManager.Instance.WorldAge, tileBuilding);
+            var buildingData = DataTableManager.Instance.GetBuildingInfo(AgeManager.Instance.WorldAge, tileBuilding);
 
             if (buildingData == null)
             {

@@ -33,6 +33,10 @@ namespace TilePuzzle.Entities.AI
         public ActionState MyActionState { get { return myActionState; } set { myActionState = value; } }
         [SerializeField]
         private ActionState myActionState = ActionState.Idle;
+        [ReadOnly]
+        public bool IsExcuteState = false;
+
+        private Coroutine excuteState = null;
 
         [Button]
         // 위에 기술한 행동 중 하나를 수행한다.
@@ -44,11 +48,27 @@ namespace TilePuzzle.Entities.AI
                 return;
             }
 
+            if (excuteState == null)
+            {
+                excuteState = StartCoroutine(ExcuteState());
+            }
+        }
+
+        private IEnumerator ExcuteState()
+        {
             do
             {
-                MyState.Excute(this);
+                if (!IsExcuteState)
+                {
+                    IsExcuteState = true;
+                    MyState.Excute(this);
+                }
+
+                yield return null;
             }
             while (MyState != Idle.Instance);
+
+            excuteState = null;
         }
     }
 }

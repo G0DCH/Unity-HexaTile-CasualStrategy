@@ -14,6 +14,8 @@ namespace TilePuzzle
 {
     public class GameManager : Utility.Singleton<GameManager>
     {
+        public bool IsAITest = false;
+
         /// <summary>
         /// 현재 TurnEntity의 점수
         /// </summary>
@@ -42,7 +44,7 @@ namespace TilePuzzle
                 turnEntity.IsMyTurn = true;
             }
         }
-        [SerializeField]
+        [Space, SerializeField]
         private Entity turnEntity = null;
 
         public HexagonTerrain MyHexagonTerrain;
@@ -95,6 +97,11 @@ namespace TilePuzzle
         /// </summary>
         public void NextTurn()
         {
+            if (IsAITest)
+            {
+                return;
+            }
+
             var prevEntity = TurnEntity;
 
             TurnEntity = Entitys.Dequeue();

@@ -33,7 +33,7 @@ namespace TilePuzzle.Entities.AI
             if (!CanBuildBuilding(enemy.ownCitys))
             {
                 SetEnemyState(enemy, ActionState.City);
-
+                enemy.IsExcuteState = false;
                 return;
             }
 
@@ -42,6 +42,8 @@ namespace TilePuzzle.Entities.AI
             ActionState randomState = (ActionState)Random.Range((int)ActionState.City, (int)ActionState.Trade);
 
             SetEnemyState(enemy, randomState);
+
+            enemy.IsExcuteState = false;
         }
 
         public override void Exit(EnemyAI enemy)

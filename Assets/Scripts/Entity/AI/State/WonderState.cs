@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 namespace TilePuzzle.Entities.AI
 {
@@ -35,15 +37,7 @@ namespace TilePuzzle.Entities.AI
 
             List<Tile> tileList = new List<Tile>(tiles);
 
-            if (PutRandomWonder(tileList))
-            {
-                enemy.MyState = Idle.Instance;
-            }
-            else
-            {
-                enemy.MyState = Ready.Instance;
-            }
-            // TODO : 다음 Entity에게 턴을 넘겨줘야 함.
+            enemy.StartCoroutine(PutRandomWonder(enemy, tileList));
         }
 
         public override void Exit(EnemyAI enemy)
@@ -56,7 +50,7 @@ namespace TilePuzzle.Entities.AI
             StateMessage(false, enemy.NickName, nameof(WonderState));
         }
 
-        private bool PutRandomWonder(List<Tile> tiles)
+        private IEnumerator PutRandomWonder(EnemyAI enemy, List<Tile> tiles)
         {
             var wonderNames = DataTableManager.Instance.WonderNames;
             int wonderCount = wonderNames.Count;
@@ -65,13 +59,15 @@ namespace TilePuzzle.Entities.AI
             string randomWonderName;
 
             while (true)
-            {
+            {                
                 List<Tile> checkList = new List<Tile>(tiles);
 
                 if (ignoreWonder.Count >= wonderCount)
                 {
                     Debug.LogError("설치할 수 있는 불가사의가 없습니다.\n 준비 단계로 돌아갑니다");
-                    return false;
+                    enemy.MyState = Ready.Instance;
+                    enemy.IsExcuteState = false;
+                    yield break;
                 }
 
                 while (true)
@@ -94,7 +90,9 @@ namespace TilePuzzle.Entities.AI
                     // 설치 성공 시 함수 종료
                     if (TileManager.Instance.PutWonderAtTile(randomWonderName, randomTile))
                     {
-                        return true;
+                        enemy.MyState = Idle.Instance;
+                        enemy.IsExcuteState = false;
+                        yield break;
                     }
                     // 실패시 설치하지 않을 불가사의에 무작위 불가사의 이름
                     // 다시 루프를 돔.
@@ -103,7 +101,10 @@ namespace TilePuzzle.Entities.AI
                         ignoreWonder.Add(randomWonderName);
                         break;
                     }
+                    yield return null;
                 }
+
+                yield return null;
             }
         }
     }

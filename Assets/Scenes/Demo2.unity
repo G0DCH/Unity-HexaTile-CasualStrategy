@@ -1928,7 +1928,6 @@ MonoBehaviour:
   - {fileID: 2605870547948385003, guid: 826127f3bbf02a24b841478e37659ba7, type: 3}
   - {fileID: -6624364123069298459, guid: a74ff82b459bbf642951ef3c9fa05849, type: 3}
   - {fileID: 5789759271370137068, guid: ee9399c130b2f2f4694bf8b5c5f715c8, type: 3}
-  cityNum: 0
   TileContainer: {fileID: 5248716448891796504, guid: 7cb4f714dd33afb458a377e9c9343b10,
     type: 3}
 --- !u!4 &1796399865
@@ -3609,6 +3608,11 @@ PrefabInstance:
         type: 3}
       propertyPath: turnEntity
       value: 
+      objectReference: {fileID: 1859802677}
+    - target: {fileID: 3259717438936863097, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
+        type: 3}
+      propertyPath: IsAITest
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3259717438936863098, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
         type: 3}

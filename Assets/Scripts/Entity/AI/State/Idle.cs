@@ -24,6 +24,7 @@
             AgeManager.Instance.NextAge();
 
             enemy.MyState = Ready.Instance;
+            enemy.IsExcuteState = false;
         }
 
         public override void Exit(EnemyAI enemy)

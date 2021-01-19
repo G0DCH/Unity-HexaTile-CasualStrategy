@@ -231,7 +231,7 @@ namespace TilePuzzle
             }
             else
             {
-                var buildingData = DataTableManager.Instance.GetBuildingData
+                var buildingData = DataTableManager.Instance.GetBuildingInfo
                                 (AgeManager.Instance.WorldAge, SelectedTile.MyTileBuilding);
 
                 if (buildingData == InfoPerAge.EmptyInfo)
@@ -582,9 +582,9 @@ namespace TilePuzzle
             else
             {
                 // 불가사의 타일이라면 전용 검사.
-                if (SelectedTile is WonderTile)
+                if (SelectedTile is WonderTile wonderTile)
                 {
-                    return ((WonderTile)SelectedTile).WonderLimit(currentTile);
+                    return wonderTile.WonderLimit(currentTile);
                 }
                 // 불가사의 타일이 아니라면 건물 검사
                 else
