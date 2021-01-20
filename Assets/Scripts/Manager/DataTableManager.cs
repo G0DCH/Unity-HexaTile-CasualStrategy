@@ -58,7 +58,7 @@ namespace TilePuzzle
 
         private Age age = Age.Atomic;
 
-        private void Start()
+        private void Awake()
         {
             InitWonderNames();
         }

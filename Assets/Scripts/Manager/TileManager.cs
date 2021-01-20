@@ -51,8 +51,10 @@ namespace TilePuzzle
 
         [SerializeField]
         private List<Tile> BuildingPrefabs = new List<Tile>();
-
         public Dictionary<TileBuilding, Tile> BuildingPrefabMap { get; } = new Dictionary<TileBuilding, Tile>();
+
+        // 불가사의 오브젝트 딕셔너리.
+        public Dictionary<string, WonderTile> WonderMap { get; } = new Dictionary<string, WonderTile>();
 
         // 도시 타일 갯수
         [ShowInInspector]
@@ -60,8 +62,18 @@ namespace TilePuzzle
 
         [Space, SerializeField]
         private GameObject TileContainer = null;
-
         private const string tileContainerName = "TileContainer";
+
+        [SerializeField]
+        private Transform wonderHolder;
+
+        private void Awake()
+        {
+            if (wonderHolder == null)
+            {
+                wonderHolder = GameObject.Find("WonderHolder").transform;
+            }
+        }
 
         private void Start()
         {
@@ -146,7 +158,7 @@ namespace TilePuzzle
             {
                 if (ignoreTiles.Count >= tiles.Count)
                 {
-                    Debug.LogError("빈 타일이 없습니다.");
+                    //Debug.LogError("빈 타일이 없습니다.");
                     break;
                 }
 
@@ -193,6 +205,7 @@ namespace TilePuzzle
                 return false;
             }
 
+            CalculateTileCost(targetTile);
             bool canPutTile = CanPutTile(targetTile);
 
             if (canPutTile)
@@ -207,7 +220,28 @@ namespace TilePuzzle
         // 타일 생성 후, SelectedTile에 할당
         public bool InstantiateTile(GameObject tilePrefab)
         {
-            SelectedTile = Instantiate(tilePrefab, Vector3.up * 20f, Quaternion.identity).GetComponent<Tile>();
+            var tile = tilePrefab.GetComponent<Tile>();
+
+            // 불가사의의 경우 딕셔너리 이용
+            if (tile is WonderTile)
+            {
+                if (WonderMap.TryGetValue(tile.name, out WonderTile wonderTile))
+                {
+                    SelectedTile = wonderTile;
+                    SelectedTile.gameObject.SetActive(true);
+                }
+                else
+                {
+                    SelectedTile = Instantiate
+                        (tilePrefab, Vector3.up * 20f, Quaternion.identity, wonderHolder).GetComponent<Tile>();
+                    WonderMap.Add(tile.name, (WonderTile)SelectedTile);
+                }
+            }
+            else
+            {
+                SelectedTile = Instantiate(tilePrefab, Vector3.up * 20f, Quaternion.identity).GetComponent<Tile>();
+            }
+
             SelectedTile.GetComponent<MeshCollider>().enabled = false;
 
             if (SelectedTile is CityTile)
@@ -216,10 +250,12 @@ namespace TilePuzzle
             }
             else if (SelectedTile is WonderTile)
             {
+                var wonderData = DataTableManager.Instance.GetWonderData(SelectedTile.name.Split('(')[0]);
+                int costMultiflier = Mathf.Clamp(AgeManager.Instance.WorldAge - wonderData.MyAge + 1, 1, int.MaxValue);
                 // 불가사의 이름(Clone)
                 // 이 형식으로 나오기 때문에
                 // 문자열 분리해서 입력
-                SelectedTile.Cost = DataTableManager.Instance.GetWonderData(SelectedTile.name.Split('(')[0]).Cost;
+                SelectedTile.Cost = wonderData.Cost * costMultiflier;
             }
             else if (SelectedTile.MyTileBuilding == TileBuilding.Aqueduct)
             {
@@ -251,7 +287,14 @@ namespace TilePuzzle
         {
             if (SelectedTile != null)
             {
-                Destroy(SelectedTile.gameObject);
+                if (!(SelectedTile is WonderTile))
+                {
+                    Destroy(SelectedTile.gameObject);
+                }
+                else
+                {
+                    SelectedTile.gameObject.SetActive(false);
+                }
                 SelectedTile = null;
             }
         }
@@ -373,21 +416,28 @@ namespace TilePuzzle
 
             // 건물 보너스 갱신
             UpdateBonus(changedTile);
+            // 건물 모델을 타일 위에 올림
+            PutModelOnTile(changedTile);
 
             if (changedTile is WonderTile wonderTile)
             {
                 // 딜리케이트 추가
                 wonderTile.AddToDelegate();
+
+                var wonderName = changedTile.GetType().ToString().Split('.')[1];
                 // 설치한 불가사의 버튼 비활성화
-                UIManager.Instance.DisableWonderButton();
+                UIManager.Instance.DisableWonderButton(wonderName);
+
                 // 설치에 성공한 불가사의 이름 제거
-                DataTableManager.Instance.WonderNames.Remove(changedTile.GetType().ToString().Split('.')[1]);
+                DataTableManager.Instance.WonderNames.Remove(wonderName);
+                // 설치에 성공한 불가사의 오브젝트 제거
+                WonderMap.Remove(wonderName);
+                Destroy(SelectedTile.gameObject);
+                SelectedTile = null;
             }
 
             GameManager.Instance.UpdatePoint(changedTile.Bonus);
 
-            // 건물 모델을 타일 위에 올림
-            PutModelOnTile(changedTile);
             ClearSelectedTile();
 
             // 다음 엔티티에게 턴을 넘겨줌
@@ -549,6 +599,10 @@ namespace TilePuzzle
             // 포인트가 모자라다면 false return
             else if (SelectTileCost > GameManager.Instance.BuildPoint)
             {
+                if (GameManager.Instance.TurnEntity is Entities.AI.EnemyAI ai)
+                {
+                    ai.IsLackPoint = true;
+                }
                 return false;
             }
             // 이미 다른 건물이 지어졌다면 false return

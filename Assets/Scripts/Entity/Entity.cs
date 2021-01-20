@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Sirenix.OdinInspector;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ namespace TilePuzzle.Entities
     // 이 Entity가 소유한 타일들을 알고 있어야 함.
     public abstract class Entity : MonoBehaviour
     {
+        [ReadOnly]
         public List<CityTile> ownCitys = new List<CityTile>();
         public bool IsMyTurn { get; set; } = false;
         public string NickName { get; set; } = "Default";

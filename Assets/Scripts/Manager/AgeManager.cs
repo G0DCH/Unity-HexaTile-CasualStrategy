@@ -31,7 +31,7 @@ namespace TilePuzzle
             WorldAge = Age.Ancient;
             AgeLimit += AgeLimitList[(int)WorldAge];
             UIManager.Instance.UpdateAgeText();
-            UIManager.Instance.ActiveBuildingButtons();
+            UIManager.Instance.InitBuildingButtons();
         }
 
         // 다음 시대로 바꿈
@@ -65,11 +65,10 @@ namespace TilePuzzle
                 return;
             }
 
-            // 다음 시대로 넘어가면 새 건물 해금함.
-            UIManager.Instance.ActiveBuildingButtons();
-
             // 새로 추가된 불가사의 이름 추가
             DataTableManager.Instance.InitWonderNames();
+            // 다음 시대로 넘어가면 새 건물 해금함.
+            UIManager.Instance.InitBuildingButtons();
 
             // TODO : 
             //        섬의 새 구역을 해금함.

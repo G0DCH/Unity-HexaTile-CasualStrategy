@@ -57,9 +57,11 @@ namespace TilePuzzle.Entities.AI
             HashSet<string> ignoreWonder = new HashSet<string>();
 
             string randomWonderName;
+            
+            Tile randomTile;
 
             while (true)
-            {                
+            {
                 List<Tile> checkList = new List<Tile>(tiles);
 
                 if (ignoreWonder.Count >= wonderCount)
@@ -69,7 +71,6 @@ namespace TilePuzzle.Entities.AI
                     enemy.IsExcuteState = false;
                     yield break;
                 }
-
                 while (true)
                 {
                     int randomIndex = Random.Range(0, wonderCount);
@@ -84,7 +85,7 @@ namespace TilePuzzle.Entities.AI
 
                 while (true)
                 {
-                    var randomTile = TileManager.Instance.GetRandomEmptyTile(checkList);
+                    randomTile = TileManager.Instance.GetRandomEmptyTile(checkList);
                     checkList.Remove(randomTile);
 
                     // 설치 성공 시 함수 종료
@@ -93,6 +94,13 @@ namespace TilePuzzle.Entities.AI
                         enemy.MyState = Idle.Instance;
                         enemy.IsExcuteState = false;
                         yield break;
+                    }
+                    else if (enemy.IsLackPoint)
+                    {
+                        Debug.LogError(string.Format("{0}을 짓기에 포인트가 부족합니다.\n현재 포인트 : {1}", randomWonderName, enemy.BuildPoint));
+                        enemy.IsLackPoint = false;
+                        ignoreWonder.Add(randomWonderName);
+                        break;
                     }
                     // 실패시 설치하지 않을 불가사의에 무작위 불가사의 이름
                     // 다시 루프를 돔.

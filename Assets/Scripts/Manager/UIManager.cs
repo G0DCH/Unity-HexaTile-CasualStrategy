@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Sirenix.OdinInspector;
 
 namespace TilePuzzle
 {
@@ -20,24 +21,6 @@ namespace TilePuzzle
 
         [Space, SerializeField]
         private Text ageText;
-
-        #region 시대 별로 활성화 될 건물/불가사의 버튼들
-        // 시대 별로 활성화 될 건물/불가사의 버튼들
-        [Space, SerializeField]
-        private List<Button> AncientButtons;
-        [SerializeField]
-        private List<Button> ClassicalButtons;
-        [SerializeField]
-        private List<Button> MedievalButtons;
-        [SerializeField]
-        private List<Button> ReneissanceButtons;
-        [SerializeField]
-        private List<Button> IndustrialButtons;
-        [SerializeField]
-        private List<Button> ModernButtons;
-        [SerializeField]
-        private List<Button> AtomicButtons;
-        #endregion
 
         // 현재 열린 패널
         private GameObject openedPanel;
@@ -60,6 +43,26 @@ namespace TilePuzzle
         [SerializeField]
         private Text toolTip;
 
+        #region 시대 별로 활성화 될 건물/불가사의 버튼들
+        [Title("Buttons Per Age")]
+        [SerializeField]
+        private List<Button> AncientButtons;
+        [SerializeField]
+        private List<Button> ClassicalButtons;
+        [SerializeField]
+        private List<Button> MedievalButtons;
+        [SerializeField]
+        private List<Button> ReneissanceButtons;
+        [SerializeField]
+        private List<Button> IndustrialButtons;
+        [SerializeField]
+        private List<Button> ModernButtons;
+        [SerializeField]
+        private List<Button> AtomicButtons;
+        #endregion
+
+        private Dictionary<string, Button> WonderButtonMap { get; } = new Dictionary<string, Button>();
+
         private void Start()
         {
             GameOverPanel.SetActive(false);
@@ -70,7 +73,14 @@ namespace TilePuzzle
         {
             if (TileManager.Instance.SelectedTile != null)
             {
-                Destroy(TileManager.Instance.SelectedTile.gameObject);
+                if (!(TileManager.Instance.SelectedTile is WonderTile))
+                {
+                    Destroy(TileManager.Instance.SelectedTile.gameObject);
+                }
+                else
+                {
+                    TileManager.Instance.SelectedTile.gameObject.SetActive(false);
+                }
                 SelectedWonderButton = null;
             }
 
@@ -142,57 +152,46 @@ namespace TilePuzzle
                 AgeManager.Instance.WorldAge, Mathf.Clamp(AgeManager.Instance.AgeLimit - GameManager.Instance.Score, 0, int.MaxValue));
         }
 
-        // 현재 시대에 해금되는 건물/불가사의 버튼을 활성화 함.
-        public void ActiveBuildingButtons()
+        // 현재 시대에 해금되는 건물/불가사의 버튼을 활성화,
+        // 버튼 맵에 추가함.
+        public void InitBuildingButtons()
         {
             switch (AgeManager.Instance.WorldAge)
             {
                 case Age.Ancient:
-                    foreach (var button in AncientButtons)
-                    {
-                        button.interactable = true;
-                    }
+                    InitBuildingButtons(AncientButtons);
                     break;
                 case Age.Classical:
-                    foreach (var button in ClassicalButtons)
-                    {
-                        button.interactable = true;
-                    }
+                    InitBuildingButtons(ClassicalButtons);
                     break;
                 case Age.Medieval:
-                    foreach (var button in MedievalButtons)
-                    {
-                        button.interactable = true;
-                    }
+                    InitBuildingButtons(MedievalButtons);
                     break;
                 case Age.Renaissance:
-                    foreach (var button in ReneissanceButtons)
-                    {
-                        button.interactable = true;
-                    }
+                    InitBuildingButtons(ReneissanceButtons);
                     break;
                 case Age.Industrial:
-                    foreach (var button in IndustrialButtons)
-                    {
-                        button.interactable = true;
-                    }
+                    InitBuildingButtons(IndustrialButtons);
                     break;
                 case Age.Modern:
-                    foreach (var button in ModernButtons)
-                    {
-                        button.interactable = true;
-                    }
+                    InitBuildingButtons(ModernButtons);
                     break;
                 case Age.Atomic:
-                    foreach (var button in AtomicButtons)
-                    {
-                        button.interactable = true;
-                    }
+                    InitBuildingButtons(AtomicButtons);
                     break;
                 default:
                     break;
             }
         }
+
+        private void InitBuildingButtons(List<Button> buttons)
+        {
+            foreach (var button in buttons)
+            {
+                button.interactable = true;
+                WonderButtonMap.Add(button.name.Replace("Button", string.Empty), button);
+            }
+        }    
 
         // 게임 오버 패널 켜기
         public void ActiveGameOver()
@@ -208,10 +207,20 @@ namespace TilePuzzle
         }
 
         // 이미 설치한 불가사의의 버튼을 비 활성화 시킴
-        public void DisableWonderButton()
+        public void DisableWonderButton(string wonderButtonName = null)
         {
-            // TODO : AI가 불가사의를 놓아도, 버튼을 비 활성화 하도록 해야함. 
-            //SelectedWonderButton.interactable = false;
+            if (wonderButtonName != null)
+            {
+                if (WonderButtonMap.TryGetValue(wonderButtonName, out Button wonderButton))
+                {
+                    SelectedWonderButton = wonderButton;
+                }
+            }
+
+            if (SelectedWonderButton != null)
+            {
+                SelectedWonderButton.interactable = false;
+            }
             SelectedWonderButton = null;
         }
 

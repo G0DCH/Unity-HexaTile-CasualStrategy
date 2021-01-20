@@ -1775,6 +1775,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1482520583
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1482520584}
+  m_Layer: 0
+  m_Name: WonderHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1482520584
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1482520583}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 26.5, y: 0.4001687, z: 23.382687}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1513708022 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 916512004377313299, guid: ac97e6f81c7d7734eb9daa32e0a51072,
@@ -1931,6 +1961,7 @@ MonoBehaviour:
   - {fileID: 5789759271370137068, guid: ee9399c130b2f2f4694bf8b5c5f715c8, type: 3}
   TileContainer: {fileID: 5248716448891796504, guid: 7cb4f714dd33afb458a377e9c9343b10,
     type: 3}
+  wonderHolder: {fileID: 1482520584}
 --- !u!4 &1796399865
 Transform:
   m_ObjectHideFlags: 0
@@ -2036,7 +2067,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC2DC\uB300 : ~~"
+  m_Text: "\uC2DC\uB300 : Classical\n\uB0A8\uC740 \uC810\uC218 : 60"
 --- !u!222 &1839286559
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3609,11 +3640,11 @@ PrefabInstance:
         type: 3}
       propertyPath: turnEntity
       value: 
-      objectReference: {fileID: 1859802677}
+      objectReference: {fileID: 1440091344}
     - target: {fileID: 3259717438936863097, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
         type: 3}
       propertyPath: IsAITest
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3259717438936863098, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
         type: 3}
@@ -4889,6 +4920,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Navigation.m_Mode
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7942534468118726649, guid: 2831e6c7b5b7f23419d724d1100b0f71,
+        type: 3}
+      propertyPath: m_Name
+      value: RuhrValleyButton
       objectReference: {fileID: 0}
     - target: {fileID: 7942534468118726651, guid: 2831e6c7b5b7f23419d724d1100b0f71,
         type: 3}

@@ -31,10 +31,15 @@ namespace TilePuzzle.Entities.AI
 
         public State PrevBuild { get; set; } = new Idle();
         public ActionState MyActionState { get { return myActionState; } set { myActionState = value; } }
-        [SerializeField]
+        [SerializeField, ReadOnly]
         private ActionState myActionState = ActionState.Idle;
         [ReadOnly]
         public bool IsExcuteState = false;
+        /// <summary>
+        /// 선택된 건물을 짓기에 포인트가 부족한가?
+        /// </summary>
+        [HideInInspector]
+        public bool IsLackPoint { get; set; } = false;
 
         private Coroutine excuteState = null;
 
