@@ -3640,11 +3640,11 @@ PrefabInstance:
         type: 3}
       propertyPath: turnEntity
       value: 
-      objectReference: {fileID: 1440091344}
+      objectReference: {fileID: 0}
     - target: {fileID: 3259717438936863097, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
         type: 3}
       propertyPath: IsAITest
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3259717438936863098, guid: 215cf9d9f0cb19f47b256a58a7d781f4,
         type: 3}
